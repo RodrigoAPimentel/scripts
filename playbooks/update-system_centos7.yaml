@@ -10,6 +10,7 @@
         state: latest
         update_cache: yes
         update_only: yes
+      register: result
 
     - name: Remove packages not needed anymore
       yum:
