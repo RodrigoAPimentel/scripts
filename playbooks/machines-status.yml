@@ -4,5 +4,6 @@
   hosts: "{{ HOSTS }}"
 
   tasks:
-    - name: Catch hostnames
-      command: echo $hostname
+    - name: System Operation Version
+      command: cat /etc/os-release
+      register: versions
