@@ -11,6 +11,7 @@
 
     - name: Updating the system package repository cache
       command: yum -y makecache
+      warn: false
 
     - name: Updating the system packages
       yum:
