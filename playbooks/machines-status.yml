@@ -1,0 +1,8 @@
+---
+- name: Update CentOS 7
+  gather_facts: No
+  hosts: "{{ HOSTS }}"
+
+  tasks:
+    - name: Catch hostnames
+      command: echo $hostname
