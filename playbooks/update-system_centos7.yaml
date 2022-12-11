@@ -4,22 +4,6 @@
   hosts: "{{ HOSTS }}"
 
   tasks:
-    - name: Updating the system packages
-      yum:
-        name: "*"
-        state: latest
-        update_cache: yes
-        update_only: yes
-      register: result
-
-    - name: Remove packages not needed anymore
-      yum:
-        autoremove: yes
-
-    - name: Reboot when packages were updated
-      reboot:
-      when: yum_update_status.changed
-
     - name: Adding EPEL repository
       yum:
         name: epel-release
