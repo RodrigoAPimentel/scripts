@@ -13,3 +13,7 @@
 
     - name: What is my ansible_hostname
       debug: var={{ansible_hostname}}
+
+    - name: Get hostname
+      shell: echo $HOSTNAME
+      register: result
