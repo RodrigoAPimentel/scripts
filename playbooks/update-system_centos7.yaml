@@ -10,9 +10,7 @@
         state: latest
 
     - name: Updating the system package repository cache
-      yum:
-        name: makecache
-        state: latest
+      command: yum -y makecache
 
     - name: Updating the system packages
       yum:
