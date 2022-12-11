@@ -1,0 +1,30 @@
+---
+- name: Update CentOS 7
+  gather_facts: No
+  hosts: "{{ HOSTS }}"
+
+tasks:  
+  - name: Installing the OpenSSH server package
+    yum:
+      name: openssh-server
+      state: latest
+
+  - name: Starting the OpenSSH service
+    service:
+      name: sshd
+      state: started
+
+  - name: Enabling OpenSSH service
+    service:
+      name: sshd
+      state: reloaded
+
+  - name: 
+    firewalld:
+      zone: public
+      permanent: yes
+      service: ssh
+      state: enabled
+  
+  - name: Reboot when packages were updated
+    reboot:
