@@ -1,0 +1,55 @@
+---
+- name: Update CentOS 7
+  gather_facts: No
+  hosts: "{{ HOSTS }}"
+
+tasks:
+  - name: Adding EPEL repository
+    yum:
+      name: epel-release
+      state: latest
+
+  - name: Updating the system package repository cache
+    yum:
+      name: makecache
+      state: latest
+
+  - name: Updating the system packages
+    yum:
+      name: '*'
+      state: latest
+      update_cache: yes
+      update_only: yes
+  
+  - name: Remove packages not needed anymore
+    yum:
+      autoremove: yes
+
+  - name: Reboot when packages were updated
+    reboot:
+    when: yum_update_status.changed
+
+  - name: Installing the OpenSSH server package
+    yum:
+      name: openssh-server
+      state: latest
+
+  - name: Starting the OpenSSH service
+    service:
+      name: sshd
+      state: started
+
+  - name: Enabling OpenSSH service
+    service:
+      name: sshd
+      state: reloaded
+
+  - name: 
+    firewalld:
+      zone: public
+      permanent: yes
+      service: ssh
+      state: enabled
+  
+  - name: Reboot when packages were updated
+    reboot:
