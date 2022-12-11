@@ -3,28 +3,28 @@
   gather_facts: No
   hosts: "{{ HOSTS }}"
 
-tasks:
-  - name: Adding EPEL repository
-    yum:
-      name: epel-release
-      state: latest
+  tasks:
+    - name: Adding EPEL repository
+      yum:
+        name: epel-release
+        state: latest
 
-  - name: Updating the system package repository cache
-    yum:
-      name: makecache
-      state: latest
+    - name: Updating the system package repository cache
+      yum:
+        name: makecache
+        state: latest
 
-  - name: Updating the system packages
-    yum:
-      name: '*'
-      state: latest
-      update_cache: yes
-      update_only: yes
-  
-  - name: Remove packages not needed anymore
-    yum:
-      autoremove: yes
+    - name: Updating the system packages
+      yum:
+        name: "*"
+        state: latest
+        update_cache: yes
+        update_only: yes
 
-  - name: Reboot when packages were updated
-    reboot:
-    when: yum_update_status.changed
+    - name: Remove packages not needed anymore
+      yum:
+        autoremove: yes
+
+    - name: Reboot when packages were updated
+      reboot:
+      when: yum_update_status.changed
