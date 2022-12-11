@@ -7,3 +7,9 @@
     - debug: var=ansible_enp0s3.ipv4.address
     # Getting the IP address of eth0 interface
     - debug: var=ansible_eth0.ipv4.address
+
+    - name: What is my inventory_hostname
+      debug: var={{inventory_hostname}}
+
+    - name: What is my ansible_hostname
+      debug: var={{ansible_hostname}}
