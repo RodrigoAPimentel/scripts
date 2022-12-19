@@ -1,15 +1,16 @@
 ---
 - name: Machine Status
-  become: true
+  become: yes
   gather_facts: No
   hosts: "{{ HOSTS }}"
 
   tasks:
     - name: System Operation Version
-      command: cat /etc/os-release
       register: versions
+      ignore_errors: yes
+      command: cat /etc/os-release
 
     - name: Check if Docker is installed
-      command: systemctl status docker
       register: docker_check
       ignore_errors: yes
+      command: systemctl status docker
