@@ -5,9 +5,9 @@
   hosts: "{{ HOSTS }}"
   tasks:
     - name: Check if Docker is installed
-        command: systemctl status docker
-        register: docker_check
-        ignore_errors: yes
+      command: systemctl status docker
+      register: docker_check
+      ignore_errors: yes
 #     - name: Installing required packages
 #       yum:
 #         name:
