@@ -1,34 +1,42 @@
 ---
 - name: Install Docker - CentOS 7
   gather_facts: No
+  become: true
   hosts: "{{ HOSTS }}"
-
   tasks:
-    - name: Installing required packages
-      yum:
-        name:
-          - yum-utils
-          - device-mapper-persistent-data
-          - lvm2
-        state: latest
+    - name: Check if Docker is installed
+        command: systemctl status docker
+        register: docker_check
+        ignore_errors: yes
+#     - name: Installing required packages
+#       yum:
+#         name:
+#           - yum-utils
+#           - device-mapper-persistent-data
+#           - lvm2
+#         state: latest
+#       become: yes
 
-    - name: Add Docker repository
-      yum_repository:
-        name: docker-ce
-        description: Configuring the Docker repository
-        baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+#     - name: Add Docker repository
+#       yum_repository:
+#         name: docker-ce
+#         description: Configuring the Docker repository
+#         baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+#       become: yes
 
-    - name: Installing Docker Engine
-      yum:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-compose-plugin
-        state: latest
+#     - name: Installing Docker Engine
+#       yum:
+#         name:
+#           - docker-ce
+#           - docker-ce-cli
+#           - containerd.io
+#           - docker-compose-plugin
+#         state: latest
+#       become: yes
 
-    - name: Activating and starting the docker service
-      service:
-        name: docker
-        state: started
-        enabled: yes
+#     - name: Activating and starting the docker service
+#       service:
+#         name: docker
+#         state: started
+#         enabled: yes
+#       become: yes
