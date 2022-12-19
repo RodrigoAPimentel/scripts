@@ -1,5 +1,5 @@
 ---
-- name: Update CentOS 7
+- name: Install SSHD
   gather_facts: No
   hosts: "{{ HOSTS }}"
 
