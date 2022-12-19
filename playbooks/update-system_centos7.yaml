@@ -1,5 +1,6 @@
 ---
 - name: Update CentOS 7
+  become: yes
   gather_facts: No
   hosts: "{{ HOSTS }}"
 

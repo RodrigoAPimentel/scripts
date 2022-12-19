@@ -1,7 +1,7 @@
 ---
 - name: Install Docker - CentOS 7
-  gather_facts: No
   become: yes
+  gather_facts: No
   hosts: "{{ HOSTS }}"
 
   tasks:

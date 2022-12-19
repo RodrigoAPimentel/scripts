@@ -1,23 +1,20 @@
 ---
 - name: Install SSHD
+  become: yes
   gather_facts: No
   hosts: "{{ HOSTS }}"
 
   tasks:
-    - name: Installing the OpenSSH server package
+    - name: Install the OpenSSH server package
       yum:
         name: openssh-server
         state: latest
 
-    - name: Starting the OpenSSH service
+    - name: Start the OpenSSH service
       service:
         name: sshd
         state: started
-
-    - name: Enabling OpenSSH service
-      service:
-        name: sshd
-        state: reloaded
+        enabled: yes
 
     - name:
       firewalld:

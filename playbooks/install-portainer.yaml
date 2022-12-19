@@ -1,0 +1,22 @@
+---
+- name: Install Portainer
+  become: yes
+  gather_facts: No
+  hosts: "{{ HOSTS }}"
+
+  tasks:
+    - name: Create folder for Portainer
+      register: portainer-folder
+      ignore_errors: yes
+      command: mkdir -p portainer/data
+
+    - name: Creating Portainer container
+      docker_container:
+        name: portainer
+        image: portainer/portainer
+        restart: yes
+        volumes:
+          - /root/portainer/data:/data
+          - /var/run/docker.sock:/var/run/docker.sock
+        ports:
+          - "9000:9000"
