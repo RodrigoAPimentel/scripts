@@ -18,6 +18,11 @@
           - docker-engine
         state: absent
 
+    - name: Configuring the Docker repository
+      register: docker_repo
+      ignore_errors: yes
+      command: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
     - name: Installing required packages
       yum:
         name:
