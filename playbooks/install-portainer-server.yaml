@@ -1,5 +1,5 @@
 ---
-- name: Install Portainer
+- name: Install Portainer Server
   become: yes
   gather_facts: No
   hosts: "{{ HOSTS }}"
