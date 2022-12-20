@@ -6,7 +6,7 @@
 
   tasks:
     - name: Add EPEL repository
-      yum:
+      package:
         name: epel-release
         state: latest
 
@@ -14,18 +14,16 @@
       command: yum -y makecache
 
     - name: Update the system packages
-      yum:
+      package:
         name: "*"
         state: latest
-        update_cache: yes
-        update_only: yes
 
     - name: Remove packages not needed anymore
-      yum:
+      package:
         autoremove: yes
 
     - name: Install common packages
-      yum:
+      package:
         name:
           - ca-certificates
           - curl
