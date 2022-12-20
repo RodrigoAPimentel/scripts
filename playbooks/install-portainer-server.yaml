@@ -3,8 +3,6 @@
   become: yes
   gather_facts: No
   hosts: "{{ HOSTS }}"
-  vars:
-    ansible_python_interpreter: /bin/python
 
   tasks:
     - name: Create folder for Portainer
@@ -14,10 +12,6 @@
         path: portainer/data
         state: directory
         mode: "0755"
-
-    - name: Return Python interpreter
-      debug:
-        msg: "Python interpreter = {{ ansible_python_interpreter }}"
 
     - name: Creating Portainer container
       docker_container:
@@ -31,4 +25,4 @@
         ports:
           - "9000:9000"
       vars:
-        ansible_python_interpreter: /bin/python2
+        ansible_python_interpreter: /bin/python2.7
