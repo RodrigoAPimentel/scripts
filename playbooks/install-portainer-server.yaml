@@ -13,10 +13,11 @@
         state: directory
         mode: "0755"
 
-    - name: Reinstall the docker SDK
-      register: docker_sdk
-      ignore_errors: yes
-      command: pip install docker
+    - name: "Force Install 'docker' pip module"
+      pip:
+        name: docker
+        extra_args: "--no-index --find-links={{ docker_SDK_Python_dest_path_where_I_see_bunch_of_whl_or_tar_gz_files }}"
+        state: forcereinstall
 
     - name: Creating Portainer container
       docker_container:
