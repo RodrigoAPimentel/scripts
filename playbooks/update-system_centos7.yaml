@@ -5,15 +5,15 @@
   hosts: "{{ HOSTS }}"
 
   tasks:
-    - name: Adding EPEL repository
+    - name: Add EPEL repository
       yum:
         name: epel-release
         state: latest
 
-    - name: Updating the system package repository cache
+    - name: Update the system package repository cache
       command: yum -y makecache
 
-    - name: Updating the system packages
+    - name: Update the system packages
       yum:
         name: "*"
         state: latest
@@ -24,5 +24,17 @@
       yum:
         autoremove: yes
 
-    - name: Reboot when packages were updated
+    - name: Install common packages
+      yum:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+
+    - name: Reboot System
       reboot:
