@@ -13,6 +13,10 @@
         state: directory
         mode: "0755"
 
+    - name: Return Python interpreter
+      debug:
+        msg: "Python interpreter = {{ ansible_python_interpreter }}"
+
     - name: Creating Portainer container
       docker_container:
         name: portainer
