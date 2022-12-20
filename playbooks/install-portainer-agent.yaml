@@ -5,6 +5,12 @@
   hosts: "{{ HOSTS }}"
 
   tasks:
+    - name: Install requests python package
+      pip:
+        name: requests
+      vars:
+        ansible_python_interpreter: /bin/python3
+
     - name: Creating Portainer Agent
       docker_container:
         name: portainer-agent
@@ -17,4 +23,4 @@
         ports:
           - "9001:9001"
       vars:
-        ansible_python_interpreter: /bin/python2.7
+        ansible_python_interpreter: /bin/python3

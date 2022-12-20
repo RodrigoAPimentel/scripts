@@ -5,6 +5,12 @@
   hosts: "{{ HOSTS }}"
 
   tasks:
+    - name: Install requests python package
+      pip:
+        name: requests
+      vars:
+        ansible_python_interpreter: /bin/python3
+
     - name: Create folder for Portainer
       register: portainerfolder
       ignore_errors: yes
@@ -12,12 +18,6 @@
         path: portainer/data
         state: directory
         mode: "0755"
-
-    - name: Install requests python package
-      pip:
-        name: requests
-      vars:
-        ansible_python_interpreter: /bin/python3
 
     - name: Creating Portainer container
       docker_container:
