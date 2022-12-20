@@ -30,3 +30,5 @@
           - /var/run/docker.sock:/var/run/docker.sock
         ports:
           - "9000:9000"
+      vars:
+        ansible_python_interpreter: /bin/python3
