@@ -6,7 +6,7 @@
 
   tasks:
     - name: Install the OpenSSH server package
-      yum:
+      package:
         name: openssh-server
         state: latest
 
