@@ -6,7 +6,7 @@
 
   tasks:
     - name: Create folder for Portainer
-      register: portainer-folder
+      register: portainerfolder
       ignore_errors: yes
       command: mkdir -p portainer/data
 
