@@ -29,11 +29,11 @@
         name:
           - ca-certificates
           - curl
-          - software-properties-common
           - python3-pip
           - virtualenv
           - python3-setuptools
         state: latest
+      ignore_errors: yes
 
     - name: Reboot System
       reboot:
