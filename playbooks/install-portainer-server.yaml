@@ -16,7 +16,7 @@
     - name: Reinstall the docker SDK
       register: docker_sdk
       ignore_errors: yes
-      command: pip3 install docker
+      command: pip install docker
 
     - name: Creating Portainer container
       docker_container:
