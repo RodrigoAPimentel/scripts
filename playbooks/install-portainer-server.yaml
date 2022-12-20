@@ -13,10 +13,11 @@
         state: directory
         mode: "0755"
 
-    - name: Reinstall the docker SDK
-      register: docker_sdk
-      # ignore_errors: yes
-      command: pip3 --default-timeout=1000 install docker
+    - name: Install requests python package
+      pip:
+        name: requests
+      vars:
+        ansible_python_interpreter: /bin/python3
 
     - name: Creating Portainer container
       docker_container:
