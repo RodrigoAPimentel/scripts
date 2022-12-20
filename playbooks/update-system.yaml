@@ -10,9 +10,6 @@
         name: epel-release
         state: latest
 
-    - name: Update the system package repository cache
-      command: yum -y makecache
-
     - name: Update the system packages
       package:
         name: "*"
@@ -28,7 +25,6 @@
           - ca-certificates
           - curl
           - python3-pip
-          - virtualenv
           - python3-setuptools
         state: latest
       ignore_errors: yes
