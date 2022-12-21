@@ -24,7 +24,7 @@
         name: portainer
         image: portainer/portainer
         state: started
-        restart: yes
+        restart_policy: always
         volumes:
           - /root/portainer/data:/data
           - /var/run/docker.sock:/var/run/docker.sock
