@@ -13,7 +13,7 @@
 
     - name: Creating Portainer Agent
       docker_container:
-        name: portainer-agent
+        name: portainer_agent
         image: portainer/agent:2.16.0
         state: started
         restart_policy: always
