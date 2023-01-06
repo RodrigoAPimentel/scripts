@@ -1,0 +1,33 @@
+---
+- name: Create new LXC container in Proxmox Cygnus Host
+  become: yes
+  gather_facts: No
+  hosts: "{{ HOSTS }}"
+
+  tasks:
+    # - name: Add EPEL repository
+    #   package:
+    #     name: epel-release
+    #     state: latest
+
+    # - name: Update the system packages
+    #   package:
+    #     name: "*"
+    #     state: latest
+
+    # - name: Remove packages not needed anymore
+    #   package:
+    #     autoremove: yes
+
+    # - name: Install common packages
+    #   package:
+    #     name:
+    #       - ca-certificates
+    #       - curl
+    #       - python3-pip
+    #       - python3-setuptools
+    #     state: latest
+    #   ignore_errors: yes
+
+    # - name: Reboot System
+    #   reboot:
