@@ -20,6 +20,6 @@
       proxmox:
         vmid: "{{ VMID }}"
         api_user: root@pam
-        api_password: "{{ HOSTS.ansible_password }}"
+        api_password: "{{ HOSTS.value.ansible_password }}"
         api_host: "pimentel-homelab"
         state: absent
