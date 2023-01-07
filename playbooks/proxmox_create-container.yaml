@@ -19,4 +19,4 @@
         api_host: node1
         password: 123456
         hostname: example.org
-        ostemplate: 'local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz
+        ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz"
