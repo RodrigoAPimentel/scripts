@@ -1,5 +1,5 @@
 ---
-- name: Create new LXC container in Proxmox Cygnus Host
+- name: Create new LXC container in Proxmox [{{ _node }}]
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
@@ -21,15 +21,13 @@
         cores: "{{ _cores }}"
         disk: "{{ _disk }}"
         memory: "{{ _memory }}"
+        swap: "{{ _memory }}"
         storage: "local-lvm" # Or use 'local' as discussed
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: yes
         onboot: "{{ _onboot }}"
+        # description:
         # features:
         #   - nesting="{{ _nesting }}"
         #   - keyctl="{{ _keyctl }}"
       register: create_container_output
-
-    - name: read vmid
-      set_fact:
-        vmid: "{{ create_container_output.msg | regex_search('\\b\\d{1,}\\b') }}"

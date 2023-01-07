@@ -1,5 +1,5 @@
 ---
-- name: Create new LXC container in Proxmox Cygnus Host
+- name: Destroy the Container with VMID {{ _vmid }} in the proxmox {{ _api_host }} Host
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
@@ -7,15 +7,6 @@
     ansible_python_interpreter: /usr/bin/python3
 
   tasks:
-    # - name: "Check if container exist"
-    #   proxmox:
-    #     api_host: "pimentel-homelab"
-    #     api_user: "root@pam"
-    #     api_password: "5045160"
-    #     # ---
-    #     vmid: "203"
-    #     state: absent
-
     - name: Remove container
       proxmox:
         vmid: "{{ _vmid }}"
