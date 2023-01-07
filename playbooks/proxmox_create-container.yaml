@@ -11,7 +11,7 @@
     #     state: latest
 
     - name: Create new container with minimal options
-      community.general.proxmox:
+      proxmox:
         vmid: 220
         node: pimentel-homelab
         api_user: root@pam
