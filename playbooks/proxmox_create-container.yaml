@@ -39,7 +39,7 @@
 
     - name: Get list available templates on node
       uri:
-        url: "http://pimentel-homelab:8006/api2/json/nodes/pimentel-homelab/storage/{{ pve_ct_storage_location }}/content"
+        url: "http://pimentel-homelab:8006/api2/json/nodes/pimentel-homelab/storage/local/content"
         method: GET
         headers:
           Cookie: "PVEAuthCookie={{ pve_node_ticket.json.data.ticket }}"
