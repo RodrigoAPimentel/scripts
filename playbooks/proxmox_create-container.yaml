@@ -41,9 +41,9 @@
       uri:
         url: "http://pimentel-homelab:8006/api2/json/nodes/pimentel-homelab/storage/local/content"
         method: GET
-        headers:
-          Cookie: "PVEAuthCookie={{ pve_node_ticket.json.data.ticket }}"
+        # headers:
+        #   Cookie: "PVEAuthCookie={{ pve_node_ticket.json.data.ticket }}"
         body_format: form-urlencoded
         return_content: yes
-        validate_certs: "{{ pve_disable_cert_check | default('no') }}"
+        # validate_certs: "{{ pve_disable_cert_check | default('no') }}"
       register: pve_ct_template_list
