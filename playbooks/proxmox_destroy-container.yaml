@@ -2,7 +2,7 @@
 - name: Create new LXC container in Proxmox Cygnus Host
   become: yes
   gather_facts: No
-  hosts: "{{ HOSTS }}"
+  hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
@@ -18,8 +18,8 @@
 
     - name: Remove container
       proxmox:
-        vmid: "{{ VMID }}"
-        api_user: root@pam
-        api_password: "{{ hostvars[HOSTS].ansible_password }}"
-        api_host: "pimentel-homelab"
+        vmid: "{{ _vmid }}"
+        api_user: "{{ _api_user }}"
+        api_password: "{{ hostvars[host].ansible_password }}"
+        api_host: "{{ _api_host }}"
         state: absent
