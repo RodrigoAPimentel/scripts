@@ -39,20 +39,20 @@
         # features:
         #   - nesting=1
         #   - keyctl=1
-        vmid: "{{ vmid }}" # Specifying Container ID
-        node: "{{ node }}" # Name of Proxmox host
-        api_user: "{{ api_user }}" # Proxmox user
+        vmid: "{{ _vmid }}" # Specifying Container ID
+        node: "{{ _node }}" # Name of Proxmox host
+        api_user: "{{ _api_user }}" # Proxmox user
         api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
-        api_host: "{{ api_host }}" # Proxmox hostname
-        state: "{{ state }}"
-        hostname: "{{ container_hostname }}" # Container hostname
-        password: "{{ container_password  }}" # Password in plaintext !!!
-        ostemplate: "{{ ostemplate }}" # Or use local:vztmpl/... as discussed
-        cores: "{{ cores }}"
-        disk: "{{ disk }}"
-        memory: "{{ memory }}"
+        api_host: "{{ _api_host }}" # Proxmox hostname
+        state: "{{ _state }}"
+        hostname: "{{ _container_hostname }}" # Container hostname
+        password: "{{ _container_password  }}" # Password in plaintext !!!
+        ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
+        cores: "{{ _cores }}"
+        disk: "{{ _disk }}"
+        memory: "{{ _memory }}"
         storage: "local-lvm" # Or use 'local' as discussed
-        netif: '{"net0":"name=eth0,gw={{ network_gw }},ip={{ network_ip }}/24,bridge=vmbr0"}'
+        netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         features:
-          - nesting="{{ nesting }}"
-          - keyctl="{{ keyctl }}"
+          - nesting="{{ _nesting }}"
+          - keyctl="{{ _keyctl }}"
