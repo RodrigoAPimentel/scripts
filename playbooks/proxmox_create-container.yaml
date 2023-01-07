@@ -36,7 +36,7 @@
       proxmox:
         vmid: "300" # Specifying Container ID
         api_user: "root@pam" # Proxmox user
-        api_password: 5045160" # Password in plaintext !!!
+        api_password: "5045160" # Password in plaintext !!!
         api_host: "192.168.99.2" # Proxmox hostname
         password: "12345" # Password in plaintext !!!
         hostname: "ct-tst1-ansible" # Container hostname
