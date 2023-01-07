@@ -16,7 +16,7 @@
         api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
         api_host: "{{ _api_host }}" # Proxmox hostname
         state: "{{ _state }}"
-        hostname: "{{ _container_hostname }}" # Container hostname
+        hostname: "ct-{{ _container_hostname }}" # Container hostname
         password: "{{ _container_password  }}" # Password in plaintext !!!
         ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
         cores: "{{ _cores }}"
