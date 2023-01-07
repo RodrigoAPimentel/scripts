@@ -12,25 +12,25 @@
     #     name: epel-release
     #     state: latest
 
-    # - name: Create new container with minimal options
-    #   proxmox:
-    #     vmid: 220
-    #     node: pimentel-homelab
-    #     api_user: root@pam
-    #     api_password: 1q2w3e
-    #     api_host: node1
-    #     password: 123456
-    #     hostname: example.org
-    #     ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz"
+    - name: Create new container with minimal options
+      community.general.proxmox:
+        vmid: 300
+        node: pimentel-homelab
+        api_user: root@pam
+        api_password: 5045160
+        api_host: pimentel-homelab
+        password: 5045160
+        hostname: example.org
+        ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz"
 
-    - name: "Check if container exist"
-      proxmox:
-        api_host: "pimentel-homelab"
-        api_user: "root@pam"
-        api_password: "5045160"
-        # ---
-        vmid: "203"
-        state: absent
+    # - name: "Check if container exist"
+    #   proxmox:
+    #     api_host: "pimentel-homelab"
+    #     api_user: "root@pam"
+    #     api_password: "5045160"
+    #     # ---
+    #     vmid: "203"
+    #     state: absent
 
     # - name: "Create Container"
     #   proxmox:
