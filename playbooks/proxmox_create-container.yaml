@@ -10,13 +10,34 @@
     #     name: epel-release
     #     state: latest
 
-    - name: Create new container with minimal options
+    # - name: Create new container with minimal options
+    #   proxmox:
+    #     vmid: 220
+    #     node: pimentel-homelab
+    #     api_user: root@pam
+    #     api_password: 1q2w3e
+    #     api_host: node1
+    #     password: 123456
+    #     hostname: example.org
+    #     ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz"
+
+    - name: "Create Container"
       proxmox:
-        vmid: 220
-        node: pimentel-homelab
-        api_user: root@pam
-        api_password: 1q2w3e
-        api_host: node1
-        password: 123456
-        hostname: example.org
-        ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz"
+        vmid: "300" # Specifying Container ID
+        api_user: "root@pam" # Proxmox user
+        api_password: "5045160" # Password in plaintext !!!
+        api_host: "pimentel-homelab" # Proxmox hostname
+        password: "12345" # Password in plaintext !!!
+        hostname: "ct-tst1-ansible" # Container hostname
+        node: "pimentel-homelab" # Name of Proxmox host
+        cores: "1"
+        cpus: "2"
+        cpuunits: "1000"
+        ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz" # Or use local:vztmpl/... as discussed
+        storage: "local-lvm" # Or use 'local' as discussed
+        disk: "8"
+        memory: "512"
+        # nameserver: '10.100.0.1'
+        netif: '{"net0":"name=eth0,ip=dhcp,ip6=dhcp,bridge=vmbr0,tag=50"}'
+        # searchdomain: 'prod.lab'
+        state: "present"
