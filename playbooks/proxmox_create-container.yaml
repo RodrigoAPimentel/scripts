@@ -1,42 +1,8 @@
-# ---
-# - name: Create new LXC container in Proxmox [{{ _node }}]
-#   become: yes
-#   gather_facts: No
-#   hosts: "{{ host }}"
-#   vars:
-#     ansible_python_interpreter: /usr/bin/python3
-
-#   tasks:
-#     - name: "Create Container"
-#       proxmox:
-#         # community.general.proxmox:
-#         vmid: "{{ _vmid }}" # Specifying Container ID
-#         node: "{{ _node }}" # Name of Proxmox host
-#         api_user: "{{ _api_user }}" # Proxmox user
-#         api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
-#         api_host: "{{ _api_host }}" # Proxmox hostname
-#         state: "{{ _state }}"
-#         hostname: "ct-{{ _container_hostname }}" # Container hostname
-#         password: "{{ _container_password  }}" # Password in plaintext !!!
-#         ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
-#         cores: "{{ _cores }}"
-#         disk: "{{ _disk }}"
-#         memory: "{{ _memory }}"
-#         swap: "{{ _memory }}"
-#         storage: "local-lvm" # Or use 'local' as discussed
-#         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
-#         unprivileged: yes
-#         onboot: "{{ _onboot }}"
-#       #   description: "teste descrição"
-#       #   features:
-#       #     - nesting="{{ _nesting }}"
-#       #     - keyctl="{{ _keyctl }}"
-#       # register: create_container_output
 ---
-- name: Create new LXC container in Proxmox [{{ hostvars[proxmox-inventory]._node }}]
+- name: Create new LXC container in Proxmox [{{ _node }}]
   become: yes
   gather_facts: No
-  hosts: "{{ hostvars[proxmox-inventory].host }}"
+  hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
@@ -44,23 +10,23 @@
     - name: "Create Container"
       proxmox:
         # community.general.proxmox:
-        vmid: "{{ hostvars[proxmox-inventory]._vmid }}" # Specifying Container ID
-        node: "{{ hostvars[proxmox-inventory]._node }}" # Name of Proxmox host
-        api_user: "{{hostvars[proxmox-inventory]._api_user }}" # Proxmox user
+        vmid: "{{ _vmid }}" # Specifying Container ID
+        node: "{{ _node }}" # Name of Proxmox host
+        api_user: "{{ _api_user }}" # Proxmox user
         api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
-        api_host: "{{ hostvars[proxmox-inventory]._api_host }}" # Proxmox hostname
-        state: "{{ hostvars[proxmox-inventory]._state }}"
-        hostname: "ct-{{ hostvars[proxmox-inventory]._container_hostname }}" # Container hostname
-        password: "{{ hostvars[proxmox-inventory]._container_password  }}" # Password in plaintext !!!
-        ostemplate: "{{ hostvars[proxmox-inventory]._ostemplate }}" # Or use local:vztmpl/... as discussed
-        cores: "{{ hostvars[proxmox-inventory]._cores }}"
-        disk: "{{ hostvars[proxmox-inventory]._disk }}"
-        memory: "{{ hostvars[proxmox-inventory]._memory }}"
-        swap: "{{ hostvars[proxmox-inventory]._memory }}"
+        api_host: "{{ _api_host }}" # Proxmox hostname
+        state: "{{ _state }}"
+        hostname: "ct-{{ _container_hostname }}" # Container hostname
+        password: "{{ _container_password  }}" # Password in plaintext !!!
+        ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
+        cores: "{{ _cores }}"
+        disk: "{{ _disk }}"
+        memory: "{{ _memory }}"
+        swap: "{{ _memory }}"
         storage: "local-lvm" # Or use 'local' as discussed
-        netif: '{"net0":"name=eth0,gw={{ hostvars[proxmox-inventory]._network_gw }},ip={{ hostvars[proxmox-inventory]._network_ip }}/24,bridge=vmbr0"}'
+        netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: yes
-        onboot: "{{ hostvars[proxmox-inventory]._onboot }}"
+        onboot: "{{ _onboot }}"
       #   description: "teste descrição"
       #   features:
       #     - nesting="{{ _nesting }}"
