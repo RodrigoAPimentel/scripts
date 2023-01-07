@@ -7,38 +7,8 @@
     ansible_python_interpreter: /usr/bin/python3
 
   tasks:
-    # - name: "Check if container exist"
-    #   proxmox:
-    #     api_host: "pimentel-homelab"
-    #     api_user: "root@pam"
-    #     api_password: "5045160"
-    #     # ---
-    #     vmid: "203"
-    #     state: absent
-
     - name: "Create Container"
-      community.general.proxmox:
-        # vmid: "301" # Specifying Container ID
-        # node: "pimentel-homelab" # Name of Proxmox host
-        # api_user: "root@pam" # Proxmox user
-        # api_password: "5045160" # Password in plaintext !!!
-        # api_host: "pimentel-homelab" # Proxmox hostname
-        # state: "started"
-        # hostname: "ct-tst3-ansible" # Container hostname
-        # password: "12345" # Password in plaintext !!!
-        # ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz" # Or use local:vztmpl/... as discussed
-        # cores: "1"
-        # # cpus: "2"
-        # # cpuunits: "1000"
-        # storage: "local-lvm" # Or use 'local' as discussed
-        # disk: "8"
-        # memory: "512"
-        # # nameserver: '10.100.0.1'
-        # netif: '{"net0":"name=eth0,gw=192.168.0.1,ip=192.168.0.2/24,bridge=vmbr0"}'
-        # # searchdomain: 'prod.lab'
-        # features:
-        #   - nesting=1
-        #   - keyctl=1
+      proxmox:
         vmid: "{{ _vmid }}" # Specifying Container ID
         node: "{{ _node }}" # Name of Proxmox host
         api_user: "{{ _api_user }}" # Proxmox user
@@ -55,6 +25,11 @@
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: yes
         onboot: "{{ _onboot }}"
-        features:
-          - nesting="{{ _nesting }}"
-          - keyctl="{{ _keyctl }}"
+        # features:
+        #   - nesting="{{ _nesting }}"
+        #   - keyctl="{{ _keyctl }}"
+      register: create_container_output
+
+    - name: read vmid
+      set_fact:
+        vmid: "{{ create_container_output.msg | regex_search('\\b\\d{1,}\\b') }}"
