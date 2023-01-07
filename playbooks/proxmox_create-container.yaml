@@ -27,7 +27,7 @@
         api_user: "root@pam"
         api_password: "5045160"
         # ---
-        vmid: 203
+        vmid: "203"
         state: absent
 
     # - name: "Create Container"
