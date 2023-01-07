@@ -53,6 +53,6 @@
         memory: "{{ _memory }}"
         storage: "local-lvm" # Or use 'local' as discussed
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
-        features:
-          - nesting="{{ _nesting }}"
-          - keyctl="{{ _keyctl }}"
+        # features:
+        #   - nesting="{{ _nesting }}"
+        #   - keyctl="{{ _keyctl }}"
