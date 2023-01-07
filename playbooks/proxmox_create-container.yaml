@@ -34,12 +34,12 @@
 
     - name: "Create Container"
       proxmox:
-        vmid: "300" # Specifying Container ID
+        vmid: "301" # Specifying Container ID
         api_user: "root@pam" # Proxmox user
         api_password: "5045160" # Password in plaintext !!!
-        api_host: "192.168.99.2" # Proxmox hostname
+        api_host: "pimentel-homelab" # Proxmox hostname
         password: "12345" # Password in plaintext !!!
-        hostname: "ct-tst1-ansible" # Container hostname
+        hostname: "ct-tst2-ansible" # Container hostname
         node: "pimentel-homelab" # Name of Proxmox host
         cores: "1"
         cpus: "2"
