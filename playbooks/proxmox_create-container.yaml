@@ -42,7 +42,7 @@
         vmid: "{{ vmid }}" # Specifying Container ID
         node: "{{ node }}" # Name of Proxmox host
         api_user: "{{ api_user }}" # Proxmox user
-        api_password: "{{ hostvars[HOSTS].ansible_password }}" # Password in plaintext !!!
+        api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
         api_host: "{{ api_host }}" # Proxmox hostname
         state: "{{ state }}"
         hostname: "{{ container_hostname }}" # Container hostname
