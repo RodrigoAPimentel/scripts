@@ -3,15 +3,13 @@
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
-  # vars:
-  #   ansible_python_interpreter: /usr/bin/python3
-  collections:
-    - community.general
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
   tasks:
     - name: "Create Container"
-      # proxmox:
-      community.general.proxmox:
+      proxmox:
+        # community.general.proxmox:
         vmid: "{{ _vmid }}" # Specifying Container ID
         node: "{{ _node }}" # Name of Proxmox host
         api_user: "{{ _api_user }}" # Proxmox user
@@ -29,8 +27,8 @@
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: yes
         onboot: "{{ _onboot }}"
-        description: "teste descrição"
-        features:
-          - nesting="{{ _nesting }}"
-          - keyctl="{{ _keyctl }}"
-      register: create_container_output
+      #   description: "teste descrição"
+      #   features:
+      #     - nesting="{{ _nesting }}"
+      #     - keyctl="{{ _keyctl }}"
+      # register: create_container_output
