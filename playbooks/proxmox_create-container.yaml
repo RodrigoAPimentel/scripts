@@ -2,7 +2,7 @@
 - name: Create new LXC container in Proxmox Cygnus Host
   become: yes
   gather_facts: No
-  hosts: "{{ HOSTS }}"
+  hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
@@ -16,34 +16,43 @@
     #     vmid: "203"
     #     state: absent
 
-    # - name: "Create Container"
-    #   proxmox:
-    #     vmid: "301" # Specifying Container ID
-    #     node: "pimentel-homelab" # Name of Proxmox host
-    #     api_user: "root@pam" # Proxmox user
-    #     api_password: "5045160" # Password in plaintext !!!
-    #     api_host: "pimentel-homelab" # Proxmox hostname
-    #     state: "started"
-    #     hostname: "ct-tst3-ansible" # Container hostname
-    #     password: "12345" # Password in plaintext !!!
-    #     ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz" # Or use local:vztmpl/... as discussed
-    #     cores: "1"
-    #     # cpus: "2"
-    #     # cpuunits: "1000"
-    #     storage: "local-lvm" # Or use 'local' as discussed
-    #     disk: "8"
-    #     memory: "512"
-    #     # nameserver: '10.100.0.1'
-    #     netif: '{"net0":"name=eth0,gw=192.168.0.1,ip=192.168.0.2/24,bridge=vmbr0"}'
-    #     # searchdomain: 'prod.lab'
-    #     features:
-    #       - nesting=1
-    #       - keyctl=1
-
-    - name: Remove container
+    - name: "Create Container"
       proxmox:
-        vmid: "{{ VMID }}"
-        api_user: root@pam
-        api_password: "{{ API_PASS }}"
-        api_host: "pimentel-homelab"
-        state: absent
+        # vmid: "301" # Specifying Container ID
+        # node: "pimentel-homelab" # Name of Proxmox host
+        # api_user: "root@pam" # Proxmox user
+        # api_password: "5045160" # Password in plaintext !!!
+        # api_host: "pimentel-homelab" # Proxmox hostname
+        # state: "started"
+        # hostname: "ct-tst3-ansible" # Container hostname
+        # password: "12345" # Password in plaintext !!!
+        # ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz" # Or use local:vztmpl/... as discussed
+        # cores: "1"
+        # # cpus: "2"
+        # # cpuunits: "1000"
+        # storage: "local-lvm" # Or use 'local' as discussed
+        # disk: "8"
+        # memory: "512"
+        # # nameserver: '10.100.0.1'
+        # netif: '{"net0":"name=eth0,gw=192.168.0.1,ip=192.168.0.2/24,bridge=vmbr0"}'
+        # # searchdomain: 'prod.lab'
+        # features:
+        #   - nesting=1
+        #   - keyctl=1
+        vmid: "{{ vmid }}" # Specifying Container ID
+        node: "{{ node }}" # Name of Proxmox host
+        api_user: "{{ api_user }}" # Proxmox user
+        api_password: "{{ hostvars[HOSTS].ansible_password }}" # Password in plaintext !!!
+        api_host: "{{ api_host }}" # Proxmox hostname
+        state: "{{ state }}"
+        hostname: "{{ container_hostname }}" # Container hostname
+        password: "{{ container_password  }}" # Password in plaintext !!!
+        ostemplate: "{{ ostemplate }}" # Or use local:vztmpl/... as discussed
+        cores: "{{ cores }}"
+        disk: "{{ disk }}"
+        memory: "{{ memory }}"
+        storage: "local-lvm" # Or use 'local' as discussed
+        netif: '{"net0":"name=eth0,gw={{ network_gw }},ip={{ network_ip }}/24,bridge=vmbr0"}'
+        features:
+          - nesting="{{ nesting }}"
+          - keyctl="{{ keyctl }}"
