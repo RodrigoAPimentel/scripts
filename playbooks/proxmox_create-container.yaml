@@ -7,22 +7,6 @@
     ansible_python_interpreter: /usr/bin/python3
 
   tasks:
-    # - name: Add EPEL repository
-    #   package:
-    #     name: epel-release
-    #     state: latest
-
-    # - name: Create new container with minimal options
-    #   community.general.proxmox:
-    #     vmid: 300
-    #     node: pimentel-homelab
-    #     api_user: root@pam
-    #     api_password: 5045160
-    #     api_host: pimentel-homelab
-    #     password: 5045160
-    #     hostname: example.org
-    #     ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz"
-
     # - name: "Check if container exist"
     #   proxmox:
     #     api_host: "pimentel-homelab"
@@ -32,23 +16,34 @@
     #     vmid: "203"
     #     state: absent
 
-    - name: "Create Container"
-      proxmox:
-        vmid: "301" # Specifying Container ID
-        api_user: "root@pam" # Proxmox user
-        api_password: "5045160" # Password in plaintext !!!
-        api_host: "pimentel-homelab" # Proxmox hostname
-        password: "12345" # Password in plaintext !!!
-        hostname: "ct-tst3-ansible" # Container hostname
-        node: "pimentel-homelab" # Name of Proxmox host
-        cores: "1"
-        cpus: "2"
-        cpuunits: "1000"
-        ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz" # Or use local:vztmpl/... as discussed
-        storage: "local-lvm" # Or use 'local' as discussed
-        disk: "8"
-        memory: "512"
-        # nameserver: '10.100.0.1'
-        netif: '{"net0":"name=eth0,ip=dhcp,ip6=dhcp,bridge=vmbr0,tag=50"}'
-        # searchdomain: 'prod.lab'
-        state: "present"
+    # - name: "Create Container"
+    #   proxmox:
+    #     vmid: "301" # Specifying Container ID
+    #     api_user: "root@pam" # Proxmox user
+    #     api_password: "5045160" # Password in plaintext !!!
+    #     api_host: "pimentel-homelab" # Proxmox hostname
+    #     password: "12345" # Password in plaintext !!!
+    #     hostname: "ct-tst3-ansible" # Container hostname
+    #     node: "pimentel-homelab" # Name of Proxmox host
+    #     cores: "1"
+    #     cpus: "2"
+    #     cpuunits: "1000"
+    #     ostemplate: "local:vztmpl/debian-11-turnkey-core_17.1-1_amd64.tar.gz" # Or use local:vztmpl/... as discussed
+    #     storage: "local-lvm" # Or use 'local' as discussed
+    #     disk: "8"
+    #     memory: "512"
+    #     # nameserver: '10.100.0.1'
+    #     netif: '{"net0":"name=eth0,ip=dhcp,ip6=dhcp,bridge=vmbr0,tag=50"}'
+    #     # searchdomain: 'prod.lab'
+    #     state: "present"
+
+    - name: Get list available templates on node
+      uri:
+        url: "https://{{ pve_node }}:{{ pve_api_port }}/api2/json/nodes/{{ pve_node }}/storage/{{ pve_ct_storage_location }}/content"
+        method: GET
+        headers:
+          Cookie: "PVEAuthCookie={{ pve_node_ticket.json.data.ticket }}"
+        body_format: form-urlencoded
+        return_content: yes
+        validate_certs: "{{ pve_disable_cert_check | default('no') }}"
+      register: pve_ct_template_list
