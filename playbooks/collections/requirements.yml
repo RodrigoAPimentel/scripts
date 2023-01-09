@@ -1,4 +1,3 @@
----
 collections:
-- community.general.proxmox
-- awx.awx.host
+- name: community.general
+- name: awx.awx
