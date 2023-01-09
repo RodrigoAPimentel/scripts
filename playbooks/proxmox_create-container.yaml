@@ -8,6 +8,7 @@
   collections:
     - community.general
     - awx.awx
+    - community.docker
 
   tasks:
     - name: at command needs to be installed
