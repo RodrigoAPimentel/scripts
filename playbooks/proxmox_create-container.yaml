@@ -5,8 +5,9 @@
   hosts: "{{ host }}"
   # vars:
   #   ansible_python_interpreter: /usr/bin/python3
-  # collections:
-  #   - awx.awx
+  collections:
+    - community.general
+    # - awx.awx
 
   tasks:
     # - name: at command needs to be installed
