@@ -34,7 +34,7 @@
     #   # register: create_container_output
 
     - name: Add host in Ansible AWX
-      host:
+      awx.awx.host:
         name: localhost
         description: "Local Host Group"
         inventory: "Local Inventory"
