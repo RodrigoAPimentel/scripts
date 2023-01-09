@@ -9,6 +9,11 @@
     - community.general
 
   tasks:
+    - name: at command needs to be installed
+      yum:
+        name: at
+        state: present
+
     - name: "Create Container"
       # proxmox:
       community.general.proxmox:
