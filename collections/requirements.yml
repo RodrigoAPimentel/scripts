@@ -1,0 +1,4 @@
+collections:
+- community.general
+- community.general.proxmox
+- awx.awx
