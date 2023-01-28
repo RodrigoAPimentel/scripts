@@ -36,10 +36,10 @@
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: yes
         onboot: "{{ _onboot }}"
-        description: "teste descrição"
-        features:
-          - nesting="{{ _nesting }}"
-          - keyctl="{{ _keyctl }}"
+        # description: "teste descrição"
+        # features:
+        #   - nesting="{{ _nesting }}"
+        #   - keyctl="{{ _keyctl }}"
       # register: create_container_output
 
     # - name: Add host in Ansible AWX
