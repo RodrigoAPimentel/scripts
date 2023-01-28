@@ -53,7 +53,9 @@
   tasks:
     - name: Add host in Ansible AWX
       awx.awx.host:
-        controller_host: ct-awx
+        controller_host: 192.168.99.20
+        controller_username: root
+        controller_password: toor
         name: test-ansib
         description: "Local Host Group"
         inventory: "homelab-inventory"
