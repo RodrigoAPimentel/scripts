@@ -61,6 +61,7 @@
         inventory: "homelab-inventory"
         state: present
         # controller_config_file: "~/tower_cli.cfg"
+        validate_certs: false
         variables:
           example_var: 123
           ansible_host: 192.168.99.233
