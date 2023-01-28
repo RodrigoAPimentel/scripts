@@ -54,8 +54,8 @@
     - name: Add host in Ansible AWX
       awx.awx.host:
         controller_host: 192.168.99.20
-        controller_username: root
-        controller_password: 12345
+        controller_username: "root"
+        controller_password: "12345"
         name: test-ansib
         description: "Local Host Group"
         inventory: "homelab-inventory"
