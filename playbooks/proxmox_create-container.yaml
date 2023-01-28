@@ -48,7 +48,7 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         node: "{{ _node }}"
-        hostname: "{{ _container_hostname }}"
+        hostname: "ct-{{ _container_hostname }}"
         state: started
 
     - name: Add host in Ansible AWX
