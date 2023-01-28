@@ -1,8 +1,8 @@
 ---
 collections:
-# - community.general
-# - awx.awx
-# - community.docker
+- community.general
+- awx.awx
+- community.docker
 
   # - name: awx.awx
   #   version: 21.10.0
