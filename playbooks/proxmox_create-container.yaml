@@ -16,48 +16,48 @@
     #     name: at
     #     state: present
 
-    - name: Create Container
-      proxmox:
-        # community.general.proxmox:
-        vmid: "{{ _vmid }}" # Specifying Container ID
-        node: "{{ _node }}" # Name of Proxmox host
-        api_user: "{{ _api_user }}" # Proxmox user
-        api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
-        api_host: "{{ _api_host }}" # Proxmox hostname
-        state: "{{ _state }}"
-        hostname: "ct-{{ _container_hostname }}" # Container hostname
-        password: "{{ _container_password  }}" # Password in plaintext !!!
-        ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
-        cores: "{{ _cores }}"
-        disk: "{{ _disk }}"
-        memory: "{{ _memory }}"
-        swap: "{{ _memory }}"
-        storage: "local-lvm" # Or use 'local' as discussed
-        netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
-        unprivileged: yes
-        onboot: "{{ _onboot }}"
-      loop_control:
-        pause: 5
-        # description: "teste descrição"
-        # features:
-        #   - nesting="{{ _nesting }}"
-        #   - keyctl="{{ _keyctl }}"
-      # register: create_container_output
+    # - name: Create Container
+    #   proxmox:
+    #     # community.general.proxmox:
+    #     vmid: "{{ _vmid }}" # Specifying Container ID
+    #     node: "{{ _node }}" # Name of Proxmox host
+    #     api_user: "{{ _api_user }}" # Proxmox user
+    #     api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
+    #     api_host: "{{ _api_host }}" # Proxmox hostname
+    #     state: "{{ _state }}"
+    #     hostname: "ct-{{ _container_hostname }}" # Container hostname
+    #     password: "{{ _container_password  }}" # Password in plaintext !!!
+    #     ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
+    #     cores: "{{ _cores }}"
+    #     disk: "{{ _disk }}"
+    #     memory: "{{ _memory }}"
+    #     swap: "{{ _memory }}"
+    #     storage: "local-lvm" # Or use 'local' as discussed
+    #     netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
+    #     unprivileged: yes
+    #     onboot: "{{ _onboot }}"
+    #   loop_control:
+    #     pause: 5
+    #     # description: "teste descrição"
+    #     # features:
+    #     #   - nesting="{{ _nesting }}"
+    #     #   - keyctl="{{ _keyctl }}"
+    #   # register: create_container_output
 
-    - name: Start Container
-      proxmox:
-        vmid: "{{ _vmid }}"
-        api_user: "{{ _api_user }}"
-        api_password: "{{ hostvars[host].ansible_password }}"
-        api_host: "{{ _api_host }}"
-        state: started
+    # - name: Start Container
+    #   proxmox:
+    #     vmid: "{{ _vmid }}"
+    #     api_user: "{{ _api_user }}"
+    #     api_password: "{{ hostvars[host].ansible_password }}"
+    #     api_host: "{{ _api_host }}"
+    #     state: started
 
-        # api_user: "{{ _api_user }}"
-        # api_password: "{{ hostvars[host].ansible_password }}"
-        # api_host: "{{ _api_host }}"
-        # node: "{{ _node }}"
-        # hostname: "ct-{{ _container_hostname }}"
-        # state: started
+    # api_user: "{{ _api_user }}"
+    # api_password: "{{ hostvars[host].ansible_password }}"
+    # api_host: "{{ _api_host }}"
+    # node: "{{ _node }}"
+    # hostname: "ct-{{ _container_hostname }}"
+    # state: started
 
     - name: Add host in Ansible AWX
       awx.awx.host:
