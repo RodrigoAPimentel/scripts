@@ -1,5 +1,5 @@
 ---
-- name: Destroy the Container with VMID {{ _vmid }} in the proxmox {{ _api_host }} Host
+- name: Destroy the Container with VMID {{ _vmid }} in the proxmox {{ _api_host }}
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
@@ -15,6 +15,8 @@
         api_host: "{{ _api_host }}"
         force: yes
         state: stopped
+      loop_control:
+        pause: 5
 
     - name: Destroy container
       proxmox:
