@@ -2,7 +2,8 @@
 - name: Create new LXC container in Proxmox [{{ _node }}]
   become: yes
   gather_facts: No
-  hosts: "{{ host }}"
+  # hosts: "{{ host }}"
+  hosts: localhost
   vars:
     ansible_python_interpreter: /usr/bin/python3
   # collections:
@@ -59,23 +60,30 @@
     # hostname: "ct-{{ _container_hostname }}"
     # state: started
 
-    - name: Make sure that community.general.does_not_exist is not a module or action plugin
-      assert:
-        that:
-          - "'community.general.does_not_exist' is not community.general.a_module"
+    # - name: Make sure that community.general.does_not_exist is not a module or action plugin
+    #   assert:
+    #     that:
+    #       - "'community.general.does_not_exist' is not community.general.a_module"
 
-    - name: Make sure that community.aws.route53 is available
-      assert:
-        that:
-          - >
-            'awx.awx.host' is awx.awx.a_module
+    # - name: Make sure that community.aws.route53 is available
+    #   assert:
+    #     that:
+    #       - >
+    #         'awx.awx.host' is awx.awx.a_module
 
-    - name: Add host in Ansible AWX
-      awx.awx.host:
-        name: localhost
-        description: "Local Host Group"
-        inventory: "Local Inventory"
-        state: present
-        # controller_config_file: "~/tower_cli.cfg"
-        variables:
-          example_var: 123
+    # - name: Add host in Ansible AWX
+    #   awx.awx.host:
+    #     name: localhost
+    #     description: "Local Host Group"
+    #     inventory: "Local Inventory"
+    #     state: present
+    #     # controller_config_file: "~/tower_cli.cfg"
+    #     variables:
+    #       example_var: 123
+
+    - name: Gather ansible version
+      command: ansible --version
+      register: ansible_version
+
+    - name: Display the info you have gathered
+      debug: var=ansible_version
