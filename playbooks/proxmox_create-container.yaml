@@ -42,12 +42,12 @@
         #   - keyctl="{{ _keyctl }}"
       # register: create_container_output
 
-    # - name: Add host in Ansible AWX
-    #   awx.awx.host:
-    #     name: localhost
-    #     description: "Local Host Group"
-    #     inventory: "Local Inventory"
-    #     state: present
-    #     # controller_config_file: "~/tower_cli.cfg"
-    #     variables:
-    #       example_var: 123
+    - name: Add host in Ansible AWX
+      awx.awx.host:
+        name: localhost
+        description: "Local Host Group"
+        inventory: "Local Inventory"
+        state: present
+        # controller_config_file: "~/tower_cli.cfg"
+        variables:
+          example_var: 123
