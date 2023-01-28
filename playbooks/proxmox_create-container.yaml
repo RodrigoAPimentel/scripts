@@ -59,6 +59,12 @@
     # hostname: "ct-{{ _container_hostname }}"
     # state: started
 
+    - name: Make sure that community.aws.route53 is available
+      assert:
+        that:
+          - >
+            'community.aws.route53' is community.general.a_module
+
     - name: Add host in Ansible AWX
       awx.awx.host:
         name: localhost
