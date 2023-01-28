@@ -17,8 +17,8 @@
     #     state: present
 
     - name: Create Container
-      proxmox:
-        # community.general.proxmox:
+      # proxmox:
+      community.general.proxmox:
         vmid: "{{ _vmid }}" # Specifying Container ID
         node: "{{ _node }}" # Name of Proxmox host
         api_user: "{{ _api_user }}" # Proxmox user
@@ -36,9 +36,9 @@
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: yes
         onboot: "{{ _onboot }}"
+        description: "teste descrição"
       loop_control:
         pause: 5
-        # description: "teste descrição"
         # features:
         #   - nesting="{{ _nesting }}"
         #   - keyctl="{{ _keyctl }}"
