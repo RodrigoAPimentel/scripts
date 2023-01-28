@@ -11,14 +11,14 @@
     - community.docker
 
   tasks:
-    - name: at command needs to be installed
-      yum:
-        name: at
-        state: present
+    # - name: at command needs to be installed
+    #   yum:
+    #     name: at
+    #     state: present
 
     - name: "Create Container"
-      # proxmox:
-      community.general.proxmox:
+      proxmox:
+        # community.general.proxmox:
         vmid: "{{ _vmid }}" # Specifying Container ID
         node: "{{ _node }}" # Name of Proxmox host
         api_user: "{{ _api_user }}" # Proxmox user
