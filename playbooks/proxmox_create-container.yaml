@@ -5,9 +5,9 @@
   hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  # collections:
-  # - community.general
-  # - awx.awx.host
+  collections:
+    # - community.general
+    - awx.awx
   # - community.docker
 
   tasks:
