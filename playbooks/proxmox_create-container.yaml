@@ -7,7 +7,7 @@
     ansible_python_interpreter: /usr/bin/python3
   collections:
     # - community.general
-    - awx.awx
+    - awx.awx.host
     # - community.docker
 
   tasks:
