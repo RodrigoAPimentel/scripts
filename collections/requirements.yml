@@ -2,4 +2,4 @@
 collections:
 - community.general
 - awx.awx
-# - community.docker
+- community.docker
