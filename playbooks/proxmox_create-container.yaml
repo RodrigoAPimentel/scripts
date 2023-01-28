@@ -46,13 +46,14 @@
 - name: Test XXXXXXXXX
   become: yes
   gather_facts: No
-  # hosts: "{{ host }}"
+  hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
   tasks:
     - name: Add host in Ansible AWX
       awx.awx.host:
+        controller_host: ct-awx
         name: test-ansib
         description: "Local Host Group"
         inventory: "homelab-inventory"
