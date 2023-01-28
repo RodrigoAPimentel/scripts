@@ -49,6 +49,8 @@
   hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
+  collections:
+    - awx.awx
 
   tasks:
     - name: Add host in Ansible AWX
