@@ -36,6 +36,8 @@
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: yes
         onboot: "{{ _onboot }}"
+      loop_control:
+        pause: 5
         # description: "teste descrição"
         # features:
         #   - nesting="{{ _nesting }}"
@@ -44,12 +46,18 @@
 
     - name: Start Container
       proxmox:
+        vmid: "{{ _vmid }}"
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
-        node: "{{ _node }}"
-        hostname: "ct-{{ _container_hostname }}"
         state: started
+
+        # api_user: "{{ _api_user }}"
+        # api_password: "{{ hostvars[host].ansible_password }}"
+        # api_host: "{{ _api_host }}"
+        # node: "{{ _node }}"
+        # hostname: "ct-{{ _container_hostname }}"
+        # state: started
 
     - name: Add host in Ansible AWX
       awx.awx.host:
