@@ -68,7 +68,7 @@
       assert:
         that:
           - >
-            'community.aws.route53' is community.general.a_module
+            'awx.awx.host' is awx.awx.a_module
 
     - name: Add host in Ansible AWX
       awx.awx.host:
