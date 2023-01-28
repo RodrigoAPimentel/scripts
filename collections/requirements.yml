@@ -1,5 +1,7 @@
 ---
 collections:
-- community.general
-- awx.awx
-- community.docker
+# - community.general
+# - awx.awx
+# - community.docker
+
+  - awx.awx
