@@ -46,7 +46,7 @@
 - name: Test XXXXXXXXX
   become: yes
   gather_facts: No
-  hosts: "{{ host }}"
+  hosts: localhost
   vars:
     ansible_python_interpreter: /usr/bin/python3
   collections:
