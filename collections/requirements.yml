@@ -4,7 +4,6 @@ collections:
 # - awx.awx
 # - community.docker
 
-  - awx.awx
   - name: awx.awx
     version: 21.10.0
     source: https://galaxy.ansible.com
