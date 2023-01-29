@@ -54,8 +54,8 @@
       delegate_to: 127.0.0.1
       host:
         name: "ct-{{ _container_hostname }}"
-        description: "{{ _create-host_description }}"
-        inventory: "{{ create-host_inventory }}"
+        description: "{{ _create_host_description }}"
+        inventory: "{{ create_host_inventory }}"
         state: present
         controller_host: "http://192.168.99.20"
         controller_oauthtoken: "{{ awx_token.stdout }}"
