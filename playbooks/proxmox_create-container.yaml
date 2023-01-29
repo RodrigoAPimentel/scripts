@@ -54,11 +54,11 @@
     - awx.awx
 
   tasks:
-    # - name: "Collect AWX admin token the hacks way!"
-    #   command: |
-    #     docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
-    #   register: awx_token
-    #   # no_log: True
+    - name: "Collect AWX admin token the hacks way!"
+      command: |
+        docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+      register: awx_token
+      # no_log: True
 
     # - name: Configure awx-cli 1
     #   delegate_to: 127.0.0.1
@@ -83,8 +83,8 @@
         inventory: "homelab-inventory"
         state: present
         controller_host: "192.168.99.20"
-        controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
-        # controller_oauthtoken: "{{ awx_token.stdout }}"
+        # controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
+        controller_oauthtoken: "{{ awx_token.stdout }}"
         # controller_username: "root"
         # controller_password: "toor"
         # controller_config_file: "~/tower_cli.cfg"
