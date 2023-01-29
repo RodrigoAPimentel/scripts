@@ -53,22 +53,15 @@
     - name: Add host in Ansible AWX
       delegate_to: 127.0.0.1
       host:
-        name: "test-ansib"
-        description: "Local Host Group"
-        inventory: "homelab-inventory"
+        name: "ct-{{ _container_hostname }}"
+        description: "{{ _create-host_description }}"
+        inventory: "{{ create-host_inventory }}"
         state: present
-        # controller_host: "192.168.99.20"
         controller_host: "http://192.168.99.20"
-        # controller_host: "http://172.19.0.4"
-        # controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
         controller_oauthtoken: "{{ awx_token.stdout }}"
-        # controller_username: "root"
-        # controller_password: "toor"
-        # controller_config_file: "~/tower_cli.cfg"
         validate_certs: false
         variables:
-          example_var: 123
-          ansible_host: 192.168.99.233
+          ansible_host: "{{ _network_ip }}"
 # - name: Test XXXXXXXXX
 #   become: yes
 #   gather_facts: No
