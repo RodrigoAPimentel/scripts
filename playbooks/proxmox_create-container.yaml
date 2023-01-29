@@ -83,7 +83,7 @@
         inventory: "homelab-inventory"
         state: present
         # controller_host: "192.168.99.20"
-        controller_host: "172.19.0.4"
+        controller_host: "172.19.0.4:8052"
         # controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
         controller_oauthtoken: "{{ awx_token.stdout }}"
         # controller_username: "root"
