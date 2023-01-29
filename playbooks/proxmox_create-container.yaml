@@ -46,8 +46,8 @@
 - name: Test XXXXXXXXX
   become: yes
   gather_facts: No
-  # hosts: "ct-awx"
-  hosts: "127.0.0.1"
+  hosts: "ct-awx"
+  # hosts: "127.0.0.1"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   collections:
@@ -61,7 +61,7 @@
     #   # no_log: True
 
     - name: Add host in Ansible AWX
-      delegate_to: 127.0.0.1
+      # delegate_to: 127.0.0.1
       host:
         name: test-ansib
         description: "Local Host Group"
