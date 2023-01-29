@@ -82,8 +82,8 @@
         description: "Local Host Group"
         inventory: "homelab-inventory"
         state: present
-        controller_host: "192.168.99.20"
-        # controller_host: "http://192.168.99.20"
+        # controller_host: "192.168.99.20"
+        controller_host: "http://192.168.99.20"
         # controller_host: "http://172.19.0.4"
         # controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
         controller_oauthtoken: "{{ awx_token.stdout }}"
