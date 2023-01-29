@@ -58,14 +58,13 @@
         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
       register: awx_token
 
-    - name: Add host in Ansible AWX
-      delegate_to: 127.0.0.1
+    - name: Add host in inventory
       host:
         name: "ct-{{ _container_hostname }}"
         description: "{{ _create_host_description }}"
         inventory: "{{ _create_host_inventory }}"
         state: present
-        controller_host: "http://ct-awx"
+        controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
         controller_oauthtoken: "{{ awx_token.stdout }}"
         validate_certs: false
         variables:
