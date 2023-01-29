@@ -46,8 +46,8 @@
 - name: Test XXXXXXXXX
   become: yes
   gather_facts: No
-  hosts: "ct-awx"
-  # hosts: "localhost"
+  # hosts: "ct-awx"
+  hosts: "127.0.0.1"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   collections:
@@ -67,7 +67,7 @@
         description: "Local Host Group"
         inventory: "homelab-inventory"
         state: present
-        controller_host: "192.168.99.20:8052"
+        controller_host: "192.168.99.20"
         controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
         # controller_oauthtoken: "{{ awx_token.stdout }}"
         # controller_username: "root"
