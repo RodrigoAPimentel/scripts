@@ -32,8 +32,8 @@
 
         description: "teste descrição"
         features:
-          - nesting="{{ _nesting.stdout}}"
-          - keyctl="{{ _keyctl.stdout }}"
+          - nesting={{ _nesting }}
+          - keyctl={{ _keyctl }}
       loop_control:
         pause: 5
 
