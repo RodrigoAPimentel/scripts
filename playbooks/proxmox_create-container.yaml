@@ -88,7 +88,7 @@
         controller_username: "root"
         # controller_password: "toor"
         # controller_config_file: "~/tower_cli.cfg"
-        validate_certs: no
+        validate_certs: yes
         variables:
           example_var: 123
           ansible_host: 192.168.99.233
