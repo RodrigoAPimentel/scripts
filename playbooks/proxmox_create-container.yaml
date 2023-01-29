@@ -63,17 +63,17 @@
     - name: Configure awx-cli 1
       delegate_to: 127.0.0.1
       shell: awx-cli config username "root"
-      no_log: True
+      # no_log: True
 
     - name: Configure awx-cli 2
       delegate_to: 127.0.0.1
       shell: awx-cli config password "toor"
-      no_log: True
+      # no_log: True
 
     - name: Configure awx-cli 3
       delegate_to: 127.0.0.1
       shell: awx-cli config host "127.0.0.1"
-      no_log: True
+      # no_log: True
 
     - name: Add host in Ansible AWX
       delegate_to: 127.0.0.1
