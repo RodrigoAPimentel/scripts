@@ -71,16 +71,18 @@
     #     variables:
     #       ansible_host: "{{ _network_ip }}"
 
-    # - name: Disable host in Ansible AWX
-    #   delegate_to: 127.0.0.1
-    #   host:
-    #     name: "ct-{{ _container_hostname }}"
-    #     # description: "{{ _create_host_description }}"
-    #     inventory: "{{ _create_host_inventory }}"
-    #     state: absent
-    #     controller_host: "http://192.168.99.20"
-    #     controller_oauthtoken: "{{ awx_token.stdout }}"
-    #     validate_certs: false
+    - name: Disable host in Ansible AWX
+      delegate_to: 127.0.0.1
+      host:
+        name: "ct-{{ _container_hostname }}"
+        # description: "{{ _create_host_description }}"
+        inventory: "{{ _create_host_inventory }}"
+        enabled: false
+        controller_host: "http://192.168.99.20"
+        controller_oauthtoken: "{{ awx_token.stdout }}"
+        validate_certs: false
+      loop_control:
+        pause: 3
 
     - name: Delete host in Ansible AWX
       delegate_to: 127.0.0.1
@@ -88,7 +90,7 @@
         name: "ct-{{ _container_hostname }}"
         # description: "{{ _create_host_description }}"
         inventory: "{{ _create_host_inventory }}"
-        enabled: false
+        # enabled: false
         state: absent
         controller_host: "http://192.168.99.20"
         controller_oauthtoken: "{{ awx_token.stdout }}"
