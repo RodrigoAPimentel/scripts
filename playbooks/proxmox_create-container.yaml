@@ -57,7 +57,7 @@
       command: |
         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user admin'
       register: awx_token
-      no_log: True
+      # no_log: True
 
     - name: Add host in Ansible AWX
       delegate_to: 127.0.0.1
