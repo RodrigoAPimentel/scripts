@@ -1,79 +1,52 @@
 ---
-# - name: Create new LXC container in Proxmox [{{ _node }}]
-#   become: yes
-#   gather_facts: No
-#   hosts: "{{ host }}"
-#   vars:
-#     ansible_python_interpreter: /usr/bin/python3
-
-#   tasks:
-#     - name: Create Container
-#       proxmox:
-#         # community.general.proxmox:
-#         vmid: "{{ _vmid }}" # Specifying Container ID
-#         node: "{{ _node }}" # Name of Proxmox host
-#         api_user: "{{ _api_user }}" # Proxmox user
-#         api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
-#         api_host: "{{ _api_host }}" # Proxmox hostname
-#         state: "{{ _state }}"
-#         hostname: "ct-{{ _container_hostname }}" # Container hostname
-#         password: "{{ _container_password  }}" # Password in plaintext !!!
-#         ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
-#         cores: "{{ _cores }}"
-#         disk: "{{ _disk }}"
-#         memory: "{{ _memory }}"
-#         swap: "{{ _memory }}"
-#         storage: "local-lvm" # Or use 'local' as discussed
-#         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
-#         unprivileged: yes
-#         onboot: "{{ _onboot }}"
-#       loop_control:
-#         pause: 5
-#         # description: "teste descrição"
-#         # features:
-#         #   - nesting="{{ _nesting }}"
-#         #   - keyctl="{{ _keyctl }}"
-#       # register: create_container_output
-
-#     - name: Start Container
-#       proxmox:
-#         vmid: "{{ _vmid }}"
-#         api_user: "{{ _api_user }}"
-#         api_password: "{{ hostvars[host].ansible_password }}"
-#         api_host: "{{ _api_host }}"
-#         state: started
-
-- name: Test XXXXXXXXX
+- name: Create new LXC container in Proxmox [{{ _node }}]
   become: yes
   gather_facts: No
-  hosts: "ct-awx"
-  # hosts: "127.0.0.1"
+  hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  collections:
-    - awx.awx
 
   tasks:
-    - name: "Collect AWX admin token the hacks way!"
+    # - name: Create Container
+    #   proxmox:
+    #     # community.general.proxmox:
+    #     vmid: "{{ _vmid }}" # Specifying Container ID
+    #     node: "{{ _node }}" # Name of Proxmox host
+    #     api_user: "{{ _api_user }}" # Proxmox user
+    #     api_password: "{{ hostvars[host].ansible_password }}" # Password in plaintext !!!
+    #     api_host: "{{ _api_host }}" # Proxmox hostname
+    #     state: "{{ _state }}"
+    #     hostname: "ct-{{ _container_hostname }}" # Container hostname
+    #     password: "{{ _container_password  }}" # Password in plaintext !!!
+    #     ostemplate: "{{ _ostemplate }}" # Or use local:vztmpl/... as discussed
+    #     cores: "{{ _cores }}"
+    #     disk: "{{ _disk }}"
+    #     memory: "{{ _memory }}"
+    #     swap: "{{ _memory }}"
+    #     storage: "local-lvm" # Or use 'local' as discussed
+    #     netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
+    #     unprivileged: yes
+    #     onboot: "{{ _onboot }}"
+    #   loop_control:
+    #     pause: 5
+    #     # description: "teste descrição"
+    #     # features:
+    #     #   - nesting="{{ _nesting }}"
+    #     #   - keyctl="{{ _keyctl }}"
+    #   # register: create_container_output
+
+    # - name: Start Container
+    #   proxmox:
+    #     vmid: "{{ _vmid }}"
+    #     api_user: "{{ _api_user }}"
+    #     api_password: "{{ hostvars[host].ansible_password }}"
+    #     api_host: "{{ _api_host }}"
+    #     state: started
+    - name: Collect AWX root token
       command: |
         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
       register: awx_token
-      # no_log: True
-
-    # - name: Configure awx-cli 1
-    #   delegate_to: 127.0.0.1
-    #   shell: awx-cli config username "root"
-    #   # no_log: True
-
-    # - name: Configure awx-cli 2
-    #   delegate_to: 127.0.0.1
-    #   shell: awx-cli config password "toor"
-    #   # no_log: True
-
-    # - name: Configure awx-cli 3
-    #   delegate_to: 127.0.0.1
-    #   shell: awx-cli config host "127.0.0.1"
-    #   # no_log: True
+      # no_log: true
 
     - name: Add host in Ansible AWX
       delegate_to: 127.0.0.1
@@ -94,3 +67,54 @@
         variables:
           example_var: 123
           ansible_host: 192.168.99.233
+# - name: Test XXXXXXXXX
+#   become: yes
+#   gather_facts: No
+#   hosts: "ct-awx"
+#   # hosts: "127.0.0.1"
+#   vars:
+#     ansible_python_interpreter: /usr/bin/python3
+#   collections:
+#     - awx.awx
+
+#   tasks:
+#     - name: "Collect AWX admin token the hacks way!"
+#       command: |
+#         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+#       register: awx_token
+#       # no_log: True
+
+#     # - name: Configure awx-cli 1
+#     #   delegate_to: 127.0.0.1
+#     #   shell: awx-cli config username "root"
+#     #   # no_log: True
+
+#     # - name: Configure awx-cli 2
+#     #   delegate_to: 127.0.0.1
+#     #   shell: awx-cli config password "toor"
+#     #   # no_log: True
+
+#     # - name: Configure awx-cli 3
+#     #   delegate_to: 127.0.0.1
+#     #   shell: awx-cli config host "127.0.0.1"
+#     #   # no_log: True
+
+#     - name: Add host in Ansible AWX
+#       delegate_to: 127.0.0.1
+#       host:
+#         name: "test-ansib"
+#         description: "Local Host Group"
+#         inventory: "homelab-inventory"
+#         state: present
+#         # controller_host: "192.168.99.20"
+#         controller_host: "http://192.168.99.20"
+#         # controller_host: "http://172.19.0.4"
+#         # controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
+#         controller_oauthtoken: "{{ awx_token.stdout }}"
+#         # controller_username: "root"
+#         # controller_password: "toor"
+#         # controller_config_file: "~/tower_cli.cfg"
+#         validate_certs: false
+#         variables:
+#           example_var: 123
+#           ansible_host: 192.168.99.233
