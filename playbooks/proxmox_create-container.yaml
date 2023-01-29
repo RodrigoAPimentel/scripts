@@ -43,7 +43,7 @@
 #     #     api_host: "{{ _api_host }}"
 #     #     state: started
 
-- name: Test XXXXXXXXX
+- name: Add Host in Ansible AWX
   become: yes
   gather_facts: No
   hosts: "{{ _create_host_host }}"
@@ -65,7 +65,7 @@
         description: "{{ _create_host_description }}"
         inventory: "{{ _create_host_inventory }}"
         state: present
-        controller_host: "http://{{ _create_host_host }}"
+        controller_host: "http://ct-awx"
         controller_oauthtoken: "{{ awx_token.stdout }}"
         validate_certs: false
         variables:
