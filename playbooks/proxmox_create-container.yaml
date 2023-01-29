@@ -67,7 +67,7 @@
         description: "Local Host Group"
         inventory: "homelab-inventory"
         state: present
-        controller_host: "192.168.99.20"
+        controller_host: "awx_task"
         controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
         # controller_oauthtoken: "{{ awx_token.stdout }}"
         # controller_username: "root"
