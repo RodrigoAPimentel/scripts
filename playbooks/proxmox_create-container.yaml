@@ -46,8 +46,8 @@
 - name: Test XXXXXXXXX
   become: yes
   gather_facts: No
-  # hosts: "ct-awx"
-  hosts: "localhost"
+  hosts: "ct-awx"
+  # hosts: "localhost"
   vars:
     ansible_python_interpreter: /usr/bin/python3
   collections:
