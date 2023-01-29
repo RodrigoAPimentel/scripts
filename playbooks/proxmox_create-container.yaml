@@ -60,6 +60,21 @@
     #   register: awx_token
     #   # no_log: True
 
+    - name: Configure awx-cli 1
+      delegate_to: 127.0.0.1
+      shell: awx-cli config username "root"
+      no_log: True
+
+    - name: Configure awx-cli 2
+      delegate_to: 127.0.0.1
+      shell: awx-cli config password "toor"
+      no_log: True
+
+    - name: Configure awx-cli 3
+      delegate_to: 127.0.0.1
+      shell: awx-cli config host "127.0.0.1"
+      no_log: True
+
     - name: Add host in Ansible AWX
       delegate_to: 127.0.0.1
       host:
@@ -67,7 +82,7 @@
         description: "Local Host Group"
         inventory: "homelab-inventory"
         state: present
-        controller_host: "awx_task"
+        controller_host: "192.168.99.20"
         controller_oauthtoken: "qIr3bnthXnld70DPEYluLUwgxjPQb0"
         # controller_oauthtoken: "{{ awx_token.stdout }}"
         # controller_username: "root"
