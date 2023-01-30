@@ -30,7 +30,17 @@
         unprivileged: yes
         onboot: "{{ _onboot }}"
 
-        description: "teste descrição"
+        description: "
+          ## **TRETRE:**
+            - **ID:** _201_
+            - **hostname:** _ct-portainer_
+            - **OS:** _centOS 7_
+            - **IP:** _192.168.99.21_
+            - **User:** _root_
+            - **Password:** _12345_
+            - **Portainer User:** _admin_
+            - **Portainer Password:** _012345678901_
+        "
         features:
           - nesting={{ _nesting }}
           - keyctl={{ _keyctl }}
