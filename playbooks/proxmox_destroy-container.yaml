@@ -32,9 +32,8 @@
   hosts: "{{ _disable_host_host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    cli:
-      username: root
-      password: 12345
+    username: root
+    password: 12345
   collections:
     - awx.awx
 
