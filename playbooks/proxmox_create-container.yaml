@@ -31,13 +31,13 @@
         onboot: "{{ _onboot }}"
 
         description: "
-          ## **TRETRE:**
-            - **ID:** _201_
-            - **hostname:** _ct-portainer_
-            - **OS:** _centOS 7_
-            - **IP:** _192.168.99.21_
+          ## **{{ _container_hostname }}:**\n
+            - **ID:** _{{ _vmid }}_
+            - **hostname:** _ct-{{ _container_hostname }}_
+            - **OS:** _{{ _ostemplate }}_
+            - **IP:** _{{ _network_ip }}_
             - **User:** _root_
-            - **Password:** _12345_
+            - **Password:** _{{ _container_password  }}_
             - **Portainer User:** _admin_
             - **Portainer Password:** _012345678901_
         "
