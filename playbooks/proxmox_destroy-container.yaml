@@ -25,3 +25,37 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         state: absent
+
+- name: Disable Host in Ansible AWX
+  become: yes
+  gather_facts: No
+  hosts: "{{ _disable_host_host }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  collections:
+    - awx.awx
+
+  tasks:
+    - name: Collect AWX root token
+      command: |
+        docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+      register: awx_token
+
+    - name: Disable host in inventory
+      host:
+        name: "ct-{{ _container_hostname }}"
+        inventory: "{{ _disable_host_inventory }}"
+        enabled: false
+        controller_host: "http://{{ hostvars[_disable_host_host].ansible_host }}"
+        controller_oauthtoken: "{{ awx_token.stdout }}"
+        validate_certs: false
+
+    # - name: Delete host in Ansible AWX
+    #   delegate_to: 127.0.0.1
+    #   host:
+    #     name: "ct-{{ _container_hostname }}"
+    #     inventory: "{{ _create_host_inventory }}"
+    #     state: absent
+    #     controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
+    #     controller_oauthtoken: "{{ awx_token.stdout }}"
+    #     validate_certs: false

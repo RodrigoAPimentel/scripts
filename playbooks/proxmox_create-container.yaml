@@ -77,13 +77,3 @@
         validate_certs: false
         variables:
           ansible_host: "{{ _network_ip }}"
-
-    # - name: Delete host in Ansible AWX
-    #   delegate_to: 127.0.0.1
-    #   host:
-    #     name: "ct-{{ _container_hostname }}"
-    #     inventory: "{{ _create_host_inventory }}"
-    #     state: absent
-    #     controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
-    #     controller_oauthtoken: "{{ awx_token.stdout }}"
-    #     validate_certs: false
