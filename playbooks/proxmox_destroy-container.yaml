@@ -1,30 +1,30 @@
 ---
-# - name: Destroy the Container with VMID {{ _vmid }} in the proxmox {{ _api_host }}
-#   become: yes
-#   gather_facts: No
-#   hosts: "{{ host }}"
-#   vars:
-#     ansible_python_interpreter: /usr/bin/python3
+- name: Destroy the Container with VMID {{ _vmid }} in the proxmox {{ _api_host }}
+  become: yes
+  gather_facts: No
+  hosts: "{{ host }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
-#   tasks:
-#     - name: Stop Container
-#       proxmox:
-#         vmid: "{{ _vmid }}"
-#         api_user: "{{ _api_user }}"
-#         api_password: "{{ hostvars[host].ansible_password }}"
-#         api_host: "{{ _api_host }}"
-#         force: yes
-#         state: stopped
-#       loop_control:
-#         pause: 5
+  tasks:
+    - name: Stop Container
+      proxmox:
+        vmid: "{{ _vmid }}"
+        api_user: "{{ _api_user }}"
+        api_password: "{{ hostvars[host].ansible_password }}"
+        api_host: "{{ _api_host }}"
+        force: yes
+        state: stopped
+      loop_control:
+        pause: 5
 
-#     - name: Destroy container
-#       proxmox:
-#         vmid: "{{ _vmid }}"
-#         api_user: "{{ _api_user }}"
-#         api_password: "{{ hostvars[host].ansible_password }}"
-#         api_host: "{{ _api_host }}"
-#         state: absent
+    - name: Destroy container
+      proxmox:
+        vmid: "{{ _vmid }}"
+        api_user: "{{ _api_user }}"
+        api_password: "{{ hostvars[host].ansible_password }}"
+        api_host: "{{ _api_host }}"
+        state: absent
 
 - name: Disable Host in Ansible AWX
   become: yes
