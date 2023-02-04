@@ -2,7 +2,8 @@
 - name: Install SSHD
   become: yes
   gather_facts: No
-  hosts: "{{ host }}"
+  # hosts: "{{ host }}"
+  hosts: proxmoxa
   vars:
     ansible_python_interpreter: /usr/bin/python3
   collections:
