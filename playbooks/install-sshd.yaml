@@ -3,7 +3,7 @@
   become: yes
   gather_facts: No
   # hosts: "{{ host }}"
-  hosts: proxmoxa
+  hosts: proxmox
   vars:
     ansible_python_interpreter: /usr/bin/python3
   collections:
