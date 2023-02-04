@@ -37,5 +37,5 @@
       register: output1
 
     - name: Print the gateway for each host when defined
-      ansible.builtin.debug:
+      debug:
         msg: O hostname é - {{ output1.stdout }}
