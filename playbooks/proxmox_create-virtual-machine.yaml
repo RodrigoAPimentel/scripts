@@ -1,5 +1,5 @@
 ---
-- name: Create new LXC container in Proxmox [{{ _node }}]
+- name: Create new Virtual Machine in Proxmox [{{ _node }}]
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
@@ -9,7 +9,7 @@
     - community.general
 
   tasks:
-    - name: Create Container
+    - name: Create Virtual Machine
       proxmox:
         vmid: "{{ _vmid }}"
         node: "{{ _node }}"
@@ -40,11 +40,10 @@
         features:
           - nesting={{ _nesting }}
           - keyctl={{ _keyctl }}
-        # pubkey:  '{{ hostvars[item].sshpubkey}}'
       loop_control:
         pause: 5
 
-    - name: Start Container
+    - name: Start Virtual Machine
       proxmox:
         vmid: "{{ _vmid }}"
         api_user: "{{ _api_user }}"
@@ -52,29 +51,29 @@
         api_host: "{{ _api_host }}"
         state: started
 
-- name: Add Host in Ansible AWX
-  become: yes
-  gather_facts: No
-  hosts: "{{ _create_host_host }}"
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-  collections:
-    - awx.awx
+# - name: Add Host in Ansible AWX
+#   become: yes
+#   gather_facts: No
+#   hosts: "{{ _create_host_host }}"
+#   vars:
+#     ansible_python_interpreter: /usr/bin/python3
+#   collections:
+#     - awx.awx
 
-  tasks:
-    - name: Collect AWX root token
-      command: |
-        docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
-      register: awx_token
+#   tasks:
+#     - name: Collect AWX root token
+#       command: |
+#         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+#       register: awx_token
 
-    - name: Add host in inventory
-      host:
-        name: "ct-{{ _container_hostname }}"
-        description: "{{ _create_host_description }}"
-        inventory: "{{ _create_host_inventory }}"
-        state: present
-        controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
-        controller_oauthtoken: "{{ awx_token.stdout }}"
-        validate_certs: false
-        variables:
-          ansible_host: "{{ _network_ip }}"
+#     - name: Add host in inventory
+#       host:
+#         name: "ct-{{ _container_hostname }}"
+#         description: "{{ _create_host_description }}"
+#         inventory: "{{ _create_host_inventory }}"
+#         state: present
+#         controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
+#         controller_oauthtoken: "{{ awx_token.stdout }}"
+#         validate_certs: false
+#         variables:
+#           ansible_host: "{{ _network_ip }}"

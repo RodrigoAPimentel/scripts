@@ -2,7 +2,7 @@
 - name: Install SSHD
   become: yes
   gather_facts: No
-  hosts: "{{ HOSTS }}"
+  hosts: "{{ host }}"
 
   tasks:
     - name: Install the OpenSSH server package
