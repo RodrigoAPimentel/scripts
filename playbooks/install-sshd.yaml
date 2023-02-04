@@ -50,4 +50,4 @@
     #   debug:
     #     msg: Saida do lxc attach - {{ output2.stdout }}
 
-    - debug: msg={{ output1.stdout }}
+    - debug: msg=O hostname é -{{ output1.stdout }}
