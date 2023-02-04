@@ -9,23 +9,28 @@
     - ansible.posix
 
   tasks:
-    - name: Install the OpenSSH server package
-      package:
-        name: openssh-server
-        state: latest
+    # - name: Install the OpenSSH server package
+    #   package:
+    #     name: openssh-server
+    #     state: latest
 
-    - name: Start the OpenSSH service
-      service:
-        name: sshd
-        state: started
-        enabled: yes
+    # - name: Start the OpenSSH service
+    #   service:
+    #     name: sshd
+    #     state: started
+    #     enabled: yes
 
-    - name:
-      firewalld:
-        zone: public
-        permanent: yes
-        service: ssh
-        state: enabled
+    # - name:
+    #   firewalld:
+    #     zone: public
+    #     permanent: yes
+    #     service: ssh
+    #     state: enabled
 
-    - name: Reboot when packages were updated
-      reboot:
+    # - name: Reboot when packages were updated
+    #   reboot:
+
+    - name: Teste Command
+      command: |
+        hostname
+      register: output1
