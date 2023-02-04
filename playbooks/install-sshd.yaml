@@ -38,8 +38,8 @@
 
     - name: Teste connect lxc
       command: |
-        lxc-attach --name 300
-        hostname
+        lxc-attach --name 300 \
+        hostname \
         systemctl status sshd
       register: output2
 
