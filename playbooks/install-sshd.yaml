@@ -40,6 +40,7 @@
       command: |
         lxc-attach --name 300
         hostname
+        systemctl status sshd
       register: output2
 
     - name: Print the gateway for each host when defined
