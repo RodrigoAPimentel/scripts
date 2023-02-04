@@ -65,7 +65,7 @@
     #     msg: Saida do lxc attach - {{ output2.stdout }}
 
     - name: Install provisioning dependencies
-      pip: name=lxc-python3
+      apt: name=python-lxc
 
     - name: Run a complex command within a "running" container
       lxc_container:
