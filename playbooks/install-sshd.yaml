@@ -36,12 +36,16 @@
         hostname
       register: output1
 
-    # - name: Teste connect lxc
-    #   command: |
-    #     lxc-attach --name 300 \
-    #     hostname \
-    #     systemctl status sshd
-    #   register: output2
+    - debug: msg="O hostname é - {{ output1.stdout }}"
+
+    - name: Teste connect lxc
+      shell: |
+        lxc-attach --name 300
+
+        hostname
+
+        systemctl status sshd
+      register: output2
 
     # - name: Print the gateway for each host when defined
     #   debug:
@@ -49,5 +53,3 @@
     # - name: Print 2
     #   debug:
     #     msg: Saida do lxc attach - {{ output2.stdout }}
-
-    - debug: msg="O hostname é -{{ output1.stdout }}"
