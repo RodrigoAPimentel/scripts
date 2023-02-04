@@ -5,11 +5,10 @@
   # hosts: "{{ host }}"
   hosts: proxmox
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: /usr/bin/python2
   collections:
     - ansible.posix
     - community.general
-    - community.general.lxc_container
 
   tasks:
     # - name: Install the OpenSSH server package
@@ -66,7 +65,7 @@
     #     msg: Saida do lxc attach - {{ output2.stdout }}
 
     - name: Run a complex command within a "running" container
-      community.general.lxc_container:
+      lxc_container:
         name: ct-tst
         container_command: |
           hostname
