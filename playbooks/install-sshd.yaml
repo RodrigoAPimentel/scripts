@@ -40,16 +40,12 @@
         msg: O hostname é - {{ output1.stdout }}
 
     - name: Teste connect lxc
-      shell: |
-        set timeout 60
-        lxc-attach --name 300
-
-        hostname
-
+      command: |
+        lxc-attach --name 300 
         systemctl status sshd
-
-        exit 0
       register: output2
+    - debug:
+        msg: SSHD status - {{ output2.stdout }}
 
     # - name: Print the gateway for each host when defined
     #   debug:
