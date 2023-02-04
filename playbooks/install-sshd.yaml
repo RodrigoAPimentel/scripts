@@ -72,9 +72,10 @@
         name: ct-tst
         container_command: |
           hostname
-          # apt-get update
-          # apt-get install -y curl wget vim apache2
-          # echo 'hello world.' | tee /opt/started
-          # if [[ -f "/opt/started" ]]; then
-          #     echo 'hello world.' | tee /opt/found-started
-          # fi
+
+# apt-get update
+# apt-get install -y curl wget vim apache2
+# echo 'hello world.' | tee /opt/started
+# if [[ -f "/opt/started" ]]; then
+#     echo 'hello world.' | tee /opt/found-started
+# fi
