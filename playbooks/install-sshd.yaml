@@ -38,4 +38,4 @@
 
     - name: Print the gateway for each host when defined
       ansible.builtin.debug:
-        msg: O hostname é - {{ output1 }}
+        msg: O hostname é - {{ output1.stdout }}
