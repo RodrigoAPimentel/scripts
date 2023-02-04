@@ -35,9 +35,18 @@
       command: |
         hostname
       register: output1
-
     - debug:
         msg: O hostname é - {{ output1.stdout }}
+
+    - name: Install sshd service
+      command: |
+        lxc-attach --name 300 
+        yum install -y openssh-server
+      register: sshdinstall
+      loop_control:
+        pause: 5
+    - debug:
+        msg: Install sshd service - {{ sshdinstall.stdout }}
 
     - name: Teste connect lxc
       command: |
