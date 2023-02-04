@@ -8,6 +8,7 @@
     ansible_python_interpreter: /usr/bin/python3
   collections:
     - ansible.posix
+    - community.general
 
   tasks:
     # - name: Install the OpenSSH server package
@@ -31,30 +32,30 @@
     # - name: Reboot when packages were updated
     #   reboot:
 
-    - name: Teste Command
-      command: |
-        hostname
-      register: output1
-    - debug:
-        msg: O hostname é - {{ output1.stdout }}
+    # - name: Teste Command
+    #   command: |
+    #     hostname
+    #   register: output1
+    # - debug:
+    #     msg: O hostname é - {{ output1.stdout }}
 
-    - name: Install sshd service
-      command: |
-        lxc-attach --name 300 
-        "yum install -y openssh-server"
-      register: sshdinstall
-      loop_control:
-        pause: 5
-    - debug:
-        msg: Install sshd service - {{ sshdinstall.stdout }}
+    # - name: Install sshd service
+    #   command: |
+    #     lxc-attach --name 300
+    #     "yum install -y openssh-server"
+    #   register: sshdinstall
+    #   loop_control:
+    #     pause: 5
+    # - debug:
+    #     msg: Install sshd service - {{ sshdinstall.stdout }}
 
-    - name: Teste connect lxc
-      command: |
-        lxc-attach --name 300 
-        systemctl status sshd
-      register: output2
-    - debug:
-        msg: SSHD status - {{ output2.stdout }}
+    # - name: Teste connect lxc
+    #   command: |
+    #     lxc-attach --name 300
+    #     systemctl status sshd
+    #   register: output2
+    # - debug:
+    #     msg: SSHD status - {{ output2.stdout }}
 
     # - name: Print the gateway for each host when defined
     #   debug:
@@ -62,3 +63,15 @@
     # - name: Print 2
     #   debug:
     #     msg: Saida do lxc attach - {{ output2.stdout }}
+
+    - name: Run a complex command within a "running" container
+      lxc_container:
+        name: ct-tst
+        container_command: |
+          hostname
+          # apt-get update
+          # apt-get install -y curl wget vim apache2
+          # echo 'hello world.' | tee /opt/started
+          # if [[ -f "/opt/started" ]]; then
+          #     echo 'hello world.' | tee /opt/found-started
+          # fi
