@@ -41,7 +41,7 @@
     - name: Install sshd service
       command: |
         lxc-attach --name 300 
-        yum install -y openssh-server
+        "yum install -y openssh-server"
       register: sshdinstall
       loop_control:
         pause: 5
