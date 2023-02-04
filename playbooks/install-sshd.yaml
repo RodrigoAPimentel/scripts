@@ -9,6 +9,7 @@
   collections:
     - ansible.posix
     - community.general
+    - community.general.lxc_container
 
   tasks:
     # - name: Install the OpenSSH server package
