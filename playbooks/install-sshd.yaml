@@ -64,10 +64,11 @@
     #   debug:
     #     msg: Saida do lxc attach - {{ output2.stdout }}
 
-    - name: Install provisioning dependencies
-      apt: name=python-lxc
+    # - name: Install provisioning dependencies
+    #   apt: name=python-lxc
 
     - name: Run a complex command within a "running" container
+      become: yes
       lxc_container:
         name: ct-tst
         container_command: |
