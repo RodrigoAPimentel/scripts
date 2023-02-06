@@ -69,9 +69,10 @@
 
     - name: Run a complex command within a "running" container
       # become: yes
-      connection: local
+      # connection: local
       lxc_container:
-        name: ct-tst
+        # name: ct-tst
+        name: 300
         container_command: |
           hostname
 
