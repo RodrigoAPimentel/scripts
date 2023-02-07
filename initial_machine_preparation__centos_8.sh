@@ -10,6 +10,11 @@ echo '##########################################################################
 echo '################# INITIAL MACHINE PREPARATION [CentOS 8] #################'
 echo '##########################################################################'
 
+___console_logs 'Fix Failed to download metadata for repo ...'
+cd /etc/yum.repos.d/
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
 ___console_logs 'Adding EPEL repository ...'
 dnf install -y epel-release
 
