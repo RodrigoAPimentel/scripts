@@ -16,7 +16,7 @@
 
     - name: Create host in inventory
       host:
-        name: "{{ host_name }}"
+        name: "{{ _hostname }}"
         description: "{{ _description }}"
         inventory: "{{ _inventory }}"
         state: present
