@@ -14,9 +14,13 @@
         name: python3-pip
         state: latest
 
-    - name: Install Proxmoxer package
+    - name: Install proxmoxer package
       pip:
-        name: proxmoxer requests
+        name: proxmoxer
+
+    - name: Install requests package
+      pip:
+        name: requests
 
     - name: Create Container
       proxmox:
