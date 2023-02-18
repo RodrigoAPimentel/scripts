@@ -44,7 +44,7 @@
         description: "
           ## **{{ _container_hostname }}:**\n
             - **ID:** _{{ _vmid }}_\n
-            - **hostname:** _ct-{{ _container_hostname }}_\n
+            - **hostname:** _{{ _container_hostname }}_\n
             - **OS:** _{{ _ostemplate }}_\n
             - **IP:** _{{ _network_ip }}_\n
             - **User:** _root_\n
