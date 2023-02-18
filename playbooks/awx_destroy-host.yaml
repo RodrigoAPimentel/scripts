@@ -36,3 +36,5 @@
         name: "{{ _hostname }}"
         inventory: "{{ _inventory }}"
         state: absent
+        controller_host: "http://{{ hostvars[host].ansible_host }}"
+        controller_oauthtoken: "{{ awx_token.stdout }}"
