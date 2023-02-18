@@ -72,7 +72,7 @@
       # connection: local
       lxc_container:
         # name: ct-tst
-        name: 300
+        name: 230
         container_command: |
           hostname
 
