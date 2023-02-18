@@ -71,8 +71,6 @@
   hosts: "{{ _create_host_host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    username: root
-    password: 12345
   collections:
     - awx.awx
 
