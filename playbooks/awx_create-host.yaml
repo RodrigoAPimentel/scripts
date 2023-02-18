@@ -24,4 +24,4 @@
         controller_oauthtoken: "{{ awx_token.stdout }}"
         validate_certs: false
         variables:
-          ansible_host: { { _network_ip } }
+          ansible_host: "{{ _network_ip }}"
