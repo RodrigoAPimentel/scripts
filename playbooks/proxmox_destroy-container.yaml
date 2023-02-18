@@ -47,7 +47,7 @@
       host:
         name: "{{ _container_hostname }}"
         inventory: "{{ _disable_host_inventory }}"
-        enabled: true
+        enabled: false
         controller_host: "http://{{ hostvars[_disable_host_host].ansible_host }}"
         controller_oauthtoken: "{{ awx_token.stdout }}"
         validate_certs: false
