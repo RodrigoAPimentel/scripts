@@ -20,7 +20,7 @@
         description: "{{ _description }}"
         inventory: "{{ _inventory }}"
         state: present
-        enable: true
+        enabled: true
         controller_host: "http://{{ hostvars[host].ansible_host }}"
         controller_oauthtoken: "{{ awx_token.stdout }}"
         validate_certs: false
