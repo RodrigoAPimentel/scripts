@@ -82,7 +82,7 @@
 
     - name: Add host in inventory
       host:
-        name: "ct-{{ _container_hostname }}"
+        name: "{{ _container_hostname }}"
         description: "{{ _create_host_description }}"
         inventory: "{{ _create_host_inventory }}"
         state: present
