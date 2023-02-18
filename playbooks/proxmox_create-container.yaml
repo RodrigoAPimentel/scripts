@@ -9,7 +9,7 @@
     - community.general
 
   tasks:
-    - name: Install pip package
+    - name: Install python3 and python3-pip package
       package:
         name: 
           - python3
@@ -21,10 +21,6 @@
         name: 
           - proxmoxer
           - requests
-
-    # - name: Install requests package
-    #   pip:
-    #     name: requests
 
     - name: Create Container
       proxmox:
