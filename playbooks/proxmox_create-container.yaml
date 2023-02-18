@@ -9,6 +9,11 @@
     - community.general
 
   tasks:
+    - name: Install pip package
+      package:
+        name: python3-pip
+        state: latest
+
     - name: Install Proxmoxer package
       pip:
         name: proxmoxer requests
