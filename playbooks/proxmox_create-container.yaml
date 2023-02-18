@@ -69,7 +69,7 @@
         api_host: "{{ _api_host }}"
         state: started
 
----
+
 - name: Add Host in Ansible AWX
   become: yes
   gather_facts: No
