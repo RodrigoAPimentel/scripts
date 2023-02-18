@@ -30,7 +30,7 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         state: "{{ _state }}"
-        hostname: "{{ _container_hostname }}"
+        hostname: "{{ _hostname }}"
         password: "{{ _container_password  }}"
         ostemplate: "{{ _ostemplate }}"
         cores: "{{ _cores }}"
@@ -42,9 +42,9 @@
         unprivileged: "{{ _unprivileged }}"
         onboot: "{{ _onboot }}"
         description: "
-          ## **{{ _container_hostname }}:**\n
+          ## **{{ _hostname }}:**\n
             - **ID:** _{{ _vmid }}_\n
-            - **hostname:** _{{ _container_hostname }}_\n
+            - **hostname:** _{{ _hostname }}_\n
             - **OS:** _{{ _ostemplate }}_\n
             - **IP:** _{{ _network_ip }}_\n
             - **User:** _root_\n
@@ -65,29 +65,29 @@
         api_host: "{{ _api_host }}"
         state: started
 
-- name: Add Host in Ansible AWX
-  become: yes
-  gather_facts: No
-  hosts: "{{ _create_host_host }}"
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-  collections:
-    - awx.awx
+# - name: Add Host in Ansible AWX
+#   become: yes
+#   gather_facts: No
+#   hosts: "{{ _create_host_host }}"
+#   vars:
+#     ansible_python_interpreter: /usr/bin/python3
+#   collections:
+#     - awx.awx
 
-  tasks:
-    - name: Collect AWX root token
-      command: |
-        docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
-      register: awx_token
+#   tasks:
+#     - name: Collect AWX root token
+#       command: |
+#         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+#       register: awx_token
 
-    - name: Add host in inventory
-      host:
-        name: "{{ _container_hostname }}"
-        description: "{{ _create_host_description }}"
-        inventory: "{{ _create_host_inventory }}"
-        state: present
-        controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
-        controller_oauthtoken: "{{ awx_token.stdout }}"
-        validate_certs: false
-        variables:
-          ansible_host: "{{ _network_ip }}"
+#     - name: Add host in inventory
+#       host:
+#         name: "{{ _hostname }}"
+#         description: "{{ _create_host_description }}"
+#         inventory: "{{ _create_host_inventory }}"
+#         state: present
+#         controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
+#         controller_oauthtoken: "{{ awx_token.stdout }}"
+#         validate_certs: false
+#         variables:
+#           ansible_host: "{{ _network_ip }}"

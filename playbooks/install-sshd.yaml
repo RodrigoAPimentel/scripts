@@ -64,8 +64,8 @@
     #   debug:
     #     msg: Saida do lxc attach - {{ output2.stdout }}
 
-    - name: Install provisioning dependencies
-      apt: name=lxc
+    # - name: Install provisioning dependencies
+    #   apt: name=lxc
 
     - name: Run a complex command within a "running" container
       # become: yes
@@ -82,3 +82,4 @@
 # if [[ -f "/opt/started" ]]; then
 #     echo 'hello world.' | tee /opt/found-started
 # fi
+
