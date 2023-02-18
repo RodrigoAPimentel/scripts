@@ -9,6 +9,10 @@
     - community.general
 
   tasks:
+    - name: Install Proxmoxer package
+      package:
+        name: proxmoxer
+        state: latest
     - name: Create Container
       proxmox:
         vmid: "{{ _vmid }}"
