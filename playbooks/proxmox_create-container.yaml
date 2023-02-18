@@ -11,16 +11,20 @@
   tasks:
     - name: Install pip package
       package:
-        name: python3-pip
-        state: latest
+        name: 
+          - python3
+          - python3-pip
+        state: present
 
-    - name: Install proxmoxer package
+    - name: Install proxmoxer and requests packages
       pip:
-        name: proxmoxer
+        name: 
+          - proxmoxer
+          - requests
 
-    - name: Install requests package
-      pip:
-        name: requests
+    # - name: Install requests package
+    #   pip:
+    #     name: requests
 
     - name: Create Container
       proxmox:
@@ -64,29 +68,31 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         state: started
-# - name: Add Host in Ansible AWX
-#   become: yes
-#   gather_facts: No
-#   hosts: "{{ _create_host_host }}"
-#   vars:
-#     ansible_python_interpreter: /usr/bin/python3
-#   collections:
-#     - awx.awx
 
-#   tasks:
-#     - name: Collect AWX root token
-#       command: |
-#         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
-#       register: awx_token
+---
+- name: Add Host in Ansible AWX
+  become: yes
+  gather_facts: No
+  hosts: "{{ _create_host_host }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  collections:
+    - awx.awx
 
-#     - name: Add host in inventory
-#       host:
-#         name: "ct-{{ _container_hostname }}"
-#         description: "{{ _create_host_description }}"
-#         inventory: "{{ _create_host_inventory }}"
-#         state: present
-#         controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
-#         controller_oauthtoken: "{{ awx_token.stdout }}"
-#         validate_certs: false
-#         variables:
-#           ansible_host: "{{ _network_ip }}"
+  tasks:
+    - name: Collect AWX root token
+      command: |
+        docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+      register: awx_token
+
+    - name: Add host in inventory
+      host:
+        name: "ct-{{ _container_hostname }}"
+        description: "{{ _create_host_description }}"
+        inventory: "{{ _create_host_inventory }}"
+        state: present
+        controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
+        controller_oauthtoken: "{{ awx_token.stdout }}"
+        validate_certs: false
+        variables:
+          ansible_host: "{{ _network_ip }}"
