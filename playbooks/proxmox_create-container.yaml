@@ -28,15 +28,15 @@
         netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
         unprivileged: "{{ _unprivileged }}"
         onboot: "{{ _onboot }}"
-        description: "
-          ## **{{ _container_hostname }}:**\n
-            - **ID:** _{{ _vmid }}_\n
-            - **hostname:** _ct-{{ _container_hostname }}_\n
-            - **OS:** _{{ _ostemplate }}_\n
-            - **IP:** _{{ _network_ip }}_\n
-            - **User:** _root_\n
-            - **Password:** _{{ _container_password  }}_\n
-        "
+        # description: "
+        #   ## **{{ _container_hostname }}:**\n
+        #     - **ID:** _{{ _vmid }}_\n
+        #     - **hostname:** _ct-{{ _container_hostname }}_\n
+        #     - **OS:** _{{ _ostemplate }}_\n
+        #     - **IP:** _{{ _network_ip }}_\n
+        #     - **User:** _root_\n
+        #     - **Password:** _{{ _container_password  }}_\n
+        # "
         features:
           - nesting={{ _nesting }}
           - keyctl={{ _keyctl }}
@@ -51,7 +51,6 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         state: started
-
 # - name: Add Host in Ansible AWX
 #   become: yes
 #   gather_facts: No
