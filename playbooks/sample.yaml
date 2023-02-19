@@ -85,10 +85,7 @@
 
     - name: Teste connect lxc
       command: |
-        lxc-attach --name 245
-        cat /etc/os-release
-        hostname
-        systemctl status sshd
+        lxc-attach --name 257 -e -- dnf install -y openssh-server -- systemctl start sshd -- systemctl enable sshd
       register: output2
     - debug:
         msg: SSHD status - {{ output2.stdout }}
@@ -98,4 +95,13 @@
 # if [[ -f "/opt/started" ]]; then
 #     echo 'hello world.' | tee /opt/found-started
 # fi
+
+# ___console_logs 'Installing the OpenSSH server package'
+# dnf install -y openssh-server
+
+# ___console_logs 'Starting the OpenSSH service'
+# systemctl start sshd
+
+# ___console_logs 'Enabling OpenSSH service'
+# systemctl enable sshd
 

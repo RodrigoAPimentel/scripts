@@ -1,0 +1,35 @@
+---
+- name: Configure SSHD in container [{{ _vmid }}] in Proxmox [{{ _node }}]
+  become: yes
+  gather_facts: No
+  hosts: "{{ host }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  tasks:
+    - name: Install SSHD
+      command: |
+        lxc-attach --name 257 -e -- dnf install -y openssh-server
+      register: install_sshd
+    - debug:
+        msg: SSHD install status - {{ install_sshd.stdout }}
+      loop_control:
+        pause: 2
+
+    - name: Start SSHD
+      command: |
+        lxc-attach --name 257 -e -- systemctl start sshd
+      register: start_sshd
+    - debug:
+        msg: SSHD start status - {{ start_sshd.stdout }}
+      loop_control:
+        pause: 2
+
+    - name: Enable SSHD
+      command: |
+        lxc-attach --name 257 -e -- systemctl enable sshd
+      register: enable_sshd
+    - debug:
+        msg: SSHD enable status - {{ enable_sshd.stdout }}
+      loop_control:
+        pause: 2
