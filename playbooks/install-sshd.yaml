@@ -86,6 +86,8 @@
     - name: Teste connect lxc
       command: |
         lxc-attach --name 245
+        cat /etc/os-release
+        hostname
         systemctl status sshd
       register: output2
     - debug:
