@@ -9,7 +9,7 @@
   tasks:
     - name: Install SSHD
       command: |
-        lxc-attach --name 257 -e -- dnf install -y openssh-server
+        lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
       register: install_sshd
     - debug:
         msg: SSHD install status - {{ install_sshd.stdout }}
@@ -18,7 +18,7 @@
 
     - name: Start SSHD
       command: |
-        lxc-attach --name 257 -e -- systemctl start sshd
+        lxc-attach --name {{ _vmid }} -e -- systemctl start sshd
       register: start_sshd
     - debug:
         msg: SSHD start status - {{ start_sshd.stdout }}
@@ -27,7 +27,7 @@
 
     - name: Enable SSHD
       command: |
-        lxc-attach --name 257 -e -- systemctl enable sshd
+        lxc-attach --name {{ _vmid }} -e -- systemctl enable sshd
       register: enable_sshd
     - debug:
         msg: SSHD enable status - {{ enable_sshd.stdout }}
