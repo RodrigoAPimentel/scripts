@@ -33,4 +33,4 @@
         lxc-attach --name {{ _vmid }} -e -- systemctl status sshd
       register: status_sshd
     - debug:
-      msg: SSHD status - {{ status_sshd.stdout }}
+        msg: SSHD status - {{ status_sshd.stdout }}
