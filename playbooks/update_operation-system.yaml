@@ -2,7 +2,7 @@
 - name: Update System
   become: yes
   gather_facts: No
-  hosts: "{{ HOSTS }}"
+  hosts: "{{ host }}"
 
   tasks:
     - name: Add EPEL repository

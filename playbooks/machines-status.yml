@@ -2,7 +2,7 @@
 - name: Machine Status
   become: yes
   gather_facts: No
-  hosts: "{{ hosts }}"
+  hosts: "{{ host }}"
 
   tasks:
     - name: System Operation Version
