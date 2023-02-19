@@ -5,7 +5,7 @@
   hosts: "{{ host }}"
 
   tasks:
-    - name: Installing oh-my-zsh
+    - name: Installing oh-my-zsh and dependencies
       package:
         name:
           - zsh
