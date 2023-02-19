@@ -1,0 +1,46 @@
+---
+- name: Install oh-my-zsh
+  become: yes
+  gather_facts: No
+  hosts: "{{ host }}"
+
+  tasks:
+    - name: Installing oh-my-zsh
+      package:
+        name:
+          - zsh
+          - wget
+          - git
+        state: latest
+
+    - name: Configuring oh-my-zsh
+      shell: |
+        chsh -s /bin/zsh root
+        echo $SHELL
+        wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+        /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+        source ~/.zshrc
+      register: output_setting_oh-my-zsh
+    - debug:
+        msg: Setting oh-my-zsh - {{ output_setting_oh-my-zsh.stdout }}
+
+    - name: Installing and configuring plugins
+      shell: |
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && sed -i '/ask ".*/s/^/#/g' ~/.fzf/install && ~/.fzf/install
+        git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
+        git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions && autoload -U compinit && compinit
+        sed -i "s|^plugins=(git)|plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k zsh-completions)|g" ~/.zshrc
+        source ~/.zshrc
+      register: output_plugins
+    - debug:
+        msg: Installing and configuring plugins - {{ output_plugins.stdout }}
+
+    - name: Configuring Theme
+      shell: |
+        sed -i 's|^ZSH_THEME=.*|ZSH_THEME="af-magic"|g' ~/.zshrc
+        source ~/.zshrc
+      register: output_theme
+    - debug:
+        msg: Configuring theme - {{ output_theme.stdout }}
