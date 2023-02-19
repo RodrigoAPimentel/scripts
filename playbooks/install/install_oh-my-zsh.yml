@@ -33,6 +33,7 @@
         msg: Setting oh-my-zsh - {{ output_setting.stdout }}
 
     - name: XXXX
+      become: yes
       command: |
         ls -la ~/
         chmod +x ~/.zshrc
