@@ -11,6 +11,7 @@
           - zsh
           - wget
           - git
+          - util-linux-user
         state: latest
       register: output_install
     - debug:
