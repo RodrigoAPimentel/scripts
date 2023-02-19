@@ -44,3 +44,6 @@
       register: output_theme
     - debug:
         msg: Configuring theme - {{ output_theme.stdout }}
+
+    - name: Reboot System
+      reboot:
