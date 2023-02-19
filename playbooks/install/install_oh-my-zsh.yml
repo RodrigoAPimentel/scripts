@@ -34,6 +34,7 @@
 
     - name: XXXX
       command: |
+        chmod +x ~/.zshrc
         source ~/.zshrc
 
     - name: Installing and configuring plugins
