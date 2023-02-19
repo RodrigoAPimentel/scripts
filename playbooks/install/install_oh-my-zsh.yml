@@ -19,10 +19,10 @@
 
     - name: Configuring oh-my-zsh
       shell: |
-        chsh -s $(which zsh)
+        chsh -s /bin/zsh root
         echo $SHELL
         wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-        /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
         source ~/.zshrc
       register: output_setting
     - debug:
