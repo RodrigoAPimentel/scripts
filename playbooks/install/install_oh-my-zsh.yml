@@ -37,7 +37,7 @@
       shell: |
         whoami
         rm -Rf ~/.zshrc
-
+        /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
         source ~/.zshrc
     #   register: output_setting
     # - debug:
