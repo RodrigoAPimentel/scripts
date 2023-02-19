@@ -23,7 +23,7 @@
         rm -Rf /root/.oh-my-zsh
         rm -Rf ~/.zshrc
 
-        chsh -s /bin/zsh root
+        chsh -s /usr/bin/zsh root
         echo $SHELL
         wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
         /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
