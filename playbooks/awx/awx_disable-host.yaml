@@ -14,9 +14,14 @@
         docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
       register: awx_token
 
+    - name: Collect Container hostname
+      command: |
+        docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+      register: container_hostname
+
     - name: Disable host in inventory
       host:
-        name: "{{ _hostname }}"
+        name: "{{ _hostname || container_hostname }}"
         inventory: "{{ _inventory }}"
         enabled: false
         controller_host: "http://{{ hostvars[host].ansible_host }}"
