@@ -29,6 +29,9 @@
     - debug:
         msg: Setting oh-my-zsh - {{ output_setting.stdout }}
 
+    - name: Reboot System
+      reboot:
+
     - name: Configuring oh-my-zsh 2
       become: yes
       shell: |
