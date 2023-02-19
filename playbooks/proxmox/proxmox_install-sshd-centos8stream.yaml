@@ -19,17 +19,18 @@
     - name: Start SSHD
       command: |
         lxc-attach --name {{ _vmid }} -e -- systemctl start sshd
-      register: start_sshd
-    - debug:
-        msg: SSHD start status - {{ start_sshd.stdout }}
       loop_control:
         pause: 2
 
     - name: Enable SSHD
       command: |
         lxc-attach --name {{ _vmid }} -e -- systemctl enable sshd
-      register: enable_sshd
-    - debug:
-        msg: SSHD enable status - {{ enable_sshd.stdout }}
       loop_control:
         pause: 2
+
+    - name: Status SSHD
+      command: |
+        lxc-attach --name {{ _vmid }} -e -- systemctl status sshd
+      register: status_sshd
+    - debug:
+      msg: SSHD status - {{ status_sshd.stdout }}
