@@ -17,16 +17,16 @@
     - debug:
         msg: Installing oh-my-zsh - {{ output_install }}
 
-    # - name: Configuring oh-my-zsh
-    #   shell: |
-    #     chsh -s (which zsh) root
-    #     echo $SHELL
-    #     wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-    #     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    #     source ~/.zshrc
-    #   register: output_setting
-    # - debug:
-    #     msg: Setting oh-my-zsh - {{ output_setting.stdout }}
+    - name: Configuring oh-my-zsh
+      shell: |
+        chsh -s (which zsh) root
+        echo $SHELL
+        wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+        source ~/.zshrc
+      register: output_setting
+    - debug:
+        msg: Setting oh-my-zsh - {{ output_setting.stdout }}
 
     - name: Installing and configuring plugins
       shell: |
