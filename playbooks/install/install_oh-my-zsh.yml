@@ -14,7 +14,7 @@
         state: latest
       register: output_install
     - debug:
-        msg: Installing oh-my-zsh - {{ output_install.stdout }}
+        msg: Installing oh-my-zsh - {{ output_install }}
 
     - name: Configuring oh-my-zsh
       shell: |
