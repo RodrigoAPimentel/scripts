@@ -35,6 +35,7 @@
     - name: Configuring oh-my-zsh 2
       become: yes
       shell: |
+        whoami
         rm -Rf ~/.zshrc
 
         source ~/.zshrc
