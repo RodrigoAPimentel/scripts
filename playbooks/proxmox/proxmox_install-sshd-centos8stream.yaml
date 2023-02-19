@@ -1,5 +1,5 @@
 ---
-- name: Configure SSHD in container [{{ _vmid }}] in Proxmox [{{ _node }}]
+- name: Configure SSHD in container [{{ _vmid }}] in Proxmox
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
