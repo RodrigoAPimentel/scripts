@@ -19,6 +19,7 @@
         msg: Installing oh-my-zsh - {{ output_install }}
 
     - name: Configuring oh-my-zsh
+      become: yes
       shell: |
         chsh -s /bin/zsh root
         echo $SHELL
