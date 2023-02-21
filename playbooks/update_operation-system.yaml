@@ -24,9 +24,13 @@
         name:
           - ca-certificates
           - curl
+          - wget
           - python3-pip
           - python3-setuptools
           - nano
+          - tar
+          - util-linux-user
+          - git
         state: latest
       ignore_errors: yes
 
