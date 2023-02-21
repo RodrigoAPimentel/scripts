@@ -10,46 +10,59 @@
 
   tasks:
     - name: Create Virtual Machine
-      proxmox:
+      proxmox_kvm:
         vmid: "{{ _vmid }}"
-        node: "{{ _node }}"
+        name: "{{ _vm_name }}"
+        cores: "{{ _cores }}"
+        # vcpus: "{{ _vm_vcpus }}"
+        memory: "{{ _memory }}"
+        sata:
+          sata0: 'VMs_LVM:{{ _disk }},format=raw'
+        net:
+          net0: 'virtio,bridge=vmbr1,rate=200'
+        ipconfig:
+          ipconfig0: 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
+        nameservers: 8.8.8.8
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
-        state: "{{ _state }}"
-        hostname: "ct-{{ _container_hostname }}"
-        password: "{{ _container_password  }}"
-        ostemplate: "{{ _ostemplate }}"
-        cores: "{{ _cores }}"
-        disk: "{{ _disk }}"
-        memory: "{{ _memory }}"
-        swap: "{{ _memory }}"
-        storage: "local-lvm"
-        netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
-        unprivileged: "{{ _unprivileged }}"
+        node: "{{ _node }}"
         onboot: "{{ _onboot }}"
+        state: "{{ _state }}"
+        ostype : "{{ _ostype  }}" # OPTIONS: other, wxp, w2k, w2k3, w2k8, wvista, win7, win8, win10, win11, l24, l26, solaris. The l26 is Linux 2.6/3.X Kernel.
+        proxmox_default_behavior: "compatibility"
         description: "
-          ## **{{ _container_hostname }}:**\n
+          ## **{{ _vm_name }}:**\n
             - **ID:** _{{ _vmid }}_\n
-            - **hostname:** _ct-{{ _container_hostname }}_\n
-            - **OS:** _{{ _ostemplate }}_\n
+            - **hostname:** _vm-{{ _vm_name }}_\n
             - **IP:** _{{ _network_ip }}_\n
-            - **User:** _root_\n
-            - **Password:** _{{ _container_password  }}_\n
         "
-        features:
-          - nesting={{ _nesting }}
-          - keyctl={{ _keyctl }}
+            # - **OS:** _{{ _ostemplate }}_\n
+            # - **User:** _root_\n
+            # - **Password:** _{{ _container_password  }}_\n
+        # hostname: "ct-{{ _container_hostname }}"
+        # password: "{{ _container_password  }}"
+        # ostemplate: "{{ _ostemplate }}"
+        # disk: "{{ _disk }}"
+        # swap: "{{ _memory }}"
+        # storage: "local-lvm"
+        # netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
+        # unprivileged: "{{ _unprivileged }}"
+        
+        # features:
+        #   - nesting={{ _nesting }}
+        #   - keyctl={{ _keyctl }}
       loop_control:
         pause: 5
 
     - name: Start Virtual Machine
-      proxmox:
-        vmid: "{{ _vmid }}"
+      proxmox_kvm:
+        name: "{{ _vm_name }}"
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         state: started
+        node: "{{ _node }}"
 
 - name: Add Host in Ansible AWX
   become: yes
@@ -68,7 +81,7 @@
 
     - name: Add host in inventory
       host:
-        name: "{{ _container_hostname }}"
+        name: "{{ _vm_name }}"
         description: "{{ _create_host_description }}"
         inventory: "{{ _create_host_inventory }}"
         state: present
