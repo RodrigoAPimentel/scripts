@@ -17,7 +17,7 @@
         # vcpus: "{{ _vm_vcpus }}"
         memory: "{{ _memory }}"
         sata:
-          sata0: 'VMs_LVM:{{ _disk }},format=raw'
+          sata0: 'local-lvm:{{ _disk }},format=raw'
         net:
           net0: 'virtio,bridge=vmbr1,rate=200'
         ipconfig:
@@ -47,8 +47,7 @@
         # swap: "{{ _memory }}"
         # storage: "local-lvm"
         # netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
-        # unprivileged: "{{ _unprivileged }}"
-        
+        # unprivileged: "{{ _unprivileged }}"        
         # features:
         #   - nesting={{ _nesting }}
         #   - keyctl={{ _keyctl }}
