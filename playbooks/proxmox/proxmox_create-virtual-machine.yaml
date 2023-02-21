@@ -52,7 +52,7 @@
         #   - nesting={{ _nesting }}
         #   - keyctl={{ _keyctl }}
       loop_control:
-        pause: 10
+        pause: 60
 
     - name: Start Virtual Machine
       proxmox_kvm:
