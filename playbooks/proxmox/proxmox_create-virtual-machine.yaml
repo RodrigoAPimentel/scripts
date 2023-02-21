@@ -19,7 +19,7 @@
         sata:
           sata0: 'local-lvm:{{ _disk }},format=raw'
         net:
-          net0: 'virtio,bridge=vmbr1,rate=200'
+          net0: 'virtio,bridge=vmbr0,rate=200'
         ipconfig:
           ipconfig0: 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
         nameservers: 8.8.8.8
@@ -34,7 +34,7 @@
         description: "
           ## **{{ _vm_name }}:**\n
             - **ID:** _{{ _vmid }}_\n
-            - **hostname:** _vm-{{ _vm_name }}_\n
+            - **hostname:** {{ _vm_name }}_\n
             - **IP:** _{{ _network_ip }}_\n
         "
             # - **OS:** _{{ _ostemplate }}_\n
