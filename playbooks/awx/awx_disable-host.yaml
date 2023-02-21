@@ -16,7 +16,7 @@
 
     - name: Disable host in inventory
       host:
-        name: "{{ _hostname }} excluir"
+        name: "{{ _hostname }}"
         inventory: "{{ _inventory }}"
         enabled: false
         controller_host: "http://{{ hostvars[host].ansible_host }}"
