@@ -12,7 +12,7 @@
     - name: Create Virtual Machine
       proxmox_kvm:
         vmid: "{{ _vmid }}"
-        name: "{{ _vm_name }}"
+        name: "{{ _hostname }}"
         cores: "{{ _cores }}"
         # vcpus: "{{ _vm_vcpus }}"
         memory: "{{ _memory }}"
@@ -32,9 +32,9 @@
         ostype : "{{ _ostype  }}" # OPTIONS: other, wxp, w2k, w2k3, w2k8, wvista, win7, win8, win10, win11, l24, l26, solaris. The l26 is Linux 2.6/3.X Kernel.
         proxmox_default_behavior: "compatibility"
         description: "
-          ## **{{ _vm_name }}:**\n
+          ## **{{ _hostname }}:**\n
             - **ID:** _{{ _vmid }}_\n
-            - **hostname:** {{ _vm_name }}_\n
+            - **hostname:** {{ _hostname }}_\n
             - **IP:** _{{ _network_ip }}_\n
         "
             # - **OS:** _{{ _ostemplate }}_\n
@@ -56,36 +56,9 @@
 
     - name: Start Virtual Machine
       proxmox_kvm:
-        name: "{{ _vm_name }}"
+        name: "{{ _hostname }}"
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         state: started
         node: "{{ _node }}"
-
-- name: Add Host in Ansible AWX
-  become: yes
-  gather_facts: No
-  hosts: "{{ _create_host_host }}"
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-  collections:
-    - awx.awx
-
-  tasks:
-    - name: Collect AWX root token
-      command: |
-        docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
-      register: awx_token
-
-    - name: Add host in inventory
-      host:
-        name: "{{ _vm_name }}"
-        description: "{{ _create_host_description }}"
-        inventory: "{{ _create_host_inventory }}"
-        state: present
-        controller_host: "http://{{ hostvars[_create_host_host].ansible_host }}"
-        controller_oauthtoken: "{{ awx_token.stdout }}"
-        validate_certs: false
-        variables:
-          ansible_host: "{{ _network_ip }}"
