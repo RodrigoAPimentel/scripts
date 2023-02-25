@@ -19,7 +19,7 @@
         sata:
           sata0: 'local-lvm:{{ _disk }},format=raw'
         net:
-          net0: 'virtio,bridge=vmbr0,rate=200'
+          net0: 'virtio,bridge=vmbr0,firewall=1'
         ipconfig:
           ipconfig0: 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
         nameservers: 8.8.8.8
@@ -34,6 +34,9 @@
           # ide2: 'local:iso/ubuntu-22.04.2-desktop-amd64.iso,format=raw' # raw, cow, qcow, qed, qcow2, vmdk, cloop
           ide2: 'local:iso/ubuntu-22.04.2-desktop-amd64.iso,media=cdrom' # raw, cow, qcow, qed, qcow2, vmdk, cloop
         proxmox_default_behavior: "compatibility"
+        scsihw: "virtio-scsi-single"
+        boot: "cdn"
+        tablet: true
         description: "
           ## **{{ _hostname }}:**\n
             - **ID:** _{{ _vmid }}_\n
