@@ -30,11 +30,13 @@
         onboot: "{{ _onboot }}"
         state: "{{ _state }}"
         ostype : "{{ _ostype  }}" # OPTIONS: other, wxp, w2k, w2k3, w2k8, wvista, win7, win8, win10, win11, l24, l26, solaris. The l26 is Linux 2.6/3.X Kernel.
+        ide:
+          ide2: 'local:iso/ubuntu-22.04.2-desktop-amd64.iso,format=subvol' #qcow2|raw|subvol
         proxmox_default_behavior: "compatibility"
         description: "
           ## **{{ _hostname }}:**\n
             - **ID:** _{{ _vmid }}_\n
-            - **hostname:** {{ _hostname }}_\n
+            - **hostname:** _{{ _hostname }}_\n
             - **IP:** _{{ _network_ip }}_\n
         "
             # - **OS:** _{{ _ostemplate }}_\n
