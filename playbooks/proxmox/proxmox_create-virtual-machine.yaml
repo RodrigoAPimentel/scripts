@@ -14,7 +14,6 @@
         vmid: "{{ _vmid }}"
         name: "{{ _hostname }}"
         cores: "{{ _cores }}"
-        # vcpus: "{{ _vm_vcpus }}"
         memory: "{{ _memory }}"
         sata:
           sata0: 'local-lvm:{{ _disk }},format=raw'
@@ -31,7 +30,6 @@
         state: "{{ _state }}"
         ostype : "{{ _ostype  }}" # OPTIONS: other, wxp, w2k, w2k3, w2k8, wvista, win7, win8, win10, win11, l24, l26, solaris. The l26 is Linux 2.6/3.X Kernel.
         ide:
-          # ide2: 'local:iso/ubuntu-22.04.2-desktop-amd64.iso,format=raw' # raw, cow, qcow, qed, qcow2, vmdk, cloop
           ide2: '{{ _ostemplate }},media=cdrom' # raw, cow, qcow, qed, qcow2, vmdk, cloop
         proxmox_default_behavior: "compatibility"
         scsihw: "virtio-scsi-single"
@@ -42,29 +40,7 @@
             - **ID:** _{{ _vmid }}_\n
             - **hostname:** _{{ _hostname }}_\n
             - **IP:** _{{ _network_ip }}_\n
+            - **OS:** _{{ _ostemplate }}_\n
         "
-            # - **OS:** _{{ _ostemplate }}_\n
-            # - **User:** _root_\n
-            # - **Password:** _{{ _container_password  }}_\n
-        # hostname: "ct-{{ _container_hostname }}"
-        # password: "{{ _container_password  }}"
-        # ostemplate: "{{ _ostemplate }}"
-        # disk: "{{ _disk }}"
-        # swap: "{{ _memory }}"
-        # storage: "local-lvm"
-        # netif: '{"net0":"name=eth0,gw={{ _network_gw }},ip={{ _network_ip }}/24,bridge=vmbr0"}'
-        # unprivileged: "{{ _unprivileged }}"        
-        # features:
-        #   - nesting={{ _nesting }}
-        #   - keyctl={{ _keyctl }}
-      # loop_control:
-      #   pause: 60
-
-    # - name: Start Virtual Machine
-    #   proxmox_kvm:
-    #     name: "{{ _hostname }}"
-    #     api_user: "{{ _api_user }}"
-    #     api_password: "{{ hostvars[host].ansible_password }}"
-    #     api_host: "{{ _api_host }}"
-    #     state: started
-    #     node: "{{ _node }}"
+      loop_control:
+        pause: 10

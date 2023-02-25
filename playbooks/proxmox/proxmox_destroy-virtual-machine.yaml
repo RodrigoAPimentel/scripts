@@ -1,0 +1,29 @@
+---
+- name: Destroy the Virtual Machine {{ _hostname }} in the proxmox {{ _api_host }}
+  become: yes
+  gather_facts: No
+  hosts: "{{ host }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  collections:
+    - community.general
+
+  tasks:
+    - name: Stop Virtual Machine with force
+      proxmox_kvm:
+        api_user: "{{ _api_user }}"
+        api_password: "{{ hostvars[host].ansible_password }}"
+        api_host: "{{ _api_host }}"
+        node: "{{ _node }}"
+        name: "{{ _hostname }}"
+        state: stopped
+        force: true
+
+    - name: Destroy Virtual Machine
+      proxmox_kvm:
+        api_user: "{{ _api_user }}"
+        api_password: "{{ hostvars[host].ansible_password }}"
+        api_host: "{{ _api_host }}"
+        name: "{{ _hostname }}"
+        node: "{{ _node }}"
+        state: absent
