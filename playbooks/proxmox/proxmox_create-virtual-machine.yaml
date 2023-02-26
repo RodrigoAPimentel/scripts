@@ -35,6 +35,7 @@
         scsihw: "virtio-scsi-single"
         boot: "cdn"
         tablet: true
+        agent: true
         description: "
           ## **{{ _hostname }}:**\n
             - **ID:** _{{ _vmid }}_\n
