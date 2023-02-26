@@ -33,7 +33,7 @@
           ide2: '{{ _ostemplate }},media=cdrom' # raw, cow, qcow, qed, qcow2, vmdk, cloop
         proxmox_default_behavior: "compatibility"
         scsihw: "virtio-scsi-single"
-        boot: "cnd"
+        boot: cnd
         tablet: true
         agent: true
         description: "
@@ -44,4 +44,4 @@
             - **OS:** _{{ _ostemplate }}_\n
         "
       loop_control:
-        pause: 10
+        pause: 5
