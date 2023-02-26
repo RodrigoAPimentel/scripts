@@ -21,7 +21,7 @@
           net0: 'virtio,bridge=vmbr0,firewall=1'
         # ipconfig:
         #   ipconfig0: 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
-        nameservers: 8.8.8.8
+        # nameservers: 8.8.8.8
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
