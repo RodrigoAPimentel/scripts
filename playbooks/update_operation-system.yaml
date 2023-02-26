@@ -31,8 +31,15 @@
           - tar
           - util-linux-user
           - git
+          - qemu-guest-agent
         state: latest
       ignore_errors: yes
+
+    - name: Start qemu-guest-agent Service
+      service:
+        name: qemu-guest-agent
+        state: started
+        enabled: yes
 
     - name: Reboot System
       reboot:
