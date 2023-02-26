@@ -34,6 +34,7 @@
         proxmox_default_behavior: "compatibility"
         scsihw: "virtio-scsi-single"
         boot: cnd
+        bootdisk: scsi0
         tablet: true
         agent: true
         description: "
