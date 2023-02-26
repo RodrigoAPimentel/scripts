@@ -15,8 +15,8 @@
         name: "{{ _hostname }}"
         cores: "{{ _cores }}"
         memory: "{{ _memory }}"
-        sata:
-          sata0: 'local-lvm:{{ _disk }},format=raw'
+        scsi:
+          scsi0: 'local-lvm:{{ _disk }},format=raw'
         net:
           net0: 'virtio,bridge=vmbr0,firewall=1'
         ipconfig:
