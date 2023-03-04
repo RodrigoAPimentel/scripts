@@ -15,7 +15,7 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host    : "{{ _api_host }}"
         clone       : 300
-        vmid        : 108
+        vmid        : 300
         newid       : 152
         name        : "{{ _hostname }}"  # The target VM name
         node        : "{{ _node }}"
