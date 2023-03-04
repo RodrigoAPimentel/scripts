@@ -27,6 +27,10 @@
 - name: "prep proxmox hosts for automation"
   hosts: "{{ host }}"
   vars_prompt:
+    - name: VM_network
+      prompt: "Network associated to ipconfig0"
+      private: no
+      default: vlan10
     - name: PV_password
       prompt: "Node Password"
       private: yes
