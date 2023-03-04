@@ -1,5 +1,5 @@
 ---
-- name: Create new Virtual Machine in Proxmox [{{ _node }}] for Template
+- name: Create new Virtual Machine in Proxmox [{{ _node }}] from Template
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
@@ -17,7 +17,7 @@
         clone: "{{ _vmid_template }}"
         vmid: "{{ _vmid_template }}"
         newid: "{{ _vmid }}"
-        name: "{{ _hostname }}" # The target VM name
+        name: "{{ _hostname }}"
         node: "{{ _node }}"
         storage: local-lvm
         format: raw
