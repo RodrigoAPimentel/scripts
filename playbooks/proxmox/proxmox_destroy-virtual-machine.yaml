@@ -28,4 +28,5 @@
         api_host: "{{ _api_host }}"
         name: "{{ _hostname }}"
         node: "{{ _node }}"
+        force: true
         state: absent
