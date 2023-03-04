@@ -20,7 +20,7 @@
       poll: 0
       ignore_errors: True
       when: reboot is defined
-    loop_control:
+      loop_control:
         pause: 10
 
     # - name: Waiting for server to come back up
