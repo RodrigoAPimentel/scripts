@@ -15,14 +15,4 @@
         name: "{{ _hostname }}"
 
     - name: Restart machine
-      command: shutdown -r now "Ansible updates triggered"
-      async: 0
-      poll: 0
-      ignore_errors: True
-      when: reboot is defined
-
-    - name: Validate ansible_fqdn == inventory_hostname
-      tags:
-        - validate
-      assert:
-        that: ansible_fqdn == inventory_hostname
+      reboot:
