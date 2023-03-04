@@ -1,38 +1,39 @@
 ---
-- name: Create new Virtual Machine in Proxmox [{{ _node }}] from Template
-  become: yes
-  gather_facts: No
-  hosts: "{{ host }}"
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-  collections:
-    - community.general
+# - name: Create new Virtual Machine in Proxmox [{{ _node }}] from Template
+#   become: yes
+#   gather_facts: No
+#   hosts: "{{ host }}"
+#   vars:
+#     ansible_python_interpreter: /usr/bin/python3
+#   collections:
+#     - community.general
 
-  tasks:
-    # - name: Clone Virtual Machine
-    #   proxmox_kvm:
-    #     api_user: "{{ _api_user }}"
-    #     api_password: "{{ hostvars[host].ansible_password }}"
-    #     api_host: "{{ _api_host }}"
-    #     clone: "{{ _vmid_template }}"
-    #     vmid: "{{ _vmid_template }}"
-    #     newid: "{{ _vmid }}"
-    #     name: "{{ _hostname }}"
-    #     node: "{{ _node }}"
-    #     storage: local-lvm
-    #     format: raw
-    #     timeout: 300
-    #   loop_control:
-    #     pause: 5
-    - name: "prep proxmox hosts for automation"
-      vars_prompt:
-        - name: PV_password
-          prompt: "Node Password"
-          private: yes
-        - name: VM_name
-          prompt: "VM name"
-          private: no
-        - name: VM_network
-          prompt: "Network associated to ipconfig0"
-          private: no
-          default: vlan10
+#   tasks:
+#     # - name: Clone Virtual Machine
+#     #   proxmox_kvm:
+#     #     api_user: "{{ _api_user }}"
+#     #     api_password: "{{ hostvars[host].ansible_password }}"
+#     #     api_host: "{{ _api_host }}"
+#     #     clone: "{{ _vmid_template }}"
+#     #     vmid: "{{ _vmid_template }}"
+#     #     newid: "{{ _vmid }}"
+#     #     name: "{{ _hostname }}"
+#     #     node: "{{ _node }}"
+#     #     storage: local-lvm
+#     #     format: raw
+#     #     timeout: 300
+#     #   loop_control:
+#     #     pause: 5
+- name: "prep proxmox hosts for automation"
+  hosts: "{{ host }}"
+  vars_prompt:
+    - name: PV_password
+      prompt: "Node Password"
+      private: yes
+    - name: VM_name
+      prompt: "VM name"
+      private: no
+    - name: VM_network
+      prompt: "Network associated to ipconfig0"
+      private: no
+      default: vlan10
