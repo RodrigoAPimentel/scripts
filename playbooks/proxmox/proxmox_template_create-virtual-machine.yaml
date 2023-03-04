@@ -1,0 +1,73 @@
+---
+- name: Create new Virtual Machine in Proxmox [{{ _node }}] for Template
+  become: yes
+  gather_facts: No
+  hosts: "{{ host }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  collections:
+    - community.general
+
+  tasks:
+    - name: Clone Virtual Machine
+      proxmox_kvm:
+        api_user    : "{{ _api_user }}"
+        api_password: "{{ hostvars[host].ansible_password }}"
+        api_host    : "{{ _api_host }}"
+        clone       : 300
+        vmid        : 108
+        newid       : 152
+        name        : "{{ _hostname }}"  # The target VM name
+        node        : "{{ _node }}"
+        storage     : local-lvm
+        format      : raw
+        timeout     : 300  # Note: The task can take a while. Adapt
+
+        description: "
+          ## **{{ _hostname }}:**\n
+            - **ID:** _{{ _vmid }}_\n
+            - **hostname:** _{{ _hostname }}_\n
+            - **IP:** _x_\n
+            - **OS:** _{{ _ostemplate }}_\n
+        "
+
+
+
+
+
+
+        # vmid: "{{ _vmid }}"
+        # name: "{{ _hostname }}"
+        # cores: "{{ _cores }}"
+        # memory: "{{ _memory }}"
+        # scsi:
+        #   scsi0: 'local-lvm:{{ _disk }},format=raw'
+        # net:
+        #   net0: 'virtio,bridge=vmbr0,firewall=1'
+        # # ipconfig:
+        # #   ipconfig0: 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
+        # # nameservers: 8.8.8.8
+        # api_user: "{{ _api_user }}"
+        # api_password: "{{ hostvars[host].ansible_password }}"
+        # api_host: "{{ _api_host }}"
+        # node: "{{ _node }}"
+        # onboot: "{{ _onboot }}"
+        # state: "{{ _state }}"
+        # ostype : "{{ _ostype  }}" # OPTIONS: other, wxp, w2k, w2k3, w2k8, wvista, win7, win8, win10, win11, l24, l26, solaris. The l26 is Linux 2.6/3.X Kernel.
+        # ide:
+        #   ide2: '{{ _ostemplate }},media=cdrom' # raw, cow, qcow, qed, qcow2, vmdk, cloop
+        # proxmox_default_behavior: "compatibility"
+        # scsihw: "virtio-scsi-single"
+        # boot: cnd
+        # bootdisk: scsi0
+        # tablet: true
+        # agent: true
+        # description: "
+        #   ## **{{ _hostname }}:**\n
+        #     - **ID:** _{{ _vmid }}_\n
+        #     - **hostname:** _{{ _hostname }}_\n
+        #     - **IP:** _x_\n
+        #     - **OS:** _{{ _ostemplate }}_\n
+        # "
+      loop_control:
+        pause: 5
