@@ -25,13 +25,13 @@
     #   loop_control:
     #     pause: 5
 
-    - name: Cloning virtual machine from "{{ _vmid_template }}" with name "{{ _hostname }}" 
+    - name: Cloning virtual machine from "{{ _vmid_template }}" with name "{{ _hostname }}"
       proxmox_kvm:
-        api_user : "{{ _api_user }}"
+        api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
-        api_host : "{{ _api_host }}"
-        name : "{{ _hostname }}"
-        node : "{{ _node }}"
+        api_host: "{{ _api_host }}"
+        name: "{{ _hostname }}"
+        node: "{{ _node }}"
         clone: "{{ _vmid_template }}"
         vmid: "{{ _vmid_template }}"
         newid: "{{ _vmid }}"
@@ -66,7 +66,7 @@
     # - name: Waiting to start virtual server machine completely
     #   wait_for:
     #     timeout: 45
-    #   when: wait.changed == true 
+    #   when: wait.changed == true
     #   tags: provission
 
     # - name: Resize disk
@@ -87,15 +87,13 @@
     #   when: '"{{ VM_network }}" != "vlan10" or "{{ _disk }}" != "0"'
     #   tags: provission
 
-    net0: 'virtio,bridge=vmbr0,firewall=1'
-
     # - name: Loading set up for Virtual Machine. Assigning correct bridge in network interface
     #   shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A - net0 'virtio,bridge=vmbr{{ item.value.vmbr }}'
     #   when: '"{{ VM_network }}" != "vlan10"'
     #   with_dict: "{{ vars[VM_network] }}"
     #   tags: provission
 
-    # - debug: 
+    # - debug:
     #     msg: "item.key {{ item.key }} item.value {{ item.value }} item.value.netmask 24 item.value.vmbr {{ item.value.vmbr }}"
     #   with_dict: "{{ vars[VM_network] }}"
     #   tags: provission
@@ -116,7 +114,7 @@
     #   with_dict: "{{ vars[VM_network] }}"
     #   tags: provission
 
-    # - debug: 
+    # - debug:
     #     var: "{{ PV_node }}"
 
     # - name: Migrating Virtual Machine if it is necessary
@@ -126,12 +124,12 @@
 
     - name: starting new Virtual Machine in current proxmox node
       proxmox_kvm:
-        api_user : "{{ _api_user }}"
+        api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
-        api_host : "{{ _api_host }}"
-        name : "{{ _hostname }}"
-        node : "{{ _node }}"
-        state : started
+        api_host: "{{ _api_host }}"
+        name: "{{ _hostname }}"
+        node: "{{ _node }}"
+        state: started
         timeout: 300
       # when: '"{{ PV_node }}" == "none"'
       tags: provission
@@ -140,7 +138,7 @@
     #   proxmox_kvm:
     #     api_user : "{{ _api_user }}"
     #     api_password: "{{ hostvars[host].ansible_password }}"
-    #     api_host : "{{ PV_node }}" 
+    #     api_host : "{{ PV_node }}"
     #     name : "{{ _hostname }}"
     #     node : "{{ _node }}"
     #     state : started
