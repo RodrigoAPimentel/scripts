@@ -45,10 +45,10 @@
       when: '{{ _disk }} != "0"'
       tags: provission
 
-    - name: Waiting to apply cloud init changes in disk
-      wait_for:
-      timeout: 5
-      tags: provission
+    # - name: Waiting to apply cloud init changes in disk
+    #   wait_for:
+    #   timeout: 5
+    #   tags: provission
 
     # - name: starting new Virtual Machine to change IPv4 configuration, it is necessary
     #   proxmox_kvm:
