@@ -41,8 +41,8 @@
       tags: provission,test
 
     - name: Increasing disk if it is necessary
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm resize $A {{ _default_disk }} +{{ _disk }}G
-      when: '"{{ _disk }}" != "0"'
+      shell: A=$(qm list | grep "{{ _hostname }}" | awk '{print $1}'); B=$(qm list | grep "{{ _hostname }}" | awk '{print $5}'); qm resize $A {{ _default_disk }} {{ _disk }}G
+      when: '{{ _disk }} != "0"'
       tags: provission
 
     - name: Waiting to apply cloud init changes in disk
