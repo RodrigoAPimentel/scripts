@@ -28,8 +28,8 @@
             - **ID:** _{{ _vmid }}_\n
             - **hostname:** _{{ _hostname }}_\n
             - **IP:** _x_\n
-            - **OS:** _{{ _ostemplate }}_\n
         "
+            # - **OS:** _{{ _ostemplate }}_\n
 
 
 
