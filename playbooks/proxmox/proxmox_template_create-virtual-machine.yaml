@@ -31,10 +31,10 @@
 
     - name: Loading set up for Virtual Machine. Assigning IP, sockets, cores, memory and description for Virtual Machine
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}' --memory '{{ _memory }}' --cores '{{ _cores }}' --description "## \<b>{{ _hostname }}:</b>\n \
-      <br>- <b>ID:</b> _{{ _vmid }}_\n \
-      <br>- <b>hostname:</b> _{{ _hostname }}_\n \
-      <br>- <b>IP:</b> _{{ _network_ip }}_\n\
-      <br>- <b>OS:</b> _x_\n"
+      <br>\- <b>ID:</b> _{{ _vmid }}_\n \
+      <br>\- <b>hostname:</b> _{{ _hostname }}_\n \
+      <br>\- <b>IP:</b> _{{ _network_ip }}_\n\
+      <br>\- <b>OS:</b> _x_\n"
       when: '"{{ _network_ip }}" != "automatic"'
       tags: provission
 
