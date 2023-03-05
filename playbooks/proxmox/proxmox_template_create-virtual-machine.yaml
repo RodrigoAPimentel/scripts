@@ -99,11 +99,7 @@
     #   tags: provission
 
     - name: Loading set up for Virtual Machine. Assigning IP, sockets, cores and memory for Virtual Machine
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}' --memory '{{ _memory }}' --cores '{{ _cores }}' --description "## **{{ _hostname }}:**
-      - **ID:** _{{ _vmid }}_
-      - **hostname:** _{{ _hostname }}_
-      - **IP:** _{{ _network_ip }}_
-      - **OS:** _x_"
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}' --memory '{{ _memory }}' --cores '{{ _cores }}' --description "## **{{ _hostname }}:**\n- **ID:** _{{ _vmid }}_\n- **hostname:** _{{ _hostname }}_\n- **IP:** _{{ _network_ip }}_\n- **OS:** _x_"
       when: '"{{ _network_ip }}" != "automatic"'
       # with_dict: "{{ vars[VM_network] }}"
       tags: provission
