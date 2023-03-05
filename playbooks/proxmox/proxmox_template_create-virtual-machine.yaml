@@ -9,7 +9,7 @@
     - community.general
 
   tasks:
-    - name: Cloning virtual machine from "{{ _vmid_template }}" with name "{{ _hostname }}"
+    - name: Cloning virtual machine from Template "{{ _vmid_template }}" with name "{{ _hostname }}"
       proxmox_kvm:
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
