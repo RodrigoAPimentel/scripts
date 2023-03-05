@@ -44,7 +44,6 @@
 
     - name: Configuring IP ...
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
-      when: '"{{ _network_ip }}" != "automatic"'
       tags: provission
 
     - name: Configuring Description ...
