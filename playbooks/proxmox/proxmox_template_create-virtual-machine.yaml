@@ -103,7 +103,7 @@
       - **ID:** _{{ _vmid }}_
       - **hostname:** _{{ _hostname }}_
       - **IP:** _{{ _network_ip }}_
-      - **OS:** _{{ _ostemplate }}_"
+      - **OS:** _x_"
       when: '"{{ _network_ip }}" != "automatic"'
       # with_dict: "{{ vars[VM_network] }}"
       tags: provission
