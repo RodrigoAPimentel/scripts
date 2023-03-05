@@ -9,22 +9,6 @@
     - community.general
 
   tasks:
-    # - name: Clone Virtual Machine
-    #   proxmox_kvm:
-    #     api_user: "{{ _api_user }}"
-    #     api_password: "{{ hostvars[host].ansible_password }}"
-    #     api_host: "{{ _api_host }}"
-    #     clone: "{{ _vmid_template }}"
-    #     vmid: "{{ _vmid_template }}"
-    #     newid: "{{ _vmid }}"
-    #     name: "{{ _hostname }}"
-    #     node: "{{ _node }}"
-    #     storage: local-lvm
-    #     format: raw
-    #     timeout: 300
-    #   loop_control:
-    #     pause: 5
-
     - name: Cloning virtual machine from "{{ _vmid_template }}" with name "{{ _hostname }}"
       proxmox_kvm:
         api_user: "{{ _api_user }}"
@@ -45,84 +29,16 @@
       when: '{{ _disk }} != "0"'
       tags: provission
 
-    # - name: Waiting to apply cloud init changes in disk
-    #   wait_for:
-    #   timeout: 5
-    #   tags: provission
-
-    # - name: starting new Virtual Machine to change IPv4 configuration, it is necessary
-    #   proxmox_kvm:
-    #     api_user : "{{ _api_user }}"
-    #     api_password: "{{ hostvars[host].ansible_password }}"
-    #     api_host : "{{ _api_host }}"
-    #     name : "{{ _hostname }}"
-    #     node : "{{ _node }}"
-    #     state : started
-    #     timeout: 300
-    #   when: '"{{ _disk }}" != "0"'
-    #   register: wait
-    #   tags: provission
-
-    # - name: Waiting to start virtual server machine completely
-    #   wait_for:
-    #     timeout: 45
-    #   when: wait.changed == true
-    #   tags: provission
-
-    # - name: Resize disk
-    #   shell: growpart "{{ default_volume }}" "{{ default_partition }}"; pvresize "{{ default_volume }}""{{ default_partition }}"
-    #   when: '"{{ _disk }}" != "0"'
-    #   delegate_to: "{{ template_name }}"
-    #   tags: provission
-
-    # - name: stopping new Virtual Machine to change IPv4 configuration, it is necessary
-    #   proxmox_kvm:
-    #     api_user : "{{ _api_user }}"
-    #     api_password: "{{ hostvars[host].ansible_password }}"
-    #     api_host : "{{ _api_host }}"
-    #     name : "{{ _hostname }}"
-    #     node : "{{ _node }}"
-    #     state : stopped
-    #     timeout: 300
-    #   when: '"{{ VM_network }}" != "vlan10" or "{{ _disk }}" != "0"'
-    #   tags: provission
-
-    # - name: Loading set up for Virtual Machine. Assigning correct bridge in network interface
-    #   shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A - net0 'virtio,bridge=vmbr{{ item.value.vmbr }}'
-    #   when: '"{{ VM_network }}" != "vlan10"'
-    #   with_dict: "{{ vars[VM_network] }}"
-    #   tags: provission
-
-    # - debug:
-    #     msg: "item.key {{ item.key }} item.value {{ item.value }} item.value.netmask 24 item.value.vmbr {{ item.value.vmbr }}"
-    #   with_dict: "{{ vars[VM_network] }}"
-    #   tags: provission
-
     - name: Loading set up for Virtual Machine. Assigning IP, sockets, cores, memory and description for Virtual Machine
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}' --memory '{{ _memory }}' --cores '{{ _cores }}' --description "## <b>{{ _hostname }}:</b><br>- <b>ID:</b> _{{ _vmid }}_<br>- <b>hostname:</b> _{{ _hostname }}_<br>- <b>IP:</b> _{{ _network_ip }}_<br>- <b>OS:</b> _x_"
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}' --memory '{{ _memory }}' --cores '{{ _cores }}' --description "## \<b>{{ _hostname }}:</b> \
+      <br>- <b>ID:</b> _{{ _vmid }}_ \
+      <br>- <b>hostname:</b> _{{ _hostname }}_ \
+      <br>- <b>IP:</b> _{{ _network_ip }}_ \
+      <br>- <b>OS:</b> _x_"
       when: '"{{ _network_ip }}" != "automatic"'
-      # with_dict: "{{ vars[VM_network] }}"
       tags: provission
 
-    # - debug:
-    #     var: current_ip
-    #   tags: provission
-
-    # - name: Loading set up for Virtual Machine. Assigning IP automatically, sockets, cores and memory for Virtual Machine
-    #   shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A - ipconfig0 'ip={{ current_ip.stdout }}/24,gw={{ _network_gw }}' - nameserver '{{ item.value.dnsservers }}' - searchdomain '{{ item.value.searchdomain }}' - memory '{{ _memory }}' - sockets '{{ VM_sockets }}' - cores '{{ _cores }}'
-    #   when: '"{{ _network_ip }}" == "automatic"'
-    #   with_dict: "{{ vars[VM_network] }}"
-    #   tags: provission
-
-    # - debug:
-    #     var: "{{ PV_node }}"
-
-    # - name: Migrating Virtual Machine if it is necessary
-    #   shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}');qm migrate $A "{{ PV_node }}"
-    #   when: '"{{ PV_node }}" != "none"'
-    #   tags: provission
-
-    - name: starting new Virtual Machine in current proxmox node
+    - name: Starting new Virtual Machine in current proxmox node
       proxmox_kvm:
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
@@ -131,19 +47,4 @@
         node: "{{ _node }}"
         state: started
         timeout: 300
-      # when: '"{{ PV_node }}" == "none"'
       tags: provission
-
-    # - name: starting new Virtual Machine in correct proxmox node
-    #   proxmox_kvm:
-    #     api_user : "{{ _api_user }}"
-    #     api_password: "{{ hostvars[host].ansible_password }}"
-    #     api_host : "{{ PV_node }}"
-    #     name : "{{ _hostname }}"
-    #     node : "{{ _node }}"
-    #     state : started
-    #     timeout: 300
-    #   delegate_to: "{{ PV_node }}"
-    #   when: '"{{ PV_node }}" != "none"'
-    #   tags: provission
-## <b>vm-test9:</b><br> - <b>ID:</b> _340_<br> - <b>hostname:</b> _vm-test9_<br> - <b>IP:</b> _192.168.99.221_<br> - <b>OS:</b> _x_
