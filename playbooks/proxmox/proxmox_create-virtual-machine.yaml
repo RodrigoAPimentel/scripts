@@ -41,7 +41,7 @@
           ## **{{ _hostname }}:**\n
             - **ID:** _{{ _vmid }}_\n
             - **hostname:** _{{ _hostname }}_\n
-            - **IP:** _x_\n
+            - **IP:** _192.168.99.222_\n
             - **OS:** _{{ _ostemplate }}_\n
         "
       loop_control:
