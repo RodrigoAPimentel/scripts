@@ -47,7 +47,7 @@
       tags: provission
 
     - name: Configuring ssh-key ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --sshkey '~/.ssh/id_rsa.pub'
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --sshkey ~/.ssh/id_rsa.pub
       tags: provission
 
     - name: Configuring Description ...
