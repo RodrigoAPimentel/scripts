@@ -42,13 +42,13 @@
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cores '{{ _cores }}'
       tags: provission
 
-    # - name: Configuring IP ...
-    #   shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
-    #   tags: provission
+    - name: Configuring IP ...
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --ipconfig0 'ip={{ _network_ip }}/24,gw={{ _network_gw }}'
+      tags: provission
 
-    # - name: Configuring ssh-key ...
-    #   shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --sshkey ~/.ssh/id_rsa.pub
-    #   tags: provission
+    - name: Configuring ssh-key ...
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --sshkey ~/.ssh/id_rsa.pub
+      tags: provission
 
     - name: Configuring Description ...
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --description '<b>{{ _hostname }}:</b><br>- <b>ID:</b> _{{ _vmid }}_<br>- <b>hostname:</b> _{{ _hostname }}_<br>- <b>IP:</b> _{{ _network_ip }}_<br>- <b>OS:</b> _x_'
