@@ -54,14 +54,14 @@
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --description '<b>{{ _hostname }}:</b><br>- <b>ID:</b> _{{ _vmid }}_<br>- <b>hostname:</b> _{{ _hostname }}_<br>- <b>IP:</b> _{{ _network_ip }}_<br>- <b>OS:</b> _x_'
       tags: provission
 
-    # - name: Create File ...
-    #   shell: |
-    #     cat << EOF > /var/lib/vz/cloudinit/confssh.yml
-    #     #cloud-config
-    #     disable_root: 0
-    #     ssh_pwauth: 1
-    #     EOF
-    #   tags: provission
+    - name: Create File ...
+      shell: |
+        cat << EOF > /var/lib/vz/snippets/conf_ssh.yml
+        #cloud-config
+        disable_root: 0
+        ssh_pwauth: 1
+        EOF
+      tags: provission
 
     # - name: ls -lah ...
     #   shell: ls -lah
@@ -72,7 +72,7 @@
     #   tags: provission
 
     - name: Configuring SSH ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom 'user=local:snippets/confssh.yml'
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom 'user=local:snippets/conf_ssh.yml'
       tags: provission
 
     # - name: XXXXXXXXXXXX ...
@@ -87,5 +87,5 @@
         name: "{{ _hostname }}"
         node: "{{ _node }}"
         state: started
-        timeout: 60
+        # timeout: 60
       tags: provission
