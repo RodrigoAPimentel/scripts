@@ -56,7 +56,7 @@
 
     - name: Create File ...
       shell: |
-        cat << EOF > /var/lib/vz/snippets/conf-ssh.yaml
+        cat << EOF > conf-ssh.yaml
           #cloud-config        
           ssh_pwauth: True ## This line enables ssh password authentication
         EOF
@@ -66,9 +66,9 @@
       shell: ls -lah
       tags: provission
 
-    - name: ls -lah /var/lib/vz/snippets/ ...
-      shell: ls -lah /var/lib/vz/snippets/
-      tags: provission
+    # - name: ls -lah /var/lib/vz/snippets/ ...
+    #   shell: ls -lah /var/lib/vz/snippets/
+    #   tags: provission
 
     - name: Configuring SSH ...
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "user=local:snippets/conf-ssh.yaml"
