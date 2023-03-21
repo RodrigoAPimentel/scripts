@@ -56,7 +56,7 @@
 
     - name: Create File ...
       shell: |
-        cat << EOF > conf-ssh.yaml
+        cat << EOF > /var/lib/vz/conf-ssh.yaml
           #cloud-config        
           ssh_pwauth: True ## This line enables ssh password authentication
         EOF
