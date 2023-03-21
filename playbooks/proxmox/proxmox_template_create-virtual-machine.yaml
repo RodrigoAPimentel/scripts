@@ -63,7 +63,7 @@
       tags: provission
 
     - name: Configuring SSH ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "user=snippets:snippets/conf-ssh.yaml"
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "user=local:snippets/conf-ssh.yaml"
       tags: provission
 
     # - name: XXXXXXXXXXXX ...
