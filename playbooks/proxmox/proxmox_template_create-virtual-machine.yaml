@@ -51,25 +51,20 @@
 
     - name: Create cloud-init config file ...
       shell: |
-        cat << EOF > /var/lib/vz/snippets/conf_ssh.yml
+        cat << EOF > /var/lib/vz/snippets/cloud_init_conf_{{ _vmid }}.yml
         #cloud-config
-        hostname: tatu-bola
-
-        package_update: true
-        package_upgrade: true
-
-        disable_root: 0
+        hostname: {{ _hostname }}
         ssh_pwauth: 1
         EOF
       tags: provission
 
     - name: Configuring SSH ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom 'user=local:snippets/conf_ssh.yml'
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom 'user=local:snippets/cloud_init_conf_{{ _vmid }}.yml'
       tags: provission
 
-    - name: Delete cloud-init config file ...
-      shell: rm -f /var/lib/vz/snippets/conf_ssh.yml
-      tags: provission
+    # - name: Delete cloud-init config file ...
+    #   shell: rm -f /var/lib/vz/snippets/conf_ssh.yml
+    #   tags: provission
 
     - name: Starting new Virtual Machine in current proxmox node
       proxmox_kvm:
