@@ -58,7 +58,8 @@
       shell: |
         cat << EOF > /var/lib/vz/cloud-init/conf-ssh.yaml
         #cloud-config        
-        ssh_pwauth: True 
+        disable_root: 0
+        ssh_pwauth:   1
         EOF
       tags: provission
 
@@ -71,7 +72,7 @@
       tags: provission
 
     - name: Configuring SSH ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "user=local:cloud-init/conf-ssh.yaml"
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "user=local-lvm:cloud-init/conf-ssh.yaml"
       tags: provission
 
     # - name: XXXXXXXXXXXX ...
