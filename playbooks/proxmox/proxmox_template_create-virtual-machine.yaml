@@ -56,7 +56,7 @@
 
     - name: Create File ...
       shell: |
-        cat << EOF > /var/lib/vz/cloudinit/confssh.yaml
+        cat << EOF > /var/lib/vz/cloudinit/confssh.yml
         #cloud-config        
         disable_root: 0
         ssh_pwauth:   1
@@ -72,7 +72,7 @@
       tags: provission
 
     - name: Configuring SSH ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "meta=local-lvm:cloudinit/confssh.yaml"
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "meta=local:cloudinit/confssh.yml"
       tags: provission
 
     # - name: XXXXXXXXXXXX ...
