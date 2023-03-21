@@ -72,7 +72,7 @@
       tags: provission
 
     - name: Configuring SSH ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom 'user=local:cloudinit/confssh.yml'
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom 'user=/var/lib/vz/cloudinit/confssh.yml'
       tags: provission
 
     # - name: XXXXXXXXXXXX ...
