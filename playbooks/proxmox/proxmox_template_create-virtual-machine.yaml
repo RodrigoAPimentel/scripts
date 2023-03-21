@@ -66,9 +66,9 @@
       shell: ls -lah
       tags: provission
 
-    # - name: ls -lah /var/lib/vz/snippets/ ...
-    #   shell: ls -lah /var/lib/vz/snippets/
-    #   tags: provission
+    - name: hostname ...
+      shell: hostname
+      tags: provission
 
     - name: Configuring SSH ...
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom "user=local:conf-ssh.yaml"
@@ -86,5 +86,5 @@
         name: "{{ _hostname }}"
         node: "{{ _node }}"
         state: started
-        timeout: 90
+        timeout: 60
       tags: provission
