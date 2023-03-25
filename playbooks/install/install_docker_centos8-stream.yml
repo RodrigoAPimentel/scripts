@@ -16,6 +16,7 @@
           - docker-latest-logrotate
           - docker-logrotate
           - docker-engine
+          - podman
         state: absent
 
     - name: Installing required packages
