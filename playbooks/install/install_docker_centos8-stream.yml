@@ -48,6 +48,16 @@
         state: started
         enabled: yes
 
+    - name: Install or upgrade docker-compose
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_latest }}/docker-compose-Linux-x86_64"
+        dest: /usr/local/bin/docker-compose
+        mode: "a+x"
+        force: yes
+      when: >
+        docker_compose_current_version is not defined
+        or docker_compose_current_version is version(docker_compose_latest, '<')
+
     - name: Get version number of latest docker-compose
       shell:
         cmd: curl --silent 'https://api.github.com/repos/docker/compose/releases/latest' |  grep '"tag_name":' | cut -d'"' -f4
@@ -81,13 +91,3 @@
         docker_compose_current_version: "{{ docker_compose_vsn.stdout }}"
       when:
         - docker_compose_vsn.stdout is defined and docker_compose_file.stat.exists
-
-    - name: Install or upgrade docker-compose
-      get_url:
-        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_latest }}/docker-compose-Linux-x86_64"
-        dest: /usr/local/bin/docker-compose
-        mode: "a+x"
-        force: yes
-      when: >
-        docker_compose_current_version is not defined
-        or docker_compose_current_version is version(docker_compose_latest, '<')
