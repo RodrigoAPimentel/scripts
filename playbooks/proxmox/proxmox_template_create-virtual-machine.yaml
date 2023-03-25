@@ -46,7 +46,7 @@
     #   tags: provission
 
     - name: Configuring Description ...
-      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --description '<b>{{ _hostname }}:</b><br>- <b>ID:</b> _{{ _vmid }}_<br>- <b>hostname:</b> _{{ _hostname }}_<br>- <b>IP:</b> _{{ _network_ip }}_<br>- <b>OS:</b> _x_'
+      shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --description '<b>{{ _hostname }}:</b><br>- <b>ID:</b> _{{ _vmid }}_<br>- <b>hostname:</b> _{{ _hostname }}_<br>- <b>IP:</b> _{{ _network_ip }}_<br>- <b>OS:</b> _{{ _operation_system }}_<br>- <b>User:</b> _root_<br>- <b>Password:</b> _toor_'
       tags: provission
 
     - name: Create cloud-init config file ...
