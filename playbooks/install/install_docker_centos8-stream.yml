@@ -17,6 +17,7 @@
           - docker-logrotate
           - docker-engine
           - podman
+          - buildah
         state: absent
 
     - name: Installing required packages
