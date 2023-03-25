@@ -55,7 +55,7 @@
         #cloud-config
         runcmd:
           - hostnamectl set-hostname {{ _hostname }}
-        ssh_pwauth: false
+        ssh_pwauth: true
         EOF
       tags: provission
 
