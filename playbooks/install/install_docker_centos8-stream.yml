@@ -50,7 +50,7 @@
 
     - name: Install or upgrade docker-compose
       get_url:
-        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_latest }}/docker-compose-Linux-x86_64"
+        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_latest }}/docker-compose-linux-x86_64"
         dest: /usr/local/bin/docker-compose
         mode: "a+x"
         force: yes
