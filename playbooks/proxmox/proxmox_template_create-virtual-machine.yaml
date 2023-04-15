@@ -78,3 +78,10 @@
         # state: present
         # timeout: 60
       tags: provission
+      register: started_state
+    
+    - name: Wait for start
+      ansible.builtin.wait_for:
+        timeout: 15
+      # delegate_to: localhost
+      when: started_state.changed
