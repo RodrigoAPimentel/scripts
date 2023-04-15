@@ -73,9 +73,9 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         name: "{{ _hostname }}"
-        node: "{{ _node }}"
-        # state: started
-        state: present
+        # node: "{{ _node }}"
+        state: started
+        # state: present
         # timeout: 60
       tags: provission
       register: started_state
