@@ -62,7 +62,7 @@
     - name: Configuring cloud-init ...
       shell: A=$(qm list |grep "{{ _hostname }}" | awk '{print $1}'); qm set $A --cicustom 'user=local:snippets/cloud_init_conf_{{ _vmid }}.yml'
       tags: provission
-      register: confCloudInit
+      # register: confCloudInit
 
     # - name: Delete cloud-init config file ...
     #   shell: rm -f /var/lib/vz/snippets/conf_ssh.yml
@@ -77,10 +77,11 @@
         node: "{{ _node }}"
         state: started
         # state: present
-        timeout: 120
+        timeout: 180
       tags: provission
       register: started_state
-      when: confCloudInit is succeeded
+      # when: confCloudInit is succeeded
+      ignore_errors: true
     
     - name: Wait for start
       ansible.builtin.wait_for:
