@@ -74,13 +74,13 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         name: "{{ _hostname }}"
-        # node: "{{ _node }}"
+        node: "{{ _node }}"
         state: started
         # state: present
-        # timeout: 60
+        timeout: 120
       tags: provission
       register: started_state
-      when: confCloudInit is successful
+      when: confCloudInit is succeeded
     
     - name: Wait for start
       ansible.builtin.wait_for:
