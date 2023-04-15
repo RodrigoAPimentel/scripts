@@ -67,6 +67,6 @@
         name: "{{ _hostname }}"
         node: "{{ _node }}"
         state: started
-        timeout: 180
+        timeout: 60
       tags: provission
       ignore_errors: true
