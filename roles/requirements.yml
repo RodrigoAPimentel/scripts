@@ -1,2 +1,3 @@
 ---
 - src: https://github.com/darkwizard242/ansible-role-crictl
+  name: darkwizard242.crictl
