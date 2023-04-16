@@ -27,11 +27,11 @@
     - name: Downloading minikube
       get_url:
         url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-        dest: /root/minikube-linux-amd64
+        dest: minikube-linux-amd64
 
     - name: Installing minikube
       yum:
-        name: /root/minikube-linux-amd64
+        name: minikube-linux-amd64
         state: present
 
     - name: Starting Minikube driver using none
