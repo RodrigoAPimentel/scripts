@@ -70,3 +70,50 @@
         timeout: 60
       tags: provission
       ignore_errors: true
+
+---
+- name: Update System in "{{ _hostname }}"
+  become: yes
+  gather_facts: No
+  hosts: "{{ _hostname }}"
+
+  tasks:
+    - name: Add EPEL repository
+      package:
+        name: epel-release
+        state: latest
+
+    - name: Update the system packages
+      package:
+        name: "*"
+        state: latest
+    
+    - name: Upgrade the system
+      package:
+        upgrade: yes
+
+    - name: Clean the local repository
+      package:
+        autoclean: yes
+    
+    - name: Remove packages not needed anymore
+      package:
+        autoremove: yes
+
+    - name: Install common packages
+      package:
+        name:
+          - ca-certificates
+          - curl
+          - wget
+          - python3-pip
+          - python3-setuptools
+          - nano
+          - tar
+          - util-linux-user
+          - git
+        state: latest
+      ignore_errors: yes
+
+    - name: Reboot System
+      reboot:
