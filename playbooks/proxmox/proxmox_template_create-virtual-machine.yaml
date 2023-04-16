@@ -102,17 +102,19 @@
 
     - name: Install common packages
       package:
-        name:
-          - ca-certificates
-          - curl
-          - wget
-          - python3-pip
-          - python3-setuptools
-          - nano
-          - tar
-          - util-linux-user
-          - git
+        name: "{{ packages }}"
         state: latest
+      vars:
+        packages:
+        - ca-certificates
+        - curl
+        - wget
+        - python3-pip
+        - python3-setuptools
+        - nano
+        - tar
+        - util-linux-user
+        - git
       ignore_errors: yes
 
     - name: Reboot System
