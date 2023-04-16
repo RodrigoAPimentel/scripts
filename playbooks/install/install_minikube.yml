@@ -1,131 +1,46 @@
+# ---
+# - name: Install minikube
+#   become: yes
+#   gather_facts: No
+#   hosts: "{{ host }}"
+
+#   tasks:
+#     - name: Configuring repository for kubectl
+#       yum_repository:
+#         name: Kubernetes
+#         description: Kubectl
+#         baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+#         gpgcheck: yes
+#         gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+#         repo_gpgcheck: yes
+
+#     - name: Installing kubectl
+#       yum:
+#         name: kubectl
+#         state: present
+
+#     - name: Installing conntrack
+#       yum:
+#         name: conntrack
+#         state: present
+
+#     - name: Downloading minikube
+#       get_url:
+#         url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+#         dest: /root/minikube-linux-amd64
+
+#     - name: Installing minikube
+#       yum:
+#         name: /root/minikube-linux-amd64
+#         state: present
+
+#     - name: Starting Minikube driver using none
+#       command: minikube start --driver=none
+
 ---
 - name: Install minikube
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
-
-  # tasks:
-  #   - name: Configuring repository for kubectl
-  #     yum_repository:
-  #       name: Kubernetes
-  #       description: Kubectl
-  #       baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-  #       gpgcheck: yes
-  #       gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-  #       repo_gpgcheck: yes
-
-  #   - name: Installing kubectl
-  #     yum:
-  #       name: kubectl
-  #       state: present
-
-  #   - name: Installing conntrack
-  #     yum:
-  #       name: conntrack
-  #       state: present
-
-  #   - name: Downloading minikube
-  #     get_url:
-  #       url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-  #       dest: /root/minikube-linux-amd64
-
-  #   - name: Installing minikube
-  #     yum:
-  #       name: /root/minikube-linux-amd64
-  #       state: present
-
-  #   - name: Starting Minikube driver using none
-  #     command: minikube start --driver=none
   roles:
     - darkwizard242.crictl
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    - name: Installing oh-my-zsh and dependencies
-      package:
-        name:
-          - zsh
-          - go
-          - fontconfig
-        state: latest
-      register: output_install
-    - debug:
-        msg: Installing oh-my-zsh and dependencies - {{ output_install }}
-
-    - name: Configuring oh-my-zsh
-      shell: |
-        rm -Rf /root/.oh-my-zsh
-        rm -Rf ~/.zshrc
-        chsh -s /bin/zsh root
-        echo $SHELL
-        wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-        /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-
-        # source ~/.zshrc
-      register: output_setting
-    - debug:
-        msg: Setting oh-my-zsh - {{ output_setting.stdout }}
-
-    - name: Reboot System
-      reboot:
-
-    - name: Installing and configuring plugins
-      shell: |
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions && autoload -U compinit && compinit
-        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && sed -i '/ask ".*/s/^/#/g' ~/.fzf/install && ~/.fzf/install
-        sed -i "s|^plugins=(git)|plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k zsh-completions)|g" ~/.zshrc
-
-        # source ~/.zshrc
-      register: output_plugins
-    - debug:
-        msg: Installing and configuring plugins - {{ output_plugins.stdout }}
-
-    - name: Installing Powerline Fonts
-      shell: |
-        git clone https://github.com/powerline/fonts.git --depth=1
-        cd fonts
-        ./install.sh
-        cd ..
-        rm -rf fonts
-      register: output_powerline
-    - debug:
-        msg: Installing Powerline Fonts - {{ output_powerline.stdout }}
-
-    - name: Installing PowerLevel10K Theme
-      shell: |
-        git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-      register: output_powerlevel10k
-    - debug:
-        msg: Installing PowerLevel10K Theme - {{ output_powerlevel10k.stdout }}
-
-    - name: Configuring Theme
-      shell: |
-        # sed -i 's|^ZSH_THEME=.*|ZSH_THEME="af-magic"|g' ~/.zshrc
-        # sed -i 's|^ZSH_THEME=.*|ZSH_THEME="jonathan"|g' ~/.zshrc
-        sed -i 's|^ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
-
-        # source ~/.zshrc
-      register: output_theme
-    - debug:
-        msg: Configuring theme - {{ output_theme.stdout }}
-
-    - name: Reboot System
-      reboot:
