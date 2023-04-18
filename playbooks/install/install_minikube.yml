@@ -59,5 +59,8 @@
   become: yes
   gather_facts: No
   hosts: "{{ host }}"
-  roles:
-    - crivetimihai.jenkins
+
+  tasks:
+    - name: Teste de role Jenkins
+      import_role:
+        name: crivetimihai.jenkins
