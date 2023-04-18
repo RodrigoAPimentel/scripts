@@ -66,8 +66,8 @@
     - debug:
         msg: >-
           {{ ansible_hostname }} 
-          {{ ansible_ip_addresses }} 
           {{ ansible_distribution }}
+      ignore_errors: true
 
     - name: users is configured
       import_role:
@@ -85,8 +85,10 @@
             #   + '/.ssh/id_rsa.pub') }}"
             comment: 'Created by ansible'
       tags: users
+      ignore_errors: true
     
     - name: Jenkins Install
       import_role:
         name: crivetimihai.jenkins
       tags: jenkins
+      ignore_errors: true
