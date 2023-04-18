@@ -79,9 +79,9 @@
         users_username:
           - name: devops
             sudo: true
-            shell: /usr/bin/bash
+            shell: /usr/bin/zsh
             groups: wheel
-            ssh_key: "{{ lookup('file', lookup('env','HOME') \
-              + '/.ssh/id_rsa.pub') }}"
+            # ssh_key: "{{ lookup('file', lookup('env','HOME') \
+            #   + '/.ssh/id_rsa.pub') }}"
             comment: 'Created by ansible'
       tags: users
