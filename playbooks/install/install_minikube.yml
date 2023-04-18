@@ -1,41 +1,41 @@
 ---
-- name: Install minikube
-  become: yes
-  gather_facts: No
-  hosts: "{{ host }}"
+# - name: Install minikube
+#   become: yes
+#   gather_facts: No
+#   hosts: "{{ host }}"
 
-  tasks:
-    - name: Configuring repository for kubectl
-      yum_repository:
-        name: Kubernetes
-        description: Kubectl
-        baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
-        gpgcheck: yes
-        gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-        repo_gpgcheck: yes
+#   tasks:
+#     - name: Configuring repository for kubectl
+#       yum_repository:
+#         name: Kubernetes
+#         description: Kubectl
+#         baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+#         gpgcheck: yes
+#         gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+#         repo_gpgcheck: yes
 
-    - name: Installing kubectl
-      yum:
-        name: kubectl
-        state: present
+#     - name: Installing kubectl
+#       yum:
+#         name: kubectl
+#         state: present
 
-    - name: Installing conntrack
-      yum:
-        name: conntrack
-        state: present
+#     - name: Installing conntrack
+#       yum:
+#         name: conntrack
+#         state: present
 
-    - name: Downloading minikube
-      get_url:
-        url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-        dest: /root/minikube-linux-amd64
+#     - name: Downloading minikube
+#       get_url:
+#         url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+#         dest: /root/minikube-linux-amd64
 
-    - name: Installing minikube
-      yum:
-        name: /root/minikube-linux-amd64
-        state: present
+#     - name: Installing minikube
+#       yum:
+#         name: /root/minikube-linux-amd64
+#         state: present
 
-    - name: Starting Minikube driver using none
-      command: minikube start --driver=none
+#     - name: Starting Minikube driver using none
+#       command: minikube start --driver=none
 
 # ---
 # - name: Install minikube
@@ -53,3 +53,11 @@
 #     crictl_bin_path: /usr/local/bin
 #     crictl_file_owner: root
 #     crictl_file_group: root
+
+---
+- name: Install Jenkins
+  become: yes
+  gather_facts: No
+  hosts: "{{ host }}"
+  roles:
+    - crivetimihai.jenkins
