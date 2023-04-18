@@ -61,6 +61,19 @@
   hosts: "{{ host }}"
 
   tasks:
-    - name: Teste de role awx
+    - name: users is configured
       import_role:
-        name: crivetimihai.awx
+        name: crivetimihai.users
+      vars:
+        users_groups:
+          - wheel
+
+        users_username:
+          - name: devops
+            sudo: true
+            shell: /usr/bin/bash
+            groups: wheel
+            ssh_key: "{{ lookup('file', lookup('env','HOME') \
+              + '/.ssh/id_rsa.pub') }}"
+            comment: 'Created by ansible'
+      tags: users
