@@ -61,6 +61,6 @@
   hosts: "{{ host }}"
 
   tasks:
-    - name: Teste de role Jenkins
+    - name: Teste de role awx
       import_role:
-        name: crivetimihai.jenkins
+        name: crivetimihai.awx
