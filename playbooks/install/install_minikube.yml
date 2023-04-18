@@ -85,3 +85,8 @@
             #   + '/.ssh/id_rsa.pub') }}"
             comment: 'Created by ansible'
       tags: users
+    
+    - name: Jenkins Install
+      import_role:
+        name: crivetimihai.jenkins
+      tags: jenkins
