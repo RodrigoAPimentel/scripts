@@ -27,8 +27,6 @@
     - name: Delete host in known_hosts file
       delegate_to: ct-awx
       command: |
-        hostname
-        pwd
         docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
       retries: 10
       delay: 10
