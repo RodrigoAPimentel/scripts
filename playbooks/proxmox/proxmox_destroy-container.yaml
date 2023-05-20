@@ -18,6 +18,16 @@
       loop_control:
         pause: 5
 
+    - name: Get IP for "{{ _vmid }}"
+      command: |
+        awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _vmid }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+      register: ip
+
+    - name: Delete host in known_hosts file
+      command: |
+        docker exec awx_task /bin/bash -c 'sed -i "/{{ ip }}/d" /root/.ssh/known_hosts'
+      register: awx_token
+
     - name: Destroy container
       proxmox:
         vmid: "{{ _vmid }}"
@@ -25,3 +35,4 @@
         api_password: "{{ hostvars[host].ansible_password }}"
         api_host: "{{ _api_host }}"
         state: absent
+    
