@@ -35,6 +35,16 @@
         state: latest
       ignore_errors: yes
 
+    - name: Reboot System
+      reboot:
+
+    - name: Wait for "{{ host_update_so }}" to become reachable
+      wait_for:
+        host: "{{ host_update_so }}"
+        port: 22
+        delay: 10
+        timeout: 120
+
     - name: Start qemu-guest-agent Service
       service:
         name: qemu-guest-agent
