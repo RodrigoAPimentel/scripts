@@ -19,13 +19,14 @@
         pause: 5
 
     - name: Get IP for "{{ _vmid }}"
-      command: |
-        awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _vmid }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
-      register: ip
+      ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _vmid }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+      register: result_ip
+      retries: 10
+      delay: 10
 
     - name: Delete host in known_hosts file
       command: |
-        docker exec awx_task /bin/bash -c 'sed -i "/{{ ip }}/d" /root/.ssh/known_hosts'
+        docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip }}/d" /root/.ssh/known_hosts'
       register: awx_token
 
     - name: Destroy container
