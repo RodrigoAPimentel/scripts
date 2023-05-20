@@ -5,6 +5,12 @@
   hosts: "{{ host_update_so }}"
 
   tasks:
+    - name: Validate OS
+      assert:
+        that:
+          - ansible_os_family == "RedHat" or ansible_os_family == "Debian"
+      msg: "This playbook only supports RedHat or Debian based systems."
+      
     - name: Add EPEL repository
       package:
         name: epel-release
