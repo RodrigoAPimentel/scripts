@@ -34,6 +34,12 @@
           - qemu-guest-agent
         state: latest
       ignore_errors: yes
+      register: installPackageResult
+
+
+    - name: Print Install common packages
+      debug:
+        var: installPackageResult.stdout
 
     - name: Reboot System
       reboot:

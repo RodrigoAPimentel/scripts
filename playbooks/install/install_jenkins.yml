@@ -49,8 +49,8 @@
 
     - name: Get Initial Admin Password
       command: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-      register: adminPassword
+      register: adminPasswordResult
 
     - name: print init password jenkins
       debug:
-        var: adminPassword.stdout
+        var: adminPasswordResult.stdout
