@@ -4,7 +4,7 @@
     name: "{{ item }}"
     state: absent
   loop:
-    - java*
+    - java
 
 - name: Installing Java required packages
   package:
@@ -14,40 +14,36 @@
     - java-11-openjdk
     - java-11-openjdk-devel
 
-- name: download jenkins.repo
+- name: Download jenkins.repo
   get_url:
     url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
     dest: /etc/yum.repos.d/jenkins.repo
 
-- name: import jenkins key
+- name: Import Jenkins Key
   rpm_key:
     state: present
-    key: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+    key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
 
-- name: install jenkins
-  yum:
+- name: Install Jenkins
+  package:
     name: jenkins
-    state: present
+    state: latest
 
-- name: start jenkins
-  systemd:
+- name: Start Jenkins Service
+  service:
     name: jenkins
     state: started
+    enabled: yes
 
-- name: enable jenkins
-  systemd:
-    name: jenkins
-    enabled: true
-
-- name: sleep for 30 seconds and continue with play
+- name: Sleep for 30 seconds and continue with play ...
   wait_for: timeout=30
   delegate_to: localhost
 
-- name: init password jenkin
+- name: Get Init Admin Password
   shell: cat /var/lib/jenkins/secrets/initialAdminPassword
   changed_when: false
-  register: result
+  register: adminPasswordResult
 
-- name: print init password jenkins
+- name: Print init password jenkins
   debug:
-    var: result.stdout
+    var: adminPasswordResult.stdout
