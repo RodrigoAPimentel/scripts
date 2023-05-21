@@ -5,7 +5,7 @@
   hosts: "{{ host }}"
 
   tasks:
-    - name: Remove Java Packages
+    - name: Remove Java Packages if they exist
       package:
         name: "{{ item }}"
         state: absent
@@ -51,6 +51,6 @@
       command: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       register: adminPasswordResult
 
-    - name: print init password jenkins
+    - name: Print Init Password Jenkins
       debug:
         var: adminPasswordResult.stdout
