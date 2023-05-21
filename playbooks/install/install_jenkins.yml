@@ -5,8 +5,9 @@
   hosts: "{{ _hostname }}"
 
   tasks:
-  - import_role:
-      name: jenkins
+    - name: Jenkins Install
+      import_role:
+        name: jenkins
 
     # - name: Remove Java Packages if they exist
     #   package:
