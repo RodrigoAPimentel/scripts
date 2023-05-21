@@ -1,13 +1,13 @@
 intruções:https://phoenixnap.com/kb/how-to-install-jenkins-on-centos-8
 
-sudo dnf install java-1.8.0-openjdk-devel
+sudo yum install -y java-11-openjdk java-11-openjdk-devel
 sudo wget –O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
 == The system will reach out to the Jenkins server and download the location of the repository to your system. It should display /etc/yum.repos.d/jenkins.repo saved.
 == Adding the repository manually – In some instances, the repository will not download correctly. To manually add the repository, enter the following: sudo nano /etc/yum.repos.d/jenkins.repo
 == This will open the jenkins.repo file for editing. Enter the following lines:
 [jenkins]
 name=Jenkins-stable
-baseurl=http://pkg.jenkins.io/redhat
+baseurl=http://pkg.jenkins.io/redhat-stable
 gpgcheck=1
 
 sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key
@@ -15,3 +15,6 @@ sudo dnf install -y jenkins
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
 sudo systemctl status jenkins
+
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
