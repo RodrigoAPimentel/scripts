@@ -1,0 +1,56 @@
+---
+- name: Install Jenkins
+  become: yes
+  gather_facts: No
+  hosts: "{{ host }}"
+
+  tasks:
+    - name: Remove Java Packages
+      package:
+        name: "{{ item }}"
+        state: absent
+      loop:
+        - java*
+
+    - name: Installing Java required packages
+      package:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - java-11-openjdk
+        - java-11-openjdk-devel
+
+    # - name: Configuring the Jenkins Software repository
+    #   ignore_errors: yes
+    #   command: wget –O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+
+    - name: Configuring the Jenkins Software repository
+      shell: |
+        cat << EOF > /etc/yum.repos.d/jenkins.repo
+        [jenkins]
+        name=Jenkins-stable
+        baseurl=http://pkg.jenkins.io/redhat-stable
+        gpgcheck=1
+        EOF
+    
+    - name: Import the GPG key to ensure your software is legitimate
+      command: sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io-2023.key
+
+    - name: Install Jenkins
+      package:
+        name: jenkins
+        state: latest
+
+    - name: Start Jenkins Service
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+
+    - name: Get Initial Admin Password
+      command: sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: adminPassword
+
+    - name: print init password jenkins
+      debug:
+        var: adminPassword.stdout
