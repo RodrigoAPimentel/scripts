@@ -2,7 +2,7 @@
 - name: Install Jenkins
   become: yes
   gather_facts: No
-  hosts: "{{ hostname }}"
+  hosts: "{{ _hostname }}"
 
   tasks:
   - import_role:
