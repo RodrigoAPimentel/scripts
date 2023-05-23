@@ -29,6 +29,13 @@
     name: jenkins
     state: latest
 
+# - name: Jenkins Skip startUp for MI
+#   lineinfile:
+#     dest=/etc/sysconfig/jenkins
+#     regexp='^JENKINS_JAVA_OPTIONS='
+#     line='JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"'
+#   register: result_skip_startup_wizard
+
 - name: Start Jenkins Service
   service:
     name: jenkins
@@ -47,3 +54,45 @@
 - name: Print init password jenkins
   debug:
     var: adminPasswordResult.stdout
+  register: adminpwd
+
+- name: Unlock and add root user
+  jenkins_script:
+    script: |
+      import jenkins.model.*
+      import hudson.security.*
+      def instance = Jenkins.getInstance()
+      def hudsonRealm = new HudsonPrivateSecurityRealm(false)
+      hudsonRealm.createAccount('root', '${user_pwd}')
+      instance.setSecurityRealm(hudsonRealm)
+
+      def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
+      strategy.setAllowAnonymousRead(false)
+      instance.setAuthorizationStrategy(strategy)
+      instance.save()
+    args:
+      user_pwd: "{{ _container_password }}"
+    user: admin
+    password: "{{ adminpwd.stdout }}"
+
+- name: Complete Setup Wizard
+  jenkins_script:
+    script: |
+      import static jenkins.model.Jenkins.instance as jenkins
+      import jenkins.install.InstallState
+      if (!jenkins.installState.isSetupComplete()) {
+        InstallState.INITIAL_SETUP_COMPLETED.initializeState()
+      }
+    user: admin
+    password: "{{ adminpwd.stdout }}"
+
+- name: Install Plugins
+  jenkins_plugin:
+    name: "{{ item }}"
+    state: latest
+    url_username: admin
+    url_password: "{{ adminpwd.stdout }}"
+  with_items: 
+    - script-security
+    - command-launcher
+    - blueocean
