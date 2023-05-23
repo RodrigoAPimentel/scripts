@@ -54,7 +54,6 @@
 - name: Print init password jenkins
   debug:
     var: adminPasswordResult.stdout
-  register: adminpwd
 
 - name: Unlock and add root user
   jenkins_script:
@@ -63,17 +62,17 @@
       import hudson.security.*
       def instance = Jenkins.getInstance()
       def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-      hudsonRealm.createAccount('root', 'toor')
+      hudsonRealm.createAccount('root', '${user_pwd}')
       instance.setSecurityRealm(hudsonRealm)
 
       def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
       strategy.setAllowAnonymousRead(false)
       instance.setAuthorizationStrategy(strategy)
       instance.save()
-    # args:
-    #   user_pwd: "{{ _container_password }}"
+    args:
+      user_pwd: "{{ _container_password }}"
     user: admin
-    password: "{{ adminpwd.stdout }}"
+    password: "{{ adminPasswordResult.stdout }}"
 
 - name: Complete Setup Wizard
   jenkins_script:
@@ -84,14 +83,14 @@
         InstallState.INITIAL_SETUP_COMPLETED.initializeState()
       }
     user: admin
-    password: "{{ adminpwd.stdout }}"
+    password: "{{ adminPasswordResult.stdout }}"
 
 - name: Install Plugins
   jenkins_plugin:
     name: "{{ item }}"
     state: latest
     url_username: admin
-    url_password: "{{ adminpwd.stdout }}"
+    url_password: "{{ adminPasswordResult.stdout }}"
   with_items: 
     - script-security
     - command-launcher
