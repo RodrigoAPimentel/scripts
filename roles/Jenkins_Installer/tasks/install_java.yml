@@ -18,7 +18,7 @@
     - java-11-openjdk
     - java-11-openjdk-devel
   notify:
-    - "Sleep for 30 seconds"
+  - Sleep for 30 seconds
 
 # - name: Sleep for 30 seconds and continue with play ...
 #   wait_for: timeout=30
