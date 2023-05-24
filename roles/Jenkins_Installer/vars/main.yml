@@ -1,0 +1,5 @@
+---
+jenkins_custom_plugins:
+  - script-security
+  - command-launcher
+  - blueocean
