@@ -4,11 +4,16 @@
 
 
 - name: "Check if java present"
-  shell:
-    cmd: "java -version"
+  shell: java -version
   register: javaversion
   failed_when: false
 
+
+- name: Print Java Version
+  debug: javaversion
+
+
+  
 # - name: "Install java if not present"
 #   apt: 
 #     name: openjdk-11-jre
