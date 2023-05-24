@@ -5,8 +5,3 @@
   hosts: "{{ _hostname }}"
   roles:
     - role: "Jenkins_Installer"
-
-  # tasks:
-  #   - name: Jenkins Install
-  #     import_role:
-  #       name: jenkins
