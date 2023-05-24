@@ -12,8 +12,14 @@
 - name: Print Java Version
   debug: javaversion
 
+- name: Print Java Version - stdout
+  debug: javaversion.stdout
 
-  
+- name: Print Java Version - stderr_lines
+  debug: javaversion.stderr_lines
+
+
+
 # - name: "Install java if not present"
 #   apt: 
 #     name: openjdk-11-jre
