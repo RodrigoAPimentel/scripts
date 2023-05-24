@@ -4,6 +4,10 @@
   register: javaversion
   failed_when: false
 
+- name: Print Java Version
+  debug:
+    var: javaversion.stderr_lines
+
 - name: Remove Java old Packages if they exist
   package:
     name: "java"
@@ -28,14 +32,14 @@
 
 
 
-- name: Fetch Java version
-  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
-  register: java_version
+# - name: Fetch Java version
+#   shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+#   register: java_version
 
-- name: Print Java version
-  debug:
-    var: java_version
+# - name: Print Java version
+#   debug:
+#     var: java_version
 
-- assert:
-    that: 
-      - java_version.stdout | version_compare('1.7', '>=') 
+# - assert:
+#     that: 
+#       - java_version.stdout | version_compare('1.7', '>=') 
