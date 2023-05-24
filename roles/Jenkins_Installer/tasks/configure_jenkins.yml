@@ -1,13 +1,4 @@
 ---
-# - name: Get Init Admin Password
-#   shell: cat /var/lib/jenkins/secrets/initialAdminPassword
-#   changed_when: false
-#   register: adminPasswordResult
-
-# - name: Print init password jenkins
-#   debug:
-#     var: adminPasswordResult.stdout
-
 - name: Unlock and add root user
   jenkins_script:
     script: |
