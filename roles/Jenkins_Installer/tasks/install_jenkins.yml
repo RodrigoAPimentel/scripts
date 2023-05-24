@@ -23,7 +23,6 @@
     state: latest
   notify:
     - "Start and Enable Jenkins Service"
-    - "Sleep for 30 seconds"
 
 # - name: Start and Enable Jenkins Service
 #   service:
@@ -31,6 +30,6 @@
 #     state: started
 #     enabled: yes
 
-# - name: Sleep for 30 seconds and continue with play ...
-#   wait_for: timeout=30
-#   delegate_to: localhost
+- name: Sleep for 30 seconds and continue with play ...
+  wait_for: timeout=30
+  delegate_to: localhost
