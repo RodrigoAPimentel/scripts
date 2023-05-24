@@ -3,13 +3,13 @@
   become: yes
   gather_facts: No
   hosts: "{{ _hostname }}"
-  # roles:
-  #   - role: "../../roles/jenkins"
+  roles:
+    - role: "jenkins"
 
-  tasks:
-    - name: Jenkins Install
-      import_role:
-        name: jenkins
+  # tasks:
+  #   - name: Jenkins Install
+  #     import_role:
+  #       name: jenkins
 
     # - name: Remove Java Packages if they exist
     #   package:
