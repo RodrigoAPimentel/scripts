@@ -5,9 +5,14 @@
 - name: Installing Jenkins
   include_tasks: install_jenkins.yml
 
+- name: Get Jenkins Init Admin Password
+  include_tasks: jenkins_get-init-pass.yml
+
 - name: Configuring Jenkins
   include_tasks: configure_jenkins.yml
 
+- name: Installing Jenkins Plugins
+  include_tasks: jenkins_plugins.yml.yml
 
 
 
