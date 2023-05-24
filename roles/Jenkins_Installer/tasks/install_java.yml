@@ -10,7 +10,8 @@
 
 
 - name: Print Java Version
-  debug: javaversion
+  debug:
+    var: javaversion
 
 - name: Print Java Version - stdout
   debug: javaversion.stdout
