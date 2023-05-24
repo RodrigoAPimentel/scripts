@@ -21,8 +21,7 @@
   package:
     name: jenkins
     state: latest
-  notify:
-    - "Start and Enable Jenkins Service"
+  notify: "Start and Enable Jenkins Service"
 
 # - name: Start and Enable Jenkins Service
 #   service:
