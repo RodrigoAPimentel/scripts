@@ -6,10 +6,10 @@
   include_tasks: install_jenkins.yml
 
 - name: Get Jenkins Init Admin Password
-  include_tasks: jenkins_get-init-pass.yml
+  include_tasks: get_init_admin_password.yml
 
 - name: Configuring Jenkins
-  include_tasks: configure_jenkins.yml
+  include_tasks: initial_setting.yml
 
 - name: Installing Jenkins Plugins
-  include_tasks: jenkins_plugins.yml
+  include_tasks: install_plugins.yml

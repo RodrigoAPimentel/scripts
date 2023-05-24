@@ -14,8 +14,7 @@
       instance.setAuthorizationStrategy(strategy)
       instance.save()
     args:
-      # user_pwd: "{{ _container_password }}"
-      user_pwd: "12345"
+      user_pwd: "{{ _container_password }}"
     user: admin
     password: "{{ adminPasswordResult.stdout }}"
 
