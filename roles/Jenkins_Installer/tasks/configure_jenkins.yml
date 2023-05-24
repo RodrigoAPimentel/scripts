@@ -23,7 +23,8 @@
       instance.setAuthorizationStrategy(strategy)
       instance.save()
     args:
-      user_pwd: "{{ _container_password }}"
+      # user_pwd: "{{ _container_password }}"
+      user_pwd: "12345"
     user: admin
     password: "{{ adminPasswordResult.stdout }}"
 
@@ -38,22 +39,11 @@
     user: admin
     password: "{{ adminPasswordResult.stdout }}"
 
-# - name: Install Plugins
-#   jenkins_plugin:
-#     name: "{{ item }}"
-#     state: latest
-#     # url_username: admin
-#     # url_password: "{{ adminPasswordResult.stdout }}"
-#   with_items: 
-#     - script-security
-#     - command-launcher
-#     - blueocean
+- name: Restart Jenkins Service
+  service:
+    name: jenkins
+    state: restarted
 
-# - name: Restart Jenkins Service
-#   service:
-#     name: jenkins
-#     state: restarted
-
-# - name: Sleep for 30 seconds and continue with play ...
-#   wait_for: timeout=30
-#   delegate_to: localhost
+- name: Sleep for 30 seconds and continue with play ...
+  wait_for: timeout=30
+  delegate_to: localhost
