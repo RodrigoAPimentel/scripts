@@ -14,10 +14,12 @@
     var: javaversion
 
 - name: Print Java Version - stdout
-  debug: javaversion.stdout
+  debug:
+    var: javaversion.stdout
 
 - name: Print Java Version - stderr_lines
-  debug: javaversion.stderr_lines
+  debug:
+    var: javaversion.stderr_lines
 
 
 
