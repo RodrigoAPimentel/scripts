@@ -45,7 +45,4 @@
 
 
 
-  handlers:
-    - name: Sleep for 30 seconds
-      wait_for: timeout=30
-      delegate_to: localhost
+  
