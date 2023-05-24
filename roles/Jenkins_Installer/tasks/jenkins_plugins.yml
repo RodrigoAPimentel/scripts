@@ -16,8 +16,8 @@
   jenkins_plugin:
     name: "{{ item }}"
     # state: latest
-    # url_username: admin
-    # url_password: "{{ adminPasswordResult.stdout }}"
+    url_username: admin
+    url_password: "{{ adminPasswordResult.stdout }}"
   with_items: 
     - script-security
     - command-launcher
