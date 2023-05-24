@@ -4,7 +4,7 @@
   gather_facts: No
   hosts: "{{ _hostname }}"
   roles:
-    - role: "jenkins"
+    - role: "Jenkins_Installer"
 
   # tasks:
   #   - name: Jenkins Install
