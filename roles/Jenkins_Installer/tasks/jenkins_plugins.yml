@@ -11,7 +11,7 @@
 - name: Install Plugins
   jenkins_plugin:
     name: "{{ item }}"
-    state: latest
+    # state: latest
     # url_username: admin
     # url_password: "{{ adminPasswordResult.stdout }}"
   with_items: 

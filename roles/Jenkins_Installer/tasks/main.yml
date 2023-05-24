@@ -12,7 +12,7 @@
   include_tasks: configure_jenkins.yml
 
 - name: Installing Jenkins Plugins
-  include_tasks: jenkins_plugins.yml.yml
+  include_tasks: jenkins_plugins.yml
 
 
 
