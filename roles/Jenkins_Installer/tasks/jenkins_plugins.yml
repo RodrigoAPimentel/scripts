@@ -18,8 +18,8 @@
     url_username: admin
     url_password: "{{ adminPasswordResult.stdout }}"
   with_items: 
-    - "{{ jenkins_custom_plugins }}"
     - "{{ jenkins_default_plugins }}"
+    - "{{ jenkins_custom_plugins }}"
 
 - name: Restart Jenkins Service
   service:

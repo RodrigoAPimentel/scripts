@@ -1,120 +1,15 @@
 ---
-# - name: Installing Java
-#   include_tasks: install_java.yml
+- name: Installing Java
+  include_tasks: install_java.yml
 
-# - name: Installing Jenkins
-#   include_tasks: install_jenkins.yml
+- name: Installing Jenkins
+  include_tasks: install_jenkins.yml
 
 - name: Get Jenkins Init Admin Password
   include_tasks: jenkins_get-init-pass.yml
 
-# - name: Configuring Jenkins
-#   include_tasks: configure_jenkins.yml
+- name: Configuring Jenkins
+  include_tasks: configure_jenkins.yml
 
 - name: Installing Jenkins Plugins
   include_tasks: jenkins_plugins.yml
-
-
-
-
-
-
-
-# - name: Remove Java Packages if they exist
-#   package:
-#     name: "{{ item }}"
-#     state: absent
-#   loop:
-#     - java
-
-# - name: Installing Java required packages
-#   package:
-#     name: "{{ item }}"
-#     state: latest
-#   loop:
-#     - java-11-openjdk
-#     - java-11-openjdk-devel
-
-# - name: Download jenkins.repo
-#   get_url:
-#     url: http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
-#     dest: /etc/yum.repos.d/jenkins.repo
-
-# - name: Import Jenkins Key
-#   rpm_key:
-#     state: present
-#     key: https://pkg.jenkins.io/redhat/jenkins.io-2023.key
-
-# - name: Install Jenkins
-#   package:
-#     name: jenkins
-#     state: latest
-
-# - name: Start Jenkins Service
-#   service:
-#     name: jenkins
-#     state: started
-#     enabled: yes
-
-# - name: Sleep for 30 seconds and continue with play ...
-#   wait_for: timeout=30
-#   delegate_to: localhost
-
-# - name: Get Init Admin Password
-#   shell: cat /var/lib/jenkins/secrets/initialAdminPassword
-#   changed_when: false
-#   register: adminPasswordResult
-
-# - name: Print init password jenkins
-#   debug:
-#     var: adminPasswordResult.stdout
-
-# - name: Unlock and add root user
-#   jenkins_script:
-#     script: |
-#       import jenkins.model.*
-#       import hudson.security.*
-#       def instance = Jenkins.getInstance()
-#       def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-#       hudsonRealm.createAccount('root', '${user_pwd}')
-#       instance.setSecurityRealm(hudsonRealm)
-
-#       def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
-#       strategy.setAllowAnonymousRead(false)
-#       instance.setAuthorizationStrategy(strategy)
-#       instance.save()
-#     args:
-#       user_pwd: "{{ _container_password }}"
-#     user: admin
-#     password: "{{ adminPasswordResult.stdout }}"
-
-# - name: Complete Setup Wizard
-#   jenkins_script:
-#     script: |
-#       import static jenkins.model.Jenkins.instance as jenkins
-#       import jenkins.install.InstallState
-#       if (!jenkins.installState.isSetupComplete()) {
-#         InstallState.INITIAL_SETUP_COMPLETED.initializeState()
-#       }
-#     user: admin
-#     password: "{{ adminPasswordResult.stdout }}"
-
-# - name: Install Plugins
-#   jenkins_plugin:
-#     name: "{{ item }}"
-#     state: latest
-#     # url_username: admin
-#     # url_password: "{{ adminPasswordResult.stdout }}"
-#   with_items: 
-#     - script-security
-#     - command-launcher
-#     - blueocean
-
-# - name: Restart Jenkins Service
-#   service:
-#     name: jenkins
-#     state: restarted
-
-# - name: Sleep for 30 seconds and continue with play ...
-#   wait_for: timeout=30
-#   delegate_to: localhost
