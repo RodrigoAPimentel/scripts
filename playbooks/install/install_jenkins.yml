@@ -3,8 +3,8 @@
   become: yes
   gather_facts: No
   hosts: "{{ _hostname }}"
-  roles:
-    - role: "../../roles/jenkins"
+  # roles:
+  #   - role: "../../roles/jenkins"
 
   tasks:
     - name: Jenkins Install
