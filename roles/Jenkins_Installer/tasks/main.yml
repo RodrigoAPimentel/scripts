@@ -1,7 +1,12 @@
 ---
-
 - name: Installing Java
   include_tasks: install_java.yml
+
+# - name: Installing Jenkins
+#   include_tasks: install_jenkins.yml
+
+# - name: Configuring Jenkins
+#   include_tasks: configure_jenkins.yml
 
 
 
