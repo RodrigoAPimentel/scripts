@@ -1,12 +1,12 @@
 ---
-- name: Unlock and add admin user
+- name: Unlock and add root user
   jenkins_script:
     script: |
       import jenkins.model.*
       import hudson.security.*
       def instance = Jenkins.getInstance()
       def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-      hudsonRealm.createAccount('admin', '${user_pwd}')
+      hudsonRealm.createAccount('root', '${user_pwd}')
       instance.setSecurityRealm(hudsonRealm)
 
       def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
