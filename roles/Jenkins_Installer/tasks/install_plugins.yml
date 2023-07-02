@@ -1,13 +1,10 @@
 ---
 - name: Get Jenkins IP
   delegate_to: proxmox
-  command: | 
-    lxc-attach --name {{ _vmid }} -e -- ip a | grep 192.168 | awk '{print $2}' | awk '{split($0,a,\"/\"); print a[1]}'
+  shell: lxc-attach --name {{ _vmid }} -e -- ip a | grep 192.168 | awk '{print $2}' | awk '{split($0,a,"/"); print a[1]}'
   register: jenkins_ip
-
-- name: Print Jenkins IP
-  debug:
-    var: jenkins_ip.stdout
+- debug:
+  var: jenkins_ip.stdout
 
 - name: Wait for Jenkins to start up
   uri:
