@@ -19,5 +19,7 @@
   delegate_to: proxmox
   shell: lxc-attach --name {{ _vmid }} -e -- ip a | grep 192.168 | awk '{print $2}' | awk '{split($0,a,"/"); print a[1]}'
   register: jenkins_ip
-- debug:
-  var: jenkins_ip.stdout
+
+- name: Print Jenkins IP
+  debug:
+    var: jenkins_ip.stdout
