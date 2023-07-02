@@ -15,7 +15,7 @@
       instance.save()
     args:
       # user_pwd: "{{ _container_password }}"
-      user_pwd: "{{ _jenkins_admin_password }}"
+      user_pwd: "{{ _jenkins_root_password }}"
     user: admin
     password: "{{ adminPasswordResult.stdout }}"
 
