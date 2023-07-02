@@ -1,15 +1,25 @@
 ---
-- name: Installing Java
-  include_tasks: install_java.yml
+# - name: Installing Java
+#   include_tasks: install_java.yml
 
-- name: Installing Jenkins
-  include_tasks: install_jenkins.yml
+# - name: Installing Jenkins
+#   include_tasks: install_jenkins.yml
 
-- name: Get Jenkins Init Admin Password
-  include_tasks: get_init_admin_password.yml
+# - name: Get Jenkins Init Admin Password
+#   include_tasks: get_init_admin_password.yml
 
-- name: Configuring Jenkins
-  include_tasks: initial_setting.yml
+# - name: Configuring Jenkins
+#   include_tasks: initial_setting.yml
 
-- name: Installing Jenkins Plugins
-  include_tasks: install_plugins.yml
+# - name: Installing Jenkins Plugins
+#   include_tasks: install_plugins.yml
+
+
+- name: Get Jenkins IP
+  delegate_to: proxmox
+  shell: lxc-attach --name {{ _vmid }} -e -- ip a | grep 192.168 | awk '{print $2}' | awk '{split($0,a,\"/\"); print a[1]}'
+  register: jenkins_ip
+
+- name: Print Jenkins IP
+  debug:
+    var: jenkins_ip.stdout
