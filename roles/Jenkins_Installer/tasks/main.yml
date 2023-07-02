@@ -1,40 +1,15 @@
-# ---
-# - name: Installing Java
-#   include_tasks: install_java.yml
+---
+- name: Installing Java
+  include_tasks: install_java.yml
 
-# - name: Installing Jenkins
-#   include_tasks: install_jenkins.yml
+- name: Installing Jenkins
+  include_tasks: install_jenkins.yml
 
-# - name: Get Jenkins Init Admin Password
-#   include_tasks: get_init_admin_password.yml
+- name: Get Jenkins Init Admin Password
+  include_tasks: get_init_admin_password.yml
 
-# - name: Configuring Jenkins
-#   include_tasks: initial_setting.yml
+- name: Configuring Jenkins
+  include_tasks: initial_setting.yml
 
-# - name: Installing Jenkins Plugins
-#   include_tasks: install_plugins.yml
-
-
-
-- name: Get Jenkins IP
-  delegate_to: proxmox
-  shell: lxc-attach --name {{ _vmid }} -e -- ip a | grep 192.168 | awk '{print $2}' | awk '{split($0,a,"/"); print a[1]}'
-  register: jenkins_ip
-
-- name: Print Jenkins IP
-  debug:
-    var: jenkins_ip.stdout
-
-- name: Wait for Jenkins to start up
-  uri:
-    # url: http://192.168.99.21:8080/login?from=%2F
-    url: http://{{ jenkins_ip.stdout }}:8080/login?from=%2F
-    status_code: 200
-    timeout: 5
-  register: jenkins_service_status
-  # Keep trying for 5 mins in 5 sec intervals
-  retries: 10
-  delay: 5
-  until: >
-     'status' in jenkins_service_status and
-     jenkins_service_status['status'] == 200
+- name: Installing Jenkins Plugins
+  include_tasks: install_plugins.yml
