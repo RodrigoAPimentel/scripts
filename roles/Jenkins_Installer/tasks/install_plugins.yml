@@ -1,7 +1,8 @@
 ---
 - name: Get Jenkins IP
   delegate_to: proxmox
-  command: "lxc-attach --name {{ _vmid }} -e -- ip a | grep 192.168 | awk '{print $2}' | awk '{split($0,a,\"/\"); print a[1]}'"
+  command: | 
+    lxc-attach --name {{ _vmid }} -e -- ip a | grep 192.168 | awk '{print $2}' | awk '{split($0,a,\"/\"); print a[1]}'
   register: jenkins_ip
 
 - name: Print Jenkins IP
@@ -36,6 +37,6 @@
     name: jenkins
     state: restarted
 
-- name: Sleep for 30 seconds and continue with play ...
-  wait_for: timeout=30
+- name: Sleep for 20 seconds and continue with play ...
+  wait_for: timeout=20
   delegate_to: localhost

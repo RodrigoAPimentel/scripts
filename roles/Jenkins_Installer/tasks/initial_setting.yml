@@ -35,6 +35,6 @@
     name: jenkins
     state: restarted
 
-- name: Sleep for 30 seconds and continue with play ...
-  wait_for: timeout=30
+- name: Sleep for 20 seconds and continue with play ...
+  wait_for: timeout=20
   delegate_to: localhost
