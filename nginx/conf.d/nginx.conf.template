@@ -63,8 +63,10 @@ server {
     #     proxy_pass http://${MONGO_HOST};
     # }
 
-    ## TESTE
+    ## TESTE ERROR 500
     location /testing {
         fastcgi_pass unix:/does/not/exist;
     }
+
+    include /etc/nginx/conf.d/applications/*.conf;
 }
