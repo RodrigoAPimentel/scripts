@@ -1,6 +1,0 @@
----
-collections:
-- community.general
-- awx.awx
-- community.docker
-- ansible.posix
