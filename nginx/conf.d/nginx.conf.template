@@ -1,14 +1,4 @@
-# # upstream backend_server {
-# #     server ${NGINX_BACKEND_HOST};
-# # }
 
-# # upstream frontend_server {
-# #     server ${NGINX_FRONTEND_HOST};
-# # }
-
-# # upstream kibana_server {
-# #     server ${ELK_KIBANA_HOST};
-# # }
 # upstream jenkins {
 #     keepalive 32;
 #     server jenkins:8080;
