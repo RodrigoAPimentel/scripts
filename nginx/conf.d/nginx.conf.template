@@ -69,7 +69,9 @@ server {
     }
 
     location /dev_jenkins {
-        proxy_pass http://jenkins:8080 ;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://jenkins:8080;
         # proxy_redirect http://jenkins:8080/ /dev_jenkins/;
     }
 
