@@ -14,6 +14,8 @@ services:
             - jenkins:/var/jenkins_home
         command: --storage-driver=overlay2
         privileged: true
+        networks:
+            - tools
 
     jenkins:
         build:
@@ -33,6 +35,8 @@ services:
             - jenkins:/var/jenkins_home
             - docker-certs:/certs/client:ro
         privileged: true
+        networks:
+            - tools
         depends_on:
             - dind
 
@@ -41,3 +45,7 @@ volumes:
         name: jenkins
     docker-certs:
         name: docker-certs
+
+networks:
+    tools:
+        name: tools

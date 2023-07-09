@@ -13,7 +13,13 @@ services:
             - ./conf.d/applications/:/etc/nginx/conf.d/applications/
             - ./error_pages:/usr/share/nginx/html
         restart: always
+        networks:
+            - tools
 
 volumes:
     nginx:
         name: nginx
+
+networks:
+    tools:
+        name: tools
