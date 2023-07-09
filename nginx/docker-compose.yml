@@ -9,10 +9,8 @@ services:
             - 443:443
         volumes:
             - nginx:/var/log/nginx
-            # - ./conf.d/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
-            # - ./conf.d/server.conf:/etc/nginx/conf.d/server.conf
-            - ./conf.d/nginx.conf:/etc/nginx/conf.d/nginx.conf
-            - ./conf.d/applications/jenkins.conf:/etc/nginx/conf.d/jenkins.conf
+            - ./conf.d/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+            - ./conf.d/applications/:/etc/nginx/conf.d/applications/
             - ./error_pages:/usr/share/nginx/html
         restart: always
         networks:
