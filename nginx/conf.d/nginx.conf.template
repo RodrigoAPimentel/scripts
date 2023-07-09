@@ -9,6 +9,10 @@
 # upstream kibana_server {
 #     server ${ELK_KIBANA_HOST};
 # }
+upstream jenkins {
+    server jenkins:8080;
+}
+
 log_format nginx-log '$remote_addr - $remote_user [$time_local] "$request" '
 '$status $body_bytes_sent "$http_referer" '
 '"$http_user_agent" "$http_x_forwarded_for"';
@@ -29,7 +33,7 @@ server {
 
     location /jk/ {
         # proxy_redirect http://jenkins:8080;
-        proxy_pass http://jenkins:8080;
+        proxy_pass http://jenkins;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
