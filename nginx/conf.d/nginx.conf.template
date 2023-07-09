@@ -68,5 +68,10 @@ server {
         fastcgi_pass unix:/does/not/exist;
     }
 
-    include /etc/nginx/conf.d/applications/*.conf;
+    location /dev_jenkins {
+        proxy_pass http://jenkins:8080 ;
+        # proxy_redirect http://jenkins:8080/ /dev_jenkins/;
+    }
+
+    # include /etc/nginx/conf.d/applications/*.conf;
 }
