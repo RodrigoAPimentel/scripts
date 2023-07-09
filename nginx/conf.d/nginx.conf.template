@@ -68,5 +68,5 @@ server {
         fastcgi_pass unix:/does/not/exist;
     }
 
-    # include /etc/nginx/conf.d/applications/*.conf;
+    include /etc/nginx/conf.d/applications/*.conf;
 }
