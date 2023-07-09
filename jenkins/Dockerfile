@@ -4,8 +4,8 @@ USER root
 
 # Set Defaults
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-ENV JAVA_OPTS="-Xmx1024m"
-ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war"
+# ENV JAVA_OPTS="-Xmx1024m"
+# ENV JENKINS_OPTS="--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war"
 
 RUN apt-get update && apt-get install -y lsb-release
 
