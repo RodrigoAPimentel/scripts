@@ -170,7 +170,7 @@ server {
     sendfile on;
   }
 
-  location / {
+  location /tre {
       sendfile off;
       proxy_pass         http://jenkins;
       proxy_redirect     default;
