@@ -68,7 +68,7 @@ server {
         fastcgi_pass unix:/does/not/exist;
     }
 
-    location /dev_jenkins {
+    location /dev_jenkins/ {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_pass http://jenkins:8080;
