@@ -32,8 +32,8 @@ server {
     error_log /var/log/nginx/nginx-error.log;
 
     location /jk/ {
-        # proxy_redirect http://jenkins:8080;
-        proxy_pass http://jenkins/;
+        # proxy_pass http://jenkins/;
+        proxy_redirect http://jenkins/;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
