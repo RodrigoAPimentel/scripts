@@ -11,7 +11,7 @@ services:
             - nginx:/var/log/nginx
             # - ./conf.d/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
             # - ./conf.d/applications/:/etc/nginx/conf.d/applications/
-            - ./conf.d/applications/jenkins.conf:/etc/nginx/conf.d
+            - ./conf.d/applications/jenkins.conf:/etc/nginx/conf.d/jenkins.conf
             - ./error_pages:/usr/share/nginx/html
         restart: always
         networks:
