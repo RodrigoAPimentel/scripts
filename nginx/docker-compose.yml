@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+    nginx:
+        image: nginx:1.21.6-alpine
+        container_name: nginx
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - nginx:/var/log/nginx
+            - ./conf/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
+            - ./conf/error_pages:/usr/share/nginx/html
+        restart: always
+
+volumes:
+    nginx:
+        name: nginx
