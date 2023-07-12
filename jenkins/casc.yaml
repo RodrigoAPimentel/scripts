@@ -1,17 +1,85 @@
 jenkins:
-  securityRealm:
-    local:
-      allowsSignup: false
-      users:
-      #  - id: ${JENKINS_ADMIN_ID}
-       - id: teste
-        #  password: ${JENKINS_ADMIN_PASSWORD}
-         password: 1234356
-  authorizationStrategy:
-    globalMatrix:
-      permissions:
-        - "Overall/Administer:admin"
-        - "Overall/Read:authenticated"
-unclassified:
-  location:
-    url: http://server_ip:8080/
+    systemMessage: "by Team DevOps Oi DCCG\n\n"
+    numExecutors: 5
+    securityRealm:
+        local:
+          allowsSignup: false
+          users:
+               - id: jaca
+                 password: jaca
+    authorizationStrategy:
+        globalMatrix:
+            grantedPermissions:
+                - "Overall/Read:anonymous"
+                - "Overall/Administer:authenticated"  
+#    crumbIssuer:
+#        standard:
+#            excludeClientIPFromCrumb: false      
+#
+#    remotingSecurity:
+#        enabled: true
+tool:
+    git:
+        installations:
+            - home: "git"
+              name: "Default"
+    maven:
+        installations:
+            - name: "Maven 3.3.9"
+              properties:
+              - installSource:
+                  installers:
+                    - maven:
+                        id: "3.3.9"
+jobs:
+    - script: >
+        multibranchPipelineJob('Ebilling-Deploy') {
+            branchSources {
+                git {
+                    id('123') 
+                    remote('http://gitlab.intranet/digital/ebilling3_0/patch-automatizador-jobs.git')
+                    credentialsId('credential-Gitlab')
+                }
+            }
+            factory {
+                workflowBranchProjectFactory {
+                    scriptPath('Jenkinsfile-Deploy')
+                }
+            }
+        }
+    - script: >
+        pipelineJob('Ebilling-Run') {
+            definition {
+                cpsScm {
+                    scm {
+                        scriptPath('Jenkinsfile-Run')
+                        git {
+                            remote {
+                                url('http://gitlab.intranet/digital/ebilling3_0/patch-automatizador-jobs.git')
+                                credentials('credential-Gitlab')
+                            }
+                            branches('test_dev')
+                        }
+                    }
+                }
+            }
+        }
+credentials:
+    system:
+        domainCredentials:
+            - credentials:
+                - usernamePassword:
+                    scope: GLOBAL
+                    id: credential-Gitlab
+                    username: tr670294
+                    password: sisraf01
+                - usernamePassword:
+                    scope: GLOBAL
+                    id: ssh-dev
+                    username: tr647968
+                    password: arbor001
+                - usernamePassword:
+                    scope: GLOBAL
+                    id: ssh-prod
+                    username: uebilprd
+                    password: tA8RiswE

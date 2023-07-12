@@ -82,6 +82,7 @@ workflow-support
 ws-cleanup
 script-security
 command-launcher
+configuration-as-code
 blueocean-git-pipeline
 blueocean-display-url
 blueocean-github-pipeline
@@ -95,4 +96,3 @@ blueocean-dashboard
 blueocean-bitbucket-pipeline
 blueocean-pipeline-api-impl
 blueocean
-configuration-as-code
