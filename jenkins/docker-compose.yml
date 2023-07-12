@@ -8,27 +8,18 @@ services:
         image: jenkins:0.0.1
         container_name: jenkins
         restart: always
-        environment:
-            - DOCKER_HOST=tcp://docker:2376
-            - DOCKER_CERT_PATH=/certs/client
-            - DOCKER_TLS_VERIFY=1
         ports:
             - "8080:8080"
             - "50000:50000"
         volumes:
             - jenkins:/var/jenkins_home
-            - docker-certs:/certs/client:ro
         privileged: true
         networks:
             - tools
-        depends_on:
-            - dind
 
 volumes:
     jenkins:
         name: jenkins
-    docker-certs:
-        name: docker-certs
 
 networks:
     tools:
