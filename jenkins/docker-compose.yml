@@ -1,22 +1,6 @@
 version: '3.7'
 
 services:
-    dind:
-        image: docker:dind
-        container_name: dind
-        restart: always
-        environment:
-            - DOCKER_TLS_CERTDIR=/certs
-        ports:
-            - "2376:2376"
-        volumes:
-            - docker-certs:/certs/client
-            - jenkins:/var/jenkins_home
-        command: --storage-driver=overlay2
-        privileged: true
-        networks:
-            - tools
-
     jenkins:
         build:
             context: "."
