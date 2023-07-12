@@ -3,8 +3,15 @@ jenkins:
     local:
       allowsSignup: false
       users:
-       - id: ${JENKINS_ADMIN_ID}
-         password: ${JENKINS_ADMIN_PASSWORD}
+      #  - id: ${JENKINS_ADMIN_ID}
+       - id: teste
+        #  password: ${JENKINS_ADMIN_PASSWORD}
+         password: 1234356
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
 unclassified:
   location:
     url: http://server_ip:8080/
