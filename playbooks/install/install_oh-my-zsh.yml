@@ -78,7 +78,7 @@
 
     - name: Copy powerlevel10k configuration file
       ansible.builtin.copy:
-        src: /resources/p10k_zsh_plugin_configuration
+        src: ../../resources/p10k_zsh_plugin_configuration
         dest: ~/.asdf2
         owner: root
         group: root
