@@ -2,8 +2,9 @@ version: '3.7'
 
 services:
     nginx:
-        image: nginx:1.21.6-alpine
-        container_name: nginx
+        image: ${IMAGE}:${IMAGE_VERSION}
+        container_name: ${CONTAINER_NAME}
+        env_file: .env
         ports:
             - 80:80
             - 443:443
