@@ -24,9 +24,9 @@ tool:
                   installers:
                     - maven:
                         id: "3.3.9"
-jobs:
-    — file: /usr/local/seedjob.groovy
-#     - script: >
+# jobs:
+#     — file: /usr/local/seedjob.groovy
+# #     - script: >
 #         multibranchPipelineJob('Ebilling-Deploy') {
 #             branchSources {
 #                 git {
