@@ -5,7 +5,7 @@ services:
         build:
             context: "."
             dockerfile: Dockerfile
-        image: jenkins:0.0.3
+        image: jenkins:0.0.1
         container_name: jenkins
         restart: always
         ports:
