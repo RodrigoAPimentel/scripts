@@ -79,7 +79,7 @@
     - name: Copy powerlevel10k configuration file
       ansible.builtin.copy:
         src: /tmp/resources/p10k_zsh_plugin_configuration
-        dest: ~/.p10k.zsh
+        dest: ~/.asdf
         owner: root
         group: root
         mode: '0644'
