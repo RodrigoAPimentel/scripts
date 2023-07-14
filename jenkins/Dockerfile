@@ -4,6 +4,7 @@ USER root
 
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yaml
+ENV JENKINS_OPTS="--prefix=/jenkins"
 
 RUN apt-get update && apt-get install -y lsb-release
 
