@@ -13,7 +13,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./error_pages:/usr/share/nginx/html
             # - ./conf.d/nginx.conf.template:/etc/nginx/templates/nginx.conf.template
-            - ./conf.d/applications/:/etc/nginx/conf.d/
+            - ./conf.d/sites-available/:/etc/nginx/conf.d/
         restart: always
         networks:
             - tools
