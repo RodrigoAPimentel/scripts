@@ -8,6 +8,7 @@ services:
         image: jenkins:0.0.1
         container_name: jenkins
         restart: always
+        env_file: .env
         ports:
             - "8080:8080"
             - "50000:50000"

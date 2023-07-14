@@ -5,8 +5,8 @@ jenkins:
         local:
           allowsSignup: false
           users:
-               - id: jaca
-                 password: jaca
+               - id: ${JENKINS_USER}
+                 password: ${JENKINS_USER_PASSWORD}
     authorizationStrategy:
         globalMatrix:
             grantedPermissions:
