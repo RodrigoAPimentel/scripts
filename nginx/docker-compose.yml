@@ -1,21 +1,21 @@
 version: '3.7'
 
 services:
-    nginx:
-        image: ${IMAGE}:${IMAGE_VERSION}
-        container_name: ${CONTAINER_NAME}
-        env_file: .env
-        ports:
-            - 80:80
-            - 443:443
-        volumes:
-            - nginx:/var/log/nginx
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ./error_pages:/usr/share/nginx/html
-            - ./conf.d/sites-enabled/:/etc/nginx/conf.d/
-        restart: always
-        networks:
-            - tools
+    # nginx:
+    #     image: ${IMAGE}:${IMAGE_VERSION}
+    #     container_name: ${CONTAINER_NAME}
+    #     env_file: .env
+    #     ports:
+    #         - 80:80
+    #         - 443:443
+    #     volumes:
+    #         - nginx:/var/log/nginx
+    #         - /var/run/docker.sock:/var/run/docker.sock
+    #         - ./error_pages:/usr/share/nginx/html
+    #         - ./conf.d/sites-enabled/:/etc/nginx/conf.d/
+    #     restart: always
+    #     networks:
+    #         - tools
     
     nginx-manager:
         image: 'jc21/nginx-proxy-manager:latest'
