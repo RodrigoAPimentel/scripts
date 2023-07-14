@@ -31,39 +31,39 @@ tool:
                   installers:
                     - maven:
                         id: "3.3.9"
-jobs:
-    - script: >
-        multibranchPipelineJob('Ebilling-Deploy') {
-            branchSources {
-                git {
-                    id('123') 
-                    remote('http://gitlab.intranet/digital/ebilling3_0/patch-automatizador-jobs.git')
-                    credentialsId('credential-Gitlab')
-                }
-            }
-            factory {
-                workflowBranchProjectFactory {
-                    scriptPath('Jenkinsfile-Deploy')
-                }
-            }
-        }
-    - script: >
-        pipelineJob('Ebilling-Run') {
-            definition {
-                cpsScm {
-                    scm {
-                        scriptPath('Jenkinsfile-Run')
-                        git {
-                            remote {
-                                url('http://gitlab.intranet/digital/ebilling3_0/patch-automatizador-jobs.git')
-                                credentials('credential-Gitlab')
-                            }
-                            branches('test_dev')
-                        }
-                    }
-                }
-            }
-        }
+# jobs:
+#     - script: >
+#         multibranchPipelineJob('Ebilling-Deploy') {
+#             branchSources {
+#                 git {
+#                     id('123') 
+#                     remote('http://gitlab.intranet/digital/ebilling3_0/patch-automatizador-jobs.git')
+#                     credentialsId('credential-Gitlab')
+#                 }
+#             }
+#             factory {
+#                 workflowBranchProjectFactory {
+#                     scriptPath('Jenkinsfile-Deploy')
+#                 }
+#             }
+#         }
+#     - script: >
+#         pipelineJob('Ebilling-Run') {
+#             definition {
+#                 cpsScm {
+#                     scm {
+#                         scriptPath('Jenkinsfile-Run')
+#                         git {
+#                             remote {
+#                                 url('http://gitlab.intranet/digital/ebilling3_0/patch-automatizador-jobs.git')
+#                                 credentials('credential-Gitlab')
+#                             }
+#                             branches('test_dev')
+#                         }
+#                     }
+#                 }
+#             }
+#         }
 credentials:
     system:
         domainCredentials:
