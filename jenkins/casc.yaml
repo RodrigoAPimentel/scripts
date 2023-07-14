@@ -1,5 +1,5 @@
 jenkins:
-    systemMessage: "by Team DevOps Oi DCCG\n\n"
+    systemMessage: "by Rodrigo Pimentel\n\n"
     numExecutors: 5
     securityRealm:
         local:
@@ -10,14 +10,7 @@ jenkins:
     authorizationStrategy:
         globalMatrix:
             grantedPermissions:
-                - "Overall/Read:anonymous"
-                - "Overall/Administer:authenticated"  
-#    crumbIssuer:
-#        standard:
-#            excludeClientIPFromCrumb: false      
-#
-#    remotingSecurity:
-#        enabled: true
+                - "Overall/Administer:authenticated"
 tool:
     git:
         installations:
@@ -31,7 +24,8 @@ tool:
                   installers:
                     - maven:
                         id: "3.3.9"
-# jobs:
+jobs:
+    — file: /usr/local/seedjob.groovy
 #     - script: >
 #         multibranchPipelineJob('Ebilling-Deploy') {
 #             branchSources {
@@ -70,16 +64,6 @@ credentials:
             - credentials:
                 - usernamePassword:
                     scope: GLOBAL
-                    id: credential-Gitlab
-                    username: tr670294
-                    password: sisraf01
-                - usernamePassword:
-                    scope: GLOBAL
-                    id: ssh-dev
-                    username: tr647968
-                    password: arbor001
-                - usernamePassword:
-                    scope: GLOBAL
-                    id: ssh-prod
-                    username: uebilprd
-                    password: tA8RiswE
+                    id: credential-sample
+                    username: sampleUsername
+                    password: samplePassword

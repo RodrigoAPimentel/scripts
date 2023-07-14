@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y docker-ce-cli
 
 COPY --chown=jenkins:jenkins plugins.txt /usr/share/jenkins/ref/plugins.txt
 COPY --chown=jenkins:jenkins casc.yaml /var/jenkins_home/casc.yaml
+COPY --chown=jenkins:jenkins seedjob.groovy /usr/local/seedjob.groovy
 
 USER jenkins
 
