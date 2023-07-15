@@ -4,6 +4,9 @@ services:
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
+    environment:
+      - VIRTUAL_HOST=portainer.yourdomain.com
+      - VIRTUAL_PORT=9000
     ports:
       - 9443:9443
       - 9000:9000
