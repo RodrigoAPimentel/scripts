@@ -22,18 +22,40 @@ services:
         restart: unless-stopped
         container_name: nginx-manager
         ports:
-        - '80:80'
-        - '81:81'
-        - '443:443'
+            - '80:80'
+            - '81:81'
+            - '443:443'
+        environment:
+            # Mysql/Maria connection parameters:
+            DB_MYSQL_HOST: "db"
+            DB_MYSQL_PORT: 3306
+            DB_MYSQL_USER: "npm"
+            DB_MYSQL_PASSWORD: "npm"
+            DB_MYSQL_NAME: "npm"
+            # Uncomment this if IPv6 is not enabled on your host
+            # DISABLE_IPV6: 'true'
         volumes:
-        - ./data:/data
-        - ./letsencrypt:/etc/letsencrypt
-        # - nginx:/var/log/nginx
-        # - /var/run/docker.sock:/var/run/docker.sock
-        # - ./error_pages:/usr/share/nginx/html
-        # - ./conf.d/sites-enabled/:/etc/nginx/conf.d/
+            - ./data:/data
+            - ./letsencrypt:/etc/letsencrypt
+            # - nginx:/var/log/nginx
+            # - /var/run/docker.sock:/var/run/docker.sock
+            # - ./error_pages:/usr/share/nginx/html
+            # - ./conf.d/sites-enabled/:/etc/nginx/conf.d/
+        depends_on:
+            - db
         networks:
             - tools
+
+    db:
+        image: 'jc21/mariadb-aria:latest'
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: 'npm'
+            MYSQL_DATABASE: 'npm'
+            MYSQL_USER: 'npm'
+            MYSQL_PASSWORD: 'npm'
+        volumes:
+            - ./mysql:/var/lib/mysql
 
 volumes:
     nginx:
