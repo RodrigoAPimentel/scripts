@@ -20,6 +20,7 @@ services:
     nginx-manager:
         image: 'jc21/nginx-proxy-manager:latest'
         restart: unless-stopped
+        container_name: nginx-manager
         ports:
         - '80:80'
         - '81:81'
@@ -31,6 +32,8 @@ services:
         # - /var/run/docker.sock:/var/run/docker.sock
         # - ./error_pages:/usr/share/nginx/html
         # - ./conf.d/sites-enabled/:/etc/nginx/conf.d/
+        networks:
+            - tools
 
 volumes:
     nginx:
