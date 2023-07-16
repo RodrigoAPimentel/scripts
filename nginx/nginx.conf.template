@@ -34,14 +34,14 @@ server {
         proxy_pass http://portainer/;
     }
 
-    location /jenkins/ {
+    location /jenkins {
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         stub_status on;
         access_log on;
         allow all;
         deny all;
-        proxy_pass http://jenkins/;
+        proxy_pass http://jenkins;
     }
 
     location = /404.html {
