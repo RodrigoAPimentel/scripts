@@ -39,11 +39,7 @@ server {
     }
 
     location /awx {
-        stub_status on;
-        access_log on;
-        allow all;
-        deny all;
-        proxy_pass http://awx/;
+        proxy_pass http://awx;
 
         proxy_http_version 1.1;
         proxy_set_header Host $host;
