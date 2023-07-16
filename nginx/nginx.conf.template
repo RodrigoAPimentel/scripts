@@ -1,10 +1,6 @@
-# upstream backend_server {
-#     server ${NGINX_BACKEND_HOST};
-# }
-
-# upstream frontend_server {
-#     server ${NGINX_FRONTEND_HOST};
-# }
+upstream jenkins {
+    server jenkins:8080;
+}
 
 upstream portainer {
     server portainer:9000;
@@ -38,21 +34,16 @@ server {
         proxy_pass http://portainer/;
     }
 
-    # location /${NGINX_BACKEND_URL}/ {
-    #     proxy_set_header Host $host;
-    #     proxy_set_header X-Real-IP $remote_addr;
-    #     stub_status on;
-    #     access_log on;
-    #     allow all;
-    #     deny all;
-    #     proxy_pass http://backend_server/;
-    # }
+    location /jenkins/ {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        stub_status on;
+        access_log on;
+        allow all;
+        deny all;
+        proxy_pass http://jenkins/;
+    }
 
-    # location /${NGINX_FRONTEND_URL} {
-    #     proxy_set_header Host $host;
-    #     proxy_set_header X-Real-IP $remote_addr;
-    #     proxy_pass http://frontend_server;
-    # }
     location = /404.html {
         internal;
     }
