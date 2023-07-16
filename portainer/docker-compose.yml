@@ -7,9 +7,6 @@ services:
     ports:
       - 9443:9443
       - 9000:9000
-    environment:
-      - VIRTUAL_HOST=192.168.99.21/porti
-      - VIRTUAL_PORT=9000
     volumes:
       - portainer:/data
       - /var/run/docker.sock:/var/run/docker.sock
