@@ -38,7 +38,7 @@ server {
         proxy_pass http://portainer/;
     }
 
-    location /awx/ {
+    location /awx {
         stub_status on;
         access_log on;
         allow all;
