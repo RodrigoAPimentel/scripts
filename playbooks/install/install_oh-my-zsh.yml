@@ -76,13 +76,17 @@
     - debug:
         msg: Configuring theme - {{ output_theme.stdout }}
 
-    - name: Copy powerlevel10k configuration file
+    - name: Copy Powerlevel10k configuration file
       ansible.builtin.copy:
         src: ../../resources/p10k_zsh_plugin_configuration
         dest: ~/.p10k.zsh
         owner: root
         group: root
         mode: '0644'
+    
+    - name: Configuring Powerlevel10k in .zshrc
+      shell: |
+        echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc
 
     - name: Reboot System
       reboot:
