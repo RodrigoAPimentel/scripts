@@ -1,5 +1,5 @@
 ---
-- name: Start and Enable Nginx Service
+- name: Start
   service:
     name: nginx
     state: started
