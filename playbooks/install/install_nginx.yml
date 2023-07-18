@@ -1,0 +1,7 @@
+---
+- name: Install Nginx
+  become: yes
+  gather_facts: No
+  hosts: "{{ _hostname }}"
+  roles:
+    - role: "Nginx_Install"

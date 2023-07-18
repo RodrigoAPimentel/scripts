@@ -1,0 +1,11 @@
+---
+- name: Install Nginx
+  include_tasks: InstallNginx.yml
+  notify:
+    - Start and Enable Nginx Service
+
+
+- name: Configure Nginx
+  include_tasks: configureNginx.yml
+  notify:
+    - Start and Enable Nginx Service

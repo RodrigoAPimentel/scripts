@@ -1,0 +1,10 @@
+---
+- name: Copy Nginx Configuration Template
+  copy:
+    src: nginx.conf.template
+    dest: /etc/nginx/templates/nginx.conf.template
+
+- name: Copy Error Pages
+  copy:
+    src: errorPages
+    dest: /usr/share/nginx/html
