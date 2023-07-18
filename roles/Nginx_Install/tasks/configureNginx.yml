@@ -4,7 +4,12 @@
     src: nginx.conf.template
     dest: /etc/nginx/nginx.conf.template
 
-- name: Copy Error Pages
+- name: Copy 404 Error Page
   copy:
-    src: errorPages
+    src: errorPages/404.html
+    dest: /usr/share/nginx/html
+
+- name: Copy 50x Error Page
+  copy:
+    src: errorPages/50x.html
     dest: /usr/share/nginx/html
