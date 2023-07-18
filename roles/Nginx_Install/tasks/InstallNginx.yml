@@ -3,3 +3,5 @@
   package:
     name: nginx
     state: latest
+  notify:
+    - Start and Enable Nginx Service
