@@ -5,3 +5,9 @@
   hosts: "{{ _hostname }}"
   roles:
     - role: "Nginx_Install"
+
+  handlers:
+    - name: Start 2
+      service:
+        name: nginx
+        state: started

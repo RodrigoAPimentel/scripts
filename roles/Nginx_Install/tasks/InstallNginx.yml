@@ -4,4 +4,4 @@
     name: nginx
     state: latest
   notify:
-    - Start
+    - Start 2
