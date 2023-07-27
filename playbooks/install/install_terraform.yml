@@ -1,7 +1,7 @@
 ---
-- name: Install Nginx
+- name: Install Terraform
   become: yes
   gather_facts: No
   hosts: "{{ _hostname }}"
   roles:
-    - role: "Nginx_Installer"
+    - role: "Terraform_Installer"
