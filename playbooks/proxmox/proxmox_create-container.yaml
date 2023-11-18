@@ -23,7 +23,7 @@
           - requests
 
     - name: Create Container
-      proxmox:
+      community.general.proxmox:
         vmid: "{{ _vmid }}"
         node: "{{ _node }}"
         api_user: "{{ _api_user }}"
@@ -58,7 +58,7 @@
         pause: 5
 
     - name: Start Container
-      proxmox:
+      community.general.proxmox:
         vmid: "{{ _vmid }}"
         api_user: "{{ _api_user }}"
         api_password: "{{ hostvars[host].ansible_password }}"
