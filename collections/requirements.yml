@@ -1,6 +1,6 @@
 ---
 collections:
-# - community.general
-# - awx.awx
-# - community.docker
-# - ansible.posix
+- community.general
+- awx.awx
+- community.docker
+- ansible.posix
