@@ -1,9 +1,9 @@
 ---
 collections:
-- community.general
-# - name: community.general
-#   version: 7.5.1
-#   type: galaxy
+# - community.general
+- name: community.general
+  version: 7.5.1
+  type: galaxy
 - awx.awx
 - community.docker
 - ansible.posix
