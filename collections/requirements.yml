@@ -1,6 +1,8 @@
 ---
 collections:
-- community.general:7.5.1
+# - community.general:7.5.1
+- name: community.general
+  version: 7.5.1
 - awx.awx
 - community.docker
 - ansible.posix
