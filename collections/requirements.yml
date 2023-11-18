@@ -1,6 +1,6 @@
 ---
 collections:
-- community.general
+- community.general:7.5.1
 - awx.awx
 - community.docker
 - ansible.posix
