@@ -2,7 +2,7 @@
 - name: Install oh-my-zsh
   become: yes
   gather_facts: No
-  hosts: "{{ host }}"
+  hosts: "{{ _hostname }}"
 
   tasks:
     - name: Installing oh-my-zsh and dependencies
