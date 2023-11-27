@@ -1,8 +1,0 @@
----
-collections:
-- name: community.general
-  version: 7.4.0
-  source: https://old-galaxy.ansible.com
-- awx.awx
-- community.docker
-- ansible.posix

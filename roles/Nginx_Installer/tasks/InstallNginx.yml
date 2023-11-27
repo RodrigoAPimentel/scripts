@@ -1,7 +1,0 @@
----
-- name: Installing Nginx
-  package:
-    name: nginx
-    state: latest
-  notify:
-    - Start

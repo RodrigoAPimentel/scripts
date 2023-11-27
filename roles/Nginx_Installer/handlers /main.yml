@@ -1,5 +1,0 @@
-- name: Start
-  service:
-    name: nginx
-    state: started
-    enabled: true

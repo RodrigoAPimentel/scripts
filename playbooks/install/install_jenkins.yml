@@ -1,7 +1,0 @@
----
-- name: Install Jenkins
-  become: yes
-  gather_facts: No
-  hosts: "{{ _hostname }}"
-  roles:
-    - role: "Jenkins_Installer"
