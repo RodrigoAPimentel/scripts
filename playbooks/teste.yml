@@ -80,7 +80,7 @@
     - name: Machine Memory RAM
       debug: msg="{{ ansible_memtotal_mb }}"
     - name: Machine Hard Disk Size
-      debug: msg="{{ ansible_devices }}"
+      debug: msg="{{ ansible_devices_dm-13 }}"
 
 
 
