@@ -4,4 +4,6 @@
   when: ansible_distribution != "{{ os_requirement_distribution }}" or ansible_distribution_version != "{{ os_requirement_version }}"
 
 - name: Verify Result
-  debug: "Operating System requirements met."
+  ansible.builtin.debug:
+    msg:
+    - "Operating System requirements met."
