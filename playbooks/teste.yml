@@ -25,3 +25,8 @@
         # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
         msg: "BBBBBBBBBB"
       when: '"{{ app2 }}" in ansible_facts.packages'
+
+    - name: Package status
+      debug:
+        msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
+      loop: "{{ pkgs | default([]) }}"
