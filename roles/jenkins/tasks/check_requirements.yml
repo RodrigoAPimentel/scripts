@@ -2,3 +2,23 @@
 
 - ansible.builtin.import_role:
     name: { role: package_installed, packages: [java] }
+    register: avb
+
+- name: Print Java Version
+  debug:
+    var: avb
+- name: Print Java Version 222
+  debug:
+    var: avb.stdout
+  
+# - name: Installing Java-11
+#   package:
+#     name: "{{ item }}"
+#     state: latest
+#   loop:
+#     - java-11-openjdk
+#     - java-11-openjdk-devel
+
+# - name: Sleep for 20 seconds and continue with play ...
+#   wait_for: timeout=20
+#   delegate_to: localhost
