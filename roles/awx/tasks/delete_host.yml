@@ -4,7 +4,7 @@
   register: awx_token
 
 - name: Delete host in inventory
-  host:
+  awx.awx.host:
     name: "{{ _hostname }}"
     inventory: "{{ _inventory }}"
     enabled: false
