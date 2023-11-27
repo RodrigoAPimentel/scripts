@@ -1,0 +1,3 @@
+---
+- name: Verify Requirements
+  include_tasks: check_requirements.yml
