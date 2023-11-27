@@ -41,7 +41,6 @@
       when: ansible_distribution == "CentOS"
     
     - name: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-      ansible.builtin.debug: 
       fail: msg="Please enter correct Params"
       when: ansible_distribution == "CentOS"
     
@@ -51,7 +50,6 @@
       when: ansible_distribution == "CentOS"
     
     - name: YYYYYYYYYY
-      ansible.builtin.debug: 
       fail: msg="Please enter correct Params"
       when: ansible_distribution == "Debian"
     
