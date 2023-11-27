@@ -5,6 +5,10 @@
   gather_facts: false
   hosts: "{{ host }}"
 
+
+  roles:
+    - role: "check_package_installed"
+
   tasks:
     - name: Gather the package facts
       ansible.builtin.package_facts:
@@ -20,13 +24,13 @@
         msg: "AAAAAAAAAA"
       when: '"{{ app }}" in ansible_facts.packages'
     
-    - name: Check whether a package called {{ app2 }} is installed
-      ansible.builtin.debug:
-        # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
-        msg: "BBBBBBBBBB"
-      when: '"{{ app2 }}" in ansible_facts.packages'
+  #   - name: Check whether a package called {{ app2 }} is installed
+  #     ansible.builtin.debug:
+  #       # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
+  #       msg: "BBBBBBBBBB"
+  #     when: '"{{ app2 }}" in ansible_facts.packages'
 
-    - name: Package status
-      debug:
-        msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
-      loop: "{{ pkgs | default([]) }}"
+  #   - name: Package status
+  #     debug:
+  #       msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
+  #     loop: "{{ pkgs | default([]) }}"
