@@ -7,6 +7,7 @@
   roles:
     - role: "package_installed"
     - role: "os_release"
+    - role: "machine_info"
 
   # tasks:
   #   - name: Gather the package facts
@@ -39,50 +40,46 @@
     
     
     
-    - name: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-      ansible.builtin.debug: 
-        msg: "{{ansible_facts['os_family']}} TTTTTTT" 
-      when: ansible_distribution == "CentOS"
+    # - name: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    #   ansible.builtin.debug: 
+    #     msg: "{{ansible_facts['os_family']}} TTTTTTT" 
+    #   when: ansible_distribution == "CentOS"
     
-    - name: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-      ansible.builtin.debug: 
-        msg: "{{ansible_facts}} PPPPP" 
-      when: ansible_distribution == "CentOS"
-    
-    
-    - name: VVVVVVVV
-      ansible.builtin.debug: 
-        msg: "É CentOs .............."
-      when: ansible_distribution == "CentOS"
-    
-    - name: YYYYYYYYYY
-      ansible.builtin.debug: 
-        msg: "Não É CentOs .............."
-      when: ansible_distribution == "Debian"
+    # - name: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    #   ansible.builtin.debug: 
+    #     msg: "{{ansible_facts}} PPPPP" 
+    #   when: ansible_distribution == "CentOS"
     
     
+    # - name: VVVVVVVV
+    #   ansible.builtin.debug: 
+    #     msg: "É CentOs .............."
+    #   when: ansible_distribution == "CentOS"
+    
+    # - name: YYYYYYYYYY
+    #   ansible.builtin.debug: 
+    #     msg: "Não É CentOs .............."
+    #   when: ansible_distribution == "Debian"
     
     
-    - name: Distribution X
-      debug: msg="{{ ansible_distribution }} == {{ ansible_distribution_version}}"
-    - name: Distribution version X
-      debug: msg="{{ ansible_distribution_version}}"
-    - name: Distribution major version X
-      debug: msg="{{ ansible_distribution_major_version }}"
+    
+    
+    # - name: Distribution X
+    #   debug: msg="{{ ansible_distribution }} == {{ ansible_distribution_version}}"
+    # - name: Distribution version X
+    #   debug: msg="{{ ansible_distribution_version}}"
+    # - name: Distribution major version X
+    #   debug: msg="{{ ansible_distribution_major_version }}"
 
-    - name: Machine Processor Model
-      debug: msg="{{ ansible_processor }}"
+    # - name: Machine Processor Model
+    #   debug: msg="{{ ansible_processor }}"
     
-    - name: Machine Processor Model
-      debug: msg="{{ ansible_processor[2] }}"
-    - name: Machine Processor Cores
-      debug: msg="{{ ansible_processor_cores }}"
-    - name: Machine Memory RAM
-      debug: msg="{{ ansible_memtotal_mb }}"
-    - name: Machine Hard Disk Size
-      debug: msg="{{ ansible_devices }}"
-    - name: Machine Hard Disk Size
-      debug: msg="{{ ansible_devices_loop1_virtual }}"
+    # - name: Machine Processor Model
+    #   debug: msg="{{ ansible_processor[2] }}"
+    # - name: Machine Processor Cores
+    #   debug: msg="{{ ansible_processor_cores }}"
+    # - name: Machine Memory RAM
+    #   debug: msg="{{ ansible_memtotal_mb }}"
 
 
 

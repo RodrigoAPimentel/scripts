@@ -1,4 +1,3 @@
 ---
-# Enter packages with the "pkgs" argument in the format [xxx, yyy, zzz]
-- name: Check whether a package is installed
+- name: Operation System Informations
   include_tasks: check.yml
