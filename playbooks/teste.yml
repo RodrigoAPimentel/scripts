@@ -4,72 +4,63 @@
   become_method: sudo
   gather_facts: true
   hosts: "{{ host }}"
-  roles:
-    - role: "package_installed"
-    - role: "os_release"
-    - role: "machine_info"
-
-  # tasks:
-  #   - name: Gather the package facts
-  #     ansible.builtin.package_facts:
-  #       manager: auto
-
-  #   - name: Print the package facts
-  #     ansible.builtin.debug:
-  #       var: ansible_facts.packages
-
-  #   - name: Check whether a package called {{ app }} is installed
-  #     ansible.builtin.debug:
-  #       # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
-  #       msg: "AAAAAAAAAA"
-  #     when: '"{{ app }}" in ansible_facts.packages'
-    
-  #   - name: Check whether a package called {{ app2 }} is installed
-  #     ansible.builtin.debug:
-  #       # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
-  #       msg: "BBBBBBBBBB"
-  #     when: '"{{ app2 }}" in ansible_facts.packages'
-
-  #   - name: Package status
-  #     debug:
-  #       msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
-  #     loop: "{{ pkgs | default([]) }}"
-
+  # roles:
+  #   - role: "package_installed"
+  #   - role: "os_release"
+  #   - role: "machine_info"
 
   tasks:
+    # - name: Gather the package facts
+    #   ansible.builtin.package_facts:
+    #     manager: auto
+
+    # - name: Print the package facts
+    #   ansible.builtin.debug:
+    #     var: ansible_facts.packages
+
+    # - name: Check whether a package called {{ app }} is installed
+    #   ansible.builtin.debug:
+    #     # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
+    #     msg: "AAAAAAAAAA"
+    #   when: '"{{ app }}" in ansible_facts.packages'
     
+    # - name: Check whether a package called {{ app2 }} is installed
+    #   ansible.builtin.debug:
+    #     # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
+    #     msg: "BBBBBBBBBB"
+    #   when: '"{{ app2 }}" in ansible_facts.packages'
+
+    # - name: Package status
+    #   debug:
+    #     msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
+    #   loop: "{{ pkgs | default([]) }}"  
     
+    - name: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      ansible.builtin.debug: 
+        msg: "{{ansible_facts['os_family']}} TTTTTTT" 
+      when: ansible_distribution == "CentOS"
     
-    # - name: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    #   ansible.builtin.debug: 
-    #     msg: "{{ansible_facts['os_family']}} TTTTTTT" 
-    #   when: ansible_distribution == "CentOS"
+    - name: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+      ansible.builtin.debug: 
+      fail: msg="Please enter correct Params"
+      when: ansible_distribution == "CentOS"
     
-    # - name: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-    #   ansible.builtin.debug: 
-    #     msg: "{{ansible_facts}} PPPPP" 
-    #   when: ansible_distribution == "CentOS"
+    - name: VVVVVVVV
+      ansible.builtin.debug: 
+        msg: "É CentOs .............."
+      when: ansible_distribution == "CentOS"
     
+    - name: YYYYYYYYYY
+      ansible.builtin.debug: 
+      fail: msg="Please enter correct Params"
+      when: ansible_distribution == "Debian"
     
-    # - name: VVVVVVVV
-    #   ansible.builtin.debug: 
-    #     msg: "É CentOs .............."
-    #   when: ansible_distribution == "CentOS"
-    
-    # - name: YYYYYYYYYY
-    #   ansible.builtin.debug: 
-    #     msg: "Não É CentOs .............."
-    #   when: ansible_distribution == "Debian"
-    
-    
-    
-    
-    # - name: Distribution X
-    #   debug: msg="{{ ansible_distribution }} == {{ ansible_distribution_version}}"
-    # - name: Distribution version X
-    #   debug: msg="{{ ansible_distribution_version}}"
-    # - name: Distribution major version X
-    #   debug: msg="{{ ansible_distribution_major_version }}"
+    - name: Distribution X
+      debug: msg="{{ ansible_distribution }} == {{ ansible_distribution_version}}"
+    - name: Distribution version X
+      debug: msg="{{ ansible_distribution_version}}"
+    - name: Distribution major version X
+      debug: msg="{{ ansible_distribution_major_version }}"
 
     # - name: Machine Processor Model
     #   debug: msg="{{ ansible_processor }}"
@@ -79,7 +70,7 @@
     # - name: Machine Processor Cores
     #   debug: msg="{{ ansible_processor_cores }}"
     # - name: Machine Memory RAM
-    #   debug: msg="{{ ansible_memtotal_mb }}"
+    #   debug: msg="{{ ansible_memtotal_mb }} Mb"
 
 
 

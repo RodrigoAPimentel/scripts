@@ -1,12 +1,9 @@
 ---
 - name: Machine Processor Model
-  debug: msg="{{ ansible_processor }}"
-
-- name: Machine Processor Model
   debug: msg="{{ ansible_processor[2] }}"
 
 - name: Machine Processor Cores
   debug: msg="{{ ansible_processor_cores }}"
 
 - name: Machine Memory RAM
-  debug: msg="{{ ansible_memtotal_mb }}"
+  debug: msg="{{ ansible_memtotal_mb }} Mb"
