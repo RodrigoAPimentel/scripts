@@ -4,3 +4,4 @@
 
 - name: Operation System Verification
   include_tasks: verify_os.yml
+  when: bar is defined
