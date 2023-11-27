@@ -1,0 +1,27 @@
+---
+- name: Wait for Jenkins to start up
+  uri:
+    url: http://{{ jenkins_ip }}:8080/login?from=%2F
+    status_code: 200
+    timeout: 5
+  register: jenkins_service_status
+  # Keep trying for 5 mins in 5 sec intervals
+  retries: 10
+  delay: 5
+  until: >
+     'status' in jenkins_service_status and
+     jenkins_service_status['status'] == 200
+
+- name: Install Plugins
+  jenkins_plugin:
+    name: "{{ item }}"
+    url_username: admin
+    url_password: "{{ adminPasswordResult.stdout }}"
+  with_items: 
+    - "{{ jenkins_default_plugins }}"
+    - "{{ jenkins_custom_plugins }}"
+  notify: Restart Jenkins Service
+
+- name: Sleep for 10 seconds and continue with play ...
+  wait_for: timeout=10
+  delegate_to: localhost

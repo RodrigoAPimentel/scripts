@@ -1,0 +1,17 @@
+---
+jenkins_custom_plugins:
+  - script-security
+  - command-launcher
+  - blueocean-git-pipeline
+  - blueocean-display-url
+  - blueocean-github-pipeline
+  - blueocean-personalization
+  - blueocean-rest-impl
+  - blueocean-config
+  - blueocean-events
+  - blueocean-i18n
+  - blueocean-pipeline-editor
+  - blueocean-dashboard
+  - blueocean-bitbucket-pipeline
+  - blueocean-pipeline-api-impl
+  - blueocean
