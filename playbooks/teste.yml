@@ -70,10 +70,17 @@
     - name: Distribution major version X
       debug: msg="{{ ansible_distribution_major_version }}"
 
-    - name: Machine Processor
+    - name: Machine Processor Model
       debug: msg="{{ ansible_processor }}"
-    - name: Machine Processor [2]
+    
+    - name: Machine Processor Model
       debug: msg="{{ ansible_processor[2] }}"
+    - name: Machine Processor Cores
+      debug: msg="{{ ansible_processor_cores }}"
+    - name: Machine Memory RAM
+      debug: msg="{{ ansible_memtotal_mb }}"
+    - name: Machine Hard Disk Size
+      debug: msg="{{ ansible_size }}"
 
 
 
