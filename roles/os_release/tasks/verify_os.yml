@@ -1,4 +1,4 @@
 ---
 - name: Verify requirement OS
-  fail: msg="Please enter correct Params"
+  fail: msg="Operating System or Version does not meet requirements. {{ansible_distribution}} - {{ansible_distribution_version}}"
   when: ansible_distribution == "{{ os_requirement_distribution }}" and ansible_distribution_version == "{{ os_requirement_version }}"
