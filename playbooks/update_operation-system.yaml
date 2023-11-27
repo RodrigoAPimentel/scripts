@@ -36,15 +36,19 @@
       ignore_errors: yes
       register: installPackageResult
 
-
     - name: Print Install common packages
       debug:
         var: installPackageResult.stdout
-    
-    - name: Modify Time Zone to America/Recife
+
+    - name: set system timezone
       register: modify_timezone
-      ignore_errors: true
-      command: timedatectl set-timezone America/Recife
+      timezone:
+          name: America/Recife
+    
+    # - name: Modify Time Zone to America/Recife
+    #   register: modify_timezone
+    #   ignore_errors: true
+    #   command: timedatectl set-timezone America/Recife
     
     - name: Get Time Zone
       register: timezone
