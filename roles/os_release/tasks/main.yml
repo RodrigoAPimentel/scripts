@@ -1,3 +1,6 @@
 ---
 - name: Operation System Informations
   include_tasks: check.yml
+
+- name: Operation System Verification
+  include_tasks: verify_os.yml

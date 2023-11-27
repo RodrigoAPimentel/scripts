@@ -1,0 +1,4 @@
+---
+- name: Verify requirement OS
+  fail: msg="Please enter correct Params"
+  when: ansible_distribution == "{{ os_requirement_distribution }}" and ansible_distribution_version == "{{ os_requirement_version }}"

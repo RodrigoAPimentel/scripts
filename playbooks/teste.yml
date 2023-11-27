@@ -4,9 +4,9 @@
   become_method: sudo
   gather_facts: true
   hosts: "{{ host }}"
-  # roles:
+  roles:
   #   - role: "package_installed"
-  #   - role: "os_release"
+    - role: "os_release"
   #   - role: "machine_info"
 
   tasks:
@@ -35,23 +35,23 @@
     #     msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
     #   loop: "{{ pkgs | default([]) }}"  
     
-    - name: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-      ansible.builtin.debug: 
-        msg: "{{ansible_facts['os_family']}} TTTTTTT" 
-      when: ansible_distribution == "CentOS"
+    # - name: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    #   ansible.builtin.debug: 
+    #     msg: "{{ansible_facts['os_family']}} TTTTTTT" 
+    #   when: ansible_distribution == "CentOS"
     
-    - name: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-      fail: msg="Please enter correct Params"
-      when: ansible_distribution != "CentOS"
+    # - name: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+    #   fail: msg="Please enter correct Params"
+    #   when: ansible_distribution != "CentOS"
     
-    - name: VVVVVVVV
-      ansible.builtin.debug: 
-        msg: "É CentOs .............."
-      when: ansible_distribution == "CentOS"
+    # - name: VVVVVVVV
+    #   ansible.builtin.debug: 
+    #     msg: "É CentOs .............."
+    #   when: ansible_distribution == "CentOS"
     
-    - name: YYYYYYYYYY
-      fail: msg="Please enter correct Params"
-      when: ansible_distribution != "Debian"
+    # - name: YYYYYYYYYY
+    #   fail: msg="Please enter correct Params"
+    #   when: ansible_distribution != "Debian"
     
     - name: Distribution X
       debug: msg="{{ ansible_distribution }} == {{ ansible_distribution_version}}"
