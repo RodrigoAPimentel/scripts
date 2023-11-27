@@ -18,4 +18,4 @@
       ansible.builtin.debug:
         # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
         msg: "AAAAAAAAAA"
-      when: "{{ app }} in ansible_facts.packages"
+      when: '"{{ app }}" in ansible_facts.packages'
