@@ -4,8 +4,6 @@
   become_method: sudo
   gather_facts: false
   hosts: "{{ host }}"
-
-
   roles:
     - role: "check_package_installed"
 
