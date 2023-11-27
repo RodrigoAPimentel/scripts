@@ -19,3 +19,9 @@
         # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
         msg: "AAAAAAAAAA"
       when: '"{{ app }}" in ansible_facts.packages'
+    
+    - name: Check whether a package called {{ app2 }} is installed
+      ansible.builtin.debug:
+        # msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
+        msg: "BBBBBBBBBB"
+      when: '"{{ app2 }}" in ansible_facts.packages'
