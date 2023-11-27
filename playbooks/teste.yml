@@ -7,6 +7,8 @@
   hosts: ct-awx
   vars:
     ansible_python_interpreter: /usr/bin/python3
+  collections:
+    - awx.awx
   roles:
     # - role: "package_installed"
     # - role: "os_release"
