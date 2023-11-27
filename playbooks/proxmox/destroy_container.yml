@@ -1,0 +1,10 @@
+---
+- name: Destroy the Proxmox LXC Container
+  become: true
+  become_method: sudo
+  gather_facts: true
+  hosts: "{{ host }}"
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  roles:
+    - role: proxmox

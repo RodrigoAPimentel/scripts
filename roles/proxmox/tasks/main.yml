@@ -1,0 +1,12 @@
+---
+# - name: Install Requirements
+#   include_tasks: requirements.yml
+
+# - name: Install Jenkins
+#   include_tasks: install.yml
+
+# - name: Configure Jenkins
+#   include_tasks: configure.yml
+
+# - name: Install Plugins
+#   include_tasks: plugins.yml
