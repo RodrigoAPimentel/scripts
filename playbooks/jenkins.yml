@@ -10,5 +10,3 @@
         os_requirement_distribution: 'CentOS'
         os_requirement_version: "8" 
     - role: jenkins
-      vars:
-        jenkins_ip: "{{ jenkins_ip}}" 
