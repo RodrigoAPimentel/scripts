@@ -14,7 +14,7 @@
       ansible.builtin.debug:
         var: ansible_facts.packages
 
-    - name: Check whether a package called foobar is installed
+    - name: Check whether a package called {{ app }} is installed
       ansible.builtin.debug:
-        msg: "{{ ansible_facts.packages['foobar'] | length }} versions of foobar are installed!"
-      when: "'foobar' in ansible_facts.packages"
+        msg: "{{ ansible_facts.packages['{{ app }}'] | length }} versions of {{ app }} are installed!"
+      when: "'{{ app }}' in ansible_facts.packages"
