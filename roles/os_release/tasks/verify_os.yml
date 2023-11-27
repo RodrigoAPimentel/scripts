@@ -1,4 +1,4 @@
 ---
 - name: Verify requirement OS
   fail: msg="Operating System {{ ansible_os_family }} {{ansible_distribution}} with Version {{ansible_distribution_version}} does not meet the requirements. To run the playbook, you need the Operating System {{ os_requirement_distribution }} in Version {{ os_requirement_version }}"
-  when: ansible_distribution == "{{ os_requirement_distribution }}" and ansible_distribution_version == "{{ os_requirement_version }}"
+  when: ansible_distribution != "{{ os_requirement_distribution }}" or ansible_distribution_version != "{{ os_requirement_version }}"
