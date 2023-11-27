@@ -1,6 +1,8 @@
 ---
-# - name: Install Requirements
-#   include_tasks: requirements.yml
+# - name: Destroy the Container with VMID {{ _vmid }} in the proxmox {{ _api_host }}
+- name: Destroy the Container with VMID 
+  include_tasks: destroy_container.yml
+  when: execution_mode == "ct_destroy"
 
 # - name: Install Jenkins
 #   include_tasks: install.yml
