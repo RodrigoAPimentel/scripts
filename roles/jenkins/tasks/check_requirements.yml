@@ -1,1 +1,4 @@
-- { role: package_installed, packages: [java] }
+# - { role: package_installed, packages: [java] }
+
+- ansible.builtin.import_role:
+    name: { role: package_installed, packages: [java] }
