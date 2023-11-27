@@ -1,0 +1,4 @@
+---
+- name: Delete Host 
+  include_tasks: delete_host.yml
+  when: awx_execution_mode == "delete_host"

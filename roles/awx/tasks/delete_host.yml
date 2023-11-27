@@ -1,0 +1,13 @@
+- name: Collect AWX root token
+  command: |
+    docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
+  register: awx_token
+
+- name: Delete host in inventory
+  host:
+    name: "{{ _hostname }}"
+    inventory: "{{ _inventory }}"
+    enabled: false
+    controller_host: "http://{{ hostvars[host].ansible_host }}"
+    controller_oauthtoken: "{{ awx_token.stdout }}"
+    validate_certs: false
