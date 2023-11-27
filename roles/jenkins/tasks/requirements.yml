@@ -2,14 +2,13 @@
 
 - ansible.builtin.import_role:
     name: { role: package_installed, packages: [java] }
-    register: avb
 
-- name: Print Java Version
-  debug:
-    var: avb
-- name: Print Java Version 222
-  debug:
-    var: avb.stdout
+# - name: Print Java Version
+#   debug:
+#     var: avb
+# - name: Print Java Version 222
+#   debug:
+#     var: avb.stdout
   
 # - name: Installing Java-11
 #   package:
