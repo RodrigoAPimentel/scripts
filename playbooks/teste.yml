@@ -70,6 +70,11 @@
     - name: Distribution major version X
       debug: msg="{{ ansible_distribution_major_version }}"
 
+    - name: Machine Processor
+      debug: msg="{{ ansible_processor }}"
+    - name: Machine Processor [2]
+      debug: msg="{{ ansible_processor[2] }}"
+
 
 
 
