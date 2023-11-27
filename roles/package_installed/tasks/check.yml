@@ -3,7 +3,7 @@
   ansible.builtin.package_facts:
     manager: auto
 
-- name: Packages {{ pkgs }} status
+- name: Packages {{ packages }} status
   debug:
     msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
-  loop: "{{ pkgs | default([]) }}"
+  loop: "{{ packages | default([]) }}"
