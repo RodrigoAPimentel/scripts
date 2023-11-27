@@ -81,6 +81,8 @@
       debug: msg="{{ ansible_memtotal_mb }}"
     - name: Machine Hard Disk Size
       debug: msg="{{ ansible_devices }}"
+    - name: Machine Hard Disk Size
+      debug: msg="{{ ansible_devices_loop1_virtual }}"
 
 
 
