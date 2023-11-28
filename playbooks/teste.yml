@@ -37,8 +37,8 @@
         msg:
         - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 
-    - name: Distribution version
-      debug: msg="ZZZZ:{{ teste_rap}}"
+    - name: UUUUUUUUUUUUUUUUUUUUU
+      debug: msg="ZZZZ:{{ teste_rap }}"
 
     # - include_role:
     #     name: os_release
