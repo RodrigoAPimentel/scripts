@@ -1,4 +1,4 @@
 ---
-- name: Delete Host 
+- name: Disable Host 
   include_tasks: disable_host.yml
   when: awx_execution_mode == "disable_host"
