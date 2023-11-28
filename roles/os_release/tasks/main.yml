@@ -13,7 +13,7 @@
   # tags: os_verify
   include_tasks: 
     file: verify_os.yml
-      apply:
-        tags:
-          - os_verify
+    apply:
+      tags:
+        - os_verify
   # when: os_requirement_distribution is defined and os_requirement_version is defined
