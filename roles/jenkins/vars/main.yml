@@ -15,3 +15,7 @@ jenkins_custom_plugins:
   - blueocean-bitbucket-pipeline
   - blueocean-pipeline-api-impl
   - blueocean
+
+java_packages:
+  - java-11-openjdk
+  - java-11-openjdk-devel

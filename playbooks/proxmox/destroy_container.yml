@@ -9,12 +9,9 @@
     ansible_python_interpreter: /usr/bin/python3
   roles:
     - role: proxmox
-      vars:
-        id: 204
-        proxmox_execution_mode: ct_destroy
-    - role: awx
-      vars:
-        host: ct-awx
-        inventory: pimentel-inventory
-        id: 204
-        awx_execution_mode: "disable_host"
+    # - role: awx
+    #   vars:
+    #     host: ct-awx
+    #     inventory: pimentel-inventory
+    #     id: 204
+    #     awx_execution_mode: "disable_host"

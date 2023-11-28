@@ -3,9 +3,11 @@
   package:
     name: "{{ item }}"
     state: latest
-  loop:
-    - java-11-openjdk
-    - java-11-openjdk-devel
+  # loop: 
+  #   - java-11-openjdk
+  #   - java-11-openjdk-devel
+  with_items: 
+    - "{{ java_packages }}"
 
 - name: Sleep for 10 seconds and continue with play ...
   wait_for: timeout=10

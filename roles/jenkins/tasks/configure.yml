@@ -19,8 +19,8 @@
       instance.setAuthorizationStrategy(strategy)
       instance.save()
     args:
-      user_name: "{{ _jenkins_root_userName }}"
-      user_pwd: "{{ _jenkins_root_password }}"
+      user_name: "{{ jenkins_root_userName }}"
+      user_pwd: "{{ jenkins_root_password }}"
     user: admin
     password: "{{ adminPasswordResult.stdout }}"
 
