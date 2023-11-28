@@ -39,4 +39,4 @@
       vars:
         os_requirement_distribution: 'CentOS'
         os_requirement_version: "8"
-      tags: os_verify
+      tags: [ never, os_verify ]
