@@ -23,6 +23,7 @@
         _hostname: teste
         _inventory: pimentel-inventory
         _awx_host: "ct-awx"
+        _node: pimentel-homelab
     # - role: proxmox
     #   vars:
     #     proxmox_execution_mode: "ct_destroy"

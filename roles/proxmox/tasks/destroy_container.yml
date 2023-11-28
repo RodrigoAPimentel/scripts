@@ -10,19 +10,6 @@
   loop_control:
     pause: 5
 
-- name: Get IP for "{{ _ctid }}"
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _ctid }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
-  register: result_ip
-  retries: 10
-  delay: 10
-
-- name: Delete host in known_hosts file
-  delegate_to: ct-awx
-  command: |
-    docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
-  retries: 10
-  delay: 10
-
 - name: Destroy container
   proxmox:
     vmid: "{{ _ctid }}"

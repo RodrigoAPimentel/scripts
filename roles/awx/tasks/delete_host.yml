@@ -1,3 +1,17 @@
+# - name: Get IP for "{{ _ctid }}"
+#   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _ctid }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+#   register: result_ip
+#   retries: 10
+#   delay: 10
+
+# - name: Delete host in known_hosts file
+#   delegate_to: ct-awx
+#   command: |
+#     docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
+#   retries: 10
+#   delay: 10
+
+
 - name: Collect AWX root token
   command: |
     docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
@@ -14,12 +28,20 @@
     controller_oauthtoken: "{{ awx_token.stdout }}"
     validate_certs: false
 
-- name: Delete host in AWX inventory
-  awx.awx.host:
-    name: "{{ _hostname }}"
-    inventory: "{{ _inventory }}"
-    state: "absent"
-    # controller_host: "http://{{ hostvars[host].ansible_host }}"
-    controller_host: "http://{{ hostvars['ct-awx'].ansible_host }}"
-    controller_oauthtoken: "{{ awx_token.stdout }}"
-    validate_certs: false
+# - name: Delete host in AWX inventory
+#   awx.awx.host:
+#     name: "{{ _hostname }}"
+#     inventory: "{{ _inventory }}"
+#     state: "absent"
+#     # controller_host: "http://{{ hostvars[host].ansible_host }}"
+#     controller_host: "http://{{ hostvars['ct-awx'].ansible_host }}"
+#     controller_oauthtoken: "{{ awx_token.stdout }}"
+#     validate_certs: false
+
+
+- name: List all existing virtual machines on node
+  community.general.proxmox_vm_info:
+    api_host: "{{ _api_host }}"
+    api_user: "{{ _api_user }}"
+    node: "{{ _node }}"
+    api_password: "{{ hostvars['proxmox'].ansible_password }}"
