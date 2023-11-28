@@ -1,3 +1,11 @@
+# - name: Get Hostname for vmid/ctid {{ _id }}
+#   delegate_to: proxmox
+#   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "hostname:" { print }' /etc/pve/lxc/{{ _id }}.conf | cut -d':' -f2 | xargs
+#   register: result_hostname
+#   retries: 10
+#   delay: 10
+
+
 - name: Get IP for vmid/ctid {{ _id }}
   delegate_to: proxmox
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
@@ -15,9 +23,15 @@
 - name: vmid/ctid hostname and ip
   debug: msg="HOSTNAME:{{ result_hostname.stdout }} | IP:{{ result_ip.stdout }}"
 
+
+
+- name: Inventory Name
+  debug: msg="== {{ ansible_inventory_sources }}"
+
+
+
 - name: Delete host in known_hosts file
-  # command: |
-  #   docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
+  # command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
   command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/bkp-known_hosts'
   retries: 10
   delay: 10
@@ -28,13 +42,10 @@
   register: awx_token
 
 - name: Disable host in AWX inventory
-  # delegate_to: ct-awx
   awx.awx.host:
     name: "{{ result_hostname.stdout }}"
     inventory: "{{ _inventory }}"
     enabled: false
-    # controller_host: "http://{{ hostvars[host].ansible_host }}"
-    # controller_host: "http://{{ hostvars['ct-awx'].ansible_host }}"
     controller_host: "http://localhost"
     controller_oauthtoken: "{{ awx_token.stdout }}"
     validate_certs: false

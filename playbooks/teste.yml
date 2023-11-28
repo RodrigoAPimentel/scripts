@@ -20,9 +20,7 @@
       vars:
         awx_execution_mode: "disable_host"
 
-        _hostname: teste
         _inventory: pimentel-inventory
-        _awx_host: "ct-awx"
         _node: pimentel-homelab
         _api_host: pimentel-homelab
         _api_user: root@pam
