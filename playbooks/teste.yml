@@ -9,6 +9,7 @@
   # collections:
   #   - awx.awx
   roles:
+    - role: common
     # - role: "package_installed"
     # - role: "machine_info"
     # - { role: package_installed, packages: [proxmoxer] }
