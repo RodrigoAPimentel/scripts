@@ -10,6 +10,6 @@
     inventory: "{{ _inventory }}"
     enabled: false
     # controller_host: "http://{{ hostvars[host].ansible_host }}"
-    controller_host: "http://{{ hostvars[ct-awx].ansible_host }}"
+    controller_host: "http://{{ hostvars['ct-awx'].ansible_host }}"
     controller_oauthtoken: "{{ awx_token.stdout }}"
     validate_certs: false
