@@ -20,8 +20,9 @@
       vars:
         awx_execution_mode: "delete_host"
 
-        _hostname: jenkins
+        _hostname: teste
         _inventory: pimentel-inventory
+        _awx_host: ct-awx
     # - role: proxmox
     #   vars:
     #     proxmox_execution_mode: "ct_destroy"
