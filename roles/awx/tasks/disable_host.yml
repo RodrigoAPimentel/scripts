@@ -1,4 +1,5 @@
 - name: Get IP for "{{ _ctid }}"
+  delegate_to: proxmox
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _ctid }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
   register: result_ip
   retries: 10
