@@ -36,11 +36,14 @@
         msg:
         - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 
-    - include_role:
-        name: os_release
-        # tasks_from: "verify_os.yml"
-        tasks_from: "check.yml"
-      # vars:
-      #   os_requirement_distribution: 'CentOS'
-      #   os_requirement_version: "8"
-      # tags: [ never, os_verify ]
+    - name: Distribution version
+      debug: msg="ZZZZ:{{ teste_rap}}"
+
+    # - include_role:
+    #     name: os_release
+    #     # tasks_from: "verify_os.yml"
+    #     tasks_from: "check.yml"
+    #   # vars:
+    #   #   os_requirement_distribution: 'CentOS'
+    #   #   os_requirement_version: "8"
+    #   # tags: [ never, os_verify ]

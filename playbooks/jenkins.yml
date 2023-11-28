@@ -4,9 +4,14 @@
   become_method: sudo
   gather_facts: true
   hosts: "{{ host }}"
-  roles:
-    - role: os_release
+
+  tasks:
+    - include_role:
+        name: os_release
+        tasks_from: "verify_os.yml"
       vars:
         os_requirement_distribution: 'CentOS'
-        os_requirement_version: "8" 
-    - role: jenkins
+        os_requirement_version: "9"
+    
+    - include_role:
+      name: jenkins
