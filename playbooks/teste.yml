@@ -14,7 +14,7 @@
     # - { role: package_installed, packages: [proxmoxer] }
     # - { role: package_installed, packages: "{{pkgss}}" }
     - role: os_release
-      tasks_from: "verify_os.yml"
+      tasks_from: "check.yml"
       vars:
         os_requirement_distribution: 'CentOS'
         os_requirement_version: "8"
