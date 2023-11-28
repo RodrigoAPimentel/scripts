@@ -26,7 +26,7 @@
         _node: pimentel-homelab
         _api_host: pimentel-homelab
         _api_user: root@pam
-        _ctid: 204
+        _id: 204
     # - role: proxmox
     #   vars:
     #     proxmox_execution_mode: "ct_destroy"
