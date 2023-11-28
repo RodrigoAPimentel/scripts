@@ -3,9 +3,6 @@
   package:
     name: "{{ item }}"
     state: latest
-  # loop: 
-  #   - java-11-openjdk
-  #   - java-11-openjdk-devel
   with_items: 
     - "{{ java_packages }}"
 

@@ -19,3 +19,6 @@ jenkins_custom_plugins:
 java_packages:
   - java-11-openjdk
   - java-11-openjdk-devel
+
+jenkins_root_userName: root
+jenkins_root_password: toor
