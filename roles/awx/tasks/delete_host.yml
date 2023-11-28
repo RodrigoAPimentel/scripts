@@ -46,3 +46,12 @@
     api_user: "{{ _api_user }}"
     node: "{{ _node }}"
     api_password: "{{ hostvars['proxmox'].ansible_password }}"
+
+- name: List all existing CONTAINERS on node
+  delegate_to: proxmox
+  community.general.proxmox_vm_info:
+    api_host: "{{ _api_host }}"
+    api_user: "{{ _api_user }}"
+    node: "{{ _node }}"
+    api_password: "{{ hostvars['proxmox'].ansible_password }}"
+    type: lxc
