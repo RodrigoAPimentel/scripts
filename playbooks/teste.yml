@@ -13,11 +13,12 @@
     # - role: "machine_info"
     # - { role: package_installed, packages: [proxmoxer] }
     # - { role: package_installed, packages: "{{pkgss}}" }
-    - role: os_release
-      tasks_from: "check.yml"
-      vars:
-        os_requirement_distribution: 'CentOS'
-        os_requirement_version: "8"
+    # - role: os_release
+    #   # tasks_from: "verify_os.yml"
+    #   tasks_from: "check.yml"
+    #   vars:
+    #     os_requirement_distribution: 'CentOS'
+    #     os_requirement_version: "8"
       # tags: [ os_verify ]
     # - role: proxmox
     #   vars:
@@ -35,10 +36,10 @@
         msg:
         - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 
-    # - include_role:
-    #     name: os_release
-    #     tasks_from: "verify_os.yml"
-    #   vars:
-    #     os_requirement_distribution: 'CentOS'
-    #     os_requirement_version: "8"
-    #   # tags: [ never, os_verify ]
+    - include_role:
+        name: os_release
+        tasks_from: "verify_os.yml"
+      vars:
+        os_requirement_distribution: 'CentOS'
+        os_requirement_version: "8"
+      # tags: [ never, os_verify ]
