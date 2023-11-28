@@ -3,7 +3,7 @@
     docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
   register: awx_token
 
-- name: Delete host in inventory
+- name: Delete host in AWX inventory
   awx.awx.host:
     name: "{{ _hostname }}"
     inventory: "{{ _inventory }}"
