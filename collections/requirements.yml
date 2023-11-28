@@ -5,4 +5,4 @@ collections:
   source: https://old-galaxy.ansible.com
 - awx.awx
 # - community.docker
-# - ansible.posix
+- ansible.posix

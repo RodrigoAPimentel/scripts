@@ -40,6 +40,7 @@
 
 
 - name: List all existing virtual machines on node
+  delegate_to: proxmox
   community.general.proxmox_vm_info:
     api_host: "{{ _api_host }}"
     api_user: "{{ _api_user }}"
