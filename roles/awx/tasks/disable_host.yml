@@ -12,15 +12,15 @@
   retries: 10
   delay: 10
 
-- name: vmid/ctid info
+- name: vmid/ctid hostname and ip
   debug: msg="HOSTNAME:{{ result_hostname.stdout }} | IP:{{ result_ip.stdout }}"
 
-# - name: Delete host in known_hosts file
-#   delegate_to: ct-awx
-#   command: |
-#     docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
-#   retries: 10
-#   delay: 10
+- name: Delete host in known_hosts file
+  # command: |
+  #   docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
+  command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/bkp-known_hosts'
+  retries: 10
+  delay: 10
 
 - name: Collect AWX root token
   command: |
@@ -30,7 +30,7 @@
 - name: Disable host in AWX inventory
   # delegate_to: ct-awx
   awx.awx.host:
-    name: "{{ _hostname }}"
+    name: "{{ result_hostname.stdout }}"
     inventory: "{{ _inventory }}"
     enabled: false
     # controller_host: "http://{{ hostvars[host].ansible_host }}"
