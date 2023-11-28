@@ -14,7 +14,7 @@
         tasks_from: "verify_os.yml"
       vars:
         os_requirement_distribution: 'CentOS'
-        os_requirement_version: "9"
+        os_requirement_version: "8"
     
     - include_role:
         name: jenkins
