@@ -37,3 +37,7 @@
     - name: Include the example role
       include_role:
         name: os_release
+        vars:
+          os_requirement_distribution: 'CentOS'
+          os_requirement_version: "8"
+        tags: [os_verify]
