@@ -1,19 +1,31 @@
 ---
-- name: Stop Container
-  proxmox:
-    vmid: "{{ _ctid }}"
-    api_user: "{{ _api_user }}"
-    api_password: "{{ hostvars[host].ansible_password }}"
-    api_host: "{{ _api_host }}"
-    force: yes
-    state: stopped
-  loop_control:
-    pause: 5
 
-- name: Destroy container
-  proxmox:
-    vmid: "{{ _ctid }}"
-    api_user: "{{ _api_user }}"
-    api_password: "{{ hostvars[host].ansible_password }}"
-    api_host: "{{ _api_host }}"
-    state: absent
+
+- name: vmid/ctid hostname and ip
+  debug: msg="Hostname:{{ result_hostname.stdout }} | Ip:{{ result_ip.stdout }}"
+
+- name: XXXXXXXXXXXXXXXXXXXXXXX
+  ansible.builtin.debug:
+    msg:
+    - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+
+
+
+# - name: Stop Container
+#   proxmox:
+#     vmid: "{{ _ctid }}"
+#     api_user: "{{ _api_user }}"
+#     api_password: "{{ hostvars[host].ansible_password }}"
+#     api_host: "{{ _api_host }}"
+#     force: yes
+#     state: stopped
+#   loop_control:
+#     pause: 5
+
+# - name: Destroy container
+#   proxmox:
+#     vmid: "{{ _ctid }}"
+#     api_user: "{{ _api_user }}"
+#     api_password: "{{ hostvars[host].ansible_password }}"
+#     api_host: "{{ _api_host }}"
+#     state: absent

@@ -6,7 +6,8 @@
   hosts: "{{ host }}"
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  # collections:
-  #   - awx.awx
   roles:
     - role: proxmox
+      vars:
+        id: 204
+        proxmox_execution_mode: ct_destroy
