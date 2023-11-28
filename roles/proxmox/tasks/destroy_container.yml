@@ -13,7 +13,7 @@
 
 # - name: Stop Container
 #   proxmox:
-#     vmid: "{{ _ctid }}"
+#     vmid: "{{ id }}"
 #     api_user: "{{ _api_user }}"
 #     api_password: "{{ hostvars[host].ansible_password }}"
 #     api_host: "{{ _api_host }}"
@@ -24,7 +24,7 @@
 
 # - name: Destroy container
 #   proxmox:
-#     vmid: "{{ _ctid }}"
+#     vmid: "{{ id }}"
 #     api_user: "{{ _api_user }}"
 #     api_password: "{{ hostvars[host].ansible_password }}"
 #     api_host: "{{ _api_host }}"

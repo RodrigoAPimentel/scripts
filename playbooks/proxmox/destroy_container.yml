@@ -12,3 +12,8 @@
       vars:
         id: 204
         proxmox_execution_mode: ct_destroy
+    - role: awx
+      vars:
+        inventory: pimentel-inventory
+        id: 204
+        awx_execution_mode: "disable_host"
