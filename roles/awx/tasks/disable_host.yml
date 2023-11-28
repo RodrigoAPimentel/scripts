@@ -1,15 +1,10 @@
-
-
 - name: vmid/ctid hostname and ip
-  debug: msg="HOSTNAME:{{ result_hostname.stdout }} | IP:{{ result_ip.stdout }}"
+  debug: msg="Hostname:{{ result_hostname.stdout }} | Ip:{{ result_ip.stdout }}"
 
 - name: Delete host in known_hosts file
-  # command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
-  command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/bkp-known_hosts'
+  command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
   retries: 10
   delay: 10
-
-
 
 - name: Disable host in AWX inventory
   awx.awx.host:
