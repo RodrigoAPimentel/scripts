@@ -1,43 +1,7 @@
-# - name: Get Hostname for vmid/ctid {{ _id }}
-#   delegate_to: proxmox
-#   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "hostname:" { print }' /etc/pve/lxc/{{ _id }}.conf | cut -d':' -f2 | xargs
-#   register: result_hostname
-#   retries: 10
-#   delay: 10
 
-
-- name: Get IP for vmid/ctid {{ _id }}
-  delegate_to: proxmox
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ _id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
-  register: result_ip
-  retries: 10
-  delay: 10
-
-- name: Get Hostname for vmid/ctid {{ _id }}
-  delegate_to: proxmox
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "hostname:" { print }' /etc/pve/lxc/{{ _id }}.conf | cut -d':' -f2 | xargs
-  register: result_hostname
-  retries: 10
-  delay: 10
 
 - name: vmid/ctid hostname and ip
   debug: msg="HOSTNAME:{{ result_hostname.stdout }} | IP:{{ result_ip.stdout }}"
-
-
-
-- name: Inventory Name
-  debug: msg="== {{ ansible_inventory_sources }}"
-- name: Inventory Name 22 inventory_hostname
-  debug: msg="== {{ inventory_hostname }}"
-- name: Inventory Name 33 inventory_hostname_short
-  debug: msg="== {{ inventory_hostname_short }}"
-- name: show all the hosts matching the pattern, i.e. all but the group www
-  ansible.builtin.debug:
-    msg: "{{ item }}"
-  with_inventory_hostnames:
-    - all:!www
-
-
 
 - name: Delete host in known_hosts file
   # command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
@@ -45,10 +9,7 @@
   retries: 10
   delay: 10
 
-- name: Collect AWX root token
-  command: |
-    docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
-  register: awx_token
+
 
 - name: Disable host in AWX inventory
   awx.awx.host:

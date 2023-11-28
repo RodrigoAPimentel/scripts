@@ -21,9 +21,6 @@
         awx_execution_mode: "disable_host"
 
         _inventory: pimentel-inventory
-        _node: pimentel-homelab
-        _api_host: pimentel-homelab
-        _api_user: root@pam
         _id: 204
     # - role: proxmox
     #   vars:
