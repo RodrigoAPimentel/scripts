@@ -8,6 +8,6 @@
     name: "{{ _hostname }}"
     inventory: "{{ _inventory }}"
     enabled: false
-    controller_host: "http://{{ hostvars['{{ _awx_host }}'].ansible_host }}"
+    controller_host: 'http://{{ hostvars["{{ _awx_host }}"].ansible_host }}'
     controller_oauthtoken: "{{ awx_token.stdout }}"
     validate_certs: false
