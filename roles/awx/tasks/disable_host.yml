@@ -17,7 +17,7 @@
   register: awx_token
 
 - name: Disable host in AWX inventory
-  delegate_to: ct-awx
+  # delegate_to: ct-awx
   awx.awx.host:
     name: "{{ _hostname }}"
     inventory: "{{ _inventory }}"
