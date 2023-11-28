@@ -4,8 +4,8 @@
   register: awx_token
 
 - name: Delete host in inventory
+  delegate_to: ct-awx
   awx.awx.host:
-    delegate_to: ct-awx
     name: "{{ _hostname }}"
     inventory: "{{ _inventory }}"
     enabled: false
