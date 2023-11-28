@@ -14,8 +14,9 @@
 
 - name: IP
   debug: msg="== IP:{{ result_ip.stdout }}"
+
 - name: HOSTNAME
-  debug: msg="== HOSTNAME:{{ result_ip.hostname }}"
+  debug: msg="== HOSTNAME:{{ result_hostname.stdout }}"
 
 # - name: Delete host in known_hosts file
 #   delegate_to: ct-awx
