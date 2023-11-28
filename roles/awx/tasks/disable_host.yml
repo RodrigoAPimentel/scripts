@@ -2,11 +2,13 @@
   debug: msg="Hostname:{{ result_hostname.stdout }} | Ip:{{ result_ip.stdout }}"
 
 - name: Delete host in known_hosts file
+  host: "{{ host }}"
   command: docker exec awx_task /bin/bash -c 'sed -i "/{{ result_ip.stdout }}/d" /root/.ssh/known_hosts'
   retries: 10
   delay: 10
 
 - name: Disable host in AWX inventory
+  host: "{{ host }}"
   awx.awx.host:
     name: "{{ result_hostname.stdout }}"
     inventory: "{{ _inventory }}"
