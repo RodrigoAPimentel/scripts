@@ -24,6 +24,8 @@
         _inventory: pimentel-inventory
         _awx_host: "ct-awx"
         _node: pimentel-homelab
+        _api_host: pimentel-homelab
+        _api_user: root@pam
     # - role: proxmox
     #   vars:
     #     proxmox_execution_mode: "ct_destroy"
