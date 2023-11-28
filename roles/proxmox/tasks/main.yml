@@ -4,7 +4,7 @@
 
 - name: Destroy Container 
   include_tasks: destroy_container.yml
-  when: _proxmox_execution_mode == "ct_destroy"
+  when: proxmox_execution_mode == "ct_destroy"
 
 # - name: Install Jenkins
 #   include_tasks: install.yml
