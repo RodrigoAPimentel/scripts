@@ -17,6 +17,8 @@
       vars:
         os_requirement_distribution: 'CentOS'
         os_requirement_version: "8"
+      tags:
+        - os_info
     # - role: proxmox
     #   vars:
     #     proxmox_execution_mode: "ct_destroy"
