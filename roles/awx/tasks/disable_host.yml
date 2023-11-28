@@ -27,6 +27,10 @@
 
 - name: Inventory Name
   debug: msg="== {{ ansible_inventory_sources }}"
+- name: Inventory Name 22 inventory_hostname
+  debug: msg="== {{ inventory_hostname }}"
+- name: Inventory Name 33 inventory_hostname_short
+  debug: msg="== {{ inventory_hostname_short }}"
 
 
 
