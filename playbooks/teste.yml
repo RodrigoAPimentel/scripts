@@ -61,8 +61,27 @@
 
     - name: List all existing virtual machines on node
       delegate_to: proxmox
+      register: all_vm_ct
       community.general.proxmox_vm_info:
         api_host: pimentel-homelab
         api_user: root@pam
-        node:  pimentel-homelab
+        node: pimentel-homelab
         api_password: "{{ hostvars['proxmox'].ansible_password }}"
+
+    - name: List all existing CONTAINERS on node
+      delegate_to: proxmox
+      register: all_ct
+      community.general.proxmox_vm_info:
+        api_host: pimentel-homelab
+        api_user: root@pam
+        node: pimentel-homelab
+        api_password: "{{ hostvars['proxmox'].ansible_password }}"
+        type: lxc
+
+    - name: All CT and VMS
+      debug: msg="{{ all_vm_ct }}"
+
+    - name: All CTs
+      debug: msg="{{ all_ct }}"
+    - name: Last CTs
+      debug: msg="{{ all_ct[2] }}"
