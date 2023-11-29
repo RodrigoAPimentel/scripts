@@ -85,4 +85,4 @@
       debug: msg="{{ all_ct }}"
 
     - name: Last CTs
-      debug: msg="{{ all_ct.proxmox_vms }}"
+      debug: msg="{{ all_ct.proxmox_vms[2] }}"
