@@ -14,7 +14,3 @@
     name: jenkins
     state: latest
   notify: Start and Enable Jenkins Service
-
-- name: Sleep for 10 seconds and continue with play ...
-  wait_for: timeout=10
-  delegate_to: localhost

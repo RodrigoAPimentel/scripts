@@ -4,8 +4,8 @@
   become_method: sudo
   gather_facts: true
   hosts: "{{ host }}"
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
+  # vars:
+  #   ansible_python_interpreter: /usr/bin/python3
   # collections:
   #   - awx.awx
   roles:
@@ -32,6 +32,20 @@
     #     _id: 204
 
   tasks:
+
+
+    - include_role:
+        name: proxmox
+        tasks_from: "get_informations.yml"
+      # vars:
+      #   os_requirement_distribution: 'CentOS'
+      #   os_requirement_version: "8"
+    
+    # - include_role:
+    #     name: jenkins
+
+
+
     - name: XXXXXXXXXXXXXXXXXXXXXXX
       ansible.builtin.debug:
         msg:
@@ -40,11 +54,5 @@
     - name: UUUUUUUUUUUUUUUUUUUUU
       debug: msg="ZZZZ:{{ teste_rap }}"
 
-    # - include_role:
-    #     name: os_release
-    #     # tasks_from: "verify_os.yml"
-    #     tasks_from: "check.yml"
-    #   # vars:
-    #   #   os_requirement_distribution: 'CentOS'
-    #   #   os_requirement_version: "8"
-    #   # tags: [ never, os_verify ]
+    - name: vmid/ctid hostname and ip
+      debug: msg="Hostname:{{ result_hostname.stdout }} | Ip:{{ result_ip.stdout }}"

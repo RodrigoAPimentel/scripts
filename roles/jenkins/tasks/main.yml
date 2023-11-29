@@ -2,11 +2,27 @@
 - name: Install Requirements
   include_tasks: requirements.yml
 
+- name: Sleep for 5 seconds and continue with play ...
+  wait_for: timeout=5
+  delegate_to: localhost
+
 - name: Install Jenkins
   include_tasks: install.yml
+
+- name: Sleep for 5 seconds and continue with play ...
+  wait_for: timeout=5
+  delegate_to: localhost
 
 - name: Configure Jenkins
   include_tasks: configure.yml
 
+- name: Sleep for 5 seconds and continue with play ...
+  wait_for: timeout=5
+  delegate_to: localhost
+
 - name: Install Plugins
   include_tasks: plugins.yml
+
+- name: Sleep for 5 seconds and continue with play ...
+  wait_for: timeout=5
+  delegate_to: localhost

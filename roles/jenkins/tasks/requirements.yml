@@ -5,11 +5,7 @@
     state: latest
   with_items: 
     - "{{ java_packages }}"
-
-- name: Sleep for 10 seconds and continue with play ...
-  wait_for: timeout=10
-  delegate_to: localhost
-
+    
 - name: "Check if Java installed properly"
   shell: java -version
   register: javaversion

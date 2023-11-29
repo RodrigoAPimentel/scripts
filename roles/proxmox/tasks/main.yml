@@ -1,6 +1,6 @@
 ---
-- name: Pre-tasks 
-  include_tasks: pre_tasks.yml
+- name: Get Informations 
+  include_tasks: get_informations.yml
 
 - name: Destroy Container 
   include_tasks: destroy_container.yml
