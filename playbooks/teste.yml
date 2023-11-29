@@ -34,8 +34,9 @@
   tasks:
 
 
-    - include_role:
-        delegate_to: proxmox
+    - name: TTTTTTTTTTTT
+      delegate_to: proxmox
+      include_role:
         name: proxmox
         tasks_from: "get_informations.yml"
       # vars:
