@@ -89,8 +89,8 @@
 
     - name: "Set variables"
       set_fact:
-        last_container_id: "{{ all_ct.proxmox_vms | last }}.vmid"
-        last_container_name: "{{ all_ct.proxmox_vms | last }}.name"
+        last_container_id: "{{ all_ct.proxmox_vms | last | vmid}}"
+        last_container_name: "{{ all_ct.proxmox_vms | last | .name }}"
 
     - name: Last CTs Informations
       debug: msg="Name:{{ last_container_name }} ID:{{ last_container_id }}"
