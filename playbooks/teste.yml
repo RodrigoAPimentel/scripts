@@ -35,7 +35,7 @@
 
 
     - name: TTTTTTTTTTTT
-      delegate_to: proxmox
+      hosts: proxmox
       include_role:
         name: proxmox
         tasks_from: "get_informations.yml"
