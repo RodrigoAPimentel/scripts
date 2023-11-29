@@ -35,7 +35,7 @@
 
 
     - include_role:
-        hosts: proxmox
+        delegate_to: proxmox
         name: proxmox
         tasks_from: "get_informations.yml"
       # vars:
