@@ -1,11 +1,11 @@
 - name: Get IP for vmid/ctid {{ id }}
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
-  register: result_ip
+  register: proxmox_vm_ct__id
   retries: 10
   delay: 10
 
 - name: Get Hostname for vmid/ctid {{ id }}
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "hostname:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d':' -f2 | xargs
-  register: result_hostname
+  register: proxmox_vm_ct__hostname
   retries: 10
   delay: 10

@@ -57,4 +57,11 @@
       debug: msg="ZZZZ:{{ teste_rap }}"
 
     - name: vmid/ctid hostname and ip
-      debug: msg="Hostname:{{ result_hostname.stdout }} | Ip:{{ result_ip.stdout }}"
+      debug: msg="Hostname:{{ proxmox_vm_ct__hostname.stdout }} | Ip:{{ proxmox_vm_ct__id.stdout }}"
+
+    - name: List all existing virtual machines on node
+      community.general.proxmox_vm_info:
+        api_host: pimentel-homelab
+        api_user: root@pam
+        node:  pimentel-homelab
+        api_password: "{{ hostvars['proxmox'].ansible_password }}"
