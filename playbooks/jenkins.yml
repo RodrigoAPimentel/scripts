@@ -3,8 +3,7 @@
   become: true
   become_method: sudo
   gather_facts: true
-  hosts: "{{ host }}"
-  
+  hosts: "{{ host }}"  
   roles:
     - role: common
 

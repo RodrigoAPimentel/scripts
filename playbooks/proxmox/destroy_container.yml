@@ -5,10 +5,9 @@
   gather_facts: true
   hosts: "{{ host }}"
   roles:
-    - role: proxmox
-    # - role: awx
-    #   vars:
-    #     host: ct-awx
-    #     inventory: pimentel-inventory
-    #     id: 204
-    #     awx_execution_mode: "disable_host"
+    - role: common
+    
+  tasks:
+    - include_role:
+        name: proxmox
+        tasks_from: "destroy_container.yml"
