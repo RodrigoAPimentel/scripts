@@ -90,7 +90,7 @@
     - name: "Set variables"
       set_fact:
         # last_container: "{{ all_ct.proxmox_vms | last }}"
-        last_container: "{{ all_ct.proxmox_vms | map(attribute='name') | list }}"
+        last_container: "{{ all_ct.proxmox_vms | map(attribute='id') | list | last }}"
     - name: Last CTs Informations
       debug: msg="Name:{{ last_container }}"
     
