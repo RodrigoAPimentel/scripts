@@ -109,7 +109,8 @@
     #     next_vm_ip: "{{ last_vm_ip }}"
     #     next_container_ip: "{{ result_last_container_ip.stdout }}"
 
-    - set_fact: next_vm_ip="{{ last_vm_ip | regex_replace('(^.*\.).*$', '\\1') }}{{last_vm_ip.split('.')[3] | int + 1 }}"
+    - set_fact: 
+        next_vm_ip: "{{ last_vm_ip | regex_replace('(^.*\.).*$', '\\1') }}{{last_vm_ip.split('.')[3] | int + 1 }}"
 
     - debug: 
         msg: 
