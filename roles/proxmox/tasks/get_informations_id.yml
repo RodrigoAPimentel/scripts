@@ -9,8 +9,13 @@
 
 
 - debug: 
-    msg: "{{ all_vm_ct }}"
+    msg: "{{ all_vm_ct.proxmox_vms }}"
 
+- set_fact:
+    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', '==', {{ id }}) }}"
+
+- debug: 
+    msg: "{{ id_type }}"
 
 
 
