@@ -7,6 +7,15 @@
     api_password: "{{ hostvars['proxmox'].ansible_password }}"
     node: "{{ node }}"
 
+- name: ZZZZZZZZ
+  register: aassdd
+  community.general.proxmox_vm_info:
+    api_host: "{{ api_host }}"
+    api_user: "{{ api_user }}"
+    api_password: "{{ hostvars['proxmox'].ansible_password }}"
+    node: "{{ node }}"
+    vmid: 204
+
 # - name: Print all available facts
 #   ansible.builtin.debug:
 #     var: ansible_facts
@@ -16,7 +25,7 @@
 - debug: 
     msg: "{{ hostvars }}"
 - debug: 
-    msg: "{{ ansible_local }}"
+    msg: "{{ aassdd }}"
 
 - set_fact:
     id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', aabb) | map(attribute='type') | list | unique }}"
