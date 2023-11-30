@@ -1,11 +1,34 @@
-- name: Get IP for vmid/ctid {{ id }}
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
-  register: proxmox_vm_ct__id
-  retries: 10
-  delay: 10
+---
+- name: List all existing virtual machines on node
+  register: all_vm_ct
+  community.general.proxmox_vm_info:
+    api_host: "{{ api_host }}"
+    api_user: "{{ api_user }}"
+    api_password: "{{ hostvars['proxmox'].ansible_password }}"
+    node: "{{ node }}"
 
-- name: Get Hostname for vmid/ctid {{ id }}
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "hostname:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d':' -f2 | xargs
-  register: proxmox_vm_ct__hostname
-  retries: 10
-  delay: 10
+
+- debug: 
+    msg: "{{ all_vm_ct }}"
+
+
+
+
+# - name: Get IP for vmid/ctid {{ id }}
+#   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+#   register: proxmox_id
+#   retries: 10
+#   delay: 10
+
+# - name: Get Hostname for vmid/ctid {{ id }}
+#   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "hostname:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d':' -f2 | xargs
+#   register: proxmox_hostname
+#   retries: 10
+#   delay: 10
+
+# - debug: 
+#     msg: 
+#       - "Id:{{ id }} <> Hostname:{{ proxmox_hostname }} <> Ip:{{ proxmox_last_vm_ip }}"
+#       - "Next Virtual Machine: Id:{{ proxmox_next_vm_id }} <> Ip:{{ proxmox_next_vm_ip }}"
+#       - "Last Container Id:{{ proxmox_last_container_id }} <> Name:{{ proxmox_last_container_name }} <> Ip:{{ proxmox_last_container_ip }}"
+#       - "Next Container Id:{{ proxmox_next_container_id }} <> Ip:{{ proxmox_next_container_ip }}"
