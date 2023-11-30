@@ -10,7 +10,7 @@
 
 - set_fact:
     # id_type: "{{ _info.proxmox_vms | map(attribute='type') | list | unique }}"
-    id_type: "{{ _info.proxmox_vms | map(attribute='type') }}"
+    id_type: "{{ _info.proxmox_vms | map(attribute='type') | list | unique }}[0]"
 
 
 
