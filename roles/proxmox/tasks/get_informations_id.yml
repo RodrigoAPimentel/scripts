@@ -13,7 +13,8 @@
 
 - set_fact:
     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'eq', '{{ id }}') | list }}"
-    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '{{ id }}') | list }}"
+    # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '{{ id }}') | get 'type' }}"
+    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '204') | get 'type' }}"
 
 - debug: 
     msg: "{{ id_type }}"
