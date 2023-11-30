@@ -14,7 +14,7 @@
     api_user: "{{ api_user }}"
     api_password: "{{ hostvars['proxmox'].ansible_password }}"
     node: "{{ node }}"
-    vmid: 204
+    vmid: "{{ id }}"
 
 # - name: Print all available facts
 #   ansible.builtin.debug:
@@ -22,8 +22,8 @@
 
 # - set_fact:
 #     tst: "{{id}}"
-- debug: 
-    msg: "{{ hostvars }}"
+# - debug: 
+#     msg: "{{ hostvars }}"
 - debug: 
     msg: "{{ aassdd }}"
 
