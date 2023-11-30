@@ -50,13 +50,13 @@
 
 
 
-    - name: XXXXXXXXXXXXXXXXXXXXXXX
-      ansible.builtin.debug:
-        msg:
-        - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    # - name: XXXXXXXXXXXXXXXXXXXXXXX
+    #   ansible.builtin.debug:
+    #     msg:
+    #     - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
 
-    - name: UUUUUUUUUUUUUUUUUUUUU
-      debug: msg="ZZZZ:{{ teste_rap }}"
+    # - name: UUUUUUUUUUUUUUUUUUUUU
+    #   debug: msg="ZZZZ:{{ teste_rap }}"
 
     # - name: vmid/ctid hostname and ip
     #   debug: msg="Hostname:{{ proxmox_vm_ct__hostname.stdout }} | Ip:{{ proxmox_vm_ct__id.stdout }}"
@@ -109,17 +109,17 @@
     #     next_vm_ip: "{{ last_vm_ip }}"
     #     next_container_ip: "{{ result_last_container_ip.stdout }}"
 
-    - set_fact: 
-        next_vm_ip: "{{ last_vm_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{last_vm_ip.split('.')[3] | int + 1 }}"
-        next_vm_id: "{{ last_vm_id | int + 1 }}"
-        next_container_ip: "{{ last_container_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{last_container_ip.split('.')[3] | int + 1 }}"
-        next_container_id: "{{ last_container_id | int + 1 }}"
+    # - set_fact: 
+    #     next_vm_ip: "{{ last_vm_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{last_vm_ip.split('.')[3] | int + 1 }}"
+    #     next_vm_id: "{{ last_vm_id | int + 1 }}"
+    #     next_container_ip: "{{ last_container_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{last_container_ip.split('.')[3] | int + 1 }}"
+    #     next_container_id: "{{ last_container_id | int + 1 }}"
 
-    - debug: 
-        msg: 
-          # - "Last Virtual Machine: Id:{{ last_vm_id }} <> Name:{{ last_vm_name }} <> Ip:{{ last_vm_ip }}"
-          - "Next Virtual Machine: Id:{{ next_vm_id }} <> Ip:{{ next_vm_ip }}"
-          - "Next Container Id:{{ next_container_id }} <> Ip:{{ next_container_ip }}"
+    # - debug: 
+    #     msg: 
+    #       # - "Last Virtual Machine: Id:{{ last_vm_id }} <> Name:{{ last_vm_name }} <> Ip:{{ last_vm_ip }}"
+    #       - "Next Virtual Machine: Id:{{ next_vm_id }} <> Ip:{{ next_vm_ip }}"
+    #       - "Next Container Id:{{ next_container_id }} <> Ip:{{ next_container_ip }}"
 
     
 
