@@ -32,8 +32,6 @@
     #     _id: 204
 
   tasks:
-
-
     - include_role:
         name: proxmox
         # tasks_from: "get_informations.yml"
