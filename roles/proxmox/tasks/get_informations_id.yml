@@ -11,19 +11,19 @@
 - debug: 
     msg: "{{ all_vm_ct.proxmox_vms }}"
 
+# - set_fact:
+#     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'eq', '{{ id }}') | list }}"
+#     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '{{ id }}') | get 'type' }}"
+#     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '204') | get 'type' }}"
+#     id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'eq', '204') }}"
 - set_fact:
     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'eq', '{{ id }}') | list }}"
     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '{{ id }}') | get 'type' }}"
     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '204') | get 'type' }}"
-    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'eq', '204') }}"
-- set_fact:
-    # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'eq', '{{ id }}') | list }}"
-    # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '{{ id }}') | get 'type' }}"
-    # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'equalto', '204') | get 'type' }}"
-    id_type2: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', '204') }}"
+    id_type2: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', '204') | get 'type' }}"
 
-- debug: 
-    msg: "{{ id_type }}"
+# - debug: 
+#     msg: "{{ id_type }}"
 - debug: 
     msg: "{{ id_type2 }}"
 
