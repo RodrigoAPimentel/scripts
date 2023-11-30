@@ -90,6 +90,9 @@
     - name: "Set variables"
       set_fact:
         last_container: "{{ all_ct.proxmox_vms | last }}"
+    
+    - name: "Set variables 22"
+      set_fact:
         last_container_id: "{{ last_container.vmid }}"
         last_container_name: "{{ last_container.name }}"
 
