@@ -9,7 +9,6 @@
     vmid: "{{ id }}"
 
 - set_fact:
-    # id_type: "{{ _info.proxmox_vms | map(attribute='type') | list | unique }}"
     id_type: "{{ _info.proxmox_vms | map(attribute='type') | list | first }}"
 
 
@@ -30,14 +29,14 @@
   register: result_ip
   retries: 10
   delay: 10
-  when: id_type == qemu
+  when: id_type == 'qemu'
 
 - name: Get the IP of {{ id }}
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
   register: result_ip
   retries: 10
   delay: 10
-  when: id_type == lxc
+  when: id_type == 'lxc'
 
 - set_fact:
     proxmox_vmid_ip: "{{ result_ip.stdout }}"
