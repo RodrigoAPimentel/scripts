@@ -15,7 +15,7 @@
 #     tst: "{{id}}"
 
 - set_fact:
-    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', aabb) | map(attribute='type') }}"
+    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', aabb) }}"
 
 - debug: 
     msg: "Id:{{ aabb }} <> Type:{{ id_type }}"
