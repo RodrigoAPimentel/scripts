@@ -38,7 +38,7 @@
         name: proxmox
         # tasks_from: "get_informations.yml"
         # tasks_from: "retrieve_ct_last_id.yml"
-        tasks_from: "retrieve_vm_last_id.yml"
+        tasks_from: "retrieve_last_ct_vm_info.yml"
         apply:
           delegate_to: proxmox
       # vars:
