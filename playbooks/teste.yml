@@ -36,9 +36,8 @@
 
     - include_role:
         name: proxmox
-        tasks_from: 
-          - "get_informations.yml"
-          - "retrieve_ct_last_id.yml"
+        # tasks_from: "get_informations.yml"
+        tasks_from: "retrieve_ct_last_id.yml"
         apply:
           delegate_to: proxmox
       # vars:
@@ -58,8 +57,8 @@
     - name: UUUUUUUUUUUUUUUUUUUUU
       debug: msg="ZZZZ:{{ teste_rap }}"
 
-    - name: vmid/ctid hostname and ip
-      debug: msg="Hostname:{{ proxmox_vm_ct__hostname.stdout }} | Ip:{{ proxmox_vm_ct__id.stdout }}"
+    # - name: vmid/ctid hostname and ip
+    #   debug: msg="Hostname:{{ proxmox_vm_ct__hostname.stdout }} | Ip:{{ proxmox_vm_ct__id.stdout }}"
 
     # - name: List all existing virtual machines on node
     #   delegate_to: proxmox
