@@ -1,14 +1,6 @@
 ---
-- name: List all existing virtual machines on node
-  register: all_vm_ct
-  community.general.proxmox_vm_info:
-    api_host: "{{ api_host }}"
-    api_user: "{{ api_user }}"
-    api_password: "{{ hostvars['proxmox'].ansible_password }}"
-    node: "{{ node }}"
-
-- name: ZZZZZZZZ
-  register: aassdd
+- name: Get Informations to {{ id }} 
+  register: _info
   community.general.proxmox_vm_info:
     api_host: "{{ api_host }}"
     api_user: "{{ api_user }}"
@@ -16,23 +8,12 @@
     node: "{{ node }}"
     vmid: "{{ id }}"
 
-# - name: Print all available facts
-#   ansible.builtin.debug:
-#     var: ansible_facts
-
-# - set_fact:
-#     tst: "{{id}}"
-# - debug: 
-#     msg: "{{ hostvars }}"
-- debug: 
-    msg: "{{ aassdd }}"
-
 - set_fact:
-    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', aabb) | map(attribute='type') | list | unique }}"
+    id_type: "{{ _info.proxmox_vms | map(attribute='vmid') | list | unique }}"
     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', '204') }}"
 
 - debug: 
-    msg: "Id:{{ aabb }} <> Type:{{ id_type }}"
+    msg: "Id:{{ id }} <> Type:{{ id_type }}"
 
 
 
