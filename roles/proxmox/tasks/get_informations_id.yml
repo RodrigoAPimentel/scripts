@@ -9,11 +9,37 @@
     vmid: "{{ id }}"
 
 - set_fact:
-    id_type: "{{ _info.proxmox_vms | map(attribute='vmid') | list | unique }}"
+    id_type: "{{ _info.proxmox_vms | map(attribute='type') | list | unique }}"
     # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', '204') }}"
 
 - debug: 
     msg: "Id:{{ id }} <> Type:{{ id_type }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
