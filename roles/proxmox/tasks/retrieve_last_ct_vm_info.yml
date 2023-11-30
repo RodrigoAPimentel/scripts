@@ -23,13 +23,13 @@
     last_container_name: "{{ all_ct.proxmox_vms | map(attribute='name') | list | last }}"
     last_container_id: "{{ all_ct.proxmox_vms | map(attribute='vmid') | list | last }}"
 
-- name: Get IP for Last Virtual Machine
+- name: Get IP for Last Virtual Machine [{{ last_vm_id }} <> {{ last_vm_name }}]
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "ipconfig0:" { print }' /etc/pve/qemu-server/{{ last_vm_id }}.conf | cut -d'=' -f2 | cut -d'/' -f1
   register: result_last_vm_ip
   retries: 10
   delay: 10
 
-- name: Get IP for Last Virtual Container
+- name: Get IP for Last Virtual Container [{{ last_container_id }} <> {{ last_container_name }}]
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ last_container_id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
   register: result_last_container_ip
   retries: 10
@@ -44,7 +44,7 @@
     next_vm_id: "{{ last_vm_id | int + 1 }}"
     next_container_ip: "{{ last_container_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{last_container_ip.split('.')[3] | int + 1 }}"
     next_container_id: "{{ last_container_id | int + 1 }}"
-    
+
 - debug: 
     msg: 
       - "Last Virtual Machine: Id:{{ last_vm_id }} <> Name:{{ last_vm_name }} <> Ip:{{ last_vm_ip }}"
