@@ -7,15 +7,11 @@
     api_password: "{{ hostvars['proxmox'].ansible_password }}"
     node: "{{ node }}"
 
-- name: Print all available facts
-  ansible.builtin.debug:
-    var: ansible_facts
-
 - set_fact:
     tst: "{{id}}"
 
 - set_fact:
-    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', '204') | map(attribute='type') }}"
+    id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', id) | map(attribute='type') }}"
 
 - debug: 
     msg: "Id:{{ id }} <> Type:{{ id_type }}"
