@@ -25,15 +25,19 @@
 
 - name: Get IP for Last Virtual Machine
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "ipconfig0:" { print }' /etc/pve/qemu-server/{{ last_vm_id }}.conf | cut -d'=' -f2 | cut -d'/' -f1
-  register: last_vm_ip
+  register: result_last_vm_ip
   retries: 10
   delay: 10
 
 - name: Get IP for Last Virtual Container
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ last_container_id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
-  register: last_container_ip
+  register: result_last_container_ip
   retries: 10
   delay: 10
+
+- set_fact:
+    last_vm_ip: "{{ result_last_vm_ip.stdout }}"
+    last_container_ip: "{{ result_last_container_ip.stdout }}"
 
 - debug: 
     msg: 
