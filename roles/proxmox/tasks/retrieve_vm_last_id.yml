@@ -1,0 +1,16 @@
+---
+- name: Get all existing Virtual Machines in Proxmox
+  register: all_vm
+  community.general.proxmox_vm_info:
+    api_host: pimentel-homelab
+    api_user: root@pam
+    node: pimentel-homelab
+    api_password: "{{ hostvars['proxmox'].ansible_password }}"
+    type: qemu
+
+- set_fact:
+    last_vm_name: "{{ all_vm.proxmox_vms | map(attribute='name') | list | last }}"
+    last_vm_id: "{{ all_vm.proxmox_vms | map(attribute='vmid') | list | last }}"
+
+- name: Last Virtual Machine in Proxmox
+  debug: msg="Id:{{ last_vm_id }} <> Name:{{ last_vm_name }}"
