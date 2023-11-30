@@ -34,11 +34,11 @@
   tasks:
 
 
-    - include_role:
-        name: proxmox
-        tasks_from: "get_informations.yml"
-        apply:
-          delegate_to: proxmox
+    # - include_role:
+    #     name: proxmox
+    #     tasks_from: "get_informations.yml"
+    #     apply:
+    #       delegate_to: proxmox
       # vars:
       #   os_requirement_distribution: 'CentOS'
       #   os_requirement_version: "8"
@@ -70,7 +70,7 @@
 
     - name: List all existing CONTAINERS on node
       delegate_to: proxmox
-      register: all_ct
+      register: "asdf={{ map(attribute='vmid') | list | last }}"
       community.general.proxmox_vm_info:
         api_host: pimentel-homelab
         api_user: root@pam
@@ -85,12 +85,14 @@
       debug: msg="{{ all_ct }}"
 
     - name: Last CTs
-      debug: msg="{{ all_ct.proxmox_vms | last }}"
+      # debug: msg="{{ all_ct.proxmox_vms | last }}"
+      debug: msg="{{ asdf }}"
 
     - name: "Set variables"
       set_fact:
         # last_container: "{{ all_ct.proxmox_vms | last }}"
-        last_container: "{{ all_ct.proxmox_vms | map(attribute='id') | list | last }}"
+        last_container_id: "{{ all_ct.proxmox_vms | map(attribute='vmid') | list | last }}"
+        last_vm_id: "{{ all_ct.proxmox_vms | map(attribute='vmid') | list | last }}"
     - name: Last CTs Informations
       debug: msg="Name:{{ last_container }}"
     
