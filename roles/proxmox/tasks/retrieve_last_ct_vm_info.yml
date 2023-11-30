@@ -23,15 +23,8 @@
     last_container_name: "{{ all_ct.proxmox_vms | map(attribute='name') | list | last }}"
     last_container_id: "{{ all_ct.proxmox_vms | map(attribute='vmid') | list | last }}"
 
-# - name: Last Virtual Machine in Proxmox
-#   debug: msg="Id:{{ last_vm_id }} <> Name:{{ last_vm_name }}"
-
-# - name: Last Container in Proxmox
-#   debug: msg="Id:{{ last_container_id }} <> Name:{{ last_container_name }}"
-
-
-- name: Last Virtual Machine and Container in Proxmox
-  debug: 
+# - name: Last Virtual Machine and Container in Proxmox
+- debug: 
     msg: 
       - "Last Virtual Machine: Id:{{ last_vm_id }} <> Name:{{ last_vm_name }}"
       - "Last Container Id:{{ last_container_id }} <> Name:{{ last_container_name }}"
