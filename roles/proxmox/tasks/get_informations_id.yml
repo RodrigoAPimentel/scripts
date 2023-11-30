@@ -7,6 +7,10 @@
     api_password: "{{ hostvars['proxmox'].ansible_password }}"
     node: "{{ node }}"
 
+- name: Print all available facts
+  ansible.builtin.debug:
+    var: ansible_facts
+
 - set_fact:
     tst: "{{id}}"
 
