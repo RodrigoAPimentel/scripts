@@ -70,7 +70,7 @@
 
     - name: List all existing CONTAINERS on node
       delegate_to: proxmox
-      register: "asdf={{ map(attribute='vmid') | list | last }}"
+      register: "asdf={{ map(attribute='proxmox_vms') | map(attribute='vmid') | list | last }}"
       community.general.proxmox_vm_info:
         api_host: pimentel-homelab
         api_user: root@pam
