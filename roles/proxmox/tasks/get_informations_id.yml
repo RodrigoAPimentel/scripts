@@ -1,5 +1,5 @@
 ---
-- name: Get Informations to {{ id }} 
+- name: Get Informations of {{ id }} 
   register: _info
   community.general.proxmox_vm_info:
     api_host: "{{ api_host }}"
@@ -10,11 +10,26 @@
 
 - set_fact:
     id_type: "{{ _info.proxmox_vms | map(attribute='type') | list | unique }}"
-    # id_type: "{{ all_vm_ct.proxmox_vms | selectattr('vmid', 'match', '204') }}"
+
+- name: Get the IP of {{ id }}
+  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "ipconfig0:" { print }' /etc/pve/qemu-server/{{ id }}.conf | cut -d'=' -f2 | cut -d'/' -f1
+  register: result_ip
+  retries: 10
+  delay: 10
+  when: id_type == qemu
+
+- name: Get the IP of {{ id }}
+  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+  register: result_ip
+  retries: 10
+  delay: 10
+  when: id_type == lxc
+
+- set_fact:
+    ip: "{{ result_ip.stdout }}"
 
 - debug: 
-    msg: "Id:{{ id }} <> Type:{{ id_type }}"
-
+    msg: "Id:{{ id }} <> Type:{{ id_type }} <> Ip:{{ ip }}"
 
 
 
