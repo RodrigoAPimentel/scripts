@@ -38,6 +38,9 @@
   delay: 10
   when: id_type == 'lxc'
 
+- debug: 
+    msg: "{{result_ip}}"
+
 - set_fact:
     proxmox_vmid_ip: "{{ result_ip.stdout }}"
 
