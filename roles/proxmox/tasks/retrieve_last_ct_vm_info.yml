@@ -43,6 +43,7 @@
     proxmox_next_vm_ip: "{{ proxmox_last_vm_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{proxmox_last_vm_ip.split('.')[3] | int + 1 }}"
     proxmox_next_vm_id: "{{ proxmox_last_vm_id | int + 1 }}"
     proxmox_next_container_ip: "{{ proxmox_last_container_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{proxmox_last_container_ip.split('.')[3] | int + 1 }}"
+    proxmox_next_container_gw: "{{ proxmox_last_container_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{proxmox_last_container_ip.split('.')[3] | 1 }}"
     proxmox_next_container_id: "{{ proxmox_last_container_id | int + 1 }}"
 
 - debug: 
@@ -50,5 +51,5 @@
       - "Last Virtual Machine: Id:{{ proxmox_last_vm_id }} <> Name:{{ proxmox_last_vm_name }} <> Ip:{{ proxmox_last_vm_ip }}"
       - "Next Virtual Machine: Id:{{ proxmox_next_vm_id }} <> Ip:{{ proxmox_next_vm_ip }}"
       - "Last Container Id:{{ proxmox_last_container_id }} <> Name:{{ proxmox_last_container_name }} <> Ip:{{ proxmox_last_container_ip }}"
-      - "Next Container Id:{{ proxmox_next_container_id }} <> Ip:{{ proxmox_next_container_ip }}"
+      - "Next Container Id:{{ proxmox_next_container_id }} <> Ip:{{ proxmox_next_container_ip }} <> Gateway:{{ proxmox_next_container_gw }}"
 
