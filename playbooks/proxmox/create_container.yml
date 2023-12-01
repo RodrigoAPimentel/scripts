@@ -12,11 +12,9 @@
         name: proxmox
         tasks_from: "retrieve_last_ct_vm_info.yml"
         
-
   tasks:
-    - name: XXXXXXXXXXXXXXXXXXXXXXX
-      ansible.builtin.debug:
-        msg:
-        - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+    - include_role:
+        name: proxmox
+        tasks_from: "create_container.yml"
 
     
