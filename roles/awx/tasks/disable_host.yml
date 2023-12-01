@@ -1,0 +1,8 @@
+- name: Disable host in inventory {{ inventory }}
+  host:
+    name: "{{ _hostname }}"
+    inventory: "{{ inventory }}"
+    enabled: false
+    controller_host: "http://{{ hostvars[host].ansible_host }}"
+    controller_oauthtoken: "{{ awx_token }}"
+    validate_certs: false
