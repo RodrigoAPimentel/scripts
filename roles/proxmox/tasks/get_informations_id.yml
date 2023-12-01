@@ -12,39 +12,24 @@
     id_type: "{{ _info.proxmox_vms | map(attribute='type') | list | first }}"
     proxmox_vmid_name: "{{ _info.proxmox_vms | map(attribute='name') | list | first }}"
 
-- name: Get the IP of qemu {{ id }}
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "ipconfig0:" { print }' /etc/pve/qemu-server/{{ id }}.conf | cut -d'=' -f2 | cut -d'/' -f1
-  register: qemu_result_ip
-  retries: 10
-  delay: 10
+- block:
+    - name: Get the IP of qemu {{ id }}
+      ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "ipconfig0:" { print }' /etc/pve/qemu-server/{{ id }}.conf | cut -d'=' -f2 | cut -d'/' -f1
+      register: qemu_result_ip
+      retries: 10
+      delay: 10      
+    - set_fact:
+        proxmox_vmid_ip: "{{ qemu_result_ip.stdout }}"
   when: id_type == 'qemu'
 
-- name: Get the IP of lxc {{ id }}
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
-  register: lxc_result_ip
-  retries: 10
-  delay: 10
-  when: id_type == 'lxc'
-
-
-
-
-# - debug: 
-#     msg: "{{result_ip2}}"
-- debug: 
-    msg: "{{ _info }}"
-
-
-
-
-
-
-
-- set_fact:
-    proxmox_vmid_ip: "{{ qemu_result_ip.stdout }}"
-  when: id_type == 'qemu'
-- set_fact:
-    proxmox_vmid_ip: "{{ lxc_result_ip.stdout }}"
+- block:
+    - name: Get the IP of lxc {{ id }}
+      ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+      register: lxc_result_ip
+      retries: 10
+      delay: 10
+    - set_fact:
+        proxmox_vmid_ip: "{{ lxc_result_ip.stdout }}"
   when: id_type == 'lxc'
 
 
