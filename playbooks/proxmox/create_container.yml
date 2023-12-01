@@ -7,7 +7,7 @@
   roles:
     - role: common
 
-  pre-tasks:
+  pre_tasks:
       - include_role:
         name: proxmox
         tasks_from: "retrieve_last_ct_vm_info.yml"
