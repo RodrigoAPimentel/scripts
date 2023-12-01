@@ -1,0 +1,22 @@
+---
+- name: Create new LXC container in Proxmox
+  become: true
+  become_method: sudo
+  gather_facts: true
+  hosts: "{{ host }}"  
+  roles:
+    - role: common
+
+  pre-tasks:
+      - include_role:
+        name: proxmox
+        tasks_from: "retrieve_last_ct_vm_info.yml"
+        
+
+  tasks:
+    - name: XXXXXXXXXXXXXXXXXXXXXXX
+      ansible.builtin.debug:
+        msg:
+        - "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+
+    
