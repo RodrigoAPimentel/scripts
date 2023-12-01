@@ -1,4 +1,6 @@
 - name: Collect AWX root token
-  host: "{{ host }}"
   command: docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
   register: awx_token
+
+- debug: 
+    msg: "{{ awx_token }}"
