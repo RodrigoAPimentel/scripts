@@ -28,8 +28,8 @@
     swap: "{{ _memory }}"
     storage: "local-lvm"
     netif: '{"net0":"name=eth0,gw={{ proxmox_next_container_gw }},ip={{ proxmox_next_container_ip }}/24,bridge=vmbr0"}'
-    unprivileged: "{{ _unprivileged }}"
-    onboot: "{{ _onboot }}"
+    unprivileged: "{{ unprivileged }}"
+    onboot: "{{ onboot }}"
     description: "
       ## **{{ _hostname }}:**\n
         - **ID:** _{{ proxmox_next_container_id }}_\n
@@ -40,8 +40,8 @@
         - **Password:** _{{ container_root_password }}_\n
     "
     features:
-      - nesting={{ _nesting }}
-      - keyctl={{ _keyctl }}
+      - nesting={{ nesting }}
+      - keyctl={{ keyctl }}
   loop_control:
     pause: 5
 
