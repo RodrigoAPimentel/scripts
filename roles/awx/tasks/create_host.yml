@@ -1,0 +1,12 @@
+- name: Create host in inventory {{ inventory }}
+  host:
+    name: "{{ _hostname }}"
+    description: "{{ _description }}"
+    inventory: "{{ inventory }}"
+    state: present
+    enabled: true
+    controller_host: "http://{{ hostvars[host].ansible_host }}"
+    controller_oauthtoken: "{{ awx_token }}"
+    validate_certs: false
+    variables:
+      ansible_host: "{{ _network_ip }}"

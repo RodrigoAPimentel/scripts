@@ -13,11 +13,6 @@
         tasks_from: "collect_awx_token.yml"
         
   tasks:
-    # - include_role:
-    #     name: proxmox
-    #     tasks_from: "create_container.yml"
-
-    - debug: 
-        msg: "{{ awx_token }}"
-
-    
+    - include_role:
+        name: awx
+        tasks_from: "create_host.yml"
