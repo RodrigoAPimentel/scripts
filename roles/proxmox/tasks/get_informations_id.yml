@@ -24,14 +24,14 @@
 
 
 
-- name: Get the IP of {{ id }}
+- name: Get the IP of qemu {{ id }}
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "ipconfig0:" { print }' /etc/pve/qemu-server/{{ id }}.conf | cut -d'=' -f2 | cut -d'/' -f1
-  register: result_ip
+  register: result_ip2
   retries: 10
   delay: 10
   when: id_type == 'qemu'
 
-- name: Get the IP of {{ id }}
+- name: Get the IP of lxc {{ id }}
   ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
   register: result_ip
   retries: 10
@@ -42,9 +42,9 @@
 
 
 - debug: 
-    msg: "{{result_ip}}"
+    msg: "{{result_ip2}}"
 - debug: 
-    msg: "{{result_ip.stdout_lines}}"
+    msg: "{{result_ip}}"
 
 
 
