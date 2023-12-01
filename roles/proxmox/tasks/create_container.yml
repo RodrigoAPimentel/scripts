@@ -20,7 +20,7 @@
     api_host: "{{ api_host }}"
     state: present
     hostname: "{{ _hostname }}"
-    password: toor
+    password: "{{ container_root_password }}"
     ostemplate: "{{ _ostemplate }}"
     cores: "{{ _cores }}"
     disk: "{{ _disk }}"
@@ -37,7 +37,7 @@
         - **OS:** _{{ _ostemplate }}_\n
         - **IP:** _{{ proxmox_next_container_ip }}_\n
         - **User:** _root_\n
-        - **Password:** _toor_\n
+        - **Password:** _{{ container_root_password }}_\n
     "
     features:
       - nesting={{ _nesting }}

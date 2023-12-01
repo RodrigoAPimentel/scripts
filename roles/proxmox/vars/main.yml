@@ -1,6 +1,7 @@
 api_host: pimentel-homelab
 api_user: root@pam
 node: pimentel-homelab
+container_root_password: "12345"
 packages_dependencies_create_container:
   - python3
   - python3-pip
