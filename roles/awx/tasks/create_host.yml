@@ -1,5 +1,5 @@
 - name: Create host in inventory {{ inventory }}
-  host:
+  awx.awx.host:
     name: "{{ _hostname }}"
     description: "{{ _description }}"
     inventory: "{{ inventory }}"

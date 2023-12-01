@@ -6,4 +6,4 @@
     awx_token: "{{ result_awx_token.stdout }}"
 
 - debug: 
-    msg: "{{ awx_token }}"
+    msg: "AWX Token:{{ awx_token }}"
