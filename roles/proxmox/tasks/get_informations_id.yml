@@ -30,8 +30,8 @@
 
 # - debug: 
 #     msg: "{{result_ip2}}"
-# - debug: 
-#     msg: "{{result_ip}}"
+- debug: 
+    msg: "{{ _info }}"
 
 
 
@@ -41,10 +41,10 @@
 
 - set_fact:
     proxmox_vmid_ip: "{{ qemu_result_ip }}"
-    when: id_type == 'qemu'
+  when: id_type == 'qemu'
 - set_fact:
     proxmox_vmid_ip: "{{ lxc_result_ip }}"
-    when: id_type == 'lxc'
+  when: id_type == 'lxc'
 
 
 
