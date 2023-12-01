@@ -1,5 +1,7 @@
 ---
+# collections:
+# - name: community.general
+#   version: 7.4.0
+#   source: https://old-galaxy.ansible.com
 collections:
-- name: community.general
-  version: 7.4.0
-  source: https://old-galaxy.ansible.com
+- community.general
