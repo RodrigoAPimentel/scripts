@@ -42,6 +42,8 @@
 
 
 - debug: 
+    msg: "{{result_ip}}"
+- debug: 
     msg: "{{result_ip.stdout_lines}}"
 
 
