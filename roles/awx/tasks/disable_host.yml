@@ -1,5 +1,5 @@
 - name: Disable host in inventory {{ inventory }}
-  host:
+  awx.awx.host:
     name: "{{ _hostname }}"
     inventory: "{{ inventory }}"
     enabled: false
