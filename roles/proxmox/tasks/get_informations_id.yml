@@ -40,7 +40,11 @@
 
 
 - set_fact:
-    proxmox_vmid_ip: "{{ (id_type == 'qemu' | ternary ({{qemu_result_ip}}, {{lxc_result_ip}})) }}"
+    proxmox_vmid_ip: "{{ qemu_result_ip }}"
+    when: id_type == 'qemu'
+- set_fact:
+    proxmox_vmid_ip: "{{ lxc_result_ip }}"
+    when: id_type == 'lxc'
 
 
 
