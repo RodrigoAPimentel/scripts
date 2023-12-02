@@ -1,1 +1,11 @@
-teste_rap: jabuti
+update_os_packages:
+  - ca-certificates
+  - curl
+  - wget
+  - python3-pip
+  - python3-setuptools
+  - nano
+  - tar
+  - util-linux-user
+  - git
+  - qemu-guest-agent

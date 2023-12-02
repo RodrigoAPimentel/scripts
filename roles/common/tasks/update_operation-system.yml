@@ -1,0 +1,65 @@
+---
+- name: Add EPEL repository
+  package:
+    name: epel-release
+    state: latest
+
+- name: Update the system packages
+  package:
+    name: "*"
+    state: latest
+
+- name: Remove packages not needed anymore
+  package:
+    autoremove: yes
+
+- name: Install common packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  ignore_errors: true
+  with_items: 
+    - "{{ packages_dependencies_create_container }}"
+  register: installPackageResult
+
+- name: Print Install common packages
+  debug:
+    var: installPackageResult.stdout
+
+- name: set system timezone
+  register: modify_timezone
+  timezone:
+      name: America/Recife
+
+# - name: Modify Time Zone to America/Recife
+#   register: modify_timezone
+#   ignore_errors: true
+#   command: timedatectl set-timezone America/Recife
+
+- name: Get Time Zone
+  register: timezone
+  ignore_errors: true
+  command: timedatectl
+
+- name: Show Time Zone
+  debug:
+    var: timezone.stdout
+  notify: Reboot System
+
+# - name: Reboot System
+#   reboot:
+
+- name: Wait for "{{ host_update_so }}" to become reachable
+  wait_for:
+    host: "{{ host_update_so }}"
+    port: 22
+    delay: 10
+    timeout: 120
+
+- name: Start qemu-guest-agent Service
+  service:
+    name: qemu-guest-agent
+    state: started
+    enabled: yes
+  ignore_errors: yes
+  notify: Reboot System
