@@ -50,6 +50,7 @@
   community.general.proxmox:
     vmid: "{{ proxmox_next_container_id }}"
     api_user: "{{ api_user }}"
-    api_password: "{{ hostvars[host].ansible_password }}"
+    # api_password: "{{ hostvars[host].ansible_password }}"
+    api_password: "{{ api_password }}"
     api_host: "{{ api_host }}"
     state: started
