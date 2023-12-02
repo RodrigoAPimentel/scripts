@@ -11,21 +11,13 @@
       - proxmoxer
       - requests
 
-
-
-
-- debug: 
-      msg: 
-        - "55555555 {{hostvars[host]}}"
-
-
-
 - name: Create Container
   community.general.proxmox:
     vmid: "{{ proxmox_next_container_id }}"
     node: "{{ node }}"
     api_user: "{{ api_user }}"
-    api_password: "{{ hostvars[host].ansible_password }}"
+    # api_password: "{{ hostvars[host].ansible_password }}"
+    api_password: "{{ api_password }}"
     api_host: "{{ api_host }}"
     state: present
     hostname: "{{ _hostname }}"
