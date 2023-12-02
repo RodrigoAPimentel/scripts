@@ -11,6 +11,15 @@
       - proxmoxer
       - requests
 
+
+
+
+- debug: 
+      msg: 
+        - "55555555 {{hostvars[host]}}"
+
+
+
 - name: Create Container
   community.general.proxmox:
     vmid: "{{ proxmox_next_container_id }}"
