@@ -4,18 +4,16 @@
       - "BBBBBBBBBBB={{ hostvars[host].ansible_host }}"
       - "DDDDDDDDDDDDD={{ external_call_host }}"
 
-# - set_fact:
-#     host: "{{ external_call_host }}"
-#   when: external_call_host is defined
-- ansible.utils.update_fact:
-    updates:
-      - path: "host"
-        value: "{{ external_call_host }}"
+- set_fact:
+    _controller_host: "http://{{ hostvars[external_call_host].ansible_host }}"
   when: external_call_host is defined
+- set_fact:
+    _controller_host: "http://{{ hostvars[host].ansible_host }}"
+  when: external_call_host is undefined
   
 - debug:
     msg: 
-      - "AAAAAAAAAAAAA 22222={{ host }}"
+      - "AAAAAAAAAAAAA 22222={{ _controller_host }}"
 
 - name: Create host in inventory {{ inventory }}
   awx.awx.host:
@@ -24,7 +22,7 @@
     inventory: "{{ inventory }}"
     state: present
     enabled: true
-    controller_host: "http://{{ hostvars[host].ansible_host }}"
+    controller_host: "{{ _controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     validate_certs: false
     variables:
