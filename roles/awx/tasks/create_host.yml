@@ -2,7 +2,6 @@
     msg: 
       - "AAAAAAAAAAAAA={{ host }}"
       - "BBBBBBBBBBB={{ hostvars[host].ansible_host }}"
-      - "CCCCCCCCCCCC={{ asdf }}"
       - "DDDDDDDDDDDDD={{ external_call_host }}"
 
 - set_fact:
