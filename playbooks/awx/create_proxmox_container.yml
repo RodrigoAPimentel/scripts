@@ -1,0 +1,37 @@
+---
+- name: Create Host in Ansible AWX
+  become: true
+  become_method: sudo
+  gather_facts: true
+  hosts: "{{ host }}"
+  roles:
+    - role: common
+
+  pre_tasks:
+    - include_role:
+        name: awx
+        tasks_from: "collect_awx_token.yml"
+
+    - include_role:
+        name: proxmox
+        tasks_from: "retrieve_last_ct_vm_info.yml"
+        apply:
+          delegate_to: proxmox
+
+    - set_fact: 
+        next_vm_ip: "{{ last_vm_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{last_vm_ip.split('.')[3] | int + 1 }}"
+        next_vm_id: "{{ last_vm_id | int + 1 }}"
+        next_container_ip: "{{ last_container_ip | regex_replace('(^.*\\.).*$', '\\1') }}{{last_container_ip.split('.')[3] | int + 1 }}"
+        next_container_id: "{{ last_container_id | int + 1 }}"
+
+        
+  tasks:
+    - include_role:
+        name: proxmox
+        tasks_from: "create_container.yml"
+        apply:
+          delegate_to: proxmox
+
+    - include_role:
+        name: awx
+        tasks_from: "create_host.yml"
