@@ -3,6 +3,15 @@
       - "AAAAAAAAAAAAA={{ host }}"
       - "BBBBBBBBBBB={{ hostvars[host].ansible_host }}"
       - "CCCCCCCCCCCC={{ asdf }}"
+      - "DDDDDDDDDDDDD={{ external_call_host }}"
+
+- set_fact:
+    host: "{{ external_call_host }}"
+  when: external_call_host is defined
+  
+- debug:
+    msg: 
+      - "AAAAAAAAAAAAA 22222={{ host }}"
 
 - name: Create host in inventory {{ inventory }}
   awx.awx.host:
