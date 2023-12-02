@@ -1,5 +1,6 @@
 api_host: pimentel-homelab
 api_user: root@pam
+api_password: "5045160"
 node: pimentel-homelab
 container_root_password: "12345"
 unprivileged: true

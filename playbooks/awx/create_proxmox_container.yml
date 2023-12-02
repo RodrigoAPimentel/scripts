@@ -27,6 +27,7 @@
         tasks_from: "create_container.yml"
         apply:
           delegate_to: proxmox
+          delegate_facts: true
 
     - include_role:
         name: awx
