@@ -32,8 +32,11 @@
         tasks_from: "create_host.yml"
         apply:
           delegate_to: ct-awx
+          vars:
+            host: ct-awx
       vars:
-        host: ct-awx
+        asdf: "123"
+
     
     - include_role:
         name: common
