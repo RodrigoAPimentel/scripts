@@ -4,8 +4,13 @@
       - "BBBBBBBBBBB={{ hostvars[host].ansible_host }}"
       - "DDDDDDDDDDDDD={{ external_call_host }}"
 
-- set_fact:
-    host: "{{ external_call_host }}"
+# - set_fact:
+#     host: "{{ external_call_host }}"
+#   when: external_call_host is defined
+- ansible.utils.update_fact:
+    updates:
+      - path: "host"
+        value: "{{ external_call_host }}"
   when: external_call_host is defined
   
 - debug:
