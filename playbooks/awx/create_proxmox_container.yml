@@ -7,20 +7,20 @@
   roles:
     - role: common
 
-  # pre_tasks:
-  #   - include_role:
-  #       name: awx
-  #       tasks_from: "collect_awx_token.yml"
-  #       apply:
-  #         delegate_to: ct-awx
+  pre_tasks:
+    # - include_role:
+    #     name: awx
+    #     tasks_from: "collect_awx_token.yml"
+    #     apply:
+    #       delegate_to: ct-awx
 
-  #   - include_role:
-  #       name: proxmox
-  #       tasks_from: "retrieve_last_ct_vm_info.yml"
+    - include_role:
+        name: proxmox
+        tasks_from: "retrieve_last_ct_vm_info.yml"
 
-  #   - set_fact: 
-  #       _network_ip: "{{ proxmox_next_container_ip }}"
-  #       _vmid: "{{ proxmox_next_container_id }}"
+    - set_fact: 
+        _network_ip: "{{ proxmox_next_container_ip }}"
+        _vmid: "{{ proxmox_next_container_id }}"
         
   tasks:
     # - include_role:
