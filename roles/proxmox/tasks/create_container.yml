@@ -64,10 +64,10 @@
 
 
 
-    
+
 
 - name: Install SSHD
-  command: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
+  command: lxc-attach --name {{ proxmox_next_container_id }} -e -- dnf install -y openssh-server
   register: install_sshd
 - debug:
     msg: SSHD install status - {{ install_sshd.stdout }}
@@ -75,17 +75,17 @@
     pause: 2
 
 - name: Start SSHD
-  command: lxc-attach --name {{ _vmid }} -e -- systemctl start sshd
+  command: lxc-attach --name {{ proxmox_next_container_id }} -e -- systemctl start sshd
   loop_control:
     pause: 2
 
 - name: Enable SSHD
-  command: lxc-attach --name {{ _vmid }} -e -- systemctl enable sshd
+  command: lxc-attach --name {{ proxmox_next_container_id }} -e -- systemctl enable sshd
   loop_control:
     pause: 2
 
 - name: Status SSHD
-  command: lxc-attach --name {{ _vmid }} -e -- systemctl status sshd
+  command: lxc-attach --name {{ proxmox_next_container_id }} -e -- systemctl status sshd
   register: status_sshd
 - debug:
     msg: SSHD status - {{ status_sshd.stdout }}
