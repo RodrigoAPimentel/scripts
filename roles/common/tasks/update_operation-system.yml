@@ -24,17 +24,12 @@
 
 - name: Print Install common packages
   debug:
-    var: installPackageResult.stdout
+    var: installPackageResult
 
 - name: set system timezone
   register: modify_timezone
   timezone:
       name: America/Recife
-
-# - name: Modify Time Zone to America/Recife
-#   register: modify_timezone
-#   ignore_errors: true
-#   command: timedatectl set-timezone America/Recife
 
 - name: Get Time Zone
   register: timezone
@@ -45,9 +40,6 @@
   debug:
     var: timezone.stdout
   notify: Reboot System
-
-# - name: Reboot System
-#   reboot:
 
 - name: Wait for "{{ _hostname }}" to become reachable
   wait_for:

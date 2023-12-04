@@ -2,7 +2,7 @@
   community.general.proxmox:
     vmid: "{{ _vmid }}"
     api_user: "{{ api_user }}"
-    api_password: "{{ hostvars[host].ansible_password }}"
+    api_password: "{{ api_password }}"
     api_host: "{{ api_host }}"
     force: yes
     state: stopped
@@ -13,6 +13,6 @@
   community.general.proxmox:
     vmid: "{{ _vmid }}"
     api_user: "{{ api_user }}"
-    api_password: "{{ hostvars[host].ansible_password }}"
+    api_password: "{{ api_password }}"
     api_host: "{{ api_host }}"
     state: absent
