@@ -74,6 +74,10 @@
   gather_facts: true
   hosts: ct-awx
 
+  tasks:
+  - set_fact:
+      host: ct-awx
+
 - import_playbook: create_host.yml
 
 
