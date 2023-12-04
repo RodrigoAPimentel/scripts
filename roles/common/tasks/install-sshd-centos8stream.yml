@@ -1,19 +1,20 @@
 ---
 
-- name: Run a complex command within a "running" container
-  community.general.lxc_container:
-    name: "{{ _hostname }}"
-    container_command: |
-      dnf install -y openssh-server
+# - name: Run a complex command within a "running" container
+#   community.general.lxc_container:
+#     name: "{{ _hostname }}"
+#     container_command: |
+#       dnf install -y openssh-server
 
 
-# - name: Install SSHD
-#   command: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
-#   register: install_sshd
-# - debug:
-#     msg: SSHD install status - {{ install_sshd.stdout }}
-#   loop_control:
-#     pause: 2
+- name: Install SSHD
+  become: true
+  command: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
+  register: install_sshd
+- debug:
+    msg: SSHD install status - {{ install_sshd.stdout }}
+  loop_control:
+    pause: 2
 
 - name: Start SSHD
   command: lxc-attach --name {{ _vmid }} -e -- systemctl start sshd
