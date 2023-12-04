@@ -68,16 +68,18 @@
 
 # - import_playbook: ../proxmox/create_container.yml
 
-- name: Create Container in Proxmox and Host in AWX
+- name: ZZZZZZZ
   become: true
   # become_method: sudo
   gather_facts: true
   hosts: ct-awx
 
-  tasks:
-  - set_fact:
-      host: ct-awx
+  # tasks:
+  # - set_fact:
+  #     host: ct-awx
 
 - import_playbook: create_host.yml
+  vars:
+    host: ct-awx
 
 
