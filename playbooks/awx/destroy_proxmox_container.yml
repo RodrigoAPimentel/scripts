@@ -22,21 +22,21 @@
         _hostname: "{{ proxmox_vmid_name }}"
 
   tasks:
-    - include_role:
-        name: proxmox
-        tasks_from: "destroy_container.yml"
+    # - include_role:
+    #     name: proxmox
+    #     tasks_from: "destroy_container.yml"
 
-    - name: Waiting 15 Seconds ...
-      ansible.builtin.pause:
-        seconds: 15
+    # - name: Waiting 15 Seconds ...
+    #   ansible.builtin.pause:
+    #     seconds: 15
 
-    - include_role:
-        name: awx
-        tasks_from: "delete_host_known_hosts_file.yml"
-        apply:
-          delegate_to: ct-awx
-      vars:
-        external_call_host: "ct-awx"
+    # - include_role:
+    #     name: awx
+    #     tasks_from: "delete_host_known_hosts_file.yml"
+    #     apply:
+    #       delegate_to: ct-awx
+    #   vars:
+    #     external_call_host: "ct-awx"
 
     - include_role:
         name: awx
