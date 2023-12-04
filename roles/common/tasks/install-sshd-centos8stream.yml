@@ -1,6 +1,6 @@
 ---
 - name: Install SSHD
-  command: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
+  ansible.builtin.shell: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
   register: install_sshd
 - debug:
     msg: SSHD install status - {{ install_sshd.stdout }}
