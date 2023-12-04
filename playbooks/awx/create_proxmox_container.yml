@@ -35,7 +35,7 @@
       vars:
         external_call_host: "ct-awx"
 
-    - name: Waiting Container
+    - name: Waiting 15 Seconds ...
       ansible.builtin.pause:
         seconds: 15
     
@@ -43,11 +43,19 @@
         name: common
         tasks_from: "install-sshd-centos8stream.yml"
     
+    - name: Waiting 15 Seconds ...
+      ansible.builtin.pause:
+        seconds: 15
+
     - include_role:
         name: common
         tasks_from: "update_operation-system.yml"
         apply:
           delegate_to: "{{ _hostname }}"
+
+    - name: Waiting 15 Seconds ...
+      ansible.builtin.pause:
+        seconds: 15
     
     - include_role:
         name: common
