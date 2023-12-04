@@ -52,7 +52,8 @@
         tasks_from: "update_operation-system.yml"
         apply:
           # delegate_to: "{{ _hostname }}"
-          delegate_to: "{{ _network_ip }}"
+          # delegate_to: "{{ _network_ip }}"
+          delegate_to: "192.168.99.23"
 
     - name: Waiting 15 Seconds ...
       ansible.builtin.pause:
@@ -62,4 +63,4 @@
         name: common
         tasks_from: "install_oh-my-zsh.yml"
         apply:
-          delegate_to: "{{ _hostname }}"
+          delegate_to: "192.168.99.23"
