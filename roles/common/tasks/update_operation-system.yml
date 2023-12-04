@@ -19,7 +19,7 @@
     state: latest
   ignore_errors: true
   with_items: 
-    - "{{ packages_dependencies_create_container }}"
+    - "{{ install_os_packages }}"
   register: installPackageResult
 
 - name: Print Install common packages

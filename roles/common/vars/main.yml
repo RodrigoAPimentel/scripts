@@ -1,4 +1,4 @@
-update_os_packages:
+install_os_packages:
   - ca-certificates
   - curl
   - wget
