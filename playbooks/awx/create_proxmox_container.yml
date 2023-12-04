@@ -59,7 +59,7 @@
 - name: Create Container in Proxmox and Host in AWX
   become: true
   # become_method: sudo
-  gather_facts: true
+  # gather_facts: true
   hosts: "{{ host }}"
 
   tasks:
@@ -71,7 +71,7 @@
 - name: ZZZZZZZ
   become: true
   # become_method: sudo
-  gather_facts: true
+  # gather_facts: true
   hosts: ct-awx
 
   # tasks:
