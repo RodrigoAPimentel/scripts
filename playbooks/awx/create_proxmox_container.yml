@@ -34,8 +34,10 @@
           delegate_to: ct-awx
       vars:
         external_call_host: "ct-awx"
-      loop_control:
-        pause: 10
+
+    - name: Waiting Container
+      ansible.builtin.pause:
+        seconds: 15
     
     - include_role:
         name: common
