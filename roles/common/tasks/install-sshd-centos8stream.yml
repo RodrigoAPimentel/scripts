@@ -1,7 +1,16 @@
 ---
-- name: Install SSHD
-  ansible.builtin.shell: "lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server"
-  register: install_sshd
+
+- name: Run a complex command within a "running" container
+  community.general.lxc_container:
+    name: "{{ _hostname }}"
+    register: install_sshd
+    container_command: |
+      dnf install -y openssh-server
+
+
+# - name: Install SSHD
+#   command: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
+#   register: install_sshd
 - debug:
     msg: SSHD install status - {{ install_sshd.stdout }}
   loop_control:
