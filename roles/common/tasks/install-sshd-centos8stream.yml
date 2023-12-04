@@ -1,12 +1,4 @@
 ---
-
-# - name: Run a complex command within a "running" container
-#   community.general.lxc_container:
-#     name: "{{ _hostname }}"
-#     container_command: |
-#       dnf install -y openssh-server
-
-
 - name: Install SSHD
   become: true
   command: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server

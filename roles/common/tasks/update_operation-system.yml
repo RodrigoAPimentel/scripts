@@ -19,7 +19,8 @@
     state: latest
   ignore_errors: true
   with_items: 
-    - "{{ packages_dependencies_create_container }}"
+    - python3
+    - python3-pip
   register: installPackageResult
 
 - name: Print Install common packages
@@ -49,9 +50,9 @@
 # - name: Reboot System
 #   reboot:
 
-- name: Wait for "{{ host_update_so }}" to become reachable
+- name: Wait for "{{ _hostname }}" to become reachable
   wait_for:
-    host: "{{ host_update_so }}"
+    host: "{{ _hostname }}"
     port: 22
     delay: 10
     timeout: 120
@@ -61,5 +62,5 @@
     name: qemu-guest-agent
     state: started
     enabled: yes
-  ignore_errors: yes
+  ignore_errors: true
   notify: Reboot System
