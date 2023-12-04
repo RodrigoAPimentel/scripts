@@ -34,7 +34,6 @@
           delegate_to: ct-awx
       vars:
         external_call_host: "ct-awx"
-
     
     - include_role:
         name: common
