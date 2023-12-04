@@ -16,6 +16,7 @@
     
     - set_fact: 
         id: "{{ _vmid }}"
+        _hostname: "{{ proxmox_vmid_name }}"
 
     - include_role:
         name: proxmox
