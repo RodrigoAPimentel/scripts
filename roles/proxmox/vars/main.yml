@@ -7,3 +7,6 @@ unprivileged: true
 onboot: false
 nesting: 1
 keyctl: 1
+packages_dependencies_create_container:
+  - python3
+  - python3-pip
