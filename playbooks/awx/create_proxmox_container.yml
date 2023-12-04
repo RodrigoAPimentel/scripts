@@ -51,7 +51,8 @@
         name: common
         tasks_from: "update_operation-system.yml"
         apply:
-          delegate_to: "{{ _hostname }}"
+          # delegate_to: "{{ _hostname }}"
+          delegate_to: "{{ _network_ip }}"
 
     - name: Waiting 15 Seconds ...
       ansible.builtin.pause:
