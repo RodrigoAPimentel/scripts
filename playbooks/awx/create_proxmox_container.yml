@@ -8,11 +8,11 @@
     - role: common
 
   pre_tasks:
-    # - include_role:
-    #     name: awx
-    #     tasks_from: "collect_awx_token.yml"
-    #     apply:
-    #       delegate_to: ct-awx
+    - include_role:
+        name: awx
+        tasks_from: "collect_awx_token.yml"
+        apply:
+          delegate_to: ct-awx
 
     - include_role:
         name: proxmox
@@ -23,37 +23,35 @@
         _vmid: "{{ proxmox_next_container_id }}"
         
   tasks:
-    # - include_role:
-    #     name: proxmox
-    #     tasks_from: "create_container.yml"
+    - include_role:
+        name: proxmox
+        tasks_from: "create_container.yml"
 
-    # - include_role:
-    #     name: awx
-    #     tasks_from: "create_host.yml"
-    #     apply:
-    #       delegate_to: ct-awx
-    #   vars:
-    #     external_call_host: "ct-awx"
+    - include_role:
+        name: awx
+        tasks_from: "create_host.yml"
+        apply:
+          delegate_to: ct-awx
+      vars:
+        external_call_host: "ct-awx"
 
-    # - name: Waiting 15 Seconds ...
-    #   ansible.builtin.pause:
-    #     seconds: 15
+    - name: Waiting 15 Seconds ...
+      ansible.builtin.pause:
+        seconds: 15
     
-    # - include_role:
-    #     name: common
-    #     tasks_from: "install-sshd-centos8stream.yml"
+    - include_role:
+        name: common
+        tasks_from: "install-sshd-centos8stream.yml"
     
-    # - name: Waiting 15 Seconds ...
-    #   ansible.builtin.pause:
-    #     seconds: 15
+    - name: Waiting 15 Seconds ...
+      ansible.builtin.pause:
+        seconds: 15
 
     - include_role:
         name: common
         tasks_from: "update_operation-system.yml"
         apply:
-          # delegate_to: "{{ _hostname }}"
-          # delegate_to: "{{ _network_ip }}"
-          delegate_to: "192.168.99.23"
+          delegate_to: "{{ _network_ip }}"
 
     - name: Waiting 15 Seconds ...
       ansible.builtin.pause:
@@ -63,4 +61,4 @@
         name: common
         tasks_from: "install_oh-my-zsh.yml"
         apply:
-          delegate_to: "192.168.99.23"
+          delegate_to: "{{ _network_ip }}"
