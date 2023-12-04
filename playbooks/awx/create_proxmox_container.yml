@@ -67,8 +67,13 @@
       password: hunter2
 
 # - import_playbook: ../proxmox/create_container.yml
+
+- name: Create Container in Proxmox and Host in AWX
+  become: true
+  # become_method: sudo
+  gather_facts: true
+  hosts: ct-awx
+
 - import_playbook: create_host.yml
-  delegation:
-    delegate_to: ct-awx
 
 
