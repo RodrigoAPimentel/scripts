@@ -67,8 +67,7 @@
       password: hunter2
 
 # - import_playbook: ../proxmox/create_container.yml
-- name: "TTTTTTTTTT"
-  import_playbook: create_host.yml
-  delegate_to: ct-awx
+- import_playbook: create_host.yml
+    connection: ct-awx
 
 
