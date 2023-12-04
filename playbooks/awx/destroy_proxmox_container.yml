@@ -13,9 +13,6 @@
         tasks_from: "collect_awx_token.yml"
         apply:
           delegate_to: ct-awx
-    
-    - set_fact: 
-        id: "{{ _vmid }}"
 
     - include_role:
         name: proxmox
