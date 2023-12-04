@@ -69,6 +69,7 @@
 # - import_playbook: ../proxmox/create_container.yml
 - import_playbook: 
     name: create_host.yml
-    delegate_to: ct-awx
+    apply:
+      delegate_to: ct-awx
 
 
