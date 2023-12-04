@@ -66,6 +66,6 @@
   - set_fact:
       password: hunter2
 
-- import_playbook: proxmox/create_container.yml
+- import_playbook: ../proxmox/create_container.yml
 
 
