@@ -14,12 +14,13 @@
         apply:
           delegate_to: ct-awx
 
-    - include_role:
-        name: proxmox
-        tasks_from: "get_informations_id.yml"
+    # - include_role:
+    #     name: proxmox
+    #     tasks_from: "get_informations_id.yml"
         
     - set_fact: 
-        _hostname: "{{ proxmox_vmid_name }}"
+        # _hostname: "{{ proxmox_vmid_name }}"
+        _hostname: "teste0212231553"
 
   tasks:
     # - include_role:
