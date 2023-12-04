@@ -67,6 +67,7 @@
 
 
 - name: Install SSHD
+  become: true
   command: lxc-attach --name {{ proxmox_next_container_id }} -e -- dnf install -y openssh-server
   register: install_sshd
 - debug:
