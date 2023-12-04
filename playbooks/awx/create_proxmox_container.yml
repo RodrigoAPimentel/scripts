@@ -34,34 +34,21 @@
           delegate_to: ct-awx
       vars:
         external_call_host: "ct-awx"
+      loop_control:
+        pause: 10
     
-    # - include_role:
-    #     name: common
-    #     tasks_from: "install-sshd-centos8stream.yml"
+    - include_role:
+        name: common
+        tasks_from: "install-sshd-centos8stream.yml"
     
-    # - include_role:
-    #     name: common
-    #     tasks_from: "update_operation-system.yml"
-    #     apply:
-    #       delegate_to: "{{ _hostname }}"
+    - include_role:
+        name: common
+        tasks_from: "update_operation-system.yml"
+        apply:
+          delegate_to: "{{ _hostname }}"
     
-    # - include_role:
-    #     name: common
-    #     tasks_from: "install_oh-my-zsh.yml"
-    #     apply:
-    #       delegate_to: "{{ _hostname }}"
-
-
-
-
-
-- name: ZZZZZZZZZZ
-  become: true
-  become_method: sudo
-  gather_facts: true
-  hosts: "{{ host }}"
-
-  tasks:
-  - include_role:
-      name: common
-      tasks_from: "install-sshd-centos8stream.yml"
+    - include_role:
+        name: common
+        tasks_from: "install_oh-my-zsh.yml"
+        apply:
+          delegate_to: "{{ _hostname }}"
