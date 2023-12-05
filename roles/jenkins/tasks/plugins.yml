@@ -1,7 +1,7 @@
 ---
 - name: Wait for Jenkins to start up
   uri:
-    url: http://{{ hostvars[host].ansible_host }}:8080/login?from=%2F
+    url: http://{{ hostvars[host].ansible_host }}:{{ jenkins_port }}/login?from=%2F
     status_code: 200
     timeout: 5
   register: jenkins_service_status
@@ -22,5 +22,4 @@
     - "{{ jenkins_custom_plugins }}"
   notify: Restart Jenkins Service
 
-- name: Flush handlers
-  meta: flush_handlers
+- meta: flush_handlers

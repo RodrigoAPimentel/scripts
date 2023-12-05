@@ -36,5 +36,18 @@
     password: "{{ adminPasswordResult.stdout }}"
   notify: Restart Jenkins Service
 
-- name: Flush handlers
-  meta: flush_handlers
+- meta: flush_handlers
+
+- name: Configure Jenkins Launch Settings
+  lineinfile:
+    path: /etc/sysconfig/jenkins
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    mode: u=rw,g=,o=r
+  become: true
+  with_items:
+    - regexp: '^JENKINS_PORT='
+      line: "JENKINS_PORT={{ jenkins_port }}"
+  notify: Restart Jenkins Service
+
+- meta: flush_handlers

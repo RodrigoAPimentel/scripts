@@ -16,11 +16,4 @@
   notify: 
   - Start and Enable Jenkins Service
 
-- name: Flush handlers
-  meta: flush_handlers
-
-# - name: Start and Enable Jenkins Service
-#   service:
-#     name: jenkins
-#     state: started
-#     enabled: true
+- meta: flush_handlers
