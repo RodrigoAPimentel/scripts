@@ -13,10 +13,14 @@
   package:
     name: jenkins-{{ jenkins_version }}
     state: present
-  notify: Start and Enable Jenkins Service
+  notify: 
+  - Start and Enable Jenkins Service
 
-- name: Start and Enable Jenkins Service
-  service:
-    name: jenkins
-    state: started
-    enabled: true
+- name: Flush handlers
+  meta: flush_handlers
+
+# - name: Start and Enable Jenkins Service
+#   service:
+#     name: jenkins
+#     state: started
+#     enabled: true

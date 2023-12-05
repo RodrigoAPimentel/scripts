@@ -21,3 +21,6 @@
     - "{{ jenkins_default_plugins }}"
     - "{{ jenkins_custom_plugins }}"
   notify: Restart Jenkins Service
+
+- name: Flush handlers
+  meta: flush_handlers

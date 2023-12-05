@@ -35,3 +35,6 @@
     user: admin
     password: "{{ adminPasswordResult.stdout }}"
   notify: Restart Jenkins Service
+
+- name: Flush handlers
+  meta: flush_handlers
