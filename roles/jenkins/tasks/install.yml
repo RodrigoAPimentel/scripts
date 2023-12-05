@@ -11,6 +11,6 @@
 
 - name: Install Jenkins
   package:
-    name: jenkins-{{ jenkins_version }}
+    name: jenkins={{ jenkins_version }}
     state: present
   notify: Start and Enable Jenkins Service
