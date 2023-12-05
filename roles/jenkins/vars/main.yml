@@ -23,4 +23,4 @@ java_packages:
 jenkins_root_userName: root
 jenkins_root_password: toor
 
-jenkins_version: "2.426.1-1.1"
+jenkins_version: "2.375.4-1.1"
