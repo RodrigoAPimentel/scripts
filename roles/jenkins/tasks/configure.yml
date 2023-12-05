@@ -45,11 +45,10 @@
       import hudson.security.*
       
       def instance=jenkins.model.Jenkins.instance
-      instance.setSlaveAgentPort({{ jenkins_port }})
+      instance.setSlaveAgentPort('${_port}')
       instance.save()
     args:
-      user_name: "{{ jenkins_root_userName }}"
-      user_pwd: "{{ jenkins_root_password }}"
+      _port: "{{ jenkins_port }}"
     user: admin
     password: "{{ adminPasswordResult.stdout }}"
   notify: Restart Jenkins Service
