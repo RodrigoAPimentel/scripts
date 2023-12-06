@@ -38,22 +38,22 @@
 
 - meta: flush_handlers
 
-- name: Modify Jenkins Port to {{ jenkins_port }}
-  jenkins_script:
-    script: |
-      import jenkins.model.*
-      import hudson.security.*
+# - name: Modify Jenkins Port to {{ jenkins_port }}
+#   jenkins_script:
+#     script: |
+#       import jenkins.model.*
+#       import hudson.security.*
       
-      def instance=jenkins.model.Jenkins.instance
-      instance.setSlaveAgentPort('${_port}')
-      instance.save()
-    args:
-      _port: "{{ jenkins_port }}"
-    user: admin
-    password: "{{ adminPasswordResult.stdout }}"
-  notify: Restart Jenkins Service
+#       def instance=jenkins.model.Jenkins.instance
+#       instance.setSlaveAgentPort('${_port}')
+#       instance.save()
+#     args:
+#       _port: "{{ jenkins_port }}"
+#     user: admin
+#     password: "{{ adminPasswordResult.stdout }}"
+#   notify: Restart Jenkins Service
 
-- meta: flush_handlers
+# - meta: flush_handlers
 
 
 # - name: Configure Jenkins Launch Settings
