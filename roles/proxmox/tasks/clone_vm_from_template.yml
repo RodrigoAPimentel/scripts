@@ -67,13 +67,13 @@
 - name: Change the hostname
   become: true
   delegate_to: "{{ proxmox_next_vm_id }}"
-  hostname:
+  community.general.hostname:
     name: "{{ _hostname }}"
 
 - name: Set new IP adress
   delegate_to: "{{ proxmox_next_vm_id }}"
-  ip: "{{ _network_ip }}"
-  interface: ens18
+    ip: "{{ _network_ip }}"
+    interface: ens18
 
 - name: Restart machine
   delegate_to: "{{ proxmox_next_vm_id }}"
