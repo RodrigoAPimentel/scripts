@@ -9,13 +9,13 @@
     name: "*"
     state: latest
 
-- name: Upgrade the system
-  package:
-    upgrade: yes
+# - name: Upgrade the system
+#   package:
+#     upgrade: yes
 
-- name: Clean the local repository
-  package:
-    autoclean: yes
+# - name: Clean the local repository
+#   package:
+#     autoclean: yes
 
 - name: Remove packages not needed anymore
   package:
