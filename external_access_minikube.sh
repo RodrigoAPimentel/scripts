@@ -31,11 +31,6 @@ server {
         proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
         proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
     }
-    
-    location /dashboard {
-        proxy_set_header Host "localhost";
-        proxy_pass http://`minikube ip`:8081;
-    }
 }
 EOF
 
