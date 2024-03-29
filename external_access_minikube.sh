@@ -24,7 +24,7 @@ server {
     listen  [::]:80;
     server_name  localhost;
     auth_basic "Administrator’s Area";
-    auth_basic_user_file /etc/nginx/.htpasswd;    
+    auth_basic_user_file /etc/nginx/.htpasswd;
     
     location / {   
         proxy_pass https://`minikube ip`:8443;
@@ -36,16 +36,13 @@ EOF
 
 ___console_logs 'Creating user/password to NGINX with htpasswd'
 $pm install -y httpd-tools
-sleep 2
 htpasswd -b -c /etc/nginx/.htpasswd $NGINX_USER $NGINX_PASS
 
 ___console_logs 'Delete if exist Nginx Container'
 docker rm -f $NGINX_CONTAINER_NAME
-# sleep 2
 
 ___console_logs 'Docker Create and Run Nginx Container'
 docker run -d --name $NGINX_CONTAINER_NAME -p $NGINX_EXTERNAL_PORT:80 -v /root/.minikube/profiles/minikube/client.key:/etc/nginx/certs/minikube-client.key -v /root/.minikube/profiles/minikube/client.crt:/etc/nginx/certs/minikube-client.crt -v /etc/nginx/conf.d/:/etc/nginx/conf.d -v /etc/nginx/.htpasswd:/etc/nginx/.htpasswd nginx
 
-# sleep 2
 ___console_logs 'Docker Nginx Container Show'
 docker ps -a | grep $NGINX_CONTAINER_NAME
