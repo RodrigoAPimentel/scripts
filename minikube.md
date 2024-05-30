@@ -45,3 +45,5 @@ script para nginx: https://github.com/RodrigoAPimentel/scripts/blob/main/externa
         sudo firewall-cmd --zone=public --add-port=8001/tcp --permanent
         sudo firewall-cmd --reload
         ```
+
+    - Referência: https://stackoverflow.com/a/54960906
