@@ -1,3 +1,0 @@
-- name: Reboot System
-  reboot:
-    msg: "Reboot initiated by Ansible"

@@ -1,5 +1,0 @@
----
-# Enter packages with the "packages" argument in the format [xxx, yyy, zzz]
-- name: Check whether a package is installed
-  include_tasks: check.yml
-  when: packages is defined

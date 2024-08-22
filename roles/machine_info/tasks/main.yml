@@ -1,3 +1,0 @@
----
-- name: Machine Informations
-  include_tasks: check.yml

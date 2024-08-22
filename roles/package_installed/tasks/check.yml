@@ -1,9 +1,0 @@
----
-- name: Gather the package facts
-  ansible.builtin.package_facts:
-    manager: auto
-
-- name: Packages {{ packages }} status
-  debug:
-    msg: "{{ item }} {{ 'installed' if item in ansible_facts.packages else 'not installed' }}"
-  loop: "{{ packages | default([]) }}"
