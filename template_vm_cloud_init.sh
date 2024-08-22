@@ -1,12 +1,11 @@
 IMAGE=/var/lib/vz/template/iso/noble-server-cloudimg-amd64.img
 IMAGE_DEST=externalbay
-VM_ID=101
+VM_ID=100
 VM_NAME=ubuntu-server-2204-noble-cloud-init
 VM_SOCKETS=1
 VM_CORES=2
 VM_MEMORY=2048
-VM_HD=20g
-SSH_PUB_KEY=
+VM_HD=20G
 
 echo "##### Install libguestfs-tools"
 apt install libguestfs-tools -y
