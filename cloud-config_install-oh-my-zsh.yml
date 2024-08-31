@@ -1,0 +1,10 @@
+#cloud-config
+runcmd:
+# omitted other commands specific to my server, install zsh at the end
+  - apt-get install -y zsh
+  - su ubuntu -c 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/coreycole/oh-my-zsh/master/tools/install.sh)"' 
+  - chsh -s $(which zsh) ubuntu
+# change the prompt to include the server hostname
+  - su ubuntu -c echo "echo export PROMPT=\''%{$fg[green]%}%n@%{$fg[green]%}%m%{$reset_color%} ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)'\'" >> /home/ubuntu/.zshrc
+# get environment variables defined above
+  - echo "source ~/.profile" >> /home/ubuntu/.zshrc
