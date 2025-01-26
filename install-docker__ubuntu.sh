@@ -51,7 +51,7 @@ ___console_logs 'Update and Upgrade System'
 sudo apt update && sudo apt upgrade -y
 
 ___console_logs 'Install a few prerequisite packages'
-sudo apt install apt-transport-https ca-certificates curl software-properties-common
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 
 ___console_logs 'Add the GPG key for the official Docker repository'
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -66,10 +66,10 @@ ___console_logs 'Make sure you are about to install from the Docker repo instead
 apt-cache policy docker-ce
 
 ___console_logs 'Install Docker'
-sudo apt install docker-ce
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-___console_logs 'Install Docker'
-sudo systemctl status docker docker-ce-cli containerd.io docker-compose-plugin
+___console_logs 'Docker Status'
+sudo systemctl status docker
 
 ___console_logs 'Activating and starting the docker service'
 systemctl start docker
