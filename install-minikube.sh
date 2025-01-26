@@ -52,7 +52,7 @@ echo $SUDO_PASS | sudo -S mkdir -p $HOME/.local/share/systemd/user
 
 ___console_logs 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
 # cat <<EOF > /etc/systemd/system/minikube2.service
-cat <<EOF > $HOME/.local/share/systemd/user/my.service
+echo $SUDO_PASS | sudo -S cat <<EOF > $HOME/.local/share/systemd/user/my.service
 [Unit]
 Description=Kickoff Minikube Cluster
 After=docker.service
@@ -69,10 +69,10 @@ Group=docker
 [Install]
 WantedBy=multi-user.target
 EOF
-systemctl enable minikube
+# systemctl enable minikube
 
-___console_logs '[07/07] Minikube Service Status'
-systemctl status minikube
+# ___console_logs '[07/07] Minikube Service Status'
+# systemctl status minikube
 
 
 
