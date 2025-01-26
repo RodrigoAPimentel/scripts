@@ -67,11 +67,11 @@ echo '--------------------------------------------------------------------------
 
 ___console_logs '[09/09] Copy the certificate and key'
 mkdir -p $HOME/nginx/minikube
-echo $SUDO_PASS | sudo -S cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube
-echo $SUDO_PASS | sudo -S cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube
+# echo $SUDO_PASS | sudo -S cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube
+# echo $SUDO_PASS | sudo -S cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube
 
 
-echo $SUDO_PASS | sudo -S cp $HOME/.minikube/ca.crt nginx/minikube
+# echo $SUDO_PASS | sudo -S cp $HOME/.minikube/ca.crt nginx/minikube
 
 
 
