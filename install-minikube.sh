@@ -40,26 +40,26 @@ echo '##########################################################################
 # ___console_logs '[07/09] Minikube Status'
 # minikube status
 
-___console_logs '[08/09] Configure Kickoff Minikube Cluster on Machine Startup'
-sudo -i -u root bash << EOF
-echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service56
-[Unit]
-Description=Kickoff Minikube Cluster
-After=docker.service
+# ___console_logs '[08/09] Configure Kickoff Minikube Cluster on Machine Startup'
+# sudo -i -u root bash << EOF
+# echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service56
+# [Unit]
+# Description=Kickoff Minikube Cluster
+# After=docker.service
 
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/minikube start --force
-RemainAfterExit=true
-ExecStop=/usr/local/bin/minikube stop
-StandardOutput=journal
-User=$SO_USER
-Group=$SO_USER_GROUP
+# [Service]
+# Type=oneshot
+# ExecStart=/usr/local/bin/minikube start --force
+# RemainAfterExit=true
+# ExecStop=/usr/local/bin/minikube stop
+# StandardOutput=journal
+# User=$SO_USER
+# Group=$SO_USER_GROUP
 
-[Install]
-WantedBy=multi-user.target
-EOF2
-EOF
+# [Install]
+# WantedBy=multi-user.target
+# EOF2
+# EOF
 
 # ___console_logs '[09/09] Enable Minikube Service'
 # systemctl enable minikube
@@ -69,18 +69,17 @@ EOF
 # echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 # echo '--------------------------------------------------------------------------\n'
 
-# ___console_logs '[09/09] Copy the certificate and key'
-# sudo -i -u $SO_USER bash << EOF
-# mkdir -p ~/nginx/minikube
-# cp ~/.minikube/profiles/minikube/client.crt nginx/minikube
-# cp ~/.minikube/profiles/minikube/client.key nginx/minikube
-# cp ~/.minikube/ca.crt nginx/minikube
-# EOF
+___console_logs '[09/09] Copy the certificate and key'
+mkdir -p ~/nginx/minikube
+cp ~/.minikube/profiles/minikube/client.crt nginx/minikube
+cp ~/.minikube/profiles/minikube/client.key nginx/minikube
+cp ~/.minikube/ca.crt nginx/minikube
 
 ___console_logs '[09/09] Copy the certificate and key'
 echo $SUDO_PASS | sudo -S apt install -y apache2-utils
 
-
+___console_logs '[09/09] Create a ngix password'
+htpasswd -c nginx/minikube/.htpasswd $SO_USER
 
 
 
