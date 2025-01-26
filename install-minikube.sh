@@ -1,3 +1,7 @@
+SUDO_PASS=toor
+SO_USER=minikube
+SO_USER_GROUP=docker
+
 ___console_logs () {
     echo " "
     echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
@@ -9,8 +13,6 @@ ___console_logs () {
 echo '##########################################################################'
 echo '############################ INSTALL MINIKUBE ############################'
 echo '##########################################################################\n'
-
-SUDO_PASS=toor
 
 ___console_logs '[01/09] Download Minikube'
 curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
@@ -48,8 +50,8 @@ ExecStart=/usr/local/bin/minikube start --force
 RemainAfterExit=true
 ExecStop=/usr/local/bin/minikube stop
 StandardOutput=journal
-User=minikube
-Group=docker
+User=$SO_USER
+Group=$SO_USER_GROUP
 
 [Install]
 WantedBy=multi-user.target
@@ -58,6 +60,28 @@ EOF
 ___console_logs '[09/09] Enable Minikube Service'
 systemctl enable minikube
 systemctl status minikube
+
+echo '--------------------------------------------------------------------------'
+echo '--------------------------- CREATE NGINX PROXY ---------------------------'
+echo '--------------------------------------------------------------------------\n'
+
+
+
+
+___console_logs '[09/09] Copy the certificate and key'
+echo $SUDO_PASS | sudo -S mkdir -p ~/nginx/minikube
+echo $SUDO_PASS | sudo -S cp .minikube/profiles/minikube/client.crt nginx/minikube
+echo $SUDO_PASS | sudo -S cp .minikube/profiles/minikube/client.key nginx/minikube
+
+
+
+
+
+
+
+
+
+
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
