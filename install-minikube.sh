@@ -70,59 +70,58 @@ echo '--------------------------- CREATE NGINX PROXY ---------------------------
 echo '--------------------------------------------------------------------------\n'
 
 ___console_logs '[09/09] Copy the certificate and key'
-whoami
 mkdir -p ~/nginx/minikube
 cp -r ~/.minikube/profiles/minikube/client.crt ~/nginx/minikube
 cp -r ~/.minikube/profiles/minikube/client.key ~/nginx/minikube
 cp -r ~/.minikube/ca.crt ~/nginx/minikube
 
-# ___console_logs '[09/09] Create NGINX password'
-# echo $SUDO_PASS | sudo -S apt install -y apache2-utils
-# echo $SUDO_PASS | htpasswd -c -b -i ~/nginx/minikube/.htpasswd $SO_USER
+___console_logs '[09/09] Create NGINX password'
+echo $SUDO_PASS | sudo -S apt install -y apache2-utils
+echo $SUDO_PASS | htpasswd -c -b -i ~/nginx/minikube/.htpasswd $SO_USER
 
-# ___console_logs '[08/09] Create nginx.conf file'
-# cat <<EOF > ~/nginx/nginx.conf
-# events {
-#     worker_connections 1024;
-# }
-# http {
-#   server_tokens off;
-#   auth_basic "Administrator’s Area";
-#   auth_basic_user_file /etc/nginx/.htpasswd;
-#   server {
-#     listen 443;
-#     server_name minikube;
-#     location / {
-#       proxy_set_header X-Forwarded-For $remote_addr;
-#       proxy_set_header Host            $http_host;
-#       proxy_pass https://minikube:8443;
-#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
-#     }
-#   }
-# }
-# EOF
+___console_logs '[08/09] Create nginx.conf file'
+cat <<EOF > ~/nginx/nginx.conf
+events {
+    worker_connections 1024;
+}
+http {
+  server_tokens off;
+  auth_basic "Administrator’s Area";
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  server {
+    listen 443;
+    server_name minikube;
+    location / {
+      proxy_set_header X-Forwarded-For $remote_addr;
+      proxy_set_header Host            $http_host;
+      proxy_pass https://minikube:8443;
+      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+    }
+  }
+}
+EOF
 
-# ___console_logs '[08/09] Create Dockerfile'
-# cat <<EOF > ~/nginx/Dockerfile
-# # Official Nginx image
-# FROM nginx:latest
+___console_logs '[08/09] Create Dockerfile'
+cat <<EOF > ~/nginx/Dockerfile
+# Official Nginx image
+FROM nginx:latest
 
-# # Copy Nginx configuration file to the container
-# COPY nginx.conf /etc/nginx/nginx.conf
+# Copy Nginx configuration file to the container
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# # Copy minikube certs and password
-# COPY minikube/client.key /etc/nginx/certs/minikube-client.key
-# COPY minikube/client.crt /etc/nginx/certs/minikube-client.crt
-# COPY minikube/.htpasswd /etc/nginx/.htpasswd
+# Copy minikube certs and password
+COPY minikube/client.key /etc/nginx/certs/minikube-client.key
+COPY minikube/client.crt /etc/nginx/certs/minikube-client.crt
+COPY minikube/.htpasswd /etc/nginx/.htpasswd
 
-# # Expose port 80 and 443
-# EXPOSE 80
-# EXPOSE 443
-# EOF
+# Expose port 80 and 443
+EXPOSE 80
+EXPOSE 443
+EOF
 
-# ___console_logs '[08/09] Show NGINX all Files'
-# tee ~/nginx
+___console_logs '[08/09] Show NGINX all Files'
+tee ~/nginx
 
 
 
