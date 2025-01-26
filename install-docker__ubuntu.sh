@@ -44,7 +44,7 @@ echo '##########################################################################
 SUDO_PASS=toor
 
 ___console_logs '[01/11] Update and Upgrade System'
-echo $SUDO_PASS | sudo -S apt update && echo $SUDO_PASS | sudo -S apt upgrade -y
+apt update && echo $SUDO_PASS | sudo -S apt upgrade -y
 
 ___console_logs '[02/11] Install a few prerequisite packages'
 echo $SUDO_PASS | sudo -S apt install -y apt-transport-https ca-certificates curl software-properties-common
