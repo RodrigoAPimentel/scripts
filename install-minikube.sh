@@ -43,7 +43,7 @@ echo '##########################################################################
 
 # ___console_logs '[08/17] Configure Kickoff Minikube Cluster on Machine Startup'
 # sudo -i -u root bash << EOF
-# echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service56
+# echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
 # [Unit]
 # Description=Kickoff Minikube Cluster
 # After=docker.service
@@ -61,14 +61,15 @@ echo '##########################################################################
 # WantedBy=multi-user.target
 # EOF2
 # EOF
+# echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service56
 
 # ___console_logs '[09/17] Enable Minikube Service'
 # systemctl enable minikube
 # systemctl status minikube
 
-echo '\n--------------------------------------------------------------------------'
-echo '--------------------------- CREATE NGINX PROXY ---------------------------'
-echo '--------------------------------------------------------------------------\n'
+# echo '\n--------------------------------------------------------------------------'
+# echo '--------------------------- CREATE NGINX PROXY ---------------------------'
+# echo '--------------------------------------------------------------------------\n'
 
 # ___console_logs '[10/17] Copy the certificate and key'
 # mkdir -p $MINIKUBE_FOLDER
@@ -80,31 +81,29 @@ echo '--------------------------------------------------------------------------
 # echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
 # echo $SUDO_PASS | htpasswd -c -b -i $MINIKUBE_FOLDER/.htpasswd $SO_USER
 
-___console_logs '[12/17] Create nginx.conf file'
-cat <<EOF > $NGINX_FOLDER/nginx.conf
-events {
-    worker_connections 1024;
-}
-http {
-  server_tokens off;
-  auth_basic "Administrator’s Area";
-  auth_basic_user_file /etc/nginx/.htpasswd;
-  server {
-    listen 443;
-    server_name minikube;
-    location / {
-      proxy_set_header X-Forwarded-For \$remote_addr;
-      proxy_set_header Host            \$http_host;
-      proxy_pass https://minikube:8443;
-      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
-    }
-  }
-}
-EOF
-echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-cat $NGINX_FOLDER/nginx.conf
-echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+# ___console_logs '[12/17] Create nginx.conf file'
+# cat <<EOF > $NGINX_FOLDER/nginx.conf
+# events {
+#     worker_connections 1024;
+# }
+# http {
+#   server_tokens off;
+#   auth_basic "Administrator’s Area";
+#   auth_basic_user_file /etc/nginx/.htpasswd;
+#   server {
+#     listen 443;
+#     server_name minikube;
+#     location / {
+#       proxy_set_header X-Forwarded-For \$remote_addr;
+#       proxy_set_header Host            \$http_host;
+#       proxy_pass https://minikube:8443;
+#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+#     }
+#   }
+# }
+# EOF
+# cat $NGINX_FOLDER/nginx.conf
 
 # ___console_logs '[13/17] Create Dockerfile'
 # cat <<EOF > $NGINX_FOLDER/Dockerfile
@@ -123,24 +122,19 @@ echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 # EXPOSE 80
 # EXPOSE 443
 # EOF
+# cat $NGINX_FOLDER/Dockerfile
 
 # ___console_logs '[14/17] Show NGINX all Files'
 # echo $SUDO_PASS | sudo -S apt install -yqqq tree
 # tree $NGINX_FOLDER
 
-___console_logs '[17/17] Build NGINX docker image'
-docker build -t nginx-minikube-proxy $NGINX_FOLDER
+# ___console_logs '[17/17] Build NGINX docker image'
+# docker build -t nginx-minikube-proxy $NGINX_FOLDER
 
 ___console_logs '[16/17] Run NGINX docker image'
 cnt=$(docker run -d --rm --memory="500m" --memory-reservation="256m" --cpus="0.25" --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
 echo "AA: [$cnt]"
-docker logs -f $cnt
-# docker ps -a
-# sleep 5
-# docker ps -a
-# sleep 5
-# docker ps -a
-
+docker logs $cnt
 
 # ___console_logs '[17/17] Create Kubeconfig to external access'
 # cat <<EOF > $MINIKUBE_FOLDER/Kubeconfig
