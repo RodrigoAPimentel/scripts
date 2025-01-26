@@ -77,7 +77,7 @@ cp ~/.minikube/ca.crt ~/nginx/minikube
 
 ___console_logs '[09/09] Create NGINX password'
 echo $SUDO_PASS | sudo -S apt install -y apache2-utils
-htpasswd -c ~/nginx/minikube/.htpasswd $SO_USER
+echo '12345' | htpasswd -c ~/nginx/minikube/.htpasswd $SO_USER
 
 
 
