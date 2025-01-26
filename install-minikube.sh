@@ -66,38 +66,21 @@ echo '--------------------------------------------------------------------------
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
 
+echo "%%%%%%%%%%%"
 whoami
-sudo -i -u minikube bash << EOF
-echo "In"
-whoami
-EOF
-echo "Out"
-whoami
-
-exit
-
-echo "%%%%%%%%%%% [$_HOME]"
+echo "%%%%%%%%%%%"
 
 ___console_logs '[09/09] Copy the certificate and key'
-sudo -H -u $SO_USER bash -c "_HOME2=${HOME}"
-echo "777777777777777 [$_HOME2]"
+sudo -i -u $SO_USER bash << EOF
+mkdir -p $HOME/nginx/minikube
+cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube
+cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube
+cp $HOME/.minikube/ca.crt nginx/minikube
+EOF
 
-
-sudo -H -u $SO_USER bash -c "mkdir -p $HOME/nginx/minikube"
-sudo -H -u $SO_USER bash -c "cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube"
-sudo -H -u $SO_USER bash -c "cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube"
-sudo -H -u $SO_USER bash -c "cp $HOME/.minikube/ca.crt nginx/minikube"
-
-
-# echo $SUDO_PASS | sudo -S cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube
-# echo $SUDO_PASS | sudo -S cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube
-
-
-# echo $SUDO_PASS | sudo -S cp $HOME/.minikube/ca.crt nginx/minikube
-
-
-
-
+echo "&&&&&&&&&&&&&&&"
+whoami
+echo "&&&&&&&&&&&&&&&"
 
 
 
