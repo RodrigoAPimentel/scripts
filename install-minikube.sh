@@ -1,6 +1,7 @@
 SUDO_PASS=toor
 SO_USER=minikube
 SO_USER_GROUP=docker
+_HOME=${HOME}
 
 ___console_logs () {
     echo " "
@@ -64,6 +65,8 @@ echo '##########################################################################
 echo '--------------------------------------------------------------------------'
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
+
+echo "%%%%%%%%%%% [$HOME]"
 
 ___console_logs '[09/09] Copy the certificate and key'
 sudo -H -u $SO_USER bash -c "mkdir -p $HOME/nginx/minikube"
