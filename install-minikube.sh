@@ -135,8 +135,9 @@ docker build -t nginx-minikube-proxy $NGINX_FOLDER
 
 ___console_logs '[16/17] Run NGINX docker image'
 docker run -d --rm --memory="500m" --memory-reservation="256m" --cpus="0.25" --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy
+docker ps -a
 
-___console_logs '[17/17] Show Kubeconfig to external access'
+___console_logs '[17/17] Create Kubeconfig to external access'
 cat <<EOF > $MINIKUBE_FOLDER/Kubeconfig
 apiVersion: v1
 clusters:
@@ -169,6 +170,7 @@ users:
     client-certificate: client.crt
     client-key: client.key
 EOF
+echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
