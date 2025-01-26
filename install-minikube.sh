@@ -80,10 +80,10 @@ echo "9999999999999999"
 
 
 
-mkdir -p $HOME/nginx/minikube
-cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube
-cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube
-cp $HOME/.minikube/ca.crt nginx/minikube
+mkdir -p ~/nginx/minikube
+cp ~/.minikube/profiles/minikube/client.crt nginx/minikube
+cp ~/.minikube/profiles/minikube/client.key nginx/minikube
+cp ~/.minikube/ca.crt nginx/minikube
 EOF
 
 echo "&&&&&&&&&&&&&&&"
