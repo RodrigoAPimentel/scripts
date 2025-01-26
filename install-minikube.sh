@@ -24,7 +24,7 @@ SUDO_PASS=$1
 # echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
 # ___console_logs '[04/07] Install Kubectl'
-# echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+# echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
 # kubectl version --client --output=yaml
 
 # ___console_logs '[05/07] Config Docker default driver'
@@ -47,10 +47,10 @@ SUDO_PASS=$1
 
 
 ___console_logs 'Configure Kickoff Minikube Cluster on Machine Startup'
-echo $SUDO_PASS | sudo -S touch ~/minikube.service2
+echo $SUDO_PASS | sudo -S touch ~/minikube23
 
 ___console_logs 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
-echo $SUDO_PASS | sudo -S cat <<EOF > ~/minikube.service2
+echo $SUDO_PASS | sudo -S cat <<EOF > ~/minikube23
 [Unit]
 Description=Kickoff Minikube Cluster
 After=docker.service
