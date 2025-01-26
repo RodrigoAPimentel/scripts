@@ -121,7 +121,8 @@ EXPOSE 443
 EOF
 
 ___console_logs '[08/09] Show NGINX all Files'
-tee ~/nginx
+echo $SUDO_PASS | sudo -S apt install -y tree
+tree ~/nginx
 
 
 
