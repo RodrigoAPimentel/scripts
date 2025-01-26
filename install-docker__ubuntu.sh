@@ -41,7 +41,7 @@ echo '##########################################################################
 echo '############ INSTALL DOCKER AND DOCKER-COMPOSE [Ubuntu 22.04] ############'
 echo '##########################################################################\n'
 
-SUDO_PASS=toor
+SUDO_PASS="toor"
 
 ___console_logs '[01/11] Update and Upgrade System'
 apt update 
