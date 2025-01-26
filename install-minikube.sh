@@ -72,6 +72,14 @@ echo "%%%%%%%%%%%"
 
 ___console_logs '[09/09] Copy the certificate and key'
 sudo -i -u $SO_USER bash << EOF
+
+
+echo "9999999999999999"
+whoami
+echo "9999999999999999"
+
+
+
 mkdir -p $HOME/nginx/minikube
 cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube
 cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube
