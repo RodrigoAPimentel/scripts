@@ -43,17 +43,14 @@ SUDO_PASS=$1
 
 
 
-whoami
-sudo su -
-whoami
+
+
 
 ___console_logs 'Configure Kickoff Minikube Cluster on Machine Startup'
-# echo $SUDO_PASS | sudo -S touch /etc/systemd/system/minikube.service2
-echo $SUDO_PASS | sudo -S mkdir -p $HOME/.local/share/systemd/user
+echo $SUDO_PASS | sudo -S touch /etc/systemd/system/minikube.service2
 
 ___console_logs 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
-# cat <<EOF > /etc/systemd/system/minikube2.service
-echo $SUDO_PASS | sudo -S cat <<EOF > $HOME/.local/share/systemd/user/my.service
+echo $SUDO_PASS | sudo -S systemctl cat <<EOF > /etc/systemd/system/minikube.service2
 [Unit]
 Description=Kickoff Minikube Cluster
 After=docker.service
@@ -76,6 +73,8 @@ EOF
 # systemctl status minikube
 
 
+___console_logs 'PPPPPPPPPPPPPPPPPPPPPPP'
+systemctl cat /etc/systemd/system/minikube.service2
 
 
 
