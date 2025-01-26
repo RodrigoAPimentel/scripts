@@ -12,41 +12,31 @@ echo '##########################################################################
 
 SUDO_PASS=toor
 
-# ___console_logs '[01/07] Download Minikube'
-# curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+___console_logs '[01/09] Download Minikube'
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
 
-# ___console_logs '[02/07] Install Minikube'
-# echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+___console_logs '[02/09] Install Minikube'
+echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
-# ___console_logs '[03/07] Download Kubectl'
-# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-# echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+___console_logs '[03/09] Download Kubectl'
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
-# ___console_logs '[04/07] Install Kubectl'
-# echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
-# kubectl version --client --output=yaml
+___console_logs '[04/09] Install Kubectl'
+echo $SUDO_PASS | sudo -S install -o root -g root -m 0955 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
+kubectl version --client --output=yaml
 
-# ___console_logs '[05/07] Config Docker default driver'
-# minikube config set driver docker
+___console_logs '[05/09] Config Docker default driver'
+minikube config set driver docker
 
-# ___console_logs '[06/07] Minikube Start'
-# minikube start --force
+___console_logs '[06/09] Minikube Start'
+minikube start --force
 
-# ___console_logs '[07/07] Minikube Status'
-# minikube status
+___console_logs '[07/09] Minikube Status'
+minikube status
 
-
-
-
-
-
-
-
-
-
-
-___console_logs 'Configure Kickoff Minikube Cluster on Machine Startup'
+___console_logs '[08/09] Configure Kickoff Minikube Cluster on Machine Startup'
 echo $SUDO_PASS | sudo -S cat <<EOF > /etc/systemd/system/minikube.service
 [Unit]
 Description=Kickoff Minikube Cluster
@@ -65,23 +55,9 @@ Group=docker
 WantedBy=multi-user.target
 EOF
 
-___console_logs 'Enable Minikube Service'
+___console_logs '[09/09] Enable Minikube Service'
 systemctl enable minikube
-
-# ___console_logs '[07/07] Minikube Service Status'
-# systemctl status minikube
-
-
-___console_logs 'PPPPPPPPPPPPPPPPPPPPPPP'
-systemctl cat /etc/systemd/system/minikube.service
-
-
-
-
-
-
-
-
+systemctl status minikube
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
