@@ -80,28 +80,31 @@ echo '--------------------------------------------------------------------------
 # echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
 # echo $SUDO_PASS | htpasswd -c -b -i $MINIKUBE_FOLDER/.htpasswd $SO_USER
 
-# ___console_logs '[12/17] Create nginx.conf file'
-# cat <<EOF > $NGINX_FOLDER/nginx.conf
-# events {
-#     worker_connections 1024;
-# }
-# http {
-#   server_tokens off;
-#   auth_basic "Administrator’s Area";
-#   auth_basic_user_file /etc/nginx/.htpasswd;
-#   server {
-#     listen 443;
-#     server_name minikube;
-#     location / {
-#       proxy_set_header X-Forwarded-For $remote_addr;
-#       proxy_set_header Host            $http_host;
-#       proxy_pass https://minikube:8443;
-#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
-#     }
-#   }
-# }
-# EOF
+___console_logs '[12/17] Create nginx.conf file'
+cat <<EOF > $NGINX_FOLDER/nginx.conf
+events {
+    worker_connections 1024;
+}
+http {
+  server_tokens off;
+  auth_basic "Administrator’s Area";
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  server {
+    listen 443;
+    server_name minikube;
+    location / {
+      proxy_set_header X-Forwarded-For \$remote_addr;
+      proxy_set_header Host            \$http_host;
+      proxy_pass https://minikube:8443;
+      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+    }
+  }
+}
+EOF
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+cat $NGINX_FOLDER/nginx.conf
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 
 # ___console_logs '[13/17] Create Dockerfile'
 # cat <<EOF > $NGINX_FOLDER/Dockerfile
@@ -125,8 +128,8 @@ echo '--------------------------------------------------------------------------
 # echo $SUDO_PASS | sudo -S apt install -yqqq tree
 # tree $NGINX_FOLDER
 
-# ___console_logs '[17/17] Build NGINX docker image'
-# docker build -t nginx-minikube-proxy $NGINX_FOLDER
+___console_logs '[17/17] Build NGINX docker image'
+docker build -t nginx-minikube-proxy $NGINX_FOLDER
 
 ___console_logs '[16/17] Run NGINX docker image'
 cnt=$(docker run -d --rm --memory="500m" --memory-reservation="256m" --cpus="0.25" --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
