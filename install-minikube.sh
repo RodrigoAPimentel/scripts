@@ -42,7 +42,7 @@ echo '##########################################################################
 
 ___console_logs '[08/09] Configure Kickoff Minikube Cluster on Machine Startup'
 sudo -i -u root bash << EOF
-echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
+echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service56
 [Unit]
 Description=Kickoff Minikube Cluster
 After=docker.service
