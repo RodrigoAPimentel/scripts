@@ -66,9 +66,13 @@ echo '--------------------------------------------------------------------------
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
 
-echo "%%%%%%%%%%% [$HOME]"
+echo "%%%%%%%%%%% [$_HOME]"
 
 ___console_logs '[09/09] Copy the certificate and key'
+sudo -H -u $SO_USER bash -c "_HOME2=${HOME}"
+echo "777777777777777 [$_HOME2]"
+
+
 sudo -H -u $SO_USER bash -c "mkdir -p $HOME/nginx/minikube"
 sudo -H -u $SO_USER bash -c "cp $HOME/.minikube/profiles/minikube/client.crt nginx/minikube"
 sudo -H -u $SO_USER bash -c "cp $HOME/.minikube/profiles/minikube/client.key nginx/minikube"
