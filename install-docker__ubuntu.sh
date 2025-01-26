@@ -66,18 +66,16 @@ ___console_logs '[06/11] Make sure you are about to install from the Docker repo
 apt-cache policy docker-ce
 
 ___console_logs '[07/11] Install Docker'
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt install -y docker-ce
 
 ___console_logs '[08/11] Docker Status'
 sudo systemctl status docker
 
-# ___console_logs 'Activating and starting the docker service'
-# systemctl start docker
-# systemctl enable --now docker.service
-
-___console_logs '[09/11] Installing Docker Compose'
-sudo curl -SL https://github.com/docker/compose/releases/download/v2.13.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+___console_logs '[09/11] Install Docker Compose'
+mkdir -p ~/.docker/cli-plugins/
+curl -SL https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-linux-x86_64 -o ~/.docker/cli-plugins/docker-compose
+chmod +x ~/.docker/cli-plugins/docker-compose
+docker compose version
 
 ___console_logs '[10/11] Add your username to the docker group'
 sudo usermod -aG docker ${USER} && su - ${USER}
