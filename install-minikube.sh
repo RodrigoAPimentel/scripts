@@ -69,11 +69,11 @@ echo '--------------------------------------------------------------------------
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
 
-# ___console_logs '[09/09] Copy the certificate and key'
-# mkdir -p ~/nginx/minikube
-# cp ~/.minikube/profiles/minikube/client.crt ~/nginx/minikube
-# cp ~/.minikube/profiles/minikube/client.key ~/nginx/minikube
-# cp ~/.minikube/ca.crt ~/nginx/minikube
+___console_logs '[09/09] Copy the certificate and key'
+mkdir -p ~/nginx/minikube
+cp ~/.minikube/profiles/minikube/client.crt ~/nginx/minikube
+cp ~/.minikube/profiles/minikube/client.key ~/nginx/minikube
+cp ~/.minikube/ca.crt ~/nginx/minikube
 
 ___console_logs '[09/09] Create NGINX password'
 echo $SUDO_PASS | sudo -S apt install -y apache2-utils
