@@ -70,60 +70,60 @@ echo '\n------------------------------------------------------------------------
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
 
-___console_logs '[10/17] Copy the certificate and key'
-mkdir -p $MINIKUBE_FOLDER
-cp -r ~/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
-cp -r ~/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
-cp -r ~/.minikube/ca.crt $MINIKUBE_FOLDER
+# ___console_logs '[10/17] Copy the certificate and key'
+# mkdir -p $MINIKUBE_FOLDER
+# cp -r ~/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
+# cp -r ~/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
+# cp -r ~/.minikube/ca.crt $MINIKUBE_FOLDER
 
-___console_logs '[11/17] Create NGINX password'
-echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
-echo $SUDO_PASS | htpasswd -c -b -i $MINIKUBE_FOLDER/.htpasswd $SO_USER
+# ___console_logs '[11/17] Create NGINX password'
+# echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
+# echo $SUDO_PASS | htpasswd -c -b -i $MINIKUBE_FOLDER/.htpasswd $SO_USER
 
-___console_logs '[12/17] Create nginx.conf file'
-cat <<EOF > $NGINX_FOLDER/nginx.conf
-events {
-    worker_connections 1024;
-}
-http {
-  server_tokens off;
-  auth_basic "Administrator’s Area";
-  auth_basic_user_file /etc/nginx/.htpasswd;
-  server {
-    listen 443;
-    server_name minikube;
-    location / {
-      proxy_set_header X-Forwarded-For $remote_addr;
-      proxy_set_header Host            $http_host;
-      proxy_pass https://minikube:8443;
-      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
-    }
-  }
-}
-EOF
+# ___console_logs '[12/17] Create nginx.conf file'
+# cat <<EOF > $NGINX_FOLDER/nginx.conf
+# events {
+#     worker_connections 1024;
+# }
+# http {
+#   server_tokens off;
+#   auth_basic "Administrator’s Area";
+#   auth_basic_user_file /etc/nginx/.htpasswd;
+#   server {
+#     listen 443;
+#     server_name minikube;
+#     location / {
+#       proxy_set_header X-Forwarded-For $remote_addr;
+#       proxy_set_header Host            $http_host;
+#       proxy_pass https://minikube:8443;
+#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+#     }
+#   }
+# }
+# EOF
 
-___console_logs '[13/17] Create Dockerfile'
-cat <<EOF > $NGINX_FOLDER/Dockerfile
-# Official Nginx image
-FROM nginx:latest
+# ___console_logs '[13/17] Create Dockerfile'
+# cat <<EOF > $NGINX_FOLDER/Dockerfile
+# # Official Nginx image
+# FROM nginx:latest
 
-# Copy Nginx configuration file to the container
-COPY nginx.conf /etc/nginx/nginx.conf
+# # Copy Nginx configuration file to the container
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy minikube certs and password
-COPY minikube/client.key /etc/nginx/certs/minikube-client.key
-COPY minikube/client.crt /etc/nginx/certs/minikube-client.crt
-COPY minikube/.htpasswd /etc/nginx/.htpasswd
+# # Copy minikube certs and password
+# COPY minikube/client.key /etc/nginx/certs/minikube-client.key
+# COPY minikube/client.crt /etc/nginx/certs/minikube-client.crt
+# COPY minikube/.htpasswd /etc/nginx/.htpasswd
 
-# Expose port 80 and 443
-EXPOSE 80
-EXPOSE 443
-EOF
+# # Expose port 80 and 443
+# EXPOSE 80
+# EXPOSE 443
+# EOF
 
-___console_logs '[14/17] Show NGINX all Files'
-echo $SUDO_PASS | sudo -S apt install -yqqq tree
-tree $NGINX_FOLDER
+# ___console_logs '[14/17] Show NGINX all Files'
+# echo $SUDO_PASS | sudo -S apt install -yqqq tree
+# tree $NGINX_FOLDER
 
 ___console_logs '[17/17] Build NGINX docker image'
 docker build -t nginx-minikube-proxy $NGINX_FOLDER
@@ -133,40 +133,40 @@ docker run -d --rm --memory="500m" --memory-reservation="256m" --cpus="0.25" --n
 docker ps -a
 whoami
 
-___console_logs '[17/17] Create Kubeconfig to external access'
-cat <<EOF > $MINIKUBE_FOLDER/Kubeconfig
-apiVersion: v1
-clusters:
-- cluster:
-    certificate-authority: ca.crt
-    extensions:
-    - extension:
-        provider: minikube.sigs.k8s.io
-        version: v1.31.2
-      name: cluster_info
-    server: minikube:$SUDO_PASS@$IP
-  name: minikube
-contexts:
-- context:
-    cluster: minikube
-    extensions:
-    - extension:
-        provider: minikube.sigs.k8s.io
-        version: v1.31.2
-      name: context_info
-    namespace: default
-    user: minikube
-  name: minikube
-current-context: minikube
-kind: Config
-preferences: {}
-users:
-- name: minikube
-  user:
-    client-certificate: client.crt
-    client-key: client.key
-EOF
-echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
+# ___console_logs '[17/17] Create Kubeconfig to external access'
+# cat <<EOF > $MINIKUBE_FOLDER/Kubeconfig
+# apiVersion: v1
+# clusters:
+# - cluster:
+#     certificate-authority: ca.crt
+#     extensions:
+#     - extension:
+#         provider: minikube.sigs.k8s.io
+#         version: v1.31.2
+#       name: cluster_info
+#     server: minikube:$SUDO_PASS@$IP
+#   name: minikube
+# contexts:
+# - context:
+#     cluster: minikube
+#     extensions:
+#     - extension:
+#         provider: minikube.sigs.k8s.io
+#         version: v1.31.2
+#       name: context_info
+#     namespace: default
+#     user: minikube
+#   name: minikube
+# current-context: minikube
+# kind: Config
+# preferences: {}
+# users:
+# - name: minikube
+#   user:
+#     client-certificate: client.crt
+#     client-key: client.key
+# EOF
+# echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
