@@ -46,7 +46,7 @@ ___console_logs '[10/11] Add your username to the docker group'
 echo $SUDO_PASS | sudo -S usermod -aG docker ${USER}
 
 ___console_logs '[11/11] Restarting the machine'
-reboot --force
+echo $SUDO_PASS | sudo -S reboot --force
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
