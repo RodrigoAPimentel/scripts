@@ -10,7 +10,7 @@ echo '##########################################################################
 echo '############ INSTALL DOCKER AND DOCKER-COMPOSE [Ubuntu 22.04] ############'
 echo '##########################################################################\n'
 
-SUDO_PASS=toor
+SUDO_PASS=$1
 
 ___console_logs '[01/11] Update and Upgrade System'
 echo $SUDO_PASS | sudo -S apt update && echo $SUDO_PASS | sudo -S apt upgrade -y
