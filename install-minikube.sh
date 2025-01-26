@@ -10,7 +10,7 @@ echo '##########################################################################
 echo '############################ INSTALL MINIKUBE ############################'
 echo '##########################################################################\n'
 
-SUDO_PASS=$1
+SUDO_PASS=toor
 
 # ___console_logs '[01/07] Download Minikube'
 # curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
@@ -47,10 +47,7 @@ SUDO_PASS=$1
 
 
 ___console_logs 'Configure Kickoff Minikube Cluster on Machine Startup'
-echo $SUDO_PASS | sudo -S touch /etc/systemd/system/minikube4.service
-
-___console_logs 'ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ'
-echo $SUDO_PASS | sudo -S cat <<EOF > /etc/systemd/system/minikube4.service
+echo $SUDO_PASS | sudo -S cat <<EOF > /etc/systemd/system/minikube.service
 [Unit]
 Description=Kickoff Minikube Cluster
 After=docker.service
@@ -67,14 +64,16 @@ Group=docker
 [Install]
 WantedBy=multi-user.target
 EOF
-# systemctl enable minikube
+
+___console_logs 'Enable Minikube Service'
+systemctl enable minikube
 
 # ___console_logs '[07/07] Minikube Service Status'
 # systemctl status minikube
 
 
 ___console_logs 'PPPPPPPPPPPPPPPPPPPPPPP'
-systemctl cat /etc/systemd/system/minikube4.service
+systemctl cat /etc/systemd/system/minikube.service
 
 
 
