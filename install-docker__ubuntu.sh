@@ -22,7 +22,7 @@ ___console_logs '[03/11] Add the GPG key for the official Docker repository'
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 ___console_logs '[04/11] Add the Docker repository to APT sources'
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | echo $SUDO_PASS | sudo -S tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 ___console_logs '[05/11] Update your existing list of packages again for the addition to be recognized'
 echo $SUDO_PASS | sudo -S apt update
