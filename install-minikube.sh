@@ -131,6 +131,7 @@ echo '--------------------------------------------------------------------------
 ___console_logs '[16/17] Run NGINX docker image'
 cnt=$(docker run -d --rm --memory="500m" --memory-reservation="256m" --cpus="0.25" --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
 echo "AA: [$cnt]"
+docker logs -f $cnt
 # docker ps -a
 # sleep 5
 # docker ps -a
