@@ -76,7 +76,7 @@ cp -r ~/.minikube/profiles/minikube/client.key ~/nginx/minikube
 cp -r ~/.minikube/ca.crt ~/nginx/minikube
 
 ___console_logs '[09/09] Create NGINX password'
-echo $SUDO_PASS | sudo -S apt install -y apache2-utils
+echo $SUDO_PASS | sudo -S apt install -yq apache2-utils
 echo $SUDO_PASS | htpasswd -c -b -i ~/nginx/minikube/.htpasswd $SO_USER
 
 ___console_logs '[08/09] Create nginx.conf file'
@@ -121,7 +121,7 @@ EXPOSE 443
 EOF
 
 ___console_logs '[08/09] Show NGINX all Files'
-echo $SUDO_PASS | sudo -S apt install -y tree
+echo $SUDO_PASS | sudo -S apt install -yq tree
 tree ~/nginx
 
 
