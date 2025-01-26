@@ -44,7 +44,7 @@ SUDO_PASS=$1
 
 
 whoami
-sudo su
+sudo su -
 whoami
 
 ___console_logs 'Configure Kickoff Minikube Cluster on Machine Startup'
