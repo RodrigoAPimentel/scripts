@@ -13,63 +13,58 @@ ___console_logs () {
     sleep 2
 }
 
-
-echo "###### NGINX_FOLDER: [$NGINX_FOLDER]"
-echo "###### MINIKUBE_FOLDER: [$MINIKUBE_FOLDER]"
-
 echo '##########################################################################'
 echo '############################ INSTALL MINIKUBE ############################'
 echo '##########################################################################\n'
 
-___console_logs '[01/17] Download Minikube'
-curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+# ___console_logs '[01/17] Download Minikube'
+# curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
 
-___console_logs '[02/17] Install Minikube'
-echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+# ___console_logs '[02/17] Install Minikube'
+# echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
-___console_logs '[03/17] Download Kubectl'
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+# ___console_logs '[03/17] Download Kubectl'
+# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+# echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
-___console_logs '[04/17] Install Kubectl'
-echo $SUDO_PASS | sudo -S install -o root -g root -m 0955 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
-kubectl version --client --output=yaml
+# ___console_logs '[04/17] Install Kubectl'
+# echo $SUDO_PASS | sudo -S install -o root -g root -m 0955 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
+# kubectl version --client --output=yaml
 
-___console_logs '[05/17] Config Docker default driver'
-minikube config set driver docker
+# ___console_logs '[05/17] Config Docker default driver'
+# minikube config set driver docker
 
-___console_logs '[06/17] Minikube Start'
-# sudo -H -u $SO_USER bash -c 'minikube start --force'
-minikube start --force
+# ___console_logs '[06/17] Minikube Start'
+# minikube start --force
 
-___console_logs '[07/17] Minikube Status'
-minikube status
+# ___console_logs '[07/17] Minikube Status'
+# minikube status
 
-___console_logs '[08/17] Configure Kickoff Minikube Cluster on Machine Startup'
-sudo -i -u root bash << EOF
-echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service56
-[Unit]
-Description=Kickoff Minikube Cluster
-After=docker.service
+# ___console_logs '[08/17] Configure Kickoff Minikube Cluster on Machine Startup'
+# sudo -i -u root bash << EOF
+# echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service56
+# [Unit]
+# Description=Kickoff Minikube Cluster
+# After=docker.service
 
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/minikube start --force
-RemainAfterExit=true
-ExecStop=/usr/local/bin/minikube stop
-StandardOutput=journal
-User=$SO_USER
-Group=$SO_USER_GROUP
+# [Service]
+# Type=oneshot
+# ExecStart=/usr/local/bin/minikube start --force
+# RemainAfterExit=true
+# ExecStop=/usr/local/bin/minikube stop
+# StandardOutput=journal
+# User=$SO_USER
+# Group=$SO_USER_GROUP
 
-[Install]
-WantedBy=multi-user.target
-EOF2
-EOF
+# [Install]
+# WantedBy=multi-user.target
+# EOF2
+# EOF
 
-___console_logs '[09/17] Enable Minikube Service'
-systemctl enable minikube
-systemctl status minikube
+# ___console_logs '[09/17] Enable Minikube Service'
+# systemctl enable minikube
+# systemctl status minikube
 
 echo '\n--------------------------------------------------------------------------'
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
@@ -136,6 +131,7 @@ docker build -t nginx-minikube-proxy $NGINX_FOLDER
 ___console_logs '[16/17] Run NGINX docker image'
 docker run -d --rm --memory="500m" --memory-reservation="256m" --cpus="0.25" --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy
 docker ps -a
+whoami
 
 ___console_logs '[17/17] Create Kubeconfig to external access'
 cat <<EOF > $MINIKUBE_FOLDER/Kubeconfig
