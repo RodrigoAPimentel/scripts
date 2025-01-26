@@ -41,14 +41,11 @@ echo '##########################################################################
 echo '############ INSTALL DOCKER AND DOCKER-COMPOSE [Ubuntu 22.04] ############'
 echo '##########################################################################\n'
 
-SUDO_PASS="toor"
-
 ___console_logs '[01/11] Update and Upgrade System'
-apt update 
-echo $SUDO_PASS | sudo -S apt upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 ___console_logs '[02/11] Install a few prerequisite packages'
-echo $SUDO_PASS | sudo -S apt install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 
 ___console_logs '[03/11] Add the GPG key for the official Docker repository'
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -63,10 +60,10 @@ ___console_logs '[06/11] Make sure you are about to install from the Docker repo
 apt-cache policy docker-ce
 
 ___console_logs '[07/11] Install Docker'
-echo $SUDO_PASS | sudo -S apt install -y docker-ce
+sudo apt install -y docker-ce
 
 ___console_logs '[08/11] Docker Status'
-echo $SUDO_PASS | sudo -S systemctl status docker
+sudo systemctl status docker
 
 ___console_logs '[09/11] Install Docker Compose'
 mkdir -p ~/.docker/cli-plugins/
@@ -75,7 +72,7 @@ chmod +x ~/.docker/cli-plugins/docker-compose
 docker compose version
 
 ___console_logs '[10/11] Add your username to the docker group'
-echo $SUDO_PASS | sudo -S usermod -aG docker ${USER} && echo $SUDO_PASS | su - ${USER}
+sudo usermod -aG docker ${USER} && su - ${USER}
 
 ___console_logs '[11/11] Restarting the machine'
 reboot --force
