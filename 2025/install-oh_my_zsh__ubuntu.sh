@@ -28,9 +28,17 @@ echo $SUDO_PASS | sudo -S echo $SHELL
 echo $SUDO_PASS | sudo -S wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 echo $SUDO_PASS | sudo -S /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
-echo $SUDO_PASS | sudo -S source ~/.zshrc
+source ~/.zshrc
 
+# ___console_logs '[02/11] Installing and configuring plugins'
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/k
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions && autoload -U compinit && compinit
+# git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && sed -i '/ask ".*/s/^/#/g' ~/.fzf/install && ~/.fzf/install
+# sed -i "s|^plugins=(git)|plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k zsh-completions)|g" ~/.zshrc
 
+# source ~/.zshrc
 
 
 
@@ -204,6 +212,14 @@ echo $SUDO_PASS | sudo -S source ~/.zshrc
 #     client-key: client.key
 # EOF
 # echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
+
+
+
+
+
+
+# ___console_logs '[11/11] Restarting the machine'
+# echo $SUDO_PASS | sudo -S reboot --force
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
