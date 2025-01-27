@@ -63,7 +63,6 @@ echo $SUDO_PASS | sudo -S chgrp root ~/.p10k.zsh
 ___console_logs '[09/11] Configuring Powerlevel10k in .zshrc'
 echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc 
 
-
 ___console_logs '[10/11] Reload Terminal'
 echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
 # zsh --login
