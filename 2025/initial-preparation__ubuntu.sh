@@ -21,17 +21,20 @@ else
     echo "==> sudo password entered."
 fi
 
-___console_logs '[01/04] Update and Upgrade System'
+___console_logs '[01/05] Update and Upgrade System'
 echo $SUDO_PASS | sudo -S apt update && echo $SUDO_PASS | sudo -S apt upgrade -y
 
-___console_logs '[02/04] Install basic applications'
-echo $SUDO_PASS | sudo -S apt install -y curl tree apache2-utils golang-go
+___console_logs '[02/05] Install basic applications'
+echo $SUDO_PASS | sudo -S apt install -y curl tree apache2-utils golang-go cloud-init qemu-guest-agent
 
-___console_logs '[03/04] Change time-zone settings'
+___console_logs '[03/10] Enable qemu-guest-agent'
+echo $SUDO_PASS | sudo -S systemctl enable qemu-guest-agent
+
+___console_logs '[04/05] Change time-zone settings'
 echo $SUDO_PASS | sudo -S sudo timedatectl set-timezone America/Recife
 date
 
-___console_logs '[04/04] Restarting the machine'
+___console_logs '[05/05] Restarting the machine'
 echo $SUDO_PASS | sudo -S reboot --force
 
 echo " " 
