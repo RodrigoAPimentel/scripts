@@ -53,8 +53,8 @@ echo $SUDO_PASS | sudo -S hostnamectl set-hostname $HOSTNAME
 
 ___console_logs "[03/05] Configure IP [$IP]"
 sudo -i -u root bash << EOF2
-echo $SUDO_PASS | sudo -S rm /etc/netplan/51-cloud-init.yaml
-cat <<EOF > /etc/netplan/51-cloud-init.yaml
+echo $SUDO_PASS | sudo -S rm /etc/netplan/50-cloud-init.yaml
+cat <<EOF > /etc/netplan/50-cloud-init.yaml
 # This file is generated from information provided by the datasource.  Changes
 # to it will not persist across an instance reboot.  To disable cloud-init's
 # network configuration capabilities, write a file
@@ -63,8 +63,8 @@ cat <<EOF > /etc/netplan/51-cloud-init.yaml
 network:
     ethernets:
         ens18:
-            addresses: [192.168.99.99/24]
-            gateway4: 192.168.99.1
+            addresses: [$IP/24]
+            gateway4: $GATEWAY
             dhcp4: no
             nameservers:
               addresses: [1.1.1.1,8.8.8.8]
