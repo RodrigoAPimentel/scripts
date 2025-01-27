@@ -20,15 +20,15 @@ echo '##########################################################################
 ___console_logs '[01/17] Verify Docker installed'
 IS_DOCKER=$(which docker)
 if [ -z "${IS_DOCKER}" ]; then
-    echo "111111111"
+    echo "111  XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
 else
-    echo "22222222"
+    echo "111  ==> Docker INSTALLED."
 fi
 IS_DOCKER2=$(which python)
 if [ -z "${IS_DOCKER2}" ]; then
-    echo "333333333"
+    echo "222 XXX python NOT installed. python is a basic requirement for minikube!! XXX"
 else
-    echo "4444444444"
+    echo "222 ==> python INSTALLED."
 fi
 
 
