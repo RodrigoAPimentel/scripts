@@ -28,7 +28,7 @@ echo $SUDO_PASS | sudo -S echo $SHELL
 echo $SUDO_PASS | sudo -S wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 echo $SUDO_PASS | sudo -S /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
-chsh -s $(which zsh)
+cho $SUDO_PASS | sudo -S chsh -s $(which zsh)
 
 # ___console_logs '[02/11] Installing and configuring plugins'
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -38,7 +38,7 @@ chsh -s $(which zsh)
 # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && sed -i '/ask ".*/s/^/#/g' ~/.fzf/install && ~/.fzf/install
 # sed -i "s|^plugins=(git)|plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k zsh-completions)|g" ~/.zshrc
 
-# chsh -s $(which zsh)
+# cho $SUDO_PASS | sudo -S chsh -s $(which zsh)
 
 
 
