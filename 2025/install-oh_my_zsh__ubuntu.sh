@@ -45,8 +45,8 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && sed -i '/ask "
 ___console_logs '[02/11] Installing and configuring plugins'
 sed -i "s|^plugins=(git)|plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k zsh-completions)|g" ~/.zshrc
 
-echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
-zsh --login
+# echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
+# zsh --login
 
 
 ___console_logs '[02/11] Downloading Powerline Fonts'
