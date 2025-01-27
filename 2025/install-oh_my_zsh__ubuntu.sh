@@ -55,18 +55,17 @@ echo '##########################################################################
 # # sed -i 's|^ZSH_THEME=.*|ZSH_THEME="jonathan"|g' ~/.zshrc
 # sed -i 's|^ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
 
-___console_logs '[02/11] Create Powerlevel10k configuration file'
-pwd
-ls -la
-cat 2025/resources/p10k_zsh_plugin_configuration
-echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-
+___console_logs '[02/11] Copy Powerlevel10k configuration file'
+rm -rfv 2025/resources/p10k_zsh_plugin_configuration ~/.p10k.zsh
 cp -rv 2025/resources/p10k_zsh_plugin_configuration ~/.p10k.zsh
 
+chmod 0644
 
+echo $SUDO_PASS | sudo -S chown root ~/.p10k.zsh 
+echo $SUDO_PASS | sudo -S chgrp root ~/.p10k.zsh 
 
-
-
+___console_logs '[02/11] Configuring Powerlevel10k in .zshrc'
+echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc
 
 
 
