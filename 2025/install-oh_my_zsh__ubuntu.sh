@@ -56,7 +56,7 @@ echo '##########################################################################
 # sed -i 's|^ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
 
 ___console_logs '[02/11] Copy Powerlevel10k configuration file'
-rm -rfv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
+# rm -rfv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
 cp -rv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
 
 chmod 0644
