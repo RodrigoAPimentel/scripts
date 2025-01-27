@@ -23,7 +23,8 @@ fi
 
 ___console_logs '[01/09] Truncate machine-id'
 echo $SUDO_PASS | sudo -S truncate -s 0 /etc/machine-id
-cat /etc/machine-id
+MACHINE_ID=$(cat /etc/machine-id)
+echo "==> Machine ID: [$MACHINE_ID]"
 
 ___console_logs '[02/09] Install cloud-init and qemu-guest-agent'
 echo $SUDO_PASS | sudo -S apt install -y cloud-init qemu-guest-agent
