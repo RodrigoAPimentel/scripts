@@ -66,7 +66,7 @@ echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc
 
 ___console_logs '[10/11] Reload Terminal'
 echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
-zsh --login
+# zsh --login
 
 ___console_logs '[11/11] Restarting the machine'
 echo $SUDO_PASS | sudo -S reboot --force
