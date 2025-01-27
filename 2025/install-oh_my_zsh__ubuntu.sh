@@ -59,6 +59,9 @@ ___console_logs '[02/11] Create Powerlevel10k configuration file'
 pwd
 ls -la
 cat 2025/resources/p10k_zsh_plugin_configuration
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+
+cp -rv 2025/resources/p10k_zsh_plugin_configuration ~/.p10k.zsh
 
 
 
