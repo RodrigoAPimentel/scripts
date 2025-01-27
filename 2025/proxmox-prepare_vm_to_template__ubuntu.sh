@@ -50,6 +50,9 @@ echo $SUDO_PASS | sudo -S apt autoremove -y
 ___console_logs '[09/09] Shutdown the machine'
 echo $SUDO_PASS | sudo -S shutdown -h now
 
+___console_logs '[09/09] Shutdown the machine'
+echo "==> Add Cloudinit Drive. Here is an example: https://tcude.net/creating-a-vm-template-in-proxmox/"
+
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
 echo '<<<<<<<<<<<<<< END <<<<<<<<<<<<<<<<<<<<<<<<<'
