@@ -1,9 +1,4 @@
 SUDO_PASS=toor
-# SO_USER=minikube
-# SO_USER_GROUP=docker
-# IP=$(hostname -I |  awk '{print $1}')
-# NGINX_FOLDER=~/nginx
-# MINIKUBE_FOLDER=$NGINX_FOLDER/minikube
 
 ___console_logs () {
     echo " "
@@ -56,7 +51,7 @@ echo '##########################################################################
 # sed -i 's|^ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
 
 ___console_logs '[02/11] Copy Powerlevel10k configuration file'
-# rm -rfv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
+rm -rfv ~/.p10k.zsh 
 cp -rv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
 
 chmod 0644 ~/.p10k.zsh 
