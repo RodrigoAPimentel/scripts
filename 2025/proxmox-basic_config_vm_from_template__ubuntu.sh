@@ -45,15 +45,16 @@ else
     echo "==> Gateway entered."
 fi
 
-___console_logs '[01/04] Install openssh-server'
+___console_logs '[01/05] Install openssh-server'
 echo $SUDO_PASS | sudo -S apt install -y openssh-server
 
-___console_logs "[02/04] Set Hostname [$HOSTNAME]"
+___console_logs "[02/05] Set Hostname [$HOSTNAME]"
 echo $SUDO_PASS | sudo -S set-hostname $HOSTNAME
 
-___console_logs "[03/04] Configure IP [$IP]"
+___console_logs "[03/05] Configure IP [$IP]"
+sudo -i -u root bash << EOF2
 echo $SUDO_PASS | sudo -S rm /etc/netplan/50-cloud-init.yaml
-cat <<EOF > /etc/netplan/50-cloud-init.yaml
+cat <<EOF > /etc/netplan/51-cloud-init.yaml
 # This file is generated from information provided by the datasource.  Changes
 # to it will not persist across an instance reboot.  To disable cloud-init's
 # network configuration capabilities, write a file
@@ -62,17 +63,22 @@ cat <<EOF > /etc/netplan/50-cloud-init.yaml
 network:
     ethernets:
         ens18:
-            addresses: [$IP/24]
-            gateway4: $GATEWAY
+            addresses: [192.168.99.99/24]
+            gateway4: 192.168.99.1
             dhcp4: no
             nameservers:
               addresses: [1.1.1.1,8.8.8.8]
             optional: true
     version: 2
 EOF
+EOF2
 echo $SUDO_PASS | sudo -S cat /etc/netplan/50-cloud-init.yaml
+echo $SUDO_PASS | sudo -S netplan apply
 
-___console_logs '[04/04] Restarting the machine'
+___console_logs '[04/05] Configure Keyboard layout to ABNT2'
+echo $SUDO_PASS | sudo -S sed -i "s|^XKBLAYOUT=.*|XKBLAYOUT=br|g" /etc/default/keyboard
+
+___console_logs '[05/05] Restarting the machine'
 echo $SUDO_PASS | sudo -S reboot --force
 
 echo " " 
