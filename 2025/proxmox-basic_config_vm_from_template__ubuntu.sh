@@ -49,7 +49,7 @@ ___console_logs '[01/05] Install openssh-server'
 echo $SUDO_PASS | sudo -S apt install -y openssh-server
 
 ___console_logs "[02/05] Set Hostname [$HOSTNAME]"
-echo $SUDO_PASS | sudo -S set-hostname $HOSTNAME
+echo $SUDO_PASS | sudo -S hostnamectl set-hostname $HOSTNAME
 
 ___console_logs "[03/05] Configure IP [$IP]"
 sudo -i -u root bash << EOF2
