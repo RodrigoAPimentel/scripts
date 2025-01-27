@@ -53,7 +53,7 @@ echo $SUDO_PASS | sudo -S hostnamectl set-hostname $HOSTNAME
 
 ___console_logs "[03/05] Configure IP [$IP]"
 sudo -i -u root bash << EOF2
-echo $SUDO_PASS | sudo -S rm /etc/netplan/50-cloud-init.yaml
+echo $SUDO_PASS | sudo -S rm /etc/netplan/51-cloud-init.yaml
 cat <<EOF > /etc/netplan/51-cloud-init.yaml
 # This file is generated from information provided by the datasource.  Changes
 # to it will not persist across an instance reboot.  To disable cloud-init's
