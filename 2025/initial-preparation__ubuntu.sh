@@ -21,11 +21,11 @@ else
     echo "==> sudo password entered."
 fi
 
-___console_logs '[01/04] Install basic applications'
-echo $SUDO_PASS | sudo -S apt install -y curl tree apache2-utils
-
-___console_logs '[02/04] Update and Upgrade System'
+___console_logs '[01/04] Update and Upgrade System'
 echo $SUDO_PASS | sudo -S apt update && echo $SUDO_PASS | sudo -S apt upgrade -y
+
+___console_logs '[02/04] Install basic applications'
+echo $SUDO_PASS | sudo -S apt install -y curl tree apache2-utils
 
 ___console_logs '[03/04] Change time-zone settings'
 echo $SUDO_PASS | sudo -S sudo timedatectl set-timezone America/Recife
