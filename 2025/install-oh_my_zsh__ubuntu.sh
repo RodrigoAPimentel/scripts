@@ -65,7 +65,7 @@ echo $SUDO_PASS | sudo -S chown root ~/.p10k.zsh
 echo $SUDO_PASS | sudo -S chgrp root ~/.p10k.zsh 
 
 ___console_logs '[02/11] Configuring Powerlevel10k in .zshrc'
-echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc
+echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc 
 
 
 
