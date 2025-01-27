@@ -35,19 +35,28 @@ echo '##########################################################################
 # echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
 # zsh --login
 
-___console_logs '[02/11] Installing and configuring plugins'
+___console_logs '[02/11] Downloading plugins'
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/k
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions && autoload -U compinit && compinit
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && sed -i '/ask ".*/s/^/#/g' ~/.fzf/install && ~/.fzf/install
+
+___console_logs '[02/11] Installing and configuring plugins'
 sed -i "s|^plugins=(git)|plugins=(git zsh-syntax-highlighting fzf zsh-autosuggestions k zsh-completions)|g" ~/.zshrc
 
 echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
 zsh --login
 
 
+___console_logs '[02/11] Downloading Powerline Fonts'
+git clone https://github.com/powerline/fonts.git --depth=1
 
+___console_logs '[02/11] Installing Powerline Fonts'
+cd fonts
+./install.sh
+cd ..
+rm -rf fonts
 
 
 
