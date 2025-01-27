@@ -56,7 +56,9 @@ echo '##########################################################################
 # sed -i 's|^ZSH_THEME=.*|ZSH_THEME="powerlevel10k/powerlevel10k"|g' ~/.zshrc
 
 ___console_logs '[02/11] Create Powerlevel10k configuration file'
-cat 2025/p10k_zsh_plugin_configuration
+# cat 2025/p10k_zsh_plugin_configuration
+pwd
+ls -la
 
 
 
