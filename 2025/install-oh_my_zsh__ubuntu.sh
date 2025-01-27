@@ -18,17 +18,17 @@ echo '############################ INSTALL OH-MY-ZSH ###########################
 echo '##########################################################################\n'
 
 ___console_logs '[02/11] Install a few prerequisite packages'
-echo $SUDO_PASS | sudo -S apt install -y zsh go fontconfig
+echo $SUDO_PASS | sudo -S apt install -y zsh golang-go fontconfig
 
 ___console_logs '[02/11] Configuring oh-my-zsh'
- rm -Rf /root/.oh-my-zsh
-rm -Rf ~/.zshrc
-chsh -s /bin/zsh root
-echo $SHELL
-wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
-/bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+echo $SUDO_PASS | sudo -S rm -Rf /root/.oh-my-zsh
+echo $SUDO_PASS | sudo -S rm -Rf ~/.zshrc
+echo $SUDO_PASS | sudo -S chsh -s /bin/zsh root
+echo $SUDO_PASS | sudo -S echo $SHELL
+echo $SUDO_PASS | sudo -S wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+echo $SUDO_PASS | sudo -S /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
-source ~/.zshrc
+echo $SUDO_PASS | sudo -S source ~/.zshrc
 
 
 
