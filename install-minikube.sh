@@ -23,6 +23,7 @@ if [ -z "${IS_DOCKER}" ]; then
     echo "111  XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
 else
     echo "111  ==> Docker INSTALLED."
+    exit 1
 fi
 IS_DOCKER2=$(which python)
 if [ -z "${IS_DOCKER2}" ]; then
