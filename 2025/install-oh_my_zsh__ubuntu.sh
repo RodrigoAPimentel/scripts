@@ -59,7 +59,7 @@ ___console_logs '[02/11] Copy Powerlevel10k configuration file'
 # rm -rfv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
 cp -rv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
 
-chmod 0644
+chmod 0644 ~/.p10k.zsh 
 
 echo $SUDO_PASS | sudo -S chown root ~/.p10k.zsh 
 echo $SUDO_PASS | sudo -S chgrp root ~/.p10k.zsh 
