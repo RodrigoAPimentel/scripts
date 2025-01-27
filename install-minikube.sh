@@ -19,15 +19,15 @@ echo '##########################################################################
 
 ___console_logs '[01/17] Verify Docker installed'
 IS_DOCKER=$(which docker)
-if [ -z "${IS_DOCKER}" ];
+if [ -z "${IS_DOCKER}" ]; then
     echo "111111111"
-elif
+else
     echo "22222222"
 fi
 IS_DOCKER2=$(which python)
-if [ -z "${IS_DOCKER2}" ];
+if [ -z "${IS_DOCKER2}" ]; then
     echo "333333333"
-elif
+else
     echo "4444444444"
 fi
 
