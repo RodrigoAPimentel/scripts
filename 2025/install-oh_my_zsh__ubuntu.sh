@@ -34,6 +34,8 @@ echo $SUDO_PASS | sudo -S /bin/cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.z
 
 echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
 
+zsh --login
+
 # ___console_logs '[02/11] Installing and configuring plugins'
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 # git clone https://github.com/supercrabtree/k ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/k
