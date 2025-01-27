@@ -1,4 +1,4 @@
-# SUDO_PASS=toor
+SUDO_PASS=toor
 # SO_USER=minikube
 # SO_USER_GROUP=docker
 # IP=$(hostname -I |  awk '{print $1}')
