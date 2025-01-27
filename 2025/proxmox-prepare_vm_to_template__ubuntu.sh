@@ -49,8 +49,8 @@ echo $SUDO_PASS | sudo -S apt autoremove -y
 ___console_logs '[09/10] Add Cloudinit Drive Hardware'
 echo "==> Add Cloudinit Drive Hardware. Here is an example: https://tcude.net/creating-a-vm-template-in-proxmox/"
 
-___console_logs '[10/10] Shutdown the machine'
-echo $SUDO_PASS | sudo -S shutdown -h now
+# ___console_logs '[10/10] Shutdown the machine'
+# echo $SUDO_PASS | sudo -S shutdown -h now
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
