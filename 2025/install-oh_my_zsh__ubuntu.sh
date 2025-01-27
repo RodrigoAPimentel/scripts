@@ -48,7 +48,7 @@ rm -rf fonts
 ___console_logs '[06/11] Download and Install PowerLevel10K Theme'
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-___console_logs '[07/11] Configuring Theme [$_ZSH_THEME]'
+___console_logs "[07/11] Configuring Theme [$_ZSH_THEME]"
 sed -i "s|^ZSH_THEME=.*|ZSH_THEME=$_ZSH_THEME|g" ~/.zshrc
 
 ___console_logs '[08/11] Copy Powerlevel10k configuration file'
@@ -65,8 +65,6 @@ echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc
 
 ___console_logs '[10/11] Reload Terminal'
 chsh -s $(which zsh)
-# echo $SUDO_PASS | sudo -S chsh -s $(which zsh)
-# zsh --login
 
 ___console_logs '[11/11] Restarting the machine'
 echo $SUDO_PASS | sudo -S reboot --force

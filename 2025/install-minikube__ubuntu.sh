@@ -26,7 +26,7 @@ else
     echo "==> sudo password entered."
 fi
 
-___console_logs '[01/18] Verify Docker installed'
+___console_logs '[01/19] Verify Docker installed'
 IS_DOCKER=$(which docker)
 if [ -z "${IS_DOCKER}" ]; then
     echo "XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
@@ -35,31 +35,31 @@ else
     echo "==> Docker INSTALLED."
 fi
 
-___console_logs '[02/18] Download Minikube'
+___console_logs '[02/19] Download Minikube'
 curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
 
-___console_logs '[03/18] Install Minikube'
+___console_logs '[03/19] Install Minikube'
 echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
-___console_logs '[04/18] Download Kubectl'
+___console_logs '[04/19] Download Kubectl'
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
-___console_logs '[05/18] Install Kubectl'
+___console_logs '[05/19] Install Kubectl'
 echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
 kubectl version --client --output=yaml
 
-___console_logs '[06/18] Config Docker default driver'
+___console_logs '[06/19] Config Docker default driver'
 minikube config set driver docker
 
-___console_logs '[07/18] Minikube Start'
+___console_logs '[07/19] Minikube Start'
 minikube start --force
 
-___console_logs '[08/18] Minikube Status'
+___console_logs '[08/19] Minikube Status'
 minikube status
 
-___console_logs '[09/18] Configure Kickoff Minikube Cluster on Machine Startup'
+___console_logs '[09/19] Configure Kickoff Minikube Cluster on Machine Startup'
 sudo -i -u root bash << EOF
 echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
 [Unit]
@@ -81,7 +81,7 @@ EOF2
 EOF
 echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service
 
-___console_logs '[10/18] Enable Minikube Service'
+___console_logs '[10/19] Enable Minikube Service'
 systemctl enable minikube
 systemctl status minikube
 
@@ -89,17 +89,17 @@ echo '\n------------------------------------------------------------------------
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
 
-___console_logs '[11/18] Copy the certificate and key'
+___console_logs '[11/19] Copy the certificate and key'
 mkdir -p $MINIKUBE_FOLDER
 cp -rv ~/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
 cp -rv ~/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
 cp -rv ~/.minikube/ca.crt $MINIKUBE_FOLDER
 
-___console_logs '[12/18] Create NGINX password'
+___console_logs '[12/19] Create NGINX password'
 echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
 echo $SUDO_PASS | htpasswd -c -b -i $MINIKUBE_FOLDER/.htpasswd $SO_USER
 
-___console_logs '[13/18] Create nginx.conf file'
+___console_logs '[13/19] Create nginx.conf file'
 cat <<EOF > $NGINX_FOLDER/nginx.conf
 events {
     worker_connections 1024;
@@ -123,7 +123,7 @@ http {
 EOF
 cat $NGINX_FOLDER/nginx.conf
 
-___console_logs '[14/18] Create Dockerfile'
+___console_logs '[14/19] Create Dockerfile'
 cat <<EOF > $NGINX_FOLDER/Dockerfile
 # Official Nginx image
 FROM nginx:latest
@@ -142,19 +142,19 @@ EXPOSE 443
 EOF
 cat $NGINX_FOLDER/Dockerfile
 
-___console_logs '[15/18] Show NGINX all Files'
+___console_logs '[15/19] Show NGINX all Files'
 echo $SUDO_PASS | sudo -S apt install -yqqq tree
 tree $NGINX_FOLDER
 
-___console_logs '[16/18] Build NGINX docker image'
+___console_logs '[16/19] Build NGINX docker image'
 docker build -t nginx-minikube-proxy $NGINX_FOLDER
 
-___console_logs '[17/18] Run NGINX docker image'
+___console_logs '[17/19] Run NGINX docker image'
 CONTAINER_ID=$(docker run -d --memory="500m" --memory-reservation="256m" --cpus="0.25" --restart=always --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
 echo "==> CONTAINER ID: [$CONTAINER_ID]"
 docker logs $CONTAINER_ID
 
-___console_logs '[18/18] Create Kubeconfig to external access'
+___console_logs '[18/19] Create Kubeconfig to external access'
 cat <<EOF > $MINIKUBE_FOLDER/Kubeconfig
 apiVersion: v1
 clusters:
@@ -188,6 +188,9 @@ users:
     client-key: client.key
 EOF
 echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
+
+___console_logs '[19/19] Informations'
+echo "==> Copiar os arquivos de conexão externa gerados pela instalação do minikube: scp -r minikube@$IP:/home/minikube/nginx/minikube/ target_folder"
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
