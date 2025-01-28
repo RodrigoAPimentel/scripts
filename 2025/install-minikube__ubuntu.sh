@@ -163,7 +163,8 @@ EOF
 cat $NGINX_FOLDER/Dockerfile
 
 ___console_logs '[16/20] Build NGINX docker image'
-docker build -t nginx-minikube-proxy $NGINX_FOLDER
+# docker build -t nginx-minikube-proxy $NGINX_FOLDER
+docker build -t nginx-minikube-proxy $NGINX_FOLDER $MINIKUBE_FOLDER
 
 # ___console_logs '[17/20] Run NGINX docker image'
 # CONTAINER_ID=$(docker run -d --memory="500m" --memory-reservation="256m" --cpus="0.25" --restart=always --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
