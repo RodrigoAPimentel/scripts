@@ -17,6 +17,12 @@ echo '##########################################################################
 echo '############################ INSTALL MINIKUBE ############################'
 echo '##########################################################################\n'
 
+
+
+# INSTALAR YQ
+
+
+
 # ___console_logs '[--] Check if the sudo password was entered'
 # if [ -z "${SUDO_PASS}" ]; then
 #     echo "XXX sudo password not entered!! XXX"
@@ -195,20 +201,24 @@ echo '##########################################################################
 # echo "====> Usuario: $SO_USER"
 # echo "====> Senha: $SUDO_PASS"
 
+
 cp -rv ~/.kube/config ~/nginx/kubeconfig
-sed -i "s|^server.*|server$SO_USER:$SUDO_PASS@$IP:443|g" ~/nginx/kubeconfig
+
+yq '.clusters[0].cluster.server' ~/nginx/kubeconfig
+yq -yi ".clusters[0].cluster.server = \"$SO_USER:$SUDO_PASS@$IP:443\"" ~/nginx/kubeconfig 
 
 
+yq '.clusters[0].cluster."certificate-authority"' ~/nginx/kubeconfig
+yq -yi '.clusters[0].cluster."certificate-authority" = "ca.crt"' ~/nginx/kubeconfig
 
+yq '.users[0].user."client-certificate"' ~/nginx/kubeconfig
+yq -yi '.users[0].user."client-certificate" = "client.crt"' ~/nginx/kubeconfig
 
+yq '.users[0].user."client-key"' ~/nginx/kubeconfig
+yq -yi '.users[0].user."client-key" = "client.key"' ~/nginx/kubeconfig
 
-
-
-
-
-
-
-
+echo "#################"
+cat ~/nginx/kubeconfig
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
