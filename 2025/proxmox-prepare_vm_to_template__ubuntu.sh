@@ -45,14 +45,14 @@ echo $SUDO_PASS | sudo -S cloud-init clean
 ___console_logs '[08/12] Apt autoremove'
 echo $SUDO_PASS | sudo -S apt autoremove -y
 
-___console_logs '[09/12] Add Cloudinit Drive Hardware'
-echo "==> Add Cloudinit Drive Hardware. Here is an example: https://tcude.net/creating-a-vm-template-in-proxmox/"
-
-___console_logs '[10/12] Copy install-openssh-server__ubuntu.sh to ~/'
+___console_logs '[09/12] Copy install-openssh-server__ubuntu.sh to ~/'
 cp ~/scripts/2025/install-openssh-server__ubuntu.sh ~/install_openssh-server
 
-___console_logs '[11/12] Delete scripts folder'
+___console_logs '[10/12] Delete scripts folder'
 rm -rvf ~/scripts
+
+___console_logs '[11/12] Add Cloudinit Drive Hardware'
+echo "==> Add Cloudinit Drive Hardware. Here is an example: https://tcude.net/creating-a-vm-template-in-proxmox/"
 
 ___console_logs '[12/12] Shutdown the machine'
 echo $SUDO_PASS | sudo -S shutdown -h now
