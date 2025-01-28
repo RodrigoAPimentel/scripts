@@ -135,18 +135,26 @@ EOF
 cat $NGINX_FOLDER/nginx.conf
 
 ___console_logs '[15/20] Create Dockerfile'
-pwd
+
+
+# # Copy Nginx configuration file to the container
+# COPY nginx.conf /etc/nginx/nginx.conf
+# # Copy minikube certs and password
+# COPY minikube/client.key /etc/nginx/certs/minikube-client.key
+# COPY minikube/client.crt /etc/nginx/certs/minikube-client.crt
+# COPY minikube/.htpasswd /etc/nginx/.htpasswd
+
 cat <<EOF > $NGINX_FOLDER/Dockerfile
 # Official Nginx image
 FROM nginx:latest
 
 # Copy Nginx configuration file to the container
-COPY $NGINX_FOLDER/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy minikube certs and password
-COPY ../client.key /etc/nginx/certs/minikube-client.key
-COPY ./../client.crt /etc/nginx/certs/minikube-client.crt
-COPY $NGINX_FOLDER/.htpasswd /etc/nginx/.htpasswd
+COPY minikube/client.key /etc/nginx/certs/minikube-client.key
+COPY minikube/client.crt /etc/nginx/certs/minikube-client.crt
+COPY minikube/.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
 EXPOSE 80
