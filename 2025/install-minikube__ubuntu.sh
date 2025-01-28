@@ -99,40 +99,40 @@ echo '\n------------------------------------------------------------------------
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
 
-___console_logs '[12/20] Copy the certificate and key'
-mkdir -p $MINIKUBE_FOLDER
-mkdir -p $NGINX_FOLDER
-cp -rv $HOME/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
-cp -rv $HOME/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
-cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER
+# ___console_logs '[12/20] Copy the certificate and key'
+# mkdir -p $MINIKUBE_FOLDER
+# mkdir -p $NGINX_FOLDER
+# cp -rv $HOME/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
+# cp -rv $HOME/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
+# cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER
 
-___console_logs '[13/20] Create NGINX password'
-echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
-echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
+# ___console_logs '[13/20] Create NGINX password'
+# echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
+# echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
 
-___console_logs '[14/20] Create nginx.conf file'
-cat <<EOF > $NGINX_FOLDER/nginx.conf
-events {
-    worker_connections 1024;
-}
-http {
-  server_tokens off;
-  auth_basic "Administrator’s Area";
-  auth_basic_user_file /etc/nginx/.htpasswd;
-  server {
-    listen 443;
-    server_name minikube;
-    location / {
-      proxy_set_header X-Forwarded-For \$remote_addr;
-      proxy_set_header Host            \$http_host;
-      proxy_pass https://minikube:8443;
-      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
-    }
-  }
-}
-EOF
-cat $NGINX_FOLDER/nginx.conf
+# ___console_logs '[14/20] Create nginx.conf file'
+# cat <<EOF > $NGINX_FOLDER/nginx.conf
+# events {
+#     worker_connections 1024;
+# }
+# http {
+#   server_tokens off;
+#   auth_basic "Administrator’s Area";
+#   auth_basic_user_file /etc/nginx/.htpasswd;
+#   server {
+#     listen 443;
+#     server_name minikube;
+#     location / {
+#       proxy_set_header X-Forwarded-For \$remote_addr;
+#       proxy_set_header Host            \$http_host;
+#       proxy_pass https://minikube:8443;
+#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+#     }
+#   }
+# }
+# EOF
+# cat $NGINX_FOLDER/nginx.conf
 
 ___console_logs '[15/20] Create Dockerfile'
 
@@ -152,9 +152,9 @@ FROM nginx:latest
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy minikube certs and password
-COPY minikube_installed/client.key /etc/nginx/certs/minikube-client.key
-COPY minikube_installed/client.crt /etc/nginx/certs/minikube-client.crt
-COPY minikube_installed/.htpasswd /etc/nginx/.htpasswd
+COPY ../client.key /etc/nginx/certs/minikube-client.key
+COPY ../client.crt /etc/nginx/certs/minikube-client.crt
+COPY ../.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
 EXPOSE 80
