@@ -195,7 +195,7 @@ echo '##########################################################################
 # echo "====> Usuario: $SO_USER"
 # echo "====> Senha: $SUDO_PASS"
 
-cp -v ~/.kube/config ~/nginx/test/kubeconfig 
+cp -rv ~/.kube/config ~/nginx/test
 
 
 
