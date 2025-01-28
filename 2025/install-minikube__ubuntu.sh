@@ -97,7 +97,7 @@ ___console_logs () {
 
 echo '\n--------------------------------------------------------------------------'
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
-echo '--------------------------------------------------------------------------\n'
+echo '--------------------------------------------------------------------------'
 
 ___console_logs '[12/20] Copy the certificate and key'
 mkdir -p $MINIKUBE_FOLDER
@@ -163,10 +163,11 @@ docker build -t nginx-minikube-proxy -f $NGINX_FOLDER/Dockerfile $MINIKUBE_INSTA
 ___console_logs '[17/20] Run NGINX docker image'
 OLD_CONTAINER_DELETED=$(docker rm --force nginx-minikube-proxy)
 CONTAINER_ID=$(docker run -d --memory="500m" --memory-reservation="256m" --cpus="0.25" --restart=always --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
-echo "==> OLD CONTAINER DELETED: [$OLD_CONTAINER_DELETED]"
-echo "==> CONTAINER ID: [$CONTAINER_ID]"
-echo "==> Container NGINX logs:"
-docker logs $CONTAINER_ID
+echo "=====> OLD CONTAINER DELETED: [$OLD_CONTAINER_DELETED] <====="
+echo "=====> CONTAINER ID: [$CONTAINER_ID] <====="
+echo "=====> Container NGINX logs: <====="
+LOGS=$(docker logs $CONTAINER_ID)
+echo "                $LOGS"
 
 ___console_logs '[18/20] Configure Kubeconfig to external access'
 cp -rv $HOME/.kube/config $MINIKUBE_FOLDER/kubeconfig
@@ -177,16 +178,14 @@ yq -yi '.users[0].user."client-key" = "client.key"' $MINIKUBE_FOLDER/kubeconfig
 echo "============================ [kubeconfig] ============================"
 cat $MINIKUBE_FOLDER/kubeconfig
 echo "====================================================================== [$MINIKUBE_FOLDER/kubeconfig]"
-echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
+echo "=====> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig <====="
 
 ___console_logs '[19/20] Show all Configuration Files'
 tree -a $MINIKUBE_INSTALL_ROOT_FOLDER
 
 ___console_logs '[20/20] Informations'
-echo "==> Copiar os arquivos de conexão externa gerados pela instalação do minikube: <<sshpass -p '$SUDO_PASS' scp -o StrictHostKeyChecking=no -r $SO_USER@$IP:$MINIKUBE_FOLDER/ minikube>>"
-echo "==> Usuario e senha para logar no NGINX:"
-echo "====> Usuario: $SO_USER"
-echo "====> Senha: $SUDO_PASS"
+echo "=====> Copiar os arquivos de conexão externa gerados pela instalação do minikube: \`sshpass -p '$SUDO_PASS' scp -o StrictHostKeyChecking=no -r $SO_USER@$IP:$MINIKUBE_FOLDER/ minikube\` <====="
+echo "=====> Usuario e senha para logar no NGINX: $SO_USER|$SUDO_PASS <====="
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
