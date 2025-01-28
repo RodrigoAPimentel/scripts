@@ -190,7 +190,7 @@ EOF
 echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
 ___console_logs '[19/19] Informations'
-echo "==> Copiar os arquivos de conexão externa gerados pela instalação do minikube: scp -r minikube@$IP:/home/minikube/nginx/minikube/ target_folder"
+echo "==> Copiar os arquivos de conexão externa gerados pela instalação do minikube: scp -r $SO_USER@$IP:/home/$SO_USER/nginx/minikube/ target_folder"
 
 echo " " 
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
