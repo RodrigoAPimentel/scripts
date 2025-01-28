@@ -1,7 +1,6 @@
 SUDO_PASS=$1
 SO_USER=$(echo ${USER})
-SO_MINIKUBE_USER=minikube
-SO_MINIKUBE_USER_GROUP=docker
+SO_USER_GROUP=docker
 IP=$(hostname -I |  awk '{print $1}')
 NGINX_FOLDER=~/nginx
 MINIKUBE_FOLDER=$NGINX_FOLDER/minikube
@@ -73,8 +72,8 @@ ExecStart=/usr/local/bin/minikube start --force
 RemainAfterExit=true
 ExecStop=/usr/local/bin/minikube stop
 StandardOutput=journal
-User=$SO_MINIKUBE_USER
-Group=$SO_MINIKUBE_USER_GROUP
+User=$SO_USER
+Group=$SO_USER_GROUP
 
 [Install]
 WantedBy=multi-user.target
@@ -98,7 +97,7 @@ cp -rv ~/.minikube/ca.crt $MINIKUBE_FOLDER
 
 ___console_logs '[12/19] Create NGINX password'
 echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
-echo $SUDO_PASS | htpasswd -c -b -i $MINIKUBE_FOLDER/.htpasswd $SO_MINIKUBE_USER
+echo $SUDO_PASS | htpasswd -c -b -i $MINIKUBE_FOLDER/.htpasswd $SO_USER
 
 ___console_logs '[13/19] Create nginx.conf file'
 cat <<EOF > $NGINX_FOLDER/nginx.conf
