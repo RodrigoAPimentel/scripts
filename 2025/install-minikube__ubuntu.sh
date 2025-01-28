@@ -144,8 +144,8 @@ FROM nginx:latest
 COPY $NGINX_FOLDER/nginx.conf /etc/nginx/nginx.conf
 
 # Copy minikube certs and password
-COPY ~/minikube_installed/client.key /etc/nginx/certs/minikube-client.key
-COPY $MINIKUBE_FOLDER/client.crt /etc/nginx/certs/minikube-client.crt
+COPY ../client.key /etc/nginx/certs/minikube-client.key
+COPY ./../client.crt /etc/nginx/certs/minikube-client.crt
 COPY $NGINX_FOLDER/.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
