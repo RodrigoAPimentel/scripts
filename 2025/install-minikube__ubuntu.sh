@@ -171,9 +171,9 @@ yq -yi '.clusters[0].cluster."certificate-authority" = "ca.crt"' $MINIKUBE_FOLDE
 yq -yi '.users[0].user."client-certificate" = "client.crt"' $MINIKUBE_FOLDER/kubeconfig
 yq -yi '.users[0].user."client-key" = "client.key"' $MINIKUBE_FOLDER/kubeconfig
 
-echo "\n----- $MINIKUBE_FOLDER/kubeconfig"
+echo "\n------------------------- kubeconfig -------------------------"
 cat $MINIKUBE_FOLDER/kubeconfig
-echo "-----\n"
+echo "--------------------------------------------------------------\n"
 
 echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
@@ -181,7 +181,7 @@ ___console_logs '[19/20] Show all Configuration Files'
 tree -a $MINIKUBE_FOLDER
 
 ___console_logs '[20/20] Informations'
-echo "==> Copiar os arquivos de conexão externa gerados pela instalação do minikube: `sshpass -p '$SUDO_PASS' scp -o StrictHostKeyChecking=no -r $SO_USER@$IP:$MINIKUBE_FOLDER/ minikube`"
+echo "==> Copiar os arquivos de conexão externa gerados pela instalação do minikube: << sshpass -p '$SUDO_PASS' scp -o StrictHostKeyChecking=no -r $SO_USER@$IP:$MINIKUBE_FOLDER/ minikube >>"
 echo "==> Usuario e senha para logar no NGINX:"
 echo "====> Usuario: $SO_USER"
 echo "====> Senha: $SUDO_PASS"
