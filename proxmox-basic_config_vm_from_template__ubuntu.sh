@@ -72,7 +72,9 @@ network:
     version: 2
 EOF
 EOF2
+echo "======================== [50-cloud-init.yaml] ========================"
 echo $SUDO_PASS | sudo -S cat /etc/netplan/50-cloud-init.yaml
+echo "====================================================================== [/etc/netplan/50-cloud-init.yaml]"
 echo $SUDO_PASS | sudo -S netplan apply
 
 ___console_logs '[04/05] Configure Keyboard layout to ABNT2'

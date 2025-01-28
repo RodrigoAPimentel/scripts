@@ -53,7 +53,7 @@ sed -i "s|^ZSH_THEME=.*|ZSH_THEME=$_ZSH_THEME|g" ~/.zshrc
 
 ___console_logs '[08/11] Copy Powerlevel10k configuration file'
 rm -rfv ~/.p10k.zsh 
-cp -rv 2025/resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
+cp -rv resources/p10k_zsh_plugin_configuration.txt ~/.p10k.zsh
 
 chmod 0644 ~/.p10k.zsh 
 

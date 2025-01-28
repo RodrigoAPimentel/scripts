@@ -44,6 +44,7 @@ curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikub
 
 ___console_logs '[04/20] Install Minikube'
 echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+which minikube
 
 ___console_logs '[05/20] Download Kubectl'
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
