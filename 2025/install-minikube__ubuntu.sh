@@ -196,7 +196,7 @@ echo '##########################################################################
 # echo "====> Senha: $SUDO_PASS"
 
 cp -rv ~/.kube/config ~/nginx/kubeconfig
-sed -i "s|^server:.*|server:$SO_USER:$SUDO_PASS@$IP:443|g" ~/nginx/kubeconfig
+sed -i "s|^server.*|server$SO_USER:$SUDO_PASS@$IP:443|g" ~/nginx/kubeconfig
 
 
 
