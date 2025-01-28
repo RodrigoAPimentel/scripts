@@ -52,6 +52,7 @@ ___console_logs '[10/12] Copy install-openssh-server__ubuntu.sh to ~/'
 cp ~/scripts/2025/install-openssh-server__ubuntu.sh ~/install_openssh-server
 
 ___console_logs '[11/12] Delete scripts folder'
+cd ~
 rm -rvf ~/scripts
 
 # ___console_logs '[12/12] Shutdown the machine'
