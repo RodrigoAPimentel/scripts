@@ -149,12 +149,12 @@ cat <<EOF > $NGINX_FOLDER/Dockerfile
 FROM nginx:latest
 
 # Copy Nginx configuration file to the container
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Copy minikube certs and password
 COPY client.key /etc/nginx/certs/minikube-client.key
 COPY client.crt /etc/nginx/certs/minikube-client.crt
-COPY .htpasswd /etc/nginx/.htpasswd
+COPY nginx/.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
 EXPOSE 80
