@@ -82,7 +82,7 @@ EOF
 echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service
 
 ___console_logs '[10/19] Enable Minikube Service'
-systemctl enable minikube
+echo $SUDO_PASS | sudo -S systemctl enable minikube
 systemctl status minikube
 
 echo '\n--------------------------------------------------------------------------'
