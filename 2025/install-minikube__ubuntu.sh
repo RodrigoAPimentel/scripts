@@ -165,7 +165,7 @@ clusters:
         provider: minikube.sigs.k8s.io
         version: v1.31.2
       name: cluster_info
-    server: minikube:$SUDO_PASS@$IP:443
+    server: $SO_USER:$SUDO_PASS@$IP:443
   name: minikube
 contexts:
 - context:
