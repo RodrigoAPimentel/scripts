@@ -6,7 +6,7 @@ IP=$(hostname -I |  awk '{print $1}')
 # MINIKUBE_FOLDER=$NGINX_FOLDER/minikube
 
 
-MINIKUBE_FOLDER=$HOME/minikube
+MINIKUBE_FOLDER=$HOME/minikube_installed
 NGINX_FOLDER=$MINIKUBE_FOLDER/nginx
 
 
