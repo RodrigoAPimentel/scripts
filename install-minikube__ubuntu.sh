@@ -2,15 +2,9 @@ SUDO_PASS=$1
 SO_USER=$(echo ${USER})
 SO_USER_GROUP=docker
 IP=$(hostname -I |  awk '{print $1}')
-# NGINX_FOLDER=$HOME/nginx
-# MINIKUBE_FOLDER=$NGINX_FOLDER/minikube
-
 MINIKUBE_INSTALL_ROOT_FOLDER=$HOME/minikube-install
 MINIKUBE_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/minikube
 NGINX_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/nginx
-
-
-
 
 ___console_logs () {
     echo " "
@@ -20,80 +14,82 @@ ___console_logs () {
     sleep 1
 }
 
-# echo '##########################################################################'
-# echo '############################ INSTALL MINIKUBE ############################'
-# echo '##########################################################################\n'
+echo '##########################################################################'
+echo '############################ INSTALL MINIKUBE ############################'
+echo '##########################################################################\n'
 
-# ___console_logs '[--] Check if the sudo password was entered'
-# if [ -z "${SUDO_PASS}" ]; then
-#     echo "XXX sudo password not entered!! XXX"
-#     echo "Sample: install-minikube__ubuntu.sh <sudo pass>"
-#     exit 1
-# else
-#     echo "==> sudo password entered."
-# fi
+___console_logs '[--] Check if the sudo password was entered'
+if [ -z "${SUDO_PASS}" ]; then
+    echo "XXX sudo password not entered!! XXX"
+    echo "Sample: install-minikube__ubuntu.sh <sudo pass>"
+    exit 1
+else
+    echo "==> sudo password entered."
+fi
 
-# ___console_logs '[01/20] Install a few prerequisite packages'
-# echo $SUDO_PASS | sudo -S apt install -yqqq tree yq
+___console_logs '[01/20] Install a few prerequisite packages'
+echo $SUDO_PASS | sudo -S apt install -yqqq tree yq
 
-# ___console_logs '[02/20] Verify Docker installed'
-# IS_DOCKER=$(which docker)
-# if [ -z "${IS_DOCKER}" ]; then
-#     echo "XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
-#     exit 1
-# else
-#     echo "==> Docker INSTALLED."
-# fi
+___console_logs '[02/20] Verify Docker installed'
+IS_DOCKER=$(which docker)
+if [ -z "${IS_DOCKER}" ]; then
+    echo "XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
+    exit 1
+else
+    echo "==> Docker INSTALLED."
+fi
 
-# ___console_logs '[03/20] Download Minikube'
-# curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+___console_logs '[03/20] Download Minikube'
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
 
-# ___console_logs '[04/20] Install Minikube'
-# echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+___console_logs '[04/20] Install Minikube'
+echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
-# ___console_logs '[05/20] Download Kubectl'
-# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-# echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+___console_logs '[05/20] Download Kubectl'
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
-# ___console_logs '[06/20] Install Kubectl'
-# echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
-# kubectl version --client --output=yaml
+___console_logs '[06/20] Install Kubectl'
+echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
+kubectl version --client --output=yaml
 
-# ___console_logs '[07/20] Config Docker default driver'
-# minikube config set driver docker
+___console_logs '[07/20] Config Docker default driver'
+minikube config set driver docker
 
-# ___console_logs '[08/20] Minikube Start'
-# minikube start --force
+___console_logs '[08/20] Minikube Start'
+minikube start --force
 
-# ___console_logs '[09/20] Minikube Status'
-# minikube status
+___console_logs '[09/20] Minikube Status'
+minikube status
 
-# ___console_logs '[10/20] Configure Kickoff Minikube Cluster on Machine Startup'
-# sudo -i -u root bash << EOF
-# echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
-# [Unit]
-# Description=Kickoff Minikube Cluster
-# After=docker.service
+___console_logs '[10/20] Configure Kickoff Minikube Cluster on Machine Startup'
+sudo -i -u root bash << EOF
+echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
+[Unit]
+Description=Kickoff Minikube Cluster
+After=docker.service
 
-# [Service]
-# Type=oneshot
-# ExecStart=/usr/local/bin/minikube start --force
-# RemainAfterExit=true
-# ExecStop=/usr/local/bin/minikube stop
-# StandardOutput=journal
-# User=$SO_USER
-# Group=$SO_USER_GROUP
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/minikube start --force
+RemainAfterExit=true
+ExecStop=/usr/local/bin/minikube stop
+StandardOutput=journal
+User=$SO_USER
+Group=$SO_USER_GROUP
 
-# [Install]
-# WantedBy=multi-user.target
-# EOF2
-# EOF
-# echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service
+[Install]
+WantedBy=multi-user.target
+EOF2
+EOF
+echo "========================= [minikube.service] ========================="
+echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service
+echo "====================================================================== [/etc/systemd/system/minikube.service]"
 
-# ___console_logs '[11/20] Enable Minikube Service'
-# echo $SUDO_PASS | sudo -S systemctl enable minikube
-# systemctl status minikube
+___console_logs '[11/20] Enable Minikube Service'
+echo $SUDO_PASS | sudo -S systemctl enable minikube
+systemctl status minikube
 
 echo '\n--------------------------------------------------------------------------'
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
@@ -166,8 +162,7 @@ CONTAINER_ID=$(docker run -d --memory="500m" --memory-reservation="256m" --cpus=
 echo "=====> OLD CONTAINER DELETED: [$OLD_CONTAINER_DELETED] <====="
 echo "=====> CONTAINER ID: [$CONTAINER_ID] <====="
 echo "=====> Container NGINX logs: <====="
-LOGS=$(docker logs $CONTAINER_ID)
-echo "                $LOGS"
+docker logs $CONTAINER_ID
 
 ___console_logs '[18/20] Configure Kubeconfig to external access'
 cp -rv $HOME/.kube/config $MINIKUBE_FOLDER/kubeconfig
