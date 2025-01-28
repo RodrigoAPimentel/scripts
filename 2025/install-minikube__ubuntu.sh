@@ -134,7 +134,7 @@ http {
 EOF
 echo "\n============================ [nginx.conf] ============================"
 cat $NGINX_FOLDER/nginx.conf
-echo "\n============================================= $NGINX_FOLDER/nginx.conf"
+echo "\n====================================================================== [$NGINX_FOLDER/nginx.conf]\n"
 
 ___console_logs '[15/20] Create Dockerfile'
 cat <<EOF > $NGINX_FOLDER/Dockerfile
@@ -145,8 +145,8 @@ FROM nginx:latest
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Copy minikube certs and password
-COPY client.key /etc/nginx/certs/minikube-client.key
-COPY client.crt /etc/nginx/certs/minikube-client.crt
+COPY  minikube/client.key /etc/nginx/certs/minikube-client.key
+COPY  minikube/client.crt /etc/nginx/certs/minikube-client.crt
 COPY nginx/.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
@@ -156,7 +156,7 @@ EOF
 cat $NGINX_FOLDER/Dockerfile
 
 ___console_logs '[16/20] Build NGINX docker image'
-docker build -t nginx-minikube-proxy -f $NGINX_FOLDER/Dockerfile $MINIKUBE_FOLDER
+docker build -t nginx-minikube-proxy -f $NGINX_FOLDER/Dockerfile $MINIKUBE_INSTALL_ROOT_FOLDER
 
 ___console_logs '[17/20] Run NGINX docker image'
 docker rm --force nginx-minikube-proxy
