@@ -171,9 +171,9 @@ yq -yi '.clusters[0].cluster."certificate-authority" = "ca.crt"' $MINIKUBE_FOLDE
 yq -yi '.users[0].user."client-certificate" = "client.crt"' $MINIKUBE_FOLDER/kubeconfig
 yq -yi '.users[0].user."client-key" = "client.key"' $MINIKUBE_FOLDER/kubeconfig
 
-echo "\n========================= kubeconfig ========================="
+echo "\n## ========================= kubeconfig ========================= ##"
 cat $MINIKUBE_FOLDER/kubeconfig
-echo "==============================================================\n"
+echo "## ============================================================== ##\n"
 
 echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
