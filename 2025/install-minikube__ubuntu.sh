@@ -132,7 +132,9 @@ http {
   }
 }
 EOF
+echo "\n============================ [nginx.conf] ============================"
 cat $NGINX_FOLDER/nginx.conf
+echo "\n============================================= $NGINX_FOLDER/nginx.conf"
 
 ___console_logs '[15/20] Create Dockerfile'
 cat <<EOF > $NGINX_FOLDER/Dockerfile
@@ -178,7 +180,7 @@ echo "======================================================================\n"
 echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
 ___console_logs '[19/20] Show all Configuration Files'
-tree -a $MINIKUBE_FOLDER
+tree -a $MINIKUBE_INSTALL_ROOT_FOLDER
 
 ___console_logs '[20/20] Informations'
 echo "==> Copiar os arquivos de conexão externa gerados pela instalação do minikube: << sshpass -p '$SUDO_PASS' scp -o StrictHostKeyChecking=no -r $SO_USER@$IP:$MINIKUBE_FOLDER/ minikube >>"
