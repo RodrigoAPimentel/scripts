@@ -143,9 +143,9 @@ FROM nginx:latest
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy minikube certs and password
-COPY $HOME/$MINIKUBE_FOLDER/client.key /etc/nginx/certs/minikube-client.key
-COPY $HOME/$MINIKUBE_FOLDER/client.crt /etc/nginx/certs/minikube-client.crt
-COPY .htpasswd /etc/nginx/.htpasswd
+COPY $MINIKUBE_FOLDER/client.key /etc/nginx/certs/minikube-client.key
+COPY $MINIKUBE_FOLDER/client.crt /etc/nginx/certs/minikube-client.crt
+COPY $NGINX_FOLDER/.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
 EXPOSE 80
@@ -167,7 +167,7 @@ echo "==> Container NGINX logs:"
 docker logs $CONTAINER_ID
 
 ___console_logs '[19/20] Configure Kubeconfig to external access'
-cp -rv $HOME/.kube/config $HOME/$MINIKUBE_FOLDER/kubeconfig
+cp -rv $HOME/.kube/config $MINIKUBE_FOLDER/kubeconfig
 
 yq -yi ".clusters[0].cluster.server = \"$SO_USER:$SUDO_PASS@$IP:443\"" $MINIKUBE_FOLDER/kubeconfig 
 yq -yi '.clusters[0].cluster."certificate-authority" = "ca.crt"' $MINIKUBE_FOLDER/kubeconfig
