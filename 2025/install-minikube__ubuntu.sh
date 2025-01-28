@@ -99,51 +99,42 @@ echo '\n------------------------------------------------------------------------
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------\n'
 
-# ___console_logs '[12/20] Copy the certificate and key'
-# mkdir -p $MINIKUBE_FOLDER
-# mkdir -p $NGINX_FOLDER
-# cp -rv $HOME/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
-# cp -rv $HOME/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
-# cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER
+___console_logs '[12/20] Copy the certificate and key'
+mkdir -p $MINIKUBE_FOLDER
+mkdir -p $NGINX_FOLDER
+cp -rv $HOME/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
+cp -rv $HOME/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
+cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER
 
-# ___console_logs '[13/20] Create NGINX password'
-# echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
-# echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
+___console_logs '[13/20] Create NGINX password'
+echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
+echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
 
-# ___console_logs '[14/20] Create nginx.conf file'
-# cat <<EOF > $NGINX_FOLDER/nginx.conf
-# events {
-#     worker_connections 1024;
-# }
-# http {
-#   server_tokens off;
-#   auth_basic "Administrator’s Area";
-#   auth_basic_user_file /etc/nginx/.htpasswd;
-#   server {
-#     listen 443;
-#     server_name minikube;
-#     location / {
-#       proxy_set_header X-Forwarded-For \$remote_addr;
-#       proxy_set_header Host            \$http_host;
-#       proxy_pass https://minikube:8443;
-#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
-#     }
-#   }
-# }
-# EOF
-# cat $NGINX_FOLDER/nginx.conf
+___console_logs '[14/20] Create nginx.conf file'
+cat <<EOF > $NGINX_FOLDER/nginx.conf
+events {
+    worker_connections 1024;
+}
+http {
+  server_tokens off;
+  auth_basic "Administrator’s Area";
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  server {
+    listen 443;
+    server_name minikube;
+    location / {
+      proxy_set_header X-Forwarded-For \$remote_addr;
+      proxy_set_header Host            \$http_host;
+      proxy_pass https://minikube:8443;
+      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+    }
+  }
+}
+EOF
+cat $NGINX_FOLDER/nginx.conf
 
 ___console_logs '[15/20] Create Dockerfile'
-
-
-# # Copy Nginx configuration file to the container
-# COPY nginx.conf /etc/nginx/nginx.conf
-# # Copy minikube certs and password
-# COPY minikube/client.key /etc/nginx/certs/minikube-client.key
-# COPY minikube/client.crt /etc/nginx/certs/minikube-client.crt
-# COPY minikube/.htpasswd /etc/nginx/.htpasswd
-
 cat <<EOF > $NGINX_FOLDER/Dockerfile
 # Official Nginx image
 FROM nginx:latest
@@ -163,29 +154,28 @@ EOF
 cat $NGINX_FOLDER/Dockerfile
 
 ___console_logs '[16/20] Build NGINX docker image'
-# docker build -t nginx-minikube-proxy $NGINX_FOLDER
-docker build -t nginx-minikube-proxy -f $NGINX_FOLDER $MINIKUBE_FOLDER
+docker build -t nginx-minikube-proxy -f $NGINX_FOLDER/Dockerfile $MINIKUBE_FOLDER
 
-# ___console_logs '[17/20] Run NGINX docker image'
-# CONTAINER_ID=$(docker run -d --memory="500m" --memory-reservation="256m" --cpus="0.25" --restart=always --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
-# echo "==> CONTAINER ID: [$CONTAINER_ID]"
-# echo "==> Container NGINX logs:"
-# docker logs $CONTAINER_ID
+___console_logs '[17/20] Run NGINX docker image'
+CONTAINER_ID=$(docker run -d --memory="500m" --memory-reservation="256m" --cpus="0.25" --restart=always --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
+echo "==> CONTAINER ID: [$CONTAINER_ID]"
+echo "==> Container NGINX logs:"
+docker logs $CONTAINER_ID
 
-# ___console_logs '[18/20] Configure Kubeconfig to external access'
-# cp -rv $HOME/.kube/config $MINIKUBE_FOLDER/kubeconfig
+___console_logs '[18/20] Configure Kubeconfig to external access'
+cp -rv $HOME/.kube/config $MINIKUBE_FOLDER/kubeconfig
 
-# yq -yi ".clusters[0].cluster.server = \"$SO_USER:$SUDO_PASS@$IP:443\"" $MINIKUBE_FOLDER/kubeconfig 
-# yq -yi '.clusters[0].cluster."certificate-authority" = "ca.crt"' $MINIKUBE_FOLDER/kubeconfig
-# yq -yi '.users[0].user."client-certificate" = "client.crt"' $MINIKUBE_FOLDER/kubeconfig
-# yq -yi '.users[0].user."client-key" = "client.key"' $MINIKUBE_FOLDER/kubeconfig
+yq -yi ".clusters[0].cluster.server = \"$SO_USER:$SUDO_PASS@$IP:443\"" $MINIKUBE_FOLDER/kubeconfig 
+yq -yi '.clusters[0].cluster."certificate-authority" = "ca.crt"' $MINIKUBE_FOLDER/kubeconfig
+yq -yi '.users[0].user."client-certificate" = "client.crt"' $MINIKUBE_FOLDER/kubeconfig
+yq -yi '.users[0].user."client-key" = "client.key"' $MINIKUBE_FOLDER/kubeconfig
 
-# echo "\n-----"
-# echo "#$MINIKUBE_FOLDER/kubeconfig"
-# cat $MINIKUBE_FOLDER/kubeconfig
-# echo "-----\n"
+echo "\n-----"
+echo "#$MINIKUBE_FOLDER/kubeconfig"
+cat $MINIKUBE_FOLDER/kubeconfig
+echo "-----\n"
 
-# echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
+echo "=> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
 ___console_logs '[19/20] Show all Configuration Files'
 tree -a $MINIKUBE_FOLDER
