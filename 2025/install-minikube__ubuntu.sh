@@ -107,6 +107,7 @@ cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER
 
 ___console_logs '[13/20] Create NGINX password'
 echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
+echo $SUDO_PASS | sudo -S mkdir -p $NGINX_FOLDER
 echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
 
 # ___console_logs '[14/20] Create nginx.conf file'
