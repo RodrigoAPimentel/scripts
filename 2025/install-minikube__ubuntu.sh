@@ -152,7 +152,7 @@ FROM nginx:latest
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy minikube certs and password
-COPY ../client.key /etc/nginx/certs/minikube-client.key
+COPY ~//minikube_installed/client.key /etc/nginx/certs/minikube-client.key
 COPY ../client.crt /etc/nginx/certs/minikube-client.crt
 COPY .htpasswd /etc/nginx/.htpasswd
 
