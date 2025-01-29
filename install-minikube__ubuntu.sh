@@ -147,7 +147,7 @@ server {
     location / {
         # proxy_set_header Host "localhost";
         proxy_pass http://127.0.0.1:3030;
-        include proxy_params
+        include proxy_params;
     }
 
     #error_page  404              /404.html;
