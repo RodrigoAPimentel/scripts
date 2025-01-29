@@ -137,20 +137,20 @@ server {
     listen   80;
     server_name  dev.int.com;
     access_log off;
-    location / {
-        proxy_pass http://127.0.0.1:3030;
-        proxy_set_header    Host            \$host;
-        proxy_set_header    X-Real-IP       \$remote_addr;
-        proxy_set_header    X-Forwarded-for \$remote_addr;
-        port_in_redirect off;
-        proxy_redirect   http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
-        proxy_connect_timeout 300;
-    }
-    # location /asdf/ {
-    #     proxy_set_header Host \$host;
-    #     proxy_set_header X-Real-IP \$remote_addr;
-    #     proxy_passhttp://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
+    # location / {
+    #     proxy_pass http://127.0.0.1:3030;
+    #     proxy_set_header    Host            \$host;
+    #     proxy_set_header    X-Real-IP       \$remote_addr;
+    #     proxy_set_header    X-Forwarded-for \$remote_addr;
+    #     port_in_redirect off;
+    #     proxy_redirect   http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
+    #     proxy_connect_timeout 300;
     # }
+    location /asdf/ {
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_passhttp://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
+    }
 
     # location ~ ^/stash {
     #     proxy_pass http://IP:7990;
