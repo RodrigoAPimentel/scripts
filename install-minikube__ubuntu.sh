@@ -143,7 +143,7 @@ server {
         proxy_set_header    X-Real-IP       \$remote_addr;
         proxy_set_header    X-Forwarded-for \$remote_addr;
         port_in_redirect off;
-        proxy_redirect   http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/  /;
+        proxy_redirect   http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
         proxy_connect_timeout 300;
     }
     # location /asdf/ {
