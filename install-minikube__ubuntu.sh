@@ -132,22 +132,54 @@ ___console_logs '[14/20] Create nginx.conf file'
 
 
 
-cat <<EOF > $NGINX_FOLDER/nginx.conf
-events {
-    worker_connections 1024;
-}
-http {
-  server_tokens off;
-  auth_basic "Administrator’s Area";
-  auth_basic_user_file /etc/nginx/.htpasswd;
-  server {
-    listen 80;
-    server_name minikube;
+cat <<EOF > $NGINX_FOLDER/default.conf
+server {
+    listen       80;
+    listen  [::]:80;
+    server_name  localhost;
+
+    #access_log  /var/log/nginx/host.access.log  main;
+
+    # location / {
+    #     root   /usr/share/nginx/html;
+    #     index  index.html index.htm;
+    # }
     location / {
-      proxy_set_header Host "localhost";
-      proxy_pass http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
+        proxy_set_header Host "localhost";
+        proxy_pass http://127.0.0.1:3030;
     }
-  }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
 }
 EOF
 
@@ -182,6 +214,8 @@ ___console_logs '[15/20] Create Dockerfile'
 cat <<EOF > $NGINX_FOLDER/Dockerfile
 # Official Nginx image
 FROM nginx:latest
+
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 and 443
 EXPOSE 80
