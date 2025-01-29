@@ -49,7 +49,7 @@ ___console_logs '[09/13] Apt autoremove'
 echo $SUDO_PASS | sudo -S apt autoremove -y
 
 ___console_logs '[10/13] Copy install-openssh-server__ubuntu.sh to ~/'
-cp -v ~/scripts/2025/install-openssh-server__ubuntu.sh ~/install_openssh-server
+cp -v ~/scripts/install-openssh-server__ubuntu.sh ~/install_openssh-server
 
 ___console_logs '[11/13] Delete scripts folder'
 rm -rvf ~/scripts
