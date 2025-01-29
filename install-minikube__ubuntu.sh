@@ -150,7 +150,8 @@ server {
         proxy_set_header    Host        \$host;
         proxy_set_header    X-Real-IP   \$remote_addr;
         # proxy_pass          http://minikube:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
-        proxy_pass          http://minikube:3030;
+        # proxy_pass          http://minikube:3030;
+        proxy_pass          http://192.168.99.11:3030;
     }
 
     # location ~ ^/stash {
