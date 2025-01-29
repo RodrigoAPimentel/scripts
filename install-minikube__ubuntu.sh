@@ -159,22 +159,38 @@ cat $NGINX_FOLDER/nginx.conf
 echo "====================================================================== [$NGINX_FOLDER/nginx.conf]"
 
 ___console_logs '[15/20] Create Dockerfile'
+# cat <<EOF > $NGINX_FOLDER/Dockerfile
+# # Official Nginx image
+# FROM nginx:latest
+
+# # Copy Nginx configuration file to the container
+# COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+# # Copy minikube certs and password
+# COPY  minikube/client.key /etc/nginx/certs/minikube-client.key
+# COPY  minikube/client.crt /etc/nginx/certs/minikube-client.crt
+# COPY nginx/.htpasswd /etc/nginx/.htpasswd
+
+# # Expose port 80 and 443
+# EXPOSE 80
+# EXPOSE 443
+# EOF
+
+
+
+
 cat <<EOF > $NGINX_FOLDER/Dockerfile
 # Official Nginx image
 FROM nginx:latest
-
-# Copy Nginx configuration file to the container
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-
-# Copy minikube certs and password
-COPY  minikube/client.key /etc/nginx/certs/minikube-client.key
-COPY  minikube/client.crt /etc/nginx/certs/minikube-client.crt
-COPY nginx/.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
 EXPOSE 80
 EXPOSE 443
 EOF
+
+
+
+
 echo "============================ [Dockerfile] ============================"
 cat $NGINX_FOLDER/Dockerfile
 echo "====================================================================== [$NGINX_FOLDER/Dockerfile]"
