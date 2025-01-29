@@ -108,112 +108,48 @@ ___console_logs () {
 # echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
 
 ___console_logs '[14/20] Create nginx.conf file'
-# cat <<EOF > $NGINX_FOLDER/nginx.conf
-# events {
-#     worker_connections 1024;
-# }
-# http {
-#   server_tokens off;
-#   auth_basic "Administrator’s Area";
-#   auth_basic_user_file /etc/nginx/.htpasswd;
-#   server {
-#     listen 443;
-#     server_name minikube;
-#     location / {
-#       proxy_set_header X-Forwarded-For \$remote_addr;
-#       proxy_set_header Host            \$http_host;
-#       proxy_pass https://minikube:8443;
-#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
-#     }
-#   }
-# }
-# EOF
-
-
-
-cat <<EOF > $NGINX_FOLDER/default.conf
-server {
-    listen   80;
+cat <<EOF > $NGINX_FOLDER/nginx.conf
+events {
+    worker_connections 1024;
+}
+http {
+  server_tokens off;
+  auth_basic "Administrator’s Area";
+  auth_basic_user_file /etc/nginx/.htpasswd;
+  server {
+    listen 443;
     server_name minikube;
-    access_log off;
-    # location / {
-    #     proxy_pass http://127.0.0.1:3030;
-    #     proxy_set_header    Host            \$host;
-    #     proxy_set_header    X-Real-IP       \$remote_addr;
-    #     proxy_set_header    X-Forwarded-for \$remote_addr;
-    #     port_in_redirect off;
-    #     proxy_redirect   http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
-    #     proxy_connect_timeout 300;
-    # }
     location / {
-        proxy_set_header    Host        \$host;
-        proxy_set_header    X-Real-IP   \$remote_addr;
-        # proxy_pass          http://minikube:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
-        # proxy_pass          http://minikube:3030;
-        proxy_pass          http://192.168.99.11:3030;
+      proxy_set_header X-Forwarded-For \$remote_addr;
+      proxy_set_header Host            \$http_host;
+      proxy_pass https://minikube:8443;
+      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
     }
-
-    # location ~ ^/stash {
-    #     proxy_pass http://IP:7990;
-    #     proxy_set_header    Host            \$host;
-    #     proxy_set_header    X-Real-IP       \$remote_addr;
-    #     proxy_set_header    X-Forwarded-for \$remote_addr;
-    #     port_in_redirect off;
-    #     proxy_redirect   http://IP:7990/  /stash;
-    #     proxy_connect_timeout 300;
-    # }
-
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/local/nginx/html;
-    }
+  }
 }
 EOF
-
-
-
-
 echo "============================ [nginx.conf] ============================"
-# cat $NGINX_FOLDER/nginx.conf
-cat $NGINX_FOLDER/default.conf
+cat $NGINX_FOLDER/nginx.conf
 echo "====================================================================== [$NGINX_FOLDER/nginx.conf]"
 
 ___console_logs '[15/20] Create Dockerfile'
-# cat <<EOF > $NGINX_FOLDER/Dockerfile
-# # Official Nginx image
-# FROM nginx:latest
-
-# # Copy Nginx configuration file to the container
-# COPY nginx/nginx.conf /etc/nginx/nginx.conf
-
-# # Copy minikube certs and password
-# COPY  minikube/client.key /etc/nginx/certs/minikube-client.key
-# COPY  minikube/client.crt /etc/nginx/certs/minikube-client.crt
-# COPY nginx/.htpasswd /etc/nginx/.htpasswd
-
-# # Expose port 80 and 443
-# EXPOSE 80
-# EXPOSE 443
-# EOF
-
-
-
-
 cat <<EOF > $NGINX_FOLDER/Dockerfile
 # Official Nginx image
 FROM nginx:latest
 
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+# Copy Nginx configuration file to the container
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+# Copy minikube certs and password
+COPY  minikube/client.key /etc/nginx/certs/minikube-client.key
+COPY  minikube/client.crt /etc/nginx/certs/minikube-client.crt
+COPY nginx/.htpasswd /etc/nginx/.htpasswd
 
 # Expose port 80 and 443
 EXPOSE 80
 EXPOSE 443
 EOF
-
-
-
-
 echo "============================ [Dockerfile] ============================"
 cat $NGINX_FOLDER/Dockerfile
 echo "====================================================================== [$NGINX_FOLDER/Dockerfile]"
