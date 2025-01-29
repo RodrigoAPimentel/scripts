@@ -108,6 +108,30 @@ ___console_logs () {
 # echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
 
 ___console_logs '[14/20] Create nginx.conf file'
+# cat <<EOF > $NGINX_FOLDER/nginx.conf
+# events {
+#     worker_connections 1024;
+# }
+# http {
+#   server_tokens off;
+#   auth_basic "Administrator’s Area";
+#   auth_basic_user_file /etc/nginx/.htpasswd;
+#   server {
+#     listen 443;
+#     server_name minikube;
+#     location / {
+#       proxy_set_header X-Forwarded-For \$remote_addr;
+#       proxy_set_header Host            \$http_host;
+#       proxy_pass https://minikube:8443;
+#       proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
+#       proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+#     }
+#   }
+# }
+# EOF
+
+
+
 cat <<EOF > $NGINX_FOLDER/nginx.conf
 events {
     worker_connections 1024;
@@ -117,18 +141,18 @@ http {
   auth_basic "Administrator’s Area";
   auth_basic_user_file /etc/nginx/.htpasswd;
   server {
-    listen 443;
     server_name minikube;
     location / {
-      proxy_set_header X-Forwarded-For \$remote_addr;
-      proxy_set_header Host            \$http_host;
-      proxy_pass https://minikube:8443;
-      proxy_ssl_certificate /etc/nginx/certs/minikube-client.crt;
-      proxy_ssl_certificate_key /etc/nginx/certs/minikube-client.key;
+      proxy_set_header Host "localhost";
+      proxy_pass http://127.0.0.1:3030;
     }
   }
 }
 EOF
+
+
+
+
 echo "============================ [nginx.conf] ============================"
 cat $NGINX_FOLDER/nginx.conf
 echo "====================================================================== [$NGINX_FOLDER/nginx.conf]"
