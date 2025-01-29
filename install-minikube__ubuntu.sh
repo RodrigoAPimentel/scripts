@@ -147,9 +147,10 @@ server {
     #     proxy_connect_timeout 300;
     # }
     location /asdf/ {
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
-        proxy_pass http://minikube:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
+        proxy_set_header    Host        \$host;
+        proxy_set_header    X-Real-IP   \$remote_addr;
+        # proxy_pass          http://minikube:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
+        proxy_pass          http://minikube:3030;
     }
 
     # location ~ ^/stash {
