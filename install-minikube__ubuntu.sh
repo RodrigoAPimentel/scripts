@@ -141,11 +141,11 @@ http {
   auth_basic "Administrator’s Area";
   auth_basic_user_file /etc/nginx/.htpasswd;
   server {
-    listen 443;
+    listen 80;
     server_name minikube;
     location / {
       proxy_set_header Host "localhost";
-      proxy_pass http://127.0.0.1:3030;
+      proxy_pass http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
     }
   }
 }
