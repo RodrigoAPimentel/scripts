@@ -146,6 +146,11 @@ server {
         proxy_redirect   http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/  /;
         proxy_connect_timeout 300;
     }
+    # location /asdf/ {
+    #     proxy_set_header Host \$host;
+    #     proxy_set_header X-Real-IP \$remote_addr;
+    #     proxy_passhttp://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
+    # }
 
     # location ~ ^/stash {
     #     proxy_pass http://IP:7990;
@@ -168,7 +173,8 @@ EOF
 
 
 echo "============================ [nginx.conf] ============================"
-cat $NGINX_FOLDER/nginx.conf
+# cat $NGINX_FOLDER/nginx.conf
+cat $NGINX_FOLDER/default.conf
 echo "====================================================================== [$NGINX_FOLDER/nginx.conf]"
 
 ___console_logs '[15/20] Create Dockerfile'
