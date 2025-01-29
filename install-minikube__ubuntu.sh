@@ -135,7 +135,7 @@ ___console_logs '[14/20] Create nginx.conf file'
 cat <<EOF > $NGINX_FOLDER/default.conf
 server {
     listen   80;
-    server_name  dev.int.com;
+    server_name minikube;
     access_log off;
     # location / {
     #     proxy_pass http://127.0.0.1:3030;
@@ -146,7 +146,7 @@ server {
     #     proxy_redirect   http://127.0.0.1:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
     #     proxy_connect_timeout 300;
     # }
-    location /asdf/ {
+    location / {
         proxy_set_header    Host        \$host;
         proxy_set_header    X-Real-IP   \$remote_addr;
         # proxy_pass          http://minikube:3030/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/;
