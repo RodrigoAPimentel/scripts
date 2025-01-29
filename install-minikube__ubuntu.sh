@@ -141,6 +141,7 @@ http {
   auth_basic "Administrator’s Area";
   auth_basic_user_file /etc/nginx/.htpasswd;
   server {
+    listen 443;
     server_name minikube;
     location / {
       proxy_set_header Host "localhost";
