@@ -6,7 +6,7 @@ MINIKUBE_INSTALL_ROOT_FOLDER=$HOME/minikube-install
 MINIKUBE_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/minikube
 NGINX_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/nginx
 KUBERNETES_DASHBOARD_DOMAIN=k8s-minikube-dashboard
-KUBERNETES_DASHBOARD_PORT=81
+KUBERNETES_DASHBOARD_PORT=88
 
 ___console_logs () {
     echo " "
@@ -16,84 +16,84 @@ ___console_logs () {
     sleep 1
 }
 
-# echo '##########################################################################'
-# echo '############################ INSTALL MINIKUBE ############################'
-# echo '##########################################################################\n'
+echo '##########################################################################'
+echo '############################ INSTALL MINIKUBE ############################'
+echo '##########################################################################\n'
 
-# ___console_logs '[--] Check if the sudo password was entered'
-# if [ -z "${SUDO_PASS}" ]; then
-#     echo "XXX sudo password not entered!! XXX"
-#     echo "Sample: install-minikube__ubuntu.sh <sudo pass>"
-#     exit 1
-# else
-#     echo "==> sudo password entered."
-# fi
+___console_logs '[--] Check if the sudo password was entered'
+if [ -z "${SUDO_PASS}" ]; then
+    echo "XXX sudo password not entered!! XXX"
+    echo "Sample: install-minikube__ubuntu.sh <sudo pass>"
+    exit 1
+else
+    echo "==> sudo password entered."
+fi
 
-# ___console_logs '[01/22] Install a few prerequisite packages'
-# echo $SUDO_PASS | sudo -S DEBIAN_FRONTEND=noninteractive apt install -yqqq tree yq iptables-persistent
+___console_logs '[01/22] Install a few prerequisite packages'
+echo $SUDO_PASS | sudo -S DEBIAN_FRONTEND=noninteractive apt install -yqqq tree yq iptables-persistent
 
-# ___console_logs '[02/22] Verify Docker installed'
-# IS_DOCKER=$(which docker)
-# if [ -z "${IS_DOCKER}" ]; then
-#     echo "XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
-#     exit 1
-# else
-#     echo "==> Docker INSTALLED."
-# fi
+___console_logs '[02/22] Verify Docker installed'
+IS_DOCKER=$(which docker)
+if [ -z "${IS_DOCKER}" ]; then
+    echo "XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
+    exit 1
+else
+    echo "==> Docker INSTALLED."
+fi
 
-# ___console_logs '[03/22] Download Minikube'
-# curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+___console_logs '[03/22] Download Minikube'
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
 
-# ___console_logs '[04/22] Install Minikube'
-# echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
-# which minikube
+___console_logs '[04/22] Install Minikube'
+echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+which minikube
 
-# ___console_logs '[05/22] Download Kubectl'
-# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-# curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-# echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+___console_logs '[05/22] Download Kubectl'
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 
-# ___console_logs '[06/22] Install Kubectl'
-# echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
-# kubectl version --client --output=yaml
+___console_logs '[06/22] Install Kubectl'
+echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
+kubectl version --client --output=yaml
 
-# ___console_logs '[07/22] Config Docker default driver'
-# minikube config set driver docker
+___console_logs '[07/22] Config Docker default driver'
+minikube config set driver docker
 
-# ___console_logs '[08/22] Minikube Start'
-# minikube start --addons=ingress,ingress-dns,dashboard --force
+___console_logs '[08/22] Minikube Start'
+minikube start --addons=ingress,ingress-dns,dashboard --force --wait=all
 
-# ___console_logs '[09/22] Minikube Status'
-# minikube status
+___console_logs '[09/22] Minikube Status'
+minikube status
 
-# ___console_logs '[10/22] Configure Kickoff Minikube Cluster on Machine Startup'
-# sudo -i -u root bash << EOF
-# echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
-# [Unit]
-# Description=Kickoff Minikube Cluster
-# After=docker.service
+___console_logs '[10/22] Configure Kickoff Minikube Cluster on Machine Startup'
+sudo -i -u root bash << EOF
+echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
+[Unit]
+Description=Kickoff Minikube Cluster
+After=docker.service
 
-# [Service]
-# Type=oneshot
-# ExecStart=/usr/local/bin/minikube start --addons=ingress,ingress-dns,dashboard --force
-# RemainAfterExit=true
-# ExecStop=/usr/local/bin/minikube stop
-# StandardOutput=journal
-# User=$SO_USER
-# Group=$SO_USER_GROUP
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/minikube start --addons=ingress,ingress-dns,dashboard --force --wait=all
+RemainAfterExit=true
+ExecStop=/usr/local/bin/minikube stop
+StandardOutput=journal
+User=$SO_USER
+Group=$SO_USER_GROUP
 
-# [Install]
-# WantedBy=multi-user.target
-# EOF2
-# EOF
-# echo "========================= [minikube.service] ========================="
-# echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service
-# echo "====================================================================== [/etc/systemd/system/minikube.service]"
+[Install]
+WantedBy=multi-user.target
+EOF2
+EOF
+echo "========================= [minikube.service] ========================="
+echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service
+echo "====================================================================== [/etc/systemd/system/minikube.service]"
 
-# ___console_logs '[11/22] Enable Minikube Service'
-# echo $SUDO_PASS | sudo -S systemctl enable minikube
-# echo "----------"
-# systemctl status minikube
+___console_logs '[11/22] Enable Minikube Service'
+echo $SUDO_PASS | sudo -S systemctl enable minikube
+echo "----------"
+systemctl status minikube
 
 echo '\n--------------------------------------------------------------------------'
 echo '--------------------- CONFIGURE KUBERNETES DASHBOARD ---------------------'
