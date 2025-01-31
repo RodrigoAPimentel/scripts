@@ -126,6 +126,7 @@ echo "----------"
 kubectl apply -f ingress-kubernetes-dashboard.yaml
 echo "----------"
 kubectl get ingress -n kubernetes-dashboard
+echo "----------"
 rm -v ingress-kubernetes-dashboard.yaml
 
 ___console_logs '[12/22] Configure iptable'
@@ -134,6 +135,9 @@ echo $SUDO_PASS | sudo -S iptables -t nat -A PREROUTING -p tcp --dport $KUBERNET
 echo $SUDO_PASS | sudo -S iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
 echo $SUDO_PASS | sudo -S sh -c 'iptables-save > /etc/iptables/rules.v4'
 echo $SUDO_PASS | sudo -S sh -c 'ip6tables-save > /etc/iptables/rules.v6'
+echo "----------"
+cat /etc/iptables/rules.v4 | grep -E "PREROUTING.*$KUBERNETES_DASHBOARD_PORT"
+echo "----------"
 
 ___console_logs '[13/22] Enable Minikube Service'
 echo $SUDO_PASS | sudo -S systemctl enable minikube
