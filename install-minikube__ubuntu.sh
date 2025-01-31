@@ -61,7 +61,7 @@ ___console_logs '[07/22] Config Docker default driver'
 minikube config set driver docker
 
 ___console_logs '[08/22] Minikube Start'
-minikube start --addons=ingress,ingress-dns --force
+minikube start --addons=ingress,ingress-dns,dashboard --force
 
 ___console_logs '[09/22] Minikube Status'
 minikube status
