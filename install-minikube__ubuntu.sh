@@ -5,7 +5,7 @@ IP=$(hostname -I |  awk '{print $1}')
 MINIKUBE_INSTALL_ROOT_FOLDER=$HOME/minikube-install
 MINIKUBE_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/minikube
 NGINX_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/nginx
-KUBERNETES_DASHBOARD_DOMAIN=k8s-minikube-dashboard
+KUBERNETES_DASHBOARD_DOMAIN=toor
 KUBERNETES_DASHBOARD_PORT=88
 
 ___console_logs () {
@@ -100,7 +100,7 @@ ___console_logs '[11/22] Create Kubernetes Dashboard Ingress'
 minikube addons enable dashboard
 
 
-cat <<EOF > $MINIKUBE_FOLDER/ingress-kubernetes-dashboard.yaml
+cat <<EOF > ingress-kubernetes-dashboard.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -120,19 +120,20 @@ spec:
               number: 80
 EOF
 echo "========================= [minikube.service] ========================="
-cat $MINIKUBE_FOLDER/ingress-kubernetes-dashboard.yaml
-echo "====================================================================== [$MINIKUBE_FOLDER/ingress-kubernetes-dashboard.yaml]"
+cat ingress-kubernetes-dashboard.yaml
+echo "====================================================================== [ingress-kubernetes-dashboard.yaml]"
 echo "----------"
-kubectl apply -f $MINIKUBE_FOLDER/ingress-kubernetes-dashboard.yaml
+kubectl apply -f ingress-kubernetes-dashboard.yaml
+rm -v ingress-kubernetes-dashboard.yaml
 echo "----------"
 kubectl get ingress -n kubernetes-dashboard
 
 ___console_logs '[12/22] Configure iptable'
 RUNNING_MINIKUBE_IP=$(minikube ip)
-sudo iptables -t nat -A PREROUTING -p tcp --dport $KUBERNETES_DASHBOARD_PORT -j DNAT --to-destination $RUNNING_MINIKUBE_IP:80
-sudo iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
-sudo sh -c 'iptables-save > /etc/iptables/rules.v4'
-sudo sh -c 'ip6tables-save > /etc/iptables/rules.v6'
+echo $SUDO_PASS | sudo -S iptables -t nat -A PREROUTING -p tcp --dport $KUBERNETES_DASHBOARD_PORT -j DNAT --to-destination $RUNNING_MINIKUBE_IP:80
+echo $SUDO_PASS | sudo -S iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
+echo $SUDO_PASS | sudo -S sh -c 'iptables-save > /etc/iptables/rules.v4'
+echo $SUDO_PASS | sudo -S sh -c 'ip6tables-save > /etc/iptables/rules.v6'
 
 ___console_logs '[13/22] Enable Minikube Service'
 echo $SUDO_PASS | sudo -S systemctl enable minikube
