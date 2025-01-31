@@ -29,8 +29,8 @@ ___console_logs () {
 #     echo "==> sudo password entered."
 # fi
 
-# ___console_logs '[01/22] Install a few prerequisite packages'
-# echo $SUDO_PASS | sudo -S apt install -yqqq tree yq iptables-persistent
+___console_logs '[01/22] Install a few prerequisite packages'
+echo $SUDO_PASS | sudo -S apt install -yqqq tree yq iptables-persistent
 
 # ___console_logs '[02/22] Verify Docker installed'
 # IS_DOCKER=$(which docker)
@@ -124,9 +124,9 @@ cat ingress-kubernetes-dashboard.yaml
 echo "====================================================================== [ingress-kubernetes-dashboard.yaml]"
 echo "----------"
 kubectl apply -f ingress-kubernetes-dashboard.yaml
-rm -v ingress-kubernetes-dashboard.yaml
 echo "----------"
 kubectl get ingress -n kubernetes-dashboard
+rm -v ingress-kubernetes-dashboard.yaml
 
 ___console_logs '[12/22] Configure iptable'
 RUNNING_MINIKUBE_IP=$(minikube ip)
