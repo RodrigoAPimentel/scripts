@@ -30,6 +30,7 @@ ___console_logs () {
 # fi
 
 ___console_logs '[01/22] Install a few prerequisite packages'
+export DEBIAN_FRONTEND=noninteractive
 echo $SUDO_PASS | sudo -S apt install -yqqq tree yq iptables-persistent
 
 # ___console_logs '[02/22] Verify Docker installed'
