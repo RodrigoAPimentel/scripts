@@ -92,8 +92,6 @@ echo "====================================================================== [/e
 
 ___console_logs '[11/22] Enable Minikube Service'
 echo $SUDO_PASS | sudo -S systemctl enable minikube
-echo "----------"
-systemctl status minikube
 
 echo '\n--------------------------------------------------------------------------'
 echo '--------------------- CONFIGURE KUBERNETES DASHBOARD ---------------------'
