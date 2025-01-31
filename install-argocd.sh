@@ -48,10 +48,10 @@ curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/lat
 
 ___console_logs '[04/20] Install argocd-cli'
 sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-rm argocd-linux-amd64
+rm -v argocd-linux-amd64
 
-___console_logs '[04/20] Configure Access The Argo CD API Server'
-kubectl port-forward svc/argocd-server -n argocd --address 0.0.0.0 8080:443 ######################################################################
+# ___console_logs '[04/20] Configure Access The Argo CD API Server'
+# kubectl port-forward svc/argocd-server -n argocd --address 0.0.0.0 8080:443 ######################################################################
 
 ___console_logs '[20/20] Informations'
 ARGOCD_INITIAL_PASS=$(argocd admin initial-password -n argocd)
