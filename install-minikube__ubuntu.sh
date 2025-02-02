@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # OPERATION SYSTEM 
 SUDO_PASS=$1
 SO_USER=$(echo ${USER})
