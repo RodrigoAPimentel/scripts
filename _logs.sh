@@ -1,4 +1,4 @@
-START_PROCESS=$(date)
+START_PROCESS=$(date +%s)
 
 # Reset
 Color_Off='\033[0m'       # Text Reset
@@ -131,35 +131,34 @@ _log__finish_information () {
     # printf "@@ Time spent: %02d:%02d:%02d\n" $((TIME_SPENT/3600)) $((TIME_SPENT%3600/60)) $((TIME_SPENT%60))
     # printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@${Color_Off}"
 
-    
 
 
 
+   # Registrar o início do processo (timestamp)
+    # START_PROCESS=$(date +%s)
 
-# Registrar o início do processo (timestamp)
-START_PROCESS=$(date)
+    # Simulação do processo (exemplo)
+    sleep 5  # Simula o tempo de execução do processo
 
-# Simulação do processo (exemplo)
-sleep 5  # Simula o tempo de execução do processo
+    # Registrar o término do processo (timestamp)
+    END_PROCESS=$(date +%s)
 
-# Registrar o término do processo (timestamp)
-END_PROCESS=$(date)
+    # Exibir início e fim do processo em formato legível
+    printf "\n\n${BCyan}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+    printf "@@ Start of the process: %s\n" "$(date -d @$START_PROCESS)"
+    printf "@@ End of the process: %s\n" "$(date -d @$END_PROCESS)"
 
-# Exibir início e fim do processo em formato legível
-printf "\n\n${BCyan}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-printf "@@ Start of the process: %s\n" "$(date -d @$START_PROCESS)"
-printf "@@ End of the process: %s\n" "$(date -d @$END_PROCESS)"
+    # Calcular o tempo gasto
+    TIME_SPENT=$((END_PROCESS - START_PROCESS))
 
-# Calcular o tempo gasto
-TIME_SPENT=$((END_PROCESS - START_PROCESS))
+    # Formatar o tempo gasto (HH:MM:SS)
+    HOURS=$((TIME_SPENT / 3600))
+    MINUTES=$(( (TIME_SPENT % 3600) / 60 ))
+    SECONDS=$((TIME_SPENT % 60))
 
-# Formatar o tempo gasto (HH:MM:SS)
-HOURS=$((TIME_SPENT / 3600))
-MINUTES=$(( (TIME_SPENT % 3600) / 60 ))
-SECONDS=$((TIME_SPENT % 60))
+    printf "@@ Time spent: %02d:%02d:%02d\n" "$HOURS" "$MINUTES" "$SECONDS"
+    printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n${Color_Off}"
 
-printf "@@ Time spent: %02d:%02d:%02d\n" "$HOURS" "$MINUTES" "$SECONDS"
-printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n${Color_Off}"
 
 
 
