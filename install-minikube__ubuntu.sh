@@ -14,7 +14,7 @@
 # KUBERNETES_DASHBOARD_PORT=88
 # MINIKUBE_ADDONS=ingress,ingress-dns,dashboard
 
-# source ./_logs.sh
+source ./_logs.sh
 
 # script_start "INSTALL MINIKUBE"
 
