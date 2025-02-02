@@ -66,13 +66,21 @@ On_IPurple='\033[0;105m'  # Purple
 On_ICyan='\033[0;106m'    # Cyan
 On_IWhite='\033[0;107m'   # White
 
-step () {
+_log__step () {
     DD=$(date +"%H:%M:%S")
     printf "\n${BBlue}>>>>> [$DD] $1 ${Color_Off}\n"
     sleep 1
 }
 
-script_start () {
+_log__section () {
+    printf "${BCyan}---------------------------------------------------------------------------\n"
+    printf "---------------------------------------------------------------------------\n"
+    printf "------------------ $1\n"
+    printf "---------------------------------------------------------------------------\n"
+    printf "---------------------------------------------------------------------------${Color_Off}\n"
+}
+
+_log__script_start () {
     printf "${BCyan}###############################################################\n"
     printf "###############################################################\n"
     printf ">> $1\n"
@@ -80,7 +88,7 @@ script_start () {
     printf "###############################################################${Color_Off}\n"
 }
 
-script_finish () {
+_log__script_finish () {
     printf "${BCyan}###############################################################\n"
     printf "###############################################################\n"
     printf ">> $1\n"
@@ -88,29 +96,29 @@ script_finish () {
     printf "###############################################################${Color_Off}\n"
 }
 
-cat_file () {
+_log__cat_file () {
     printf "${Purple}================================= [$1] ================================="
     printf "\n$2"
-    printf "\n================================================================================================== [$3]${Color_Off}\n"
+    printf "\n======================================================================================= [$3]${Color_Off}\n"
 }
 
-step_result () {
+_log__step_result () {
     printf "$1\n"
 }
 
-step_result_success () {
+_log__step_result_success () {
     printf "${BGreen}$1${Color_Off}\n"
 }
 
-step_result_failed () {
+_log__step_result_failed () {
     printf "${BRed}$1${Color_Off}\n"
 }
 
-step_result_suggestion () {
+_log__step_result_suggestion () {
     printf "${BYellow}$1${Color_Off}\n"
 }
 
-finish_information () {
+_log__finish_information () {
     # Print the start and end time of the process
     printf "\n\n${BCyan}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
     printf "@@ Start of the process: $START_PROCESS\n"
