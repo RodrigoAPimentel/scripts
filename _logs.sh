@@ -68,14 +68,14 @@ On_IWhite='\033[0;107m'   # White
 
 _log__step () {
     DD=$(date +"%H:%M:%S")
-    printf "\n${BBlue}### [$DD] $1 ${Color_Off}\n"
+    printf "\n${BBlue}##### [$DD] $1 ${Color_Off}\n"
     sleep 1
 }
 
 _log__section () {
-    printf "${BCyan}***********************************************\n"
+    printf "${BCyan}\n*****************************************************\n"
     printf "*************** ${UCyan}$1${Color_Off}\n"
-    printf "${BCyan}***********************************************${Color_Off}\n"
+    printf "${BCyan}*****************************************************${Color_Off}\n"
 }
 
 _log__script_start () {
@@ -117,17 +117,44 @@ _log__step_result_suggestion () {
 }
 
 _log__finish_information () {
+    # # Print the start and end time of the process
+    # printf "\n\n${BCyan}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
+    # printf "@@ Start of the process: $START_PROCESS\n"
+    # printf "@@ End of process: $(date)\n"
+
+    # # Calculate the time spent
+    # END_PROCESS=$(date)
+    # START_SECONDS=$(date -d "$START_PROCESS" +%s)
+    # END_SECONDS=$(date -d "$END_PROCESS" +%s)
+    # TIME_SPENT=$((END_SECONDS - START_SECONDS))
+
+    # printf "@@ Time spent: %02d:%02d:%02d\n" $((TIME_SPENT/3600)) $((TIME_SPENT%3600/60)) $((TIME_SPENT%60))
+    # printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@${Color_Off}"
+
+    
+
+
+
+
+
     # Print the start and end time of the process
     printf "\n\n${BCyan}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
-    printf "@@ Start of the process: $START_PROCESS\n"
-    printf "@@ End of process: $(date)\n"
+    printf "@@ Start of the process: %s\n" "$START_PROCESS"
+
+    END_PROCESS=$(date)
+    printf "@@ End of the process: %s\n" "$END_PROCESS"
 
     # Calculate the time spent
-    END_PROCESS=$(date)
     START_SECONDS=$(date -d "$START_PROCESS" +%s)
     END_SECONDS=$(date -d "$END_PROCESS" +%s)
     TIME_SPENT=$((END_SECONDS - START_SECONDS))
 
-    printf "@@ Time spent: %02d:%02d:%02d\n" $((TIME_SPENT/3600)) $((TIME_SPENT%3600/60)) $((TIME_SPENT%60))
-    printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@${Color_Off}"
+    # Format the time spent (HH:MM:SS)
+    HOURS=$((TIME_SPENT / 3600))
+    MINUTES=$(( (TIME_SPENT % 3600) / 60 ))
+    SECONDS=$((TIME_SPENT % 60))
+
+    printf "@@ Time spent: %02d:%02d:%02d\n" "$HOURS" "$MINUTES" "$SECONDS"
+    printf "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n${Color_Off}"
+
 }

@@ -1,85 +1,65 @@
-SUDO_PASS=$1
-SO_USER=$(echo ${USER})
-SO_USER_GROUP=docker
-IP=$(hostname -I |  awk '{print $1}')
-MINIKUBE_INSTALL_ROOT_FOLDER=$HOME/minikube-install
-MINIKUBE_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/minikube
-NGINX_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/nginx
+# #! /bin/bash
 
-___console_logs () {
-    echo " "
-    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    echo ">>>>>>>>> $1 ..."
-    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    sleep 1
-}
+# # OPERATION SYSTEM 
+# SUDO_PASS=$1
+# OS_USER=$(echo ${USER})
+# OS_USER_GROUP=docker
+# IP=$(hostname -I |  awk '{print $1}')
+# # MINIKUBE - PATHS
+# MINIKUBE_INSTALL_ROOT_FOLDER=$HOME/minikube-install
+# MINIKUBE_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/minikube
+# NGINX_FOLDER=$MINIKUBE_INSTALL_ROOT_FOLDER/nginx
+# # MINIKUBE - CONFIGURATION
+# KUBERNETES_DASHBOARD_DOMAIN=k8s-minikube-dashboard
+# KUBERNETES_DASHBOARD_PORT=88
+# MINIKUBE_ADDONS=ingress,ingress-dns,dashboard
 
-echo '##########################################################################'
-echo '############################# INSTALL ARGOCD #############################'
-echo '##########################################################################\n'
+# # LOADING LOG FUNCTIONS FILE
+. ./_logs.sh
 
-___console_logs '[--] Check if the sudo password was entered'
-if [ -z "${SUDO_PASS}" ]; then
-    echo "\`XXX sudo password not entered!! XXX\`"
-    echo "Sample: install-minikube__ubuntu.sh <sudo pass>"
-    exit 1
-else
-    echo "==> sudo password entered."
-fi
+# _log__script_start "INSTALL ARGOCD"
 
-___console_logs '[01/20] Verify Minikube installed'
-IS_MINIKUBE=$(which minikube)
-if [ -z "${IS_MINIKUBE}" ]; then
-    echo "\`XXX Minikube NOT installed. Minikube is a basic requirement!! XXX\`"
-    exit 1
-else
-    echo "==> Minikube INSTALLED."
-fi
+# _log__step '[--] Check if the sudo password was entered'
+# if [ -z "${SUDO_PASS}" ]; then
+#     _log__step_result_failed "sudo password not entered!!"
+#     _log__step_result_suggestion "Sample: install-minikube__ubuntu.sh <sudo pass>"
+#     exit 1
+# else
+#     _log__step_result_success "==> sudo password entered."
+# fi
 
-___console_logs '[02/20] Create argocd namespace'
-kubectl create namespace argocd
+# _log__step '[01/20] Verify Minikube installed'
+# IS_MINIKUBE=$(which minikube)
+# if [ -z "${IS_MINIKUBE}" ]; then
+#     _log__step_result_failed "Minikube NOT installed. Minikube is a basic requirement!!"
+#     exit 1
+# else
+#     _log__step_result_success "==> Minikube INSTALLED."
+# fi
 
-___console_logs '[03/20] Install ArgoCD'
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-echo "----------"
-kubectl get pods -n argocd
+# _log__step '[02/20] Create argocd namespace'
+# kubectl create namespace argocd
 
-___console_logs '[04/20] Download and Install argocd-cli'
-# curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+# _log__step '[03/20] Install ArgoCD'
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 # echo "----------"
-# echo $SUDO_PASS | sudo -S install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-# echo "----------"
-# rm -v argocd-linux-amd64
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
+# _log__step_result_success "$(kubectl get pods -n argocd)"
+
+# _log__step '[04/20] Download and Install argocd-cli'
+# # curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+# # echo "----------"
+# # echo $SUDO_PASS | sudo -S install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+# # echo "----------"
+# # rm -v argocd-linux-amd64
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
 
 
 
-# ___console_logs '[04/20] Configure Access The Argo CD API Server'
-# kubectl port-forward svc/argocd-server -n argocd --address 0.0.0.0 8080:443 ######################################################################
+# # _log__step '[04/20] Configure Access The Argo CD API Server'
+# # kubectl port-forward svc/argocd-server -n argocd --address 0.0.0.0 8080:443 ######################################################################
 
-___console_logs '[20/20] Informations'
-ARGOCD_INITIAL_PASS=$(argocd admin initial-password -n argocd)
-echo "=====> ArgoCD Initial Password: $ARGOCD_INITIAL_PASS"
+# _log__step '[20/20] Informations'
+# ARGOCD_INITIAL_PASS=$(argocd admin initial-password -n argocd)
+# _log__step_result_success "=====> ArgoCD Initial Password: $ARGOCD_INITIAL_PASS"
 
-echo " " 
-echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-echo '<<<<<<<<<<<<<< END <<<<<<<<<<<<<<<<<<<<<<<<<'
-echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-
-
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: argocd-ingress
-# spec:
-#   rules:
-#   - host: k8s-minikube
-#     http:
-#       paths:
-#       - path: /argocd
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: kubernetes-dashboard
-#             port: 
-#               number: 80
+_log__finish_information
