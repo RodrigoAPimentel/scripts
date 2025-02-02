@@ -37,8 +37,8 @@ _log__step '[03/07] Install ArgoCD'
 # kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
 echo "----------"
-printf ">>>>> Wait pod argocd-server is Running ...\n"
-kubectl -n argocd wait --for=jsonpath='{.status.phase}'=Running pod -l app.kubernetes.io/name=argocd-server
+_log__step_result_suggestion ">>>>> Wait pod argocd-server is Running ....."
+kubectl -n argocd wait --for=jsonpath='{.status.phase}'=Running pod -l app.kubernetes.io/name=argocd-server --timeout=10m
 echo "----------"
 _log__step_result_success "$(kubectl get all -n argocd)"
 
