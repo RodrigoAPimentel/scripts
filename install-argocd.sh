@@ -27,7 +27,7 @@ else
     echo "==> sudo password entered."
 fi
 
-___console_logs '[02/20] Verify Minikube installed'
+___console_logs '[01/20] Verify Minikube installed'
 IS_MINIKUBE=$(which minikube)
 if [ -z "${IS_MINIKUBE}" ]; then
     echo "XXX Minikube NOT installed. Minikube is a basic requirement!! XXX"
@@ -36,17 +36,17 @@ else
     echo "==> Minikube INSTALLED."
 fi
 
-___console_logs '[03/20] Create argocd namespace'
+___console_logs '[02/20] Create argocd namespace'
 kubectl create namespace argocd
 
-___console_logs '[04/20] Install ArgoCD'
+___console_logs '[03/20] Install ArgoCD'
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl get pods -n argocd
 
 ___console_logs '[04/20] Download argocd-cli'
 curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
 
-___console_logs '[04/20] Install argocd-cli'
+___console_logs '[05/20] Install argocd-cli'
 sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 rm -v argocd-linux-amd64
 
