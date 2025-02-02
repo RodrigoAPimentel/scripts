@@ -30,7 +30,7 @@ fi
 ___console_logs '[01/20] Verify Minikube installed'
 IS_MINIKUBE=$(which minikube)
 if [ -z "${IS_MINIKUBE}" ]; then
-    echo "XXX Minikube NOT installed. Minikube is a basic requirement!! XXX"
+    echo "\`XXX Minikube NOT installed. Minikube is a basic requirement!! XXX\`"
     exit 1
 else
     echo "==> Minikube INSTALLED."
