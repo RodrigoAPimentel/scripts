@@ -51,7 +51,7 @@
 # echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 # echo "----------"
 # echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
-step_result_success "$(kubectl version --client --output=yaml)"
+step_result_success $(kubectl version --client --output=yaml)
 
 # step '[05/19] Config Minikube Docker default driver'
 # minikube config set driver docker
