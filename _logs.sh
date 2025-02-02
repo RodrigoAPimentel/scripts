@@ -68,7 +68,7 @@ On_IWhite='\033[0;107m'   # White
 
 step () {
     DD=$(date +"%H:%M:%S")
-    printf "\n${BBlue}[$DD] $1 ${Color_Off}\n"
+    printf "\n${BBlue}>>>>> [$DD] $1 ${Color_Off}\n"
     sleep 1
 }
 
