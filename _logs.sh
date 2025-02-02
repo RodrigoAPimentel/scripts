@@ -159,7 +159,7 @@ _log__finish_information () {
     MINUTES=$(( (TIME_SPENT % 3600) / 60 ))
     SECONDS=$((TIME_SPENT % 60))
 
-    printf "@@ Time spent: %02
+    printf "@@ Time spent: %02"
 
 
 }
