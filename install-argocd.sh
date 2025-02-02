@@ -41,17 +41,17 @@ _log__step '[02/20] Create argocd namespace'
 kubectl create namespace argocd
 
 _log__step '[03/20] Install ArgoCD'
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
 echo "----------"
 _log__step_result_success "$(kubectl get pods -n argocd)"
 
 _log__step '[04/20] Download and Install argocd-cli'
-# curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-# echo "----------"
-# echo $SUDO_PASS | sudo -S install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-# echo "----------"
-# rm -v argocd-linux-amd64
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
+curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+echo "----------"
+echo $SUDO_PASS | sudo -S install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+echo "----------"
+rm -v argocd-linux-amd64
 
 
 
