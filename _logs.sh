@@ -143,7 +143,7 @@ START_PROCESS=$(date)
 sleep 5  # Simula o tempo de execução do processo
 
 # Registrar o término do processo (timestamp)
-END_PROCESS=$(date +%s)
+END_PROCESS=$(date)
 
 # Exibir início e fim do processo em formato legível
 printf "\n\n${BCyan}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
