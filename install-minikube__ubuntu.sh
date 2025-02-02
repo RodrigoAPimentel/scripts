@@ -12,62 +12,54 @@ KUBERNETES_DASHBOARD_DOMAIN=k8s-minikube-dashboard
 KUBERNETES_DASHBOARD_PORT=88
 MINIKUBE_ADDONS=ingress,ingress-dns,dashboard
 
-___console_logs () {
-    echo " "
-    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    echo ">>>>>>>>> $1 ..."
-    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-    sleep 1
-}
+source ./_logs.sh
 
-echo '##########################################################################'
-echo '############################ INSTALL MINIKUBE ############################'
-echo '##########################################################################\n'
+script_start "INSTALL MINIKUBE"
 
-___console_logs '[--] Check if the sudo password was entered'
+step '[--] Check if the sudo password was entered'
 if [ -z "${SUDO_PASS}" ]; then
-    echo "XXX sudo password not entered!! XXX"
-    echo "Sample: install-minikube__ubuntu.sh <sudo pass>"
+    step_result_failed "sudo password not entered!!"
+    step_result_suggestion "Sample: install-minikube__ubuntu.sh <sudo pass>"
     exit 1
 else
-    echo "==> sudo password entered."
+    step_result "==> sudo password entered."
 fi
 
-___console_logs '[01/19] Verify Docker installed'
+step '[01/19] Verify Docker installed'
 IS_DOCKER=$(which docker)
 if [ -z "${IS_DOCKER}" ]; then
-    echo "XXX Docker NOT installed. Docker is a basic requirement for minikube!! XXX"
+    step_result_failed "Docker NOT installed. Docker is a basic requirement for minikube!!"
     exit 1
 else
-    echo "==> Docker INSTALLED."
+    step_result "==> Docker INSTALLED."
 fi
 
-___console_logs '[02/19] Install a few prerequisite packages [tree yq iptables-persistent]'
+step '[02/19] Install a few prerequisite packages [tree yq iptables-persistent]'
 echo $SUDO_PASS | sudo -S DEBIAN_FRONTEND=noninteractive apt install -yqqq tree yq iptables-persistent
 
-___console_logs '[03/19] Download and Install Minikube'
+step '[03/19] Download and Install Minikube'
 curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
 echo "----------"
 echo $SUDO_PASS | sudo -S install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
-which minikube
+step_result_success $(which minikube)
 
-___console_logs '[04/19] Download and Install Kubectl'
+step '[04/19] Download and Install Kubectl'
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 echo "----------"
 echo $SUDO_PASS | sudo -S install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl && rm kubectl.sha256
-kubectl version --client --output=yaml
+step_result_success $(kubectl version --client --output=yaml)
 
-___console_logs '[05/19] Config Minikube Docker default driver'
+step '[05/19] Config Minikube Docker default driver'
 minikube config set driver docker
 
-___console_logs '[06/19] Minikube Start'
+step '[06/19] Minikube Start'
 minikube start --addons=$MINIKUBE_ADDONS --force
-echo "----------"
-minikube status
+# echo "----------"
+step_result_success $(minikube status)
 
-___console_logs '[07/19] Configure Kickoff Minikube Cluster on Machine Startup'
+step '[07/19] Configure Kickoff Minikube Cluster on Machine Startup'
 sudo -i -u root bash << EOF
 echo $SUDO_PASS | sudo -S cat <<EOF2 > /etc/systemd/system/minikube.service
 [Unit]
@@ -87,29 +79,30 @@ Group=$SO_USER_GROUP
 WantedBy=multi-user.target
 EOF2
 EOF
-echo "========================= [minikube.service] ========================="
-echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service
-echo "====================================================================== [/etc/systemd/system/minikube.service]"
+# step_result "========================= [minikube.service] ========================="
+# step_result_success $(echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service)
+# step_result "====================================================================== [/etc/systemd/system/minikube.service]"
+cat_file "minikube.service" "$(echo $SUDO_PASS | sudo -S cat /etc/systemd/system/minikube.service)" "/etc/systemd/system/minikube.service"
 
-___console_logs '[08/19] Enable Minikube Service'
-echo $SUDO_PASS | sudo -S systemctl enable minikube
+step '[08/19] Enable Minikube Service'
+step_result_success $(echo $SUDO_PASS | sudo -S systemctl enable minikube)
 
 echo '\n--------------------------------------------------------------------------'
 echo '--------------------------- CREATE NGINX PROXY ---------------------------'
 echo '--------------------------------------------------------------------------'
 
-___console_logs '[09/19] Copy the certificates and keys'
+step '[09/19] Copy the certificates and keys'
 mkdir -p $MINIKUBE_FOLDER
 mkdir -p $NGINX_FOLDER
 cp -rv $HOME/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER
 cp -rv $HOME/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER
 cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER
 
-___console_logs '[10/19] Create NGINX password'
+step '[10/19] Create NGINX password'
 echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
 echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $SO_USER
 
-___console_logs '[11/19] Create nginx.conf file'
+step '[11/19] Create nginx.conf file'
 cat <<EOF > $NGINX_FOLDER/nginx.conf
 events {
     worker_connections 1024;
@@ -131,11 +124,12 @@ http {
   }
 }
 EOF
-echo "============================ [nginx.conf] ============================"
-cat $NGINX_FOLDER/nginx.conf
-echo "====================================================================== [$NGINX_FOLDER/nginx.conf]"
+# echo "============================ [nginx.conf] ============================"
+# cat $NGINX_FOLDER/nginx.conf
+# echo "====================================================================== [$NGINX_FOLDER/nginx.conf]"
+cat_file "nginx.conf" "$(cat $NGINX_FOLDER/nginx.conf)" "$NGINX_FOLDER/nginx.conf"
 
-___console_logs '[12/19] Create Dockerfile'
+step '[12/19] Create Dockerfile'
 cat <<EOF > $NGINX_FOLDER/Dockerfile
 # Official Nginx image
 FROM nginx:latest
@@ -152,44 +146,46 @@ COPY nginx/.htpasswd /etc/nginx/.htpasswd
 EXPOSE 80
 EXPOSE 443
 EOF
-echo "============================ [Dockerfile] ============================"
-cat $NGINX_FOLDER/Dockerfile
-echo "====================================================================== [$NGINX_FOLDER/Dockerfile]"
+# echo "============================ [Dockerfile] ============================"
+# cat $NGINX_FOLDER/Dockerfile
+# echo "====================================================================== [$NGINX_FOLDER/Dockerfile]"
+cat_file "Dockerfile" "$(cat $NGINX_FOLDER/Dockerfile)" "$NGINX_FOLDER/Dockerfile"
 
-___console_logs '[13/19] Build NGINX docker image'
+step '[13/19] Build NGINX docker image'
 docker build -t nginx-minikube-proxy -f $NGINX_FOLDER/Dockerfile $MINIKUBE_INSTALL_ROOT_FOLDER
 
-___console_logs '[14/19] Run NGINX docker image'
+step '[14/19] Run NGINX docker image'
 OLD_CONTAINER_DELETED=$(docker rm --force nginx-minikube-proxy 2> /dev/null)
 CONTAINER_ID=$(docker run -d --memory="500m" --memory-reservation="256m" --cpus="0.25" --restart=always --name nginx-minikube-proxy -p 443:443 -p 80:80 --network=minikube nginx-minikube-proxy)
-echo "=====> OLD CONTAINER DELETED: [$OLD_CONTAINER_DELETED]"
+step_result_success "=====> OLD CONTAINER DELETED: [$OLD_CONTAINER_DELETED]"
 echo "----------"
-echo "=====> CONTAINER ID: [$CONTAINER_ID]"
+step_result_success "=====> CONTAINER ID: [$CONTAINER_ID]"
 echo "----------"
-echo "=====> Container NGINX logs:"
-docker logs $CONTAINER_ID
+step_result_success "=====> Container NGINX logs:"
+step_result_success $(docker logs $CONTAINER_ID)
 
-___console_logs '[15/19] Configure Kubeconfig to external access'
+step '[15/19] Configure Kubeconfig to external access'
 cp -rv $HOME/.kube/config $MINIKUBE_FOLDER/kubeconfig
 yq -yi ".clusters[0].cluster.server = \"$SO_USER:$SUDO_PASS@$IP:443\"" $MINIKUBE_FOLDER/kubeconfig 
 yq -yi '.clusters[0].cluster."certificate-authority" = "ca.crt"' $MINIKUBE_FOLDER/kubeconfig
 yq -yi '.users[0].user."client-certificate" = "client.crt"' $MINIKUBE_FOLDER/kubeconfig
 yq -yi '.users[0].user."client-key" = "client.key"' $MINIKUBE_FOLDER/kubeconfig
 echo "----------"
-echo "============================ [kubeconfig] ============================"
-cat $MINIKUBE_FOLDER/kubeconfig
-echo "====================================================================== [$MINIKUBE_FOLDER/kubeconfig]"
+# echo "============================ [kubeconfig] ============================"
+# cat $MINIKUBE_FOLDER/kubeconfig
+# echo "====================================================================== [$MINIKUBE_FOLDER/kubeconfig]"
+cat_file "kubeconfig" "$(cat $MINIKUBE_FOLDER/kubeconfig)" "$MINIKUBE_FOLDER/kubeconfig"
 echo "----------"
-echo "=====> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
+step_result_suggestion "=====> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 
-___console_logs '[16/19] Show all Configuration Files'
-tree -a $MINIKUBE_INSTALL_ROOT_FOLDER
+step '[16/19] Show all Configuration Files'
+step_result_success $(tree -a $MINIKUBE_INSTALL_ROOT_FOLDER)
 
 echo '\n--------------------------------------------------------------------------'
 echo '--------------------- CONFIGURE KUBERNETES DASHBOARD ---------------------'
 echo '--------------------------------------------------------------------------'
 
-___console_logs '[17/19] Create Kubernetes Dashboard Ingress'
+step '[17/19] Create Kubernetes Dashboard Ingress'
 cat <<EOF > ingress-kubernetes-dashboard.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -209,34 +205,35 @@ spec:
             port: 
               number: 80
 EOF
-echo "========================= [ingress-kubernetes-dashboard.yaml] ========================="
-cat ingress-kubernetes-dashboard.yaml
-echo "====================================================================== [$pwd/ingress-kubernetes-dashboard.yaml]"
+# echo "========================= [ingress-kubernetes-dashboard.yaml] ========================="
+# cat ingress-kubernetes-dashboard.yaml
+# echo "====================================================================== [$pwd/ingress-kubernetes-dashboard.yaml]"
+cat_file "ingress-kubernetes-dashboard.yaml" "$(cat ingress-kubernetes-dashboard.yaml)" "$pwd/ingress-kubernetes-dashboard.yaml"
 echo "----------"
-kubectl apply -f ingress-kubernetes-dashboard.yaml
+step_result_success $(kubectl apply -f ingress-kubernetes-dashboard.yaml)
 echo "----------"
-kubectl get ingress -n kubernetes-dashboard
+step_result_success $(kubectl get ingress -n kubernetes-dashboard)
 echo "----------"
-rm -v ingress-kubernetes-dashboard.yaml
+step_result_success $(rm -v ingress-kubernetes-dashboard.yaml)
 
-___console_logs '[18/19] Configure iptable'
+step '[18/19] Configure iptable'
 RUNNING_MINIKUBE_IP=$(minikube ip)
 echo $SUDO_PASS | sudo -S iptables -t nat -A PREROUTING -p tcp --dport $KUBERNETES_DASHBOARD_PORT -j DNAT --to-destination $RUNNING_MINIKUBE_IP:80
 echo $SUDO_PASS | sudo -S iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
 echo $SUDO_PASS | sudo -S sh -c 'iptables-save > /etc/iptables/rules.v4'
 echo $SUDO_PASS | sudo -S sh -c 'ip6tables-save > /etc/iptables/rules.v6'
-cat /etc/iptables/rules.v4 | grep -E "PREROUTING.*$KUBERNETES_DASHBOARD_PORT"
+step_result_success $(cat /etc/iptables/rules.v4 | grep -E "PREROUTING.*$KUBERNETES_DASHBOARD_PORT")
 echo "----------"
-cat /etc/iptables/rules.v4 | grep -E "FORWARD.*$RUNNING_MINIKUBE_IP"
+step_result_success $(cat /etc/iptables/rules.v4 | grep -E "FORWARD.*$RUNNING_MINIKUBE_IP")
 
-___console_logs '[19/19] Informations'
-echo "=====> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
+step '[19/19] Informations'
+step_result_success "=====> See the Kubeconfig for external access to minikube at: $MINIKUBE_FOLDER/Kubeconfig"
 echo "----------"
-echo "=====> Copiar os arquivos de conexão externa gerados pela instalação do minikube: \`sshpass -p '$SUDO_PASS' scp -o StrictHostKeyChecking=no -r $SO_USER@$IP:$MINIKUBE_FOLDER/ minikube\`"
+step_result_success "=====> Copiar os arquivos de conexão externa gerados pela instalação do minikube: \`sshpass -p '$SUDO_PASS' scp -o StrictHostKeyChecking=no -r $SO_USER@$IP:$MINIKUBE_FOLDER/ minikube\`"
 echo "----------"
-echo "=====> Usuario e senha para logar no NGINX proxy: $SO_USER|$SUDO_PASS"
+step_result_success "=====> Usuario e senha para logar no NGINX proxy: $SO_USER|$SUDO_PASS"
 echo "----------"
-echo """
+step_result_success """
 =====> Kubernetes Dashboard: 
           1. Adicionar ao arquivos de host (Ex. Win: C:\Windows\System32\drivers\etc\hosts): 
                 $IP    $KUBERNETES_DASHBOARD_DOMAIN
@@ -244,7 +241,4 @@ echo """
                 http://$KUBERNETES_DASHBOARD_DOMAIN:$KUBERNETES_DASHBOARD_PORT 
 """
 
-echo " " 
-echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
-echo '<<<<<<<<<<<<<< END <<<<<<<<<<<<<<<<<<<<<<<<<'
-echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+finish_information
