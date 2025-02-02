@@ -2,9 +2,10 @@
 
 # OPERATION SYSTEM 
 SUDO_PASS=$1
+IP=$(hostname -I |  awk '{print $1}')
+# ARGOCD CONFIGURATIONS
 ARGOCD_DASHBOARD_DOMAIN=minikube-argocd
 ARGOCD_DASHBOARD_PORT=88
-IP=$(hostname -I |  awk '{print $1}')
 
 # LOADING LOG FUNCTIONS FILE
 . ./_logs.sh
@@ -35,6 +36,8 @@ kubectl create namespace argocd
 _log__step '[03/07] Install ArgoCD'
 # kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
+echo "----------"
+printf ">>>>> Wait pod argocd-server is Running ..."
 echo "----------"
 _log__step_result_success "$(kubectl get all -n argocd)"
 
