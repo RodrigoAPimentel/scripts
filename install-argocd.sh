@@ -33,7 +33,7 @@ _log__step '[03/06] Install ArgoCD'
 # kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
 echo "----------"
-_log__step_result_success "$(kubectl get pods -n argocd)"
+_log__step_result_success "$(kubectl get all -n argocd)"
 
 _log__step '[04/06] Download and Install argocd-cli'
 curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
