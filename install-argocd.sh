@@ -20,7 +20,7 @@ echo '##########################################################################
 
 ___console_logs '[--] Check if the sudo password was entered'
 if [ -z "${SUDO_PASS}" ]; then
-    echo "XXX sudo password not entered!! XXX"
+    echo "\`XXX sudo password not entered!! XXX\`"
     echo "Sample: install-minikube__ubuntu.sh <sudo pass>"
     exit 1
 else
@@ -63,28 +63,19 @@ echo '<<<<<<<<<<<<<< END <<<<<<<<<<<<<<<<<<<<<<<<<'
 echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
 
 
-
-
-
-
-
-
-
-
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: argocd-ingress
-spec:
-  rules:
-  - host: k8s-minikube
-    http:
-      paths:
-      - path: /argocd
-        pathType: Prefix
-        backend:
-          service:
-            name: kubernetes-dashboard
-            port: 
-              number: 80
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: argocd-ingress
+# spec:
+#   rules:
+#   - host: k8s-minikube
+#     http:
+#       paths:
+#       - path: /argocd
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: kubernetes-dashboard
+#             port: 
+#               number: 80
