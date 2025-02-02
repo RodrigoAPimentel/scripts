@@ -137,7 +137,7 @@ _log__finish_information () {
 
 
 # Registrar o início do processo (timestamp)
-START_PROCESS=$(date +%s)
+START_PROCESS=$(date)
 
 # Simulação do processo (exemplo)
 sleep 5  # Simula o tempo de execução do processo
