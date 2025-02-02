@@ -99,7 +99,7 @@ step_result () {
 }
 
 step_result_success () {
-    printf "${BGreen}"$1"${Color_Off}\n"
+    printf "${BGreen}$1${Color_Off}\n"
 }
 
 step_result_failed () {
