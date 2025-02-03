@@ -1,9 +1,11 @@
 #! /bin/bash
 
-# OPERATION SYSTEM 
+##### OPERATION SYSTEM 
 SUDO_PASS=$1
 IP=$(hostname -I |  awk '{print $1}')
-# ARGOCD CONFIGURATIONS
+##### ARGOCD CONFIGURATIONS
+# ARGOCD_VERSION=stable
+ARGOCD_VERSION=v2.5.8
 ARGOCD_DASHBOARD_DOMAIN=argocd-gui
 ARGOCD_DASHBOARD_PORT=88
 
@@ -34,8 +36,7 @@ _log__step '[02/08] Create argocd namespace'
 kubectl create namespace argocd
 ##########
 _log__step '[03/08] Install ArgoCD'
-# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.8/manifests/install.yaml
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGOCD_VERSION/manifests/install.yaml
 echo "----------"
 _log__step_result_suggestion "> Wait pod argocd-server is Running ....."
 kubectl -n argocd wait --for=jsonpath='{.status.phase}'=Running pod -l app.kubernetes.io/name=argocd-server --timeout=10m
@@ -90,7 +91,7 @@ echo "----------"
 _log__step_result_success "$(rm -v ingress-argocd-dashboard.yaml)"
 ##########
 _log__step '[07/08] Disable TLS and enable SSL-PASSTHROUGH to access Dashboard externally'
-kubectl -n argocd patch deployment argocd-server --type=json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/command/-", "value": "--insecure2"}]'
+kubectl -n argocd patch deployment argocd-server --type=json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/command/-", "value": "--insecure"}]'
 _log__step_result_success "$(kubectl -n argocd describe deployment argocd-server | grep -A 3 Command)"
 echo "----------"
 kubectl -n ingress-nginx patch deployment ingress-nginx-controller --type=json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--enable-ssl-passthrough"}]'
