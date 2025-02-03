@@ -47,15 +47,15 @@ curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/lat
 echo $SUDO_PASS | sudo -S install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 _log__step_result_success "$(rm -v argocd-linux-amd64)"
 ##########
-_log__step '[05/08] Configure iptable'
-RUNNING_MINIKUBE_IP=$(minikube ip)
-echo $SUDO_PASS | sudo -S iptables -t nat -A PREROUTING -p tcp --dport $ARGOCD_DASHBOARD_PORT -j DNAT --to-destination $RUNNING_MINIKUBE_IP:80
-echo $SUDO_PASS | sudo -S iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
-echo $SUDO_PASS | sudo -S sh -c 'iptables-save > /etc/iptables/rules.v4'
-echo $SUDO_PASS | sudo -S sh -c 'ip6tables-save > /etc/iptables/rules.v6'
-_log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "PREROUTING.*$ARGOCD_DASHBOARD_PORT")"
-echo "----------"
-_log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "FORWARD.*$RUNNING_MINIKUBE_IP")"
+# _log__step '[05/08] Configure iptable'
+# RUNNING_MINIKUBE_IP=$(minikube ip)
+# echo $SUDO_PASS | sudo -S iptables -t nat -A PREROUTING -p tcp --dport $ARGOCD_DASHBOARD_PORT -j DNAT --to-destination $RUNNING_MINIKUBE_IP:80
+# echo $SUDO_PASS | sudo -S iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
+# echo $SUDO_PASS | sudo -S sh -c 'iptables-save > /etc/iptables/rules.v4'
+# echo $SUDO_PASS | sudo -S sh -c 'ip6tables-save > /etc/iptables/rules.v6'
+# _log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "PREROUTING.*$ARGOCD_DASHBOARD_PORT")"
+# echo "----------"
+# _log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "FORWARD.*$RUNNING_MINIKUBE_IP")"
 ##########
 _log__step '[06/08] Create ArgoCD Ingress'
 cat <<EOF > ingress-argocd-dashboard.yaml
