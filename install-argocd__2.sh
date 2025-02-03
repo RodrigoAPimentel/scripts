@@ -4,8 +4,8 @@
 SUDO_PASS=$1
 IP=$(hostname -I |  awk '{print $1}')
 ##### ARGOCD CONFIGURATIONS
-# ARGOCD_VERSION=stable
-ARGOCD_VERSION=v2.5.8
+ARGOCD_VERSION=stable
+# ARGOCD_VERSION=v2.5.8
 ARGOCD_DASHBOARD_DOMAIN=argocd-gui
 ARGOCD_DASHBOARD_PORT=88
 
@@ -74,13 +74,13 @@ cat <<EOF > ingress-argocd-dashboard.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd-ingress
+  name: argocd-server-http-ingress
   namespace: argocd
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    alb.ingress.kubernetes.io/ssl-passthrough: "true"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/service-upstream: "true"
 spec:
   rules:
   - http:
@@ -90,9 +90,13 @@ spec:
         backend:
           service:
             name: argocd-server
-            port:
-              name: http
+            port: 
+              name: https
     host: $ARGOCD_DASHBOARD_DOMAIN
+  tls:
+  - hosts:
+    - $ARGOCD_DASHBOARD_DOMAIN
+    secretName: argocd-secret
 EOF
 _cat_file "ingress-argocd-dashboard.yaml" "$(cat ingress-argocd-dashboard.yaml)" "$pwd/ingress-argocd-dashboard.yaml"
 _step_result_success "$(kubectl apply -f ingress-argocd-dashboard.yaml)"
