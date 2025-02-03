@@ -41,11 +41,13 @@ kubectl create namespace argocd
 
 
 _step '[03/08] Install ArgoCD'
+_step_result "Installing ArgoCD version $ARGOCD_VERSION"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGOCD_VERSION/manifests/install.yaml
 echo "----------"
 DD=$(date +"%H:%M:%S")
-_step_result_suggestion "> [$DD] Wait pod argocd-server is Running ....."
-kubectl -n argocd wait --for=jsonpath='{.status.phase}'=Running pod -l app.kubernetes.io/name=argocd-server --timeout=10m
+TIMEOUT=10m
+_step_result_suggestion "> [$DD] [Timeout: $TIMEOUT] Wait pod argocd-server is Running ....."
+kubectl -n argocd wait --for=jsonpath='{.status.phase}'=Running pod -l app.kubernetes.io/name=argocd-server --timeout=$TIMEOUT
 echo "----------"
 _step_result_success "$(kubectl get all -n argocd)"
 
