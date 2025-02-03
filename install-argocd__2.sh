@@ -41,7 +41,7 @@ kubectl create namespace argocd
 
 
 _step '[03/08] Install ArgoCD'
-_step_result "Installing ArgoCD version $ARGOCD_VERSION"
+_step_result_suggestion "> Installing ArgoCD version: $ARGOCD_VERSION"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$ARGOCD_VERSION/manifests/install.yaml
 echo "----------"
 DD=$(date +"%H:%M:%S")
