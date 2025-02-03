@@ -102,12 +102,12 @@ echo "----------"
 _step_result_success "$(rm -v ingress-argocd-dashboard.yaml)"
 
 
-_step '[07/08] Disable TLS and enable SSL-PASSTHROUGH to access Dashboard externally'
-kubectl -n argocd patch deployment argocd-server --type=json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/command/-", "value": "--insecure"}]'
-_step_result_success "$(kubectl -n argocd describe deployment argocd-server | grep -A 3 Command)"
-echo "----------"
-kubectl -n ingress-nginx patch deployment ingress-nginx-controller --type=json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--enable-ssl-passthrough"}]'
-_step_result_success "$(kubectl -n ingress-nginx describe deployment ingress-nginx-controller | grep -A 12 Args)"
+# _step '[07/08] Disable TLS and enable SSL-PASSTHROUGH to access Dashboard externally'
+# kubectl -n argocd patch deployment argocd-server --type=json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/command/-", "value": "--insecure"}]'
+# _step_result_success "$(kubectl -n argocd describe deployment argocd-server | grep -A 3 Command)"
+# echo "----------"
+# kubectl -n ingress-nginx patch deployment ingress-nginx-controller --type=json -p='[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--enable-ssl-passthrough"}]'
+# _step_result_success "$(kubectl -n ingress-nginx describe deployment ingress-nginx-controller | grep -A 12 Args)"
 
 
 _step '[08/08] Informations'
