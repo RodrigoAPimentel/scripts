@@ -58,7 +58,7 @@ _log__step '[05/19] Config Minikube Docker default driver'
 minikube config set driver docker
 
 _log__step '[06/19] Minikube Start'
-minikube start --addons=$MINIKUBE_ADDONS --force
+minikube start --addons=$MINIKUBE_ADDONS --driver=docker --force
 echo "----------"
 _log__step_result_success "$(minikube status)"
 
@@ -71,7 +71,7 @@ After=docker.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/minikube start --addons=$MINIKUBE_ADDONS --force
+ExecStart=/usr/local/bin/minikube start --addons=$MINIKUBE_ADDONS --driver=docker --force
 RemainAfterExit=true
 ExecStop=/usr/local/bin/minikube stop
 StandardOutput=journal
