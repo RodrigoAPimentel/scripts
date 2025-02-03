@@ -66,19 +66,19 @@ On_IPurple='\033[0;105m'  # Purple
 On_ICyan='\033[0;106m'    # Cyan
 On_IWhite='\033[0;107m'   # White
 
-_log__step () {
+_step () {
     DD=$(date +"%H:%M:%S")
     printf "\n${BBlue}##### [$DD] $1 ${Color_Off}\n"
     sleep 1
 }
 
-_log__section () {
+_section () {
     printf "${BCyan}\n*****************************************************\n"
     printf "*************** ${UCyan}$1${Color_Off}\n"
     printf "${BCyan}*****************************************************${Color_Off}\n"
 }
 
-_log__script_start () {
+_script_start () {
     printf "${BCyan}###############################################################\n"
     printf "###############################################################\n"
     printf ">> $1\n"
@@ -86,7 +86,7 @@ _log__script_start () {
     printf "###############################################################${Color_Off}\n"
 }
 
-_log__script_finish () {
+_script_finish () {
     printf "${BCyan}###############################################################\n"
     printf "###############################################################\n"
     printf ">> $1\n"
@@ -94,29 +94,29 @@ _log__script_finish () {
     printf "###############################################################${Color_Off}\n"
 }
 
-_log__cat_file () {
+_cat_file () {
     printf "${Purple}================================= [$1] ================================="
     printf "\n$2"
     printf "\n======================================================================================= [$3]${Color_Off}\n"
 }
 
-_log__step_result () {
+_step_result () {
     printf "$1\n"
 }
 
-_log__step_result_success () {
+_step_result_success () {
     printf "${BGreen}$1${Color_Off}\n"
 }
 
-_log__step_result_failed () {
+_step_result_failed () {
     printf "${BRed}$1${Color_Off}\n"
 }
 
-_log__step_result_suggestion () {
+_step_result_suggestion () {
     printf "${BYellow}$1${Color_Off}\n"
 }
 
-_log__finish_information () {
+_finish_information () {
     END_PROCESS=$(date +%s)
 
     printf "\n\n${BCyan}@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n"
