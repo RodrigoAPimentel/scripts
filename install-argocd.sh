@@ -48,15 +48,15 @@ curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/lat
 echo $SUDO_PASS | sudo -S install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
 _log__step_result_success "$(rm -v argocd-linux-amd64)"
 ##########
-# _log__step '[05/08] Configure iptable'
-# RUNNING_MINIKUBE_IP=$(minikube ip)
-# echo $SUDO_PASS | sudo -S iptables -t nat -A PREROUTING -p tcp --dport $ARGOCD_DASHBOARD_PORT -j DNAT --to-destination $RUNNING_MINIKUBE_IP:80
-# echo $SUDO_PASS | sudo -S iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
-# echo $SUDO_PASS | sudo -S sh -c 'iptables-save > /etc/iptables/rules.v4'
-# echo $SUDO_PASS | sudo -S sh -c 'ip6tables-save > /etc/iptables/rules.v6'
-# _log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "PREROUTING.*$ARGOCD_DASHBOARD_PORT")"
-# echo "----------"
-# _log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "FORWARD.*$RUNNING_MINIKUBE_IP")"
+_log__step '[05/08] Configure iptable'
+RUNNING_MINIKUBE_IP=$(minikube ip)
+echo $SUDO_PASS | sudo -S iptables -t nat -A PREROUTING -p tcp --dport $ARGOCD_DASHBOARD_PORT -j DNAT --to-destination $RUNNING_MINIKUBE_IP:80
+echo $SUDO_PASS | sudo -S iptables -A FORWARD -p tcp -d $RUNNING_MINIKUBE_IP --dport 80 -j ACCEPT
+echo $SUDO_PASS | sudo -S sh -c 'iptables-save > /etc/iptables/rules.v4'
+echo $SUDO_PASS | sudo -S sh -c 'ip6tables-save > /etc/iptables/rules.v6'
+_log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "PREROUTING.*$ARGOCD_DASHBOARD_PORT")"
+echo "----------"
+_log__step_result_success "$(cat /etc/iptables/rules.v4 | grep -E "FORWARD.*$RUNNING_MINIKUBE_IP")"
 ##########
 _log__step '[06/08] Create ArgoCD Ingress'
 cat <<EOF > ingress-argocd-dashboard.yaml
@@ -72,8 +72,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 spec:
   rules:
-  - host: $ARGOCD_DASHBOARD_DOMAIN
-    http:
+  - http:
       paths:
       - pathType: Prefix
         path: /
@@ -82,6 +81,7 @@ spec:
             name: argocd-server
             port:
               name: http
+    host: $ARGOCD_DASHBOARD_DOMAIN
 EOF
 _log__cat_file "ingress-argocd-dashboard.yaml" "$(cat ingress-argocd-dashboard.yaml)" "$pwd/ingress-argocd-dashboard.yaml"
 _log__step_result_success "$(kubectl apply -f ingress-argocd-dashboard.yaml)"
@@ -104,7 +104,7 @@ echo "----------"
 _log__step_result_success """
 =====> ArgoCD Dashboard: 
           1. Adicionar ao arquivos de host (Ex. Win: C:\Windows\System32\drivers\etc\hosts): 
-                $IP          $ARGOCD_DASHBOARD_DOMAIN
+                $IP          $ARGOCD_DASHBOARD_DOMAIN          # argocd gui
           2. No navegador:
                 http://$ARGOCD_DASHBOARD_DOMAIN:$ARGOCD_DASHBOARD_PORT 
 """

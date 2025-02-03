@@ -225,7 +225,7 @@ echo "----------"
 _log__step_result_success """
 =====> Kubernetes Dashboard: 
           1. Adicionar ao arquivos de host (Ex. Win: C:\Windows\System32\drivers\etc\hosts): 
-                $IP    $KUBERNETES_DASHBOARD_DOMAIN
+                $IP          $KUBERNETES_DASHBOARD_DOMAIN          # minikube dashboard
           2. No navegador:
                 http://$KUBERNETES_DASHBOARD_DOMAIN:$KUBERNETES_DASHBOARD_PORT 
 """
