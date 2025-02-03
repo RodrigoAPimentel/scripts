@@ -1,7 +1,7 @@
 SUDO_PASS=toor
-# _ZSH_THEME="af-magic"
+_ZSH_THEME="af-magic"
 # _ZSH_THEME="jonathan"
-_ZSH_THEME="powerlevel10k/powerlevel10k"
+# _ZSH_THEME="powerlevel10k/powerlevel10k"
 
 ___console_logs () {
     echo " "
