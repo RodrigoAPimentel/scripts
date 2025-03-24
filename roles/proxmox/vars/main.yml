@@ -1,7 +1,8 @@
 api_host: pimentel-homelab
 api_user: root@pam
 api_password: "@toor@"
-node: pimentel-homelab
+# node: pimentel-homelab
+node: jabuti
 container_root_password: "12345"
 unprivileged: true
 onboot: false
