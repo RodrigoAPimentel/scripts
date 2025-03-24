@@ -27,6 +27,9 @@ echo $SUDO_PASS | sudo -S apt update && echo $SUDO_PASS | sudo -S apt upgrade -y
 ___console_logs '[02/05] Install basic applications'
 echo $SUDO_PASS | sudo -S apt install -y curl tree apache2-utils golang-go cloud-init qemu-guest-agent yq
 
+
+## INSTALL NVM AND NODE, PYTHON, npm, nextjs, nestjs, yarn
+
 ___console_logs '[03/10] Enable qemu-guest-agent'
 echo $SUDO_PASS | sudo -S systemctl enable qemu-guest-agent
 
