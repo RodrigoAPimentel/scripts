@@ -1,10 +1,7 @@
-api_host: pimentel-homelab
+api_host: jabuti
 api_user: root@pam
 api_password: "@toor@"
-# node: pimentel-homelab
-# node: jabuti
-# node: 192.168.99.254
-node: proxmox
+node: jabuti
 container_root_password: "12345"
 unprivileged: true
 onboot: false
@@ -15,6 +12,6 @@ vm_default_disk: scsi0
 vm_default_user: root
 vm_default_password: toor
 
-# packages_dependencies_create_container:
-#   - python3
-#   - python3-pip
+packages_dependencies_create_container:
+  - python3
+  - python3-pip
