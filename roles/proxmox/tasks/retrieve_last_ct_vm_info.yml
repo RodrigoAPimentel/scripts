@@ -30,7 +30,8 @@
   delay: 10
 
 - name: Get IP for Last Virtual Container [{{ proxmox_last_container_id }} <> {{ proxmox_last_container_name }}]
-  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ proxmox_last_container_id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+  # ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ proxmox_last_container_id }}.conf | cut -d',' -f5 | cut -d'=' -f2 | cut -d'/' -f1
+  ansible.builtin.shell: set pipefail && awk -v IGNORECASE=1 '$1 == "net0:" { print }' /etc/pve/lxc/{{ proxmox_last_container_id }}.conf | cut -d',' -f6 | cut -d'=' -f2 | cut -d'/' -f1
   register: result_last_container_ip
   retries: 10
   delay: 10
