@@ -39,7 +39,7 @@
       vars:
         external_call_host: "ct-awx"
 
-    - name: Waiting 15 Seconds ...
+    - name: Waiting-1 15 Seconds ...
       ansible.builtin.pause:
         seconds: 15
     
@@ -47,7 +47,21 @@
         name: common
         tasks_from: "install-sshd-centos8stream.yml"
     
-    - name: Waiting 15 Seconds ...
+    - name: Waiting-2 15 Seconds ...
+      ansible.builtin.pause:
+        seconds: 15
+    
+    - set_fact: 
+        _container: awx_task
+        _key_delete: "{{ _network_ip }}"
+
+    - include_role:
+        name: common
+        tasks_from: "remove_ssh_key_know_hosts.yml"
+        apply:
+          delegate_to: ct-awx
+    
+    - name: Waiting-3 15 Seconds ...
       ansible.builtin.pause:
         seconds: 15
 
@@ -57,7 +71,7 @@
         apply:
           delegate_to: "{{ _network_ip }}"
 
-    - name: Waiting 15 Seconds ...
+    - name: Waiting-4 15 Seconds ...
       ansible.builtin.pause:
         seconds: 15
     

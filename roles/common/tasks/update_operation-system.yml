@@ -1,22 +1,4 @@
 ---
-
-
-- name: Remover chave antiga do known_hosts
-  become: true
-  command: ssh-keygen -R {{ _network_ip }}
-
-# - name: Adicionar nova chave SSH ao known_hosts
-#   become: true
-#   command: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null {{ ansible_user }}@{{ ansible_host }} exit
-#   register: ssh_check
-#   ignore_errors: true
-
-# - debug:
-#     msg: "Resultado da verificação SSH - {{ ssh_check.stdout }}"
-
-
-
-
 - name: Add EPEL repository
   package:
     name: epel-release
