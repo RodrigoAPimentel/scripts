@@ -4,10 +4,10 @@
   become_method: sudo
   gather_facts: true
   hosts: "{{ host }}"
-  # vars:
-  #   ansible_python_interpreter: /usr/bin/python3
-  # collections:
-  #   - community.general
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  collections:
+    - community.general
   roles:
     - role: common
 
