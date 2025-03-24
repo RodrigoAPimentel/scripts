@@ -5,11 +5,11 @@
   with_items: 
     - "{{ packages_dependencies_create_container }}"
 
-- name: Install proxmoxer and requests packages
-  pip:
-    name:
-      - proxmoxer
-      - requests
+# - name: Install proxmoxer and requests packages
+#   pip:
+#     name:
+#       - proxmoxer
+#       - requests
 
 - name: Create Container
   community.general.proxmox:
