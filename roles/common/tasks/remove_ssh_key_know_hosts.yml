@@ -1,18 +1,3 @@
 ---
 - name: Remove old key from known_hosts in "{{ _container }}"
   command: docker exec {{ _container }} /bin/bash -c 'ssh-keygen -R {{ _key_delete }}'
-  # register: result_awx_token
-
-
-
-
-
-# - name: Collect AWX root token
-#   command: docker exec awx_task /bin/bash -c 'awx-manage create_oauth2_token --user root'
-#   register: result_awx_token
-
-# - set_fact:
-#     awx_token: "{{ result_awx_token.stdout }}"
-
-# - debug: 
-#     msg: "AWX Token:{{ awx_token }}"

@@ -24,9 +24,6 @@
 - debug:
     msg: SSHD status - {{ status_sshd.stdout }}
 
-
-
-
 - name: Configurar sshd_config para permitir root login no LXC
   become: true
   command: lxc-attach --name {{ _vmid }} -e -- sed -i 's/^#\?\(PermitRootLogin\).*/\1 yes/' /etc/ssh/sshd_config
@@ -39,7 +36,3 @@
   become: true
   command: lxc-attach --name {{ _vmid }} -e -- systemctl restart sshd
   register: restart_ssh
-  delay: 5
-
-- debug:
-    msg: "Status da reinicialização do SSH - {{ restart_ssh.stdout }}"
