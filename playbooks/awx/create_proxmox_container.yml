@@ -43,9 +43,6 @@
       ansible.builtin.pause:
         seconds: 15
     
-    # - name: Install SSHD if OS is CentOS 8 or higher
-      # when: ansible_facts['os_family'] == 'RedHat' and ansible_facts['distribution'] == 'CentOS' and ansible_facts['distribution_major_version'] | int >= 8
-      # include_role:
     - include_role:
         name: common
         tasks_from: "install-sshd-centos8stream.yml"
@@ -58,8 +55,7 @@
         name: common
         tasks_from: "update_operation-system.yml"
         apply:
-          # delegate_to: "{{ _network_ip }}"
-          delegate_to: "{{ _hostname }}"
+          delegate_to: "{{ _network_ip }}"
 
     - name: Waiting 15 Seconds ...
       ansible.builtin.pause:
@@ -69,5 +65,4 @@
         name: common
         tasks_from: "install_oh-my-zsh.yml"
         apply:
-          # delegate_to: "{{ _network_ip }}"
-          delegate_to: "{{ _hostname }}"
+          delegate_to: "{{ _network_ip }}"
