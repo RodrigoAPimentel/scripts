@@ -17,7 +17,8 @@ __verify_root
 __detect_system
 __detect_package_manager
 __update_system $SUDO_PASS
-__install_basic_packages $SUDO_PASS "curl gcc g++ make"
+# __install_basic_packages $SUDO_PASS "curl gcc g++ make"
+__install_basic_packages $SUDO_PASS
 
 # Check if Node.js is already installed
 _step "🔍 Verifying Node.js Installation ..."
