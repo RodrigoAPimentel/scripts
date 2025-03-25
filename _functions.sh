@@ -4,7 +4,7 @@
 . ./_logs.sh
 
 # Carrega o arquivo de pacotes básicos
-. ./_basic_applications.sh
+. ./_basic_packages.sh
 
 # Verifica se a senha do sudo foi informada
 __verify_root_pass() {
