@@ -19,11 +19,7 @@ __detect_system
 
 __detect_package_manager
 
-echo "===================PM [$PM]"
-echo "===================PKG_MANAGER [$PKG_MANAGER]"
-echo "===================package_manager [$package_manager]"
-
-
+package_manager update -y && package_manager upgrade -y
 
 # # Atualiza pacotes conforme a distribuição
 # case "$OS" in
