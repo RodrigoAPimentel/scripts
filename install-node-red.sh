@@ -15,39 +15,23 @@ __detect_package_manager
 __update_system $SUDO_PASS
 __install_basic_packages $SUDO_PASS "curl gcc g++ make"
 
-# # Check if Node.js is already installed
-# _step "🔍 Verifying Node.js Installation ..."
-# if command -v node &> /dev/null; then
-#     _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
-# else
-#     echo "                 ⚠️ Node.js not found. Installing via NVM..."
-#     echo $SUDO_PASS | sudo -S curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-#     export NVM_DIR="$HOME/.nvm"
-#     source "$NVM_DIR/nvm.sh"
-#     nvm install --lts
-#     nvm use --lts
-#     _step_result_success "✅ Node.js installed with NVM! Version: $(node -v)"
-# fi
-# _step "🔍 Verifying npm version..."
-# NPM_VERSION=$(npm -v)
-# _step_result_success "✅ npm version: $NPM_VERSION"
-
 ./applications/nodejs.sh $SUDO_PASS
+./applications/pm2.sh $SUDO_PASS
 
-# Check if PM2 is already installed
-_step "🔍 Verifying PM2 Installation ..."
-if command -v pm2 &> /dev/null; then
-    _step_result_success "✅ PM2 is already installed! Version: $(pm2 -v)"
-else
-    echo "                  ⚠️ PM2 not found. Installing..."
-    npm install -g pm2
-    if command -v pm2 &> /dev/null; then
-        _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
-    else
-        _step_result_failure "❌ PM2 installation failed. Exiting script."
-        exit 1
-    fi
-fi
+# # Check if PM2 is already installed
+# _step "🔍 Verifying PM2 Installation ..."
+# if command -v pm2 &> /dev/null; then
+#     _step_result_success "✅ PM2 is already installed! Version: $(pm2 -v)"
+# else
+#     echo "                  ⚠️ PM2 not found. Installing..."
+#     npm install -g pm2
+#     if command -v pm2 &> /dev/null; then
+#         _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
+#     else
+#         _step_result_failure "❌ PM2 installation failed. Exiting script."
+#         exit 1
+#     fi
+# fi
 
 # Check if Node-RED is already installed
 _step "🔍 Verifying Node-RED Installation ..."
@@ -69,10 +53,10 @@ else
     _step "🔄 Save Node-RED with PM2 ..."
     pm2 save
     _step "🔄 Configure PM2 resurrect ..."
-    mkdir -p /opt/pm2
-    pm2 startup systemd | tee /opt/pm2/pm2-startup.sh
-    chmod +x /opt/pm2/pm2-startup.sh
-    echo $SUDO_PASS | sudo -S /opt/pm2/pm2-startup.sh
+    # mkdir -p /opt/pm2
+    # pm2 startup systemd | tee /opt/pm2/pm2-startup.sh
+    # chmod +x /opt/pm2/pm2-startup.sh
+    # echo $SUDO_PASS | sudo -S /opt/pm2/pm2-startup.sh
     
     _step_result_success "✅ Node-RED configured to start automatically!"
 fi
