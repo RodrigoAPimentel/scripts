@@ -82,3 +82,6 @@ _step_result_success "🎉 Installation completed!"
 _step_result_suggestion "🌐 Access Node-RED at: http://$IP:1880"
 
 _finish_information
+
+_step "🔄 Rebooting the system ..."
+echo $SUDO_PASS | sudo -S reboot
