@@ -4,6 +4,8 @@ SUDO_PASS=$1
 
 IP=$(hostname -I |  awk '{print $1}')
 
+BASIC_PACKAGES="curl"
+
 # LOADING LOG FUNCTIONS FILE
 . ./_logs.sh
 # LOADING FUNCTIONS FILE
@@ -21,7 +23,7 @@ __detect_package_manager
 
 __update_system $SUDO_PASS
 
-__install_basic_packages $SUDO_PASS
+__install_basic_packages $SUDO_PASS $BASIC_PACKAGES
 
 # _step "🔄 Atualizando pacotes no $OS $VERSION ..."
 # $package_manager update -y && $package_manager upgrade -y
