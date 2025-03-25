@@ -17,9 +17,10 @@ __verify_root
 
 __detect_system
 
-PM=$(__detect_package_manager)
+__detect_package_manager
 
-echo "=================== [$PM]"
+echo "===================PM [$PM]"
+echo "===================PKG_MANAGER [$PKG_MANAGER]"
 
 
 
