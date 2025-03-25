@@ -59,3 +59,8 @@ __detect_package_manager() {
     export package_manager=$PKG_MANAGER
     return
 }
+
+__update_system() {
+    _step "🔄 Updating packages on $OS $VERSION ..."
+    $package_manager update -y && $package_manager upgrade -y
+}
