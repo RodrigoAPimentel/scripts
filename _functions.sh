@@ -77,5 +77,7 @@ __update_system() {
 __install_basic_packages() {
     local packages=${2:-$BASIC_PACKAGES}
     _step "📦 Installing basic packages [$packages] ..."
-    echo $1 | sudo -S $package_manager install -y $packages
+    for package in $packages; do
+        echo $1 | sudo -S $package_manager install -y $package || _step_result_failed "⚠️ Failed to install $package. Continuing with the next package..."
+    done
 }
