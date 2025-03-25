@@ -49,4 +49,6 @@ __detect_package_manager() {
         exit 1
     fi
     _step_result_success "✅ Package manager detected: $PKG_MANAGER"
+    
+    return $PKG_MANAGER
 }
