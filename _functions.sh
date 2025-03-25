@@ -3,6 +3,9 @@
 # Loading log functions file
 . ./_logs.sh
 
+# Carrega o arquivo de pacotes básicos
+. ./_basic_applications.sh
+
 # Verifica se a senha do sudo foi informada
 __verify_root_pass() {
     _step '🔍 Check if the sudo password was entered ...'
@@ -60,7 +63,15 @@ __detect_package_manager() {
     return
 }
 
+# Atualiza o sistema
 __update_system() {
     _step "🔄 Updating packages on $OS $VERSION ..."
-    $package_manager update -y && $package_manager upgrade -y
+    $package_manager update -y
+    _step "🔄 Updating packages on $OS $VERSION ..."
+    $package_manager upgrade -y
+}
+
+__install_basic_packages() {
+    _step "📦 Installing basic packages ..."
+    $package_manager install -y $BASIC_PACKAGES
 }

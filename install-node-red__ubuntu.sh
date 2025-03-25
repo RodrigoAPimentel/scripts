@@ -21,6 +21,8 @@ __detect_package_manager
 
 __update_system
 
+__install_basic_packages
+
 # _step "🔄 Atualizando pacotes no $OS $VERSION ..."
 # $package_manager update -y && $package_manager upgrade -y
 
