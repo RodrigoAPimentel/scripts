@@ -49,7 +49,7 @@ __detect_system() {
 # Detecta o gerenciador de pacotes
 __detect_package_manager() {
     __detect_system
-    
+
     _step "🔍 Detecting the package manager ..."
     if command -v apt &> /dev/null; then
         local PKG_MANAGER=apt
@@ -83,12 +83,16 @@ __install_basic_packages() {
         echo $1 | sudo -S $package_manager install -y $package || _step_result_failed "⚠️ Failed to install $package. Continuing with the next package..."
     done
 
-    _step "🔍 Verifying installed packages ..."
-    for package in $packages; do
-        if dpkg -l | grep -q "^ii  $package "; then
-            _step_result_success "✅ $package is installed."
-        else
-            _step_result_failed "❌ $package is not installed."
-        fi
-    done
+    if [ "$OS" != "centos" ]; then
+        _step "🔍 Verifying installed packages ..."
+        for package in $packages; do
+            if dpkg -l | grep -q "^ii  $package "; then
+                _step_result_success "✅ $package is installed."
+            else
+                _step_result_failed "❌ $package is not installed."
+            fi
+        done
+    else
+        _step_result_suggestion "⚠️ Package verification is not supported on CentOS."
+    fi
 }

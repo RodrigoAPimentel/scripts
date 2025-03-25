@@ -46,7 +46,7 @@ if command -v pm2 &> /dev/null; then
     _step_result_success "✅ PM2 is already installed! Version: $(pm2 -v)"
 else
     echo "                  ⚠️ PM2 not found. Installing..."
-    echo $SUDO_PASS | sudo -S npm install -g pm2
+    npm install -g pm2
 
     # Verify PM2 installation
     if command -v pm2 &> /dev/null; then
