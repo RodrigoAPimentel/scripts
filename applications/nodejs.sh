@@ -32,7 +32,7 @@ _step_result_success "✅ Node.js installed! Version: $(node --version)"
 _step_result_success "✅ NVM installed! Version: $(nvm --version)"
 _step_result_success "✅ NPM installed! Version: $(npm --version)"
 
-echo -e "\n\n"
+echo -e "\n"
 
 _step_result_success "🎉 Installation completed!"
 
