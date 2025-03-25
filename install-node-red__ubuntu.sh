@@ -19,6 +19,7 @@ __detect_system
 
 __detect_package_manager
 
+echo " "
 echo "=================== [$PM]"
 
 
