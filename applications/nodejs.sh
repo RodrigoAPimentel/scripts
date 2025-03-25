@@ -8,7 +8,7 @@ IP=$(hostname -I |  awk '{print $1}')
 # LOADING FUNCTIONS FILE
 . ./_functions.sh
 
-_script_start "INSTALL NODEJS"
+_section "INSTALL NODEJS"
 __verify_root_pass $SUDO_PASS
 __detect_package_manager
 __update_system $SUDO_PASS
