@@ -10,7 +10,7 @@ IP=$(hostname -I |  awk '{print $1}')
 
 _script_start "INSTALL NODE-RED"
 __verify_root_pass $SUDO_PASS
-__verify_root
+# __verify_root
 __detect_package_manager
 __update_system $SUDO_PASS
 __install_basic_packages $SUDO_PASS "curl gcc g++ make"
@@ -32,9 +32,7 @@ __install_basic_packages $SUDO_PASS "curl gcc g++ make"
 # NPM_VERSION=$(npm -v)
 # _step_result_success "✅ npm version: $NPM_VERSION"
 
-# # Executa o script nodejs.sh como usuário não-root
-# _step "🔍 Executing Node.js installation script as non-root user ..."
-su -c "./applications/nodejs.sh $SUDO_PASS" $SUDO_USER
+./applications/nodejs.sh $SUDO_PASS
 
 # Check if PM2 is already installed
 _step "🔍 Verifying PM2 Installation ..."
