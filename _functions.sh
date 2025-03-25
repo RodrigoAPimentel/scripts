@@ -71,11 +71,9 @@ __update_system() {
     echo $1 | sudo -S $package_manager upgrade -y
 }
 
+# Instala pacotes básicos
 __install_basic_packages() {
     local packages=${2:-$BASIC_PACKAGES}
-    _step "📦 Installing basic packages ...\n       Basic packages: $packages"
-
-    # _step "     📦 Basic packages: $packages"
-
+    _step "📦 Installing basic packages [$packages] ..."
     echo $1 | sudo -S $package_manager install -y $packages
 }
