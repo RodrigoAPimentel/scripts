@@ -21,18 +21,11 @@ if command -v node &> /dev/null; then
     _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
 else
     echo "                 ⚠️ Node.js not found. Installing via NVM..."
-
-    # Download and install NVM
     echo $SUDO_PASS | sudo -S curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-
-    # Load NVM into the current environment
     export NVM_DIR="$HOME/.nvm"
     source "$NVM_DIR/nvm.sh"
-
-    # Install the latest Node.js LTS version
     nvm install --lts
     nvm use --lts
-
     _step_result_success "✅ Node.js installed with NVM! Version: $(node -v)"
 fi
 
@@ -47,8 +40,6 @@ if command -v pm2 &> /dev/null; then
 else
     echo "                  ⚠️ PM2 not found. Installing..."
     npm install -g pm2
-
-    # Verify PM2 installation
     if command -v pm2 &> /dev/null; then
         _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
     else
@@ -73,10 +64,13 @@ if pm2 list | grep -q "node-red"; then
     _step_result_success "✅ Node-RED is already running on PM2!"
 else
     echo "                  🔄 Starting Node-RED with PM2..."
-    pm2 start $(which node-red) -- -v
+    pm2 start node-red -- -v
     pm2 save
-    pm2 startup systemd | tee startup.txt
-    eval $(grep "sudo env" startup.txt)
+    mkdir -p /opt/pm2
+    pm2 startup systemd | tee /opt/pm2/pm2-startup.sh
+    chmod +x /opt/pm2/pm2-startup.sh
+    echo $SUDO_PASS | sudo -S ./opt/pm2/pm2-startup.sh
+    
     _step_result_success "✅ Node-RED configured to start automatically!"
 fi
 
