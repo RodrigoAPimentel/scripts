@@ -19,6 +19,7 @@ MINIKUBE_ADDONS=ingress,ingress-dns,dashboard
 
 _script_start "INSTALL MINIKUBE"
 __verify_root_pass $SUDO_PASS
+__verify_root
 
 _step 'Verify Docker installed'
 IS_DOCKER=$(which docker)
@@ -29,7 +30,7 @@ else
     _step_result_success "✅ INSTALLED."
 fi
 
-__install_prerequisite_packages $SUDO_PASS "tree yq iptables-persistent"
+__install_prerequisite_packages $SUDO_PASS "tree yq iptables-persistent apache2-utils"
 
 _step 'Download and Install Minikube'
 curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
@@ -85,14 +86,14 @@ _section "CREATE NGINX PROXY"
 ##################################################################################################################################
 
 _step 'Copy the certificates and keys'
-echo $SUDO_PASS | sudo -S mkdir -p $MINIKUBE_FOLDER
-echo $SUDO_PASS | sudo -S mkdir -p $NGINX_FOLDER
+mkdir -p $MINIKUBE_FOLDER
+mkdir -p $NGINX_FOLDER
 _step_result_success "$(cp -rv $HOME/.minikube/profiles/minikube/client.crt $MINIKUBE_FOLDER)"
 _step_result_success "$(cp -rv $HOME/.minikube/profiles/minikube/client.key $MINIKUBE_FOLDER)"
 _step_result_success "$(cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER)"
 
 _step 'Create NGINX password'
-echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
+# echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
 echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $OS_USER
 
 _step 'Create nginx.conf file'
