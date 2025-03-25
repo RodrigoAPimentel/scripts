@@ -52,6 +52,6 @@ __detect_package_manager() {
     fi
     _step_result_success "✅ Package manager detected: $PKG_MANAGER"
     
-    export PKG_MANAGER=$PKG_MANAGER
+    export PM=$PKG_MANAGER
     return
 }
