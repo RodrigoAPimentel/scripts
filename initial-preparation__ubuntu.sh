@@ -25,10 +25,12 @@ ___console_logs '[01/05] Update and Upgrade System'
 echo $SUDO_PASS | sudo -S apt update && echo $SUDO_PASS | sudo -S apt upgrade -y
 
 ___console_logs '[02/05] Install basic applications'
-echo $SUDO_PASS | sudo -S apt install -y curl tree apache2-utils golang-go cloud-init qemu-guest-agent yq
-
-
-## INSTALL NVM AND NODE, PYTHON, npm, nextjs, nestjs, yarn
+echo $SUDO_PASS | sudo -S apt install -y curl tree apache2-utils golang-go cloud-init qemu-guest-agent yq gcc-c++ make python3.9
+curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+echo $SUDO_PASS | sudo -S export NVM_DIR="$HOME/.nvm"
+echo $SUDO_PASS | sudo -S source "$NVM_DIR/nvm.sh"
+nvm install --lts
+nvm use --lts
 
 ___console_logs '[03/10] Enable qemu-guest-agent'
 echo $SUDO_PASS | sudo -S systemctl enable qemu-guest-agent
