@@ -92,7 +92,6 @@ _step_result_success "$(cp -rv $HOME/.minikube/profiles/minikube/client.key $MIN
 _step_result_success "$(cp -rv $HOME/.minikube/ca.crt $MINIKUBE_FOLDER)"
 
 _step 'Create NGINX password'
-# echo $SUDO_PASS | sudo -S apt install -yqqq apache2-utils
 echo $SUDO_PASS | htpasswd -c -b -i $NGINX_FOLDER/.htpasswd $OS_USER
 
 _step 'Create nginx.conf file'
