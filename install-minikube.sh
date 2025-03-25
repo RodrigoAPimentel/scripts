@@ -32,7 +32,7 @@ else
 fi
 
 __install_prerequisite_packages $SUDO_PASS "tree yq"
-_step 'Install [iptables-persistent apache2-utils] ...'
+_step 'Installing packages [iptables-persistent apache2-utils] ...'
 echo $SUDO_PASS | sudo -S DEBIAN_FRONTEND=noninteractive apt install -yqqq iptables-persistent apache2-utils
 
 _step 'Download and Install Minikube'
@@ -82,11 +82,7 @@ _cat_file "minikube.service" "$(echo $SUDO_PASS | sudo -S cat /etc/systemd/syste
 _step 'Enable Minikube Service'
 _step_result_success "$(echo $SUDO_PASS | sudo -S systemctl enable minikube)"
 
-##################################################################################################################################
-##################################################################################################################################
 _section "CREATE NGINX PROXY"
-##################################################################################################################################
-##################################################################################################################################
 
 _step 'Copy the certificates and keys'
 mkdir -p $MINIKUBE_FOLDER
@@ -167,11 +163,9 @@ _step_result_suggestion "=====> See the Kubeconfig for external access to miniku
 _step 'Show all Configuration Files'
 _step_result_success "$(tree -a $MINIKUBE_INSTALL_ROOT_FOLDER)"
 
-##################################################################################################################################
-##################################################################################################################################
+_section_end
+
 _section "CONFIGURE KUBERNETES DASHBOARD"
-##################################################################################################################################
-##################################################################################################################################
 
 _step 'Create Kubernetes Dashboard Ingress'
 cat <<EOF > ingress-kubernetes-dashboard.yaml
@@ -224,5 +218,9 @@ _step_result_success """
           2. No navegador:
                 http://$KUBERNETES_DASHBOARD_DOMAIN:$KUBERNETES_DASHBOARD_PORT 
 """
+_section_end
 
 _finish_information
+
+# _step "🔄 Rebooting the system ..."
+# echo $SUDO_PASS | sudo -S reboot
