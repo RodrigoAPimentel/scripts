@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # Loading log functions file
 . ./_logs.sh
 
