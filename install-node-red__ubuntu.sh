@@ -47,7 +47,14 @@ if command -v pm2 &> /dev/null; then
 else
     echo "              ⚠️ PM2 not found. Installing..."
     echo $SUDO_PASS | sudo -S npm install -g pm2
-    _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
+
+    # Verify PM2 installation
+    if command -v pm2 &> /dev/null; then
+        _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
+    else
+        _step_result_failure "❌ PM2 installation failed. Exiting script."
+        exit 1
+    fi
 fi
 
 # Check if Node-RED is already installed
