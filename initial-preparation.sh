@@ -1,6 +1,7 @@
 #! /bin/bash
 
 . ./_logs.sh
+. ./_functions.sh
 
 SUDO_PASS=$1
 

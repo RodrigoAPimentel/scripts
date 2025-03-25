@@ -15,23 +15,24 @@ __detect_package_manager
 __update_system $SUDO_PASS
 __install_basic_packages $SUDO_PASS "curl gcc g++ make"
 
-# Check if Node.js is already installed
-_step "🔍 Verifying Node.js Installation ..."
-if command -v node &> /dev/null; then
-    _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
-else
-    echo "                 ⚠️ Node.js not found. Installing via NVM..."
-    echo $SUDO_PASS | sudo -S curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-    export NVM_DIR="$HOME/.nvm"
-    source "$NVM_DIR/nvm.sh"
-    nvm install --lts
-    nvm use --lts
-    _step_result_success "✅ Node.js installed with NVM! Version: $(node -v)"
-fi
+# # Check if Node.js is already installed
+# _step "🔍 Verifying Node.js Installation ..."
+# if command -v node &> /dev/null; then
+#     _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
+# else
+#     echo "                 ⚠️ Node.js not found. Installing via NVM..."
+#     echo $SUDO_PASS | sudo -S curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+#     export NVM_DIR="$HOME/.nvm"
+#     source "$NVM_DIR/nvm.sh"
+#     nvm install --lts
+#     nvm use --lts
+#     _step_result_success "✅ Node.js installed with NVM! Version: $(node -v)"
+# fi
+# _step "🔍 Verifying npm version..."
+# NPM_VERSION=$(npm -v)
+# _step_result_success "✅ npm version: $NPM_VERSION"
 
-_step "🔍 Verifying npm version..."
-NPM_VERSION=$(npm -v)
-_step_result_success "✅ npm version: $NPM_VERSION"
+./applications/nodejs.sh $SUDO_PASS
 
 # Check if PM2 is already installed
 _step "🔍 Verifying PM2 Installation ..."
