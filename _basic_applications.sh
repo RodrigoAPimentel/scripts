@@ -14,5 +14,5 @@ BASIC_PACKAGES="
     python3.9
     nodejs
     npm
-    '-g pm2'
+    "-g pm2"
 "
