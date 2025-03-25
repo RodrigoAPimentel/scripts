@@ -69,6 +69,8 @@ __update_system() {
     echo $1 | sudo -S $package_manager update -y
     _step "🔄 Upgrade packages on $OS $VERSION ..."
     echo $1 | sudo -S $package_manager upgrade -y
+    _step "🔄 Dist Upgrade on $OS $VERSION ..."
+    echo $1 | sudo -S $package_manager dist-upgrade -y
 }
 
 # Instala pacotes básicos
