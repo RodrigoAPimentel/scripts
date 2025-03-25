@@ -25,6 +25,9 @@ else
     nvm install --lts
     nvm use --lts
 fi
+
+echo -e "\n"
+
 _step_result_success "✅ Node.js installed! Version: $(node --version)"
 _step_result_success "✅ NVM installed! Version: $(nvm --version)"
 _step_result_success "✅ NPM installed! Version: $(npm --version)"
