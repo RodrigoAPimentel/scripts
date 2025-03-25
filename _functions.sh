@@ -80,5 +80,6 @@ __install_basic_packages() {
 
     # echo $1 | sudo -S $package_manager install -y $packages
 
+    echo "=== [$2]"
     echo $1 | sudo -S $package_manager install -y $2
 }
