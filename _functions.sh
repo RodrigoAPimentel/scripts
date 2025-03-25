@@ -26,7 +26,6 @@ __verify_root() {
 # Detecta a distribuição do sistema
 __detect_system() {
     _step "🔄 Detecting the system distribution ..."
-    # Identifies the operating system distribution
     if [ -f /etc/os-release ]; then
         source /etc/os-release
         OS=$ID
@@ -35,5 +34,19 @@ __detect_system() {
         _step_result_failed "❌ Unable to identify the operating system."
         exit 1
     fi
-    _step_result "✅ System detected: $OS $VERSION"
+    _step_result_success "✅ System detected: $OS $VERSION"
+}
+
+# Detecta o gerenciador de pacotes
+__detect_package_manager() {
+    _step "🔄 Detecting the package manager ..."
+    if command -v apt &> /dev/null; then
+        PKG_MANAGER=apt
+    elif command -v dnf &> /dev/null; then
+        PKG_MANAGER=dnf
+    else
+        _step_result_failed "❌ Package manager not found."
+        exit 1
+    fi
+    _step_result_success "✅ Package manager detected: $PKG_MANAGER"
 }

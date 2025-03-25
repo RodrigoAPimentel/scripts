@@ -6,8 +6,8 @@ IP=$(hostname -I |  awk '{print $1}')
 
 # LOADING LOG FUNCTIONS FILE
 . ./_logs.sh
-# LOADING REQUERIMENTS FUNCTIONS FILE
-. ./_requeriments.sh
+# LOADING FUNCTIONS FILE
+. ./_functions.sh
 
 _script_start "INSTALL NODE-RED"
 
@@ -16,6 +16,10 @@ __verify_root_pass $SUDO_PASS
 __verify_root
 
 __detect_system
+
+PM= __detect_package_manager
+
+echo "=================== [$PM]"
 
 
 
