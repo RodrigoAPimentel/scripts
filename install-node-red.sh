@@ -10,7 +10,7 @@ _script_start "INSTALL NODE-RED"
 __verify_root_pass $SUDO_PASS
 __detect_package_manager
 __update_system $SUDO_PASS
-__install_basic_packages $SUDO_PASS "curl gcc g++ make"
+__install_prerequisite_packages $SUDO_PASS "curl gcc g++ make"
 ./applications/nodejs.sh $SUDO_PASS
 ./applications/pm2.sh $SUDO_PASS
 
