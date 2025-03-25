@@ -65,9 +65,9 @@ __detect_package_manager() {
 
 # Atualiza o sistema
 __update_system() {
-    _step "🔄 Updating packages on $OS $VERSION ..."
+    _step "🔄 Updating packages list on $OS $VERSION ..."
     $package_manager update -y
-    _step "🔄 Updating packages on $OS $VERSION ..."
+    _step "🔄 Upgrade packages on $OS $VERSION ..."
     $package_manager upgrade -y
 }
 
