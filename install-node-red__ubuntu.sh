@@ -6,54 +6,60 @@ IP=$(hostname -I |  awk '{print $1}')
 
 # LOADING LOG FUNCTIONS FILE
 . ./_logs.sh
+# LOADING REQUERIMENTS FUNCTIONS FILE
+. ./_requeriments.sh
 
 _script_start "INSTALL NODE-RED"
 
-_step '[--] Check if the sudo password was entered'
-if [ -z "${SUDO_PASS}" ]; then
-    _step_result_failed "sudo password not entered!!"
-    _step_result_suggestion "Sample: install-minikube__ubuntu.sh <sudo pass>"
-    exit 1
-else
-    _step_result_success "==> sudo password entered."
-fi
+_verify_root_pass $SUDO_PASS
 
-# Verifica se o script está sendo executado como root
-if [[ $EUID -ne 0 ]]; then
-   _step_result_failed "❌ Este script deve ser executado como root."
-   exit 1
-fi
-_step_result_success "Script executando como root."
+# _step '[--] Check if the sudo password was entered'
+# if [ -z "${SUDO_PASS}" ]; then
+#     _step_result_failed "sudo password not entered!!"
+#     _step_result_suggestion "Sample: install-minikube__ubuntu.sh <sudo pass>"
+#     exit 1
+# else
+#     _step_result_success "==> sudo password entered."
+# fi
 
-_step "🔄 Detectando a distribuição do sistema..."
-# Identifica a distribuição do sistema operacional
-if [ -f /etc/os-release ]; then
-    source /etc/os-release
-    OS=$ID
-    VERSION=$VERSION_ID
-else
-    _step_result_failed "❌ Não foi possível identificar o sistema operacional."
-    exit 1
-fi
-_step_result "✅ Sistema detectado: $OS $VERSION"
 
-# Atualiza pacotes conforme a distribuição
-case "$OS" in
-    ubuntu|debian)
-        _step "📌 Atualizando pacotes no Debian/Ubuntu..."
-        apt update -y && apt upgrade -y
-        apt install -y curl gcc g++ make
-        ;;
-    centos|rocky|almalinux)
-        _step "📌 Atualizando pacotes no CentOS/Rocky/AlmaLinux..."
-        dnf update -y
-        dnf install -y curl gcc-c++ make
-        ;;
-    *)
-        _step_result_failed "❌ Sistema não suportado."
-        exit 1
-        ;;
-esac
+
+# # Verifica se o script está sendo executado como root
+# if [[ $EUID -ne 0 ]]; then
+#    _step_result_failed "❌ Este script deve ser executado como root."
+#    exit 1
+# fi
+# _step_result_success "Script executando como root."
+
+# _step "🔄 Detectando a distribuição do sistema..."
+# # Identifica a distribuição do sistema operacional
+# if [ -f /etc/os-release ]; then
+#     source /etc/os-release
+#     OS=$ID
+#     VERSION=$VERSION_ID
+# else
+#     _step_result_failed "❌ Não foi possível identificar o sistema operacional."
+#     exit 1
+# fi
+# _step_result "✅ Sistema detectado: $OS $VERSION"
+
+# # Atualiza pacotes conforme a distribuição
+# case "$OS" in
+#     ubuntu|debian)
+#         _step "📌 Atualizando pacotes no Debian/Ubuntu..."
+#         apt update -y && apt upgrade -y
+#         apt install -y curl gcc g++ make
+#         ;;
+#     centos|rocky|almalinux)
+#         _step "📌 Atualizando pacotes no CentOS/Rocky/AlmaLinux..."
+#         dnf update -y
+#         dnf install -y curl gcc-c++ make
+#         ;;
+#     *)
+#         _step_result_failed "❌ Sistema não suportado."
+#         exit 1
+#         ;;
+# esac
 
 # # Verifica se o Node.js já está instalado
 # if command -v node &> /dev/null; then
