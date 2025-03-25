@@ -53,5 +53,6 @@ __detect_package_manager() {
     _step_result_success "✅ Package manager detected: $PKG_MANAGER"
     
     # return $PKG_MANAGER
-    echo $PKG_MANAGER
+    export PM=$PKG_MANAGER
+    return
 }
