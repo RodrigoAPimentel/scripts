@@ -61,11 +61,13 @@ fi
 # Check if Node-RED is already running on PM2
 _step "🔍 Verifying Node-RED on PM2..."
 if pm2 list | grep -q "node-red"; then
-    _step_result_success "✅ Node-RED is already running on PM2!"
-else
-    echo "                  🔄 Starting Node-RED with PM2..."
+#     _step_result_success "✅ Node-RED is already running on PM2!"
+# else
+    _step "🔄 Starting Node-RED with PM2 ..."
     pm2 start node-red -- -v
+    _step "🔄 Save Node-RED with PM2 ..."
     pm2 save
+    _step "🔄 Configure PM2 resurrect ..."
     mkdir -p /opt/pm2
     pm2 startup systemd | tee /opt/pm2/pm2-startup.sh
     chmod +x /opt/pm2/pm2-startup.sh
