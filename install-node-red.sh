@@ -52,11 +52,11 @@ else
     pm2 start node-red -- -v
     _step "🔄 Save Node-RED with PM2 ..."
     pm2 save
-    # _step "🔄 Configure PM2 resurrect ..."
-    # mkdir -p /opt/pm2
-    # pm2 startup systemd | tee /opt/pm2/pm2-startup.sh
-    # chmod +x /opt/pm2/pm2-startup.sh
-    # echo $SUDO_PASS | sudo -S /opt/pm2/pm2-startup.sh
+    _step "🔄 Configure PM2 resurrect ..."
+    mkdir -p /opt/pm2
+    pm2 startup systemd | tee /opt/pm2/pm2-startup.sh
+    chmod +x /opt/pm2/pm2-startup.sh
+    echo $SUDO_PASS | sudo -S /opt/pm2/pm2-startup.sh
     
     _step_result_success "✅ Node-RED configured to start automatically!"
 fi
