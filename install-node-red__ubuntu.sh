@@ -12,62 +12,35 @@ BASIC_PACKAGES="curl gcc g++ make"
 . ./_functions.sh
 
 _script_start "INSTALL NODE-RED"
-
 __verify_root_pass $SUDO_PASS
-
 __verify_root
-
 __detect_system
-
 __detect_package_manager
-
 __update_system $SUDO_PASS
+__install_basic_packages $SUDO_PASS "curl gcc g++ make"
 
-__install_basic_packages $SUDO_PASS 
+# Verifica se o Node.js já está instalado
+if command -v node &> /dev/null; then
+    _step_result_success "✅ Node.js já está instalado! Versão: $(node -v)"
+else
+    _step "⚠️ Node.js não encontrado. Instalando via NVM..."
 
-# _step "🔄 Atualizando pacotes no $OS $VERSION ..."
-# $package_manager update -y && $package_manager upgrade -y
+    # Baixa e instala o NVM
+    curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 
-# # Atualiza pacotes conforme a distribuição
-# case "$OS" in
-#     ubuntu|debian)
-#         _step "📌 Atualizando pacotes no Debian/Ubuntu..."
-#         apt update -y && apt upgrade -y
-#         apt install -y curl gcc g++ make
-#         ;;
-#     centos|rocky|almalinux)
-#         _step "📌 Atualizando pacotes no CentOS/Rocky/AlmaLinux..."
-#         dnf update -y
-#         dnf install -y curl gcc-c++ make
-#         ;;
-#     *)
-#         _step_result_failed "❌ Sistema não suportado."
-#         exit 1
-#         ;;
-# esac
+    # Carrega o NVM no ambiente atual
+    export NVM_DIR="$HOME/.nvm"
+    source "$NVM_DIR/nvm.sh"
 
-# # Verifica se o Node.js já está instalado
-# if command -v node &> /dev/null; then
-#     _step_result_success "✅ Node.js já está instalado! Versão: $(node -v)"
-# else
-#     _step "⚠️ Node.js não encontrado. Instalando via NVM..."
+    # Instala a versão mais recente do Node.js LTS
+    nvm install --lts
+    nvm use --lts
 
-#     # Baixa e instala o NVM
-#     curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+    _step_result_success "✅ Node.js instalado com NVM! Versão: $(node -v)"
+fi
 
-#     # Carrega o NVM no ambiente atual
-#     export NVM_DIR="$HOME/.nvm"
-#     source "$NVM_DIR/nvm.sh"
-
-#     # Instala a versão mais recente do Node.js LTS
-#     nvm install --lts
-#     nvm use --lts
-
-#     _step_result_success "✅ Node.js instalado com NVM! Versão: $(node -v)"
-# fi
-
-# _step "🔍 Verificando versão do npm..."
-# npm -v
+_step "🔍 Verificando versão do npm..."
+npm -v
 
 # # Verifica se o PM2 já está instalado
 # if command -v pm2 &> /dev/null; then

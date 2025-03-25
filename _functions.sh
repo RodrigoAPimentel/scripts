@@ -80,4 +80,13 @@ __install_basic_packages() {
     for package in $packages; do
         echo $1 | sudo -S $package_manager install -y $package || _step_result_failed "⚠️ Failed to install $package. Continuing with the next package..."
     done
+
+    _step "🔍 Verifying installed packages ..."
+    for package in $packages; do
+        if dpkg -l | grep -q "^ii  $package "; then
+            _step_result_success "✅ $package is installed."
+        else
+            _step_result_failed "❌ $package is not installed."
+        fi
+    done
 }
