@@ -1,21 +1,13 @@
 #! /bin/bash
 
-SUDO_PASS=$1
-IP=$(hostname -I |  awk '{print $1}')
-
-# LOADING LOG FUNCTIONS FILE
 . ./_logs.sh
-# # LOADING FUNCTIONS FILE
-# . ./_functions.sh
+
+SUDO_PASS=$1
 
 _section "INSTALL NODEJS"
-# __verify_root_pass $SUDO_PASS
-# __detect_package_manager
-# __update_system $SUDO_PASS
 
-# Check if Node.js is already installed
 _step "🔍 Verifying Node.js Installation ..."
-if command -v node &> /dev/null; then
+if which node &> /dev/null; then
     _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
 else
     echo "                 ⚠️ Node.js not found. Installing via NVM..."
@@ -36,7 +28,4 @@ echo -e "\n"
 
 _step_result_success "🎉 Installation completed!"
 
-_finish_information
-
-_step "🔄 Rebooting the system ..."
-echo $SUDO_PASS | sudo -S reboot
+_section_end

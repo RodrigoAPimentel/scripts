@@ -38,3 +38,7 @@ _script_start "INITIAL PREPARATION"
 # echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
 # echo '<<<<<<<<<<<<<< END <<<<<<<<<<<<<<<<<<<<<<<<<'
 # echo '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+
+
+# _step "🔄 Rebooting the system ..."
+# echo $SUDO_PASS | sudo -S reboot
