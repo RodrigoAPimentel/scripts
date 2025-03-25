@@ -80,6 +80,8 @@ else
     _step_result_success "✅ Node-RED configured to start automatically!"
 fi
 
+echo -e "\n\n\n"
+
 _step_result_success "🎉 Installation completed!"
 _step_result_suggestion "🌐 Access Node-RED at: http://$IP:1880"
 
