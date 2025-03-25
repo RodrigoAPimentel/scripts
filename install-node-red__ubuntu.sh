@@ -23,7 +23,7 @@ __detect_package_manager
 
 # __update_system $SUDO_PASS
 
-__install_basic_packages $SUDO_PASS $BASIC_PACKAGES
+__install_basic_packages $SUDO_PASS "curl gcc g++ make"
 
 # _step "🔄 Atualizando pacotes no $OS $VERSION ..."
 # $package_manager update -y && $package_manager upgrade -y
