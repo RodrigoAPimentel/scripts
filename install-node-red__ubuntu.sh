@@ -20,18 +20,18 @@ _step "🔍 Verifying Node.js Installation ..."
 if command -v node &> /dev/null; then
     _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
 else
-    _step "⚠️ Node.js not found. Installing via NVM..."
+    echo "                 ⚠️ Node.js not found. Installing via NVM..."
 
     # Download and install NVM
     echo $SUDO_PASS | sudo -S curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 
     # Load NVM into the current environment
-    echo $SUDO_PASS | sudo -S export NVM_DIR="$HOME/.nvm"
-    echo $SUDO_PASS | sudo -S source "$NVM_DIR/nvm.sh"
+    export NVM_DIR="$HOME/.nvm"
+    source "$NVM_DIR/nvm.sh"
 
     # Install the latest Node.js LTS version
-    echo $SUDO_PASS | sudo -S nvm install --lts
-    echo $SUDO_PASS | sudo -S nvm use --lts
+    nvm install --lts
+    nvm use --lts
 
     _step_result_success "✅ Node.js installed with NVM! Version: $(node -v)"
 fi
@@ -45,7 +45,7 @@ _step "🔍 Verifying PM2 Installation ..."
 if command -v pm2 &> /dev/null; then
     _step_result_success "✅ PM2 is already installed! Version: $(pm2 -v)"
 else
-    echo "              ⚠️ PM2 not found. Installing..."
+    echo "                  ⚠️ PM2 not found. Installing..."
     echo $SUDO_PASS | sudo -S npm install -g pm2
 
     # Verify PM2 installation
@@ -62,7 +62,7 @@ _step "🔍 Verifying Node-RED Installation ..."
 if command -v node-red &> /dev/null; then
     _step_result_success "✅ Node-RED is already installed!"
 else
-    echo "              ⚠️ Node-RED not found. Installing..."
+    echo "                  ⚠️ Node-RED not found. Installing..."
     echo $SUDO_PASS | sudo -S npm install -g --unsafe-perm node-red
     _step_result_success "✅ Node-RED installed!"
 fi
@@ -72,7 +72,7 @@ _step "🔍 Verifying Node-RED on PM2..."
 if pm2 list | grep -q "node-red"; then
     _step_result_success "✅ Node-RED is already running on PM2!"
 else
-    echo "              🔄 Starting Node-RED with PM2..."
+    echo "                  🔄 Starting Node-RED with PM2..."
     echo $SUDO_PASS | sudo -S pm2 start $(which node-red) -- -v
     echo $SUDO_PASS | sudo -S pm2 save
     echo $SUDO_PASS | sudo -S pm2 startup systemd | tee startup.txt
