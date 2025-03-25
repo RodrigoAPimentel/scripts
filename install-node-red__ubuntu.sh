@@ -15,24 +15,9 @@ __verify_root_pass $SUDO_PASS
 
 __verify_root
 
-# # Verifica se o script está sendo executado como root
-# if [[ $EUID -ne 0 ]]; then
-#    _step_result_failed "❌ Este script deve ser executado como root."
-#    exit 1
-# fi
-# _step_result_success "Script executando como root."
+__detect_system
 
-# _step "🔄 Detectando a distribuição do sistema..."
-# # Identifica a distribuição do sistema operacional
-# if [ -f /etc/os-release ]; then
-#     source /etc/os-release
-#     OS=$ID
-#     VERSION=$VERSION_ID
-# else
-#     _step_result_failed "❌ Não foi possível identificar o sistema operacional."
-#     exit 1
-# fi
-# _step_result "✅ Sistema detectado: $OS $VERSION"
+
 
 # # Atualiza pacotes conforme a distribuição
 # case "$OS" in

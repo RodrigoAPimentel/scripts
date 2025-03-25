@@ -1,7 +1,7 @@
-# LOADING LOG FUNCTIONS FILE
+# Loading log functions file
 . ./_logs.sh
 
-# VERIFICA SE A SENHA DO SUDO FOI INFORMADA
+# Verifica se a senha do sudo foi informada
 __verify_root_pass() {
     _step '🔍 Check if the sudo password was entered ...'
     if [ -z "${1}" ]; then
@@ -21,4 +21,19 @@ __verify_root() {
         exit 1
     fi
     _step_result_success "✅ Script running as root."
+}
+
+# Detecta a distribuição do sistema
+__detect_system() {
+    _step "🔄 Detecting the system distribution ..."
+    # Identifies the operating system distribution
+    if [ -f /etc/os-release ]; then
+        source /etc/os-release
+        OS=$ID
+        VERSION=$VERSION_ID
+    else
+        _step_result_failed "❌ Unable to identify the operating system."
+        exit 1
+    fi
+    _step_result "✅ System detected: $OS $VERSION"
 }
