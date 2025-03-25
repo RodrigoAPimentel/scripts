@@ -17,7 +17,7 @@ __verify_root
 
 __detect_system
 
-PM=$(__detect_package_manager)
+local PM=$(__detect_package_manager)
 
 echo "=================== [$PM]"
 
