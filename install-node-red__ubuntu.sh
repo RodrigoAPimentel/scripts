@@ -13,17 +13,17 @@ BASIC_PACKAGES="curl"
 
 _script_start "INSTALL NODE-RED"
 
-__verify_root_pass $SUDO_PASS
+# __verify_root_pass $SUDO_PASS
 
-__verify_root
+# __verify_root
 
-__detect_system
+# __detect_system
 
-__detect_package_manager
+# __detect_package_manager
 
-__update_system $SUDO_PASS
+# __update_system $SUDO_PASS
 
-__install_basic_packages $SUDO_PASS $BASIC_PACKAGES
+__install_basic_packages $SUDO_PASS
 
 # _step "🔄 Atualizando pacotes no $OS $VERSION ..."
 # $package_manager update -y && $package_manager upgrade -y
