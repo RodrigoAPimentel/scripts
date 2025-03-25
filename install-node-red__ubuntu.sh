@@ -23,15 +23,15 @@ else
     _step "⚠️ Node.js not found. Installing via NVM..."
 
     # Download and install NVM
-    curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
+    echo $SUDO_PASS | sudo -S curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 
     # Load NVM into the current environment
-    export NVM_DIR="$HOME/.nvm"
-    source "$NVM_DIR/nvm.sh"
+    echo $SUDO_PASS | sudo -S export NVM_DIR="$HOME/.nvm"
+    echo $SUDO_PASS | sudo -S source "$NVM_DIR/nvm.sh"
 
     # Install the latest Node.js LTS version
-    nvm install --lts
-    nvm use --lts
+    echo $SUDO_PASS | sudo -S nvm install --lts
+    echo $SUDO_PASS | sudo -S nvm use --lts
 
     _step_result_success "✅ Node.js installed with NVM! Version: $(node -v)"
 fi
@@ -45,8 +45,8 @@ _step "🔍 Verifying PM2 Installation ..."
 if command -v pm2 &> /dev/null; then
     _step_result_success "✅ PM2 is already installed! Version: $(pm2 -v)"
 else
-    echo "          ⚠️ PM2 not found. Installing..."
-    npm install -g pm2
+    echo "              ⚠️ PM2 not found. Installing..."
+    echo $SUDO_PASS | sudo -S npm install -g pm2
     _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
 fi
 
@@ -55,8 +55,8 @@ _step "🔍 Verifying Node-RED Installation ..."
 if command -v node-red &> /dev/null; then
     _step_result_success "✅ Node-RED is already installed!"
 else
-    echo "          ⚠️ Node-RED not found. Installing..."
-    npm install -g --unsafe-perm node-red
+    echo "              ⚠️ Node-RED not found. Installing..."
+    echo $SUDO_PASS | sudo -S npm install -g --unsafe-perm node-red
     _step_result_success "✅ Node-RED installed!"
 fi
 
@@ -65,11 +65,11 @@ _step "🔍 Verifying Node-RED on PM2..."
 if pm2 list | grep -q "node-red"; then
     _step_result_success "✅ Node-RED is already running on PM2!"
 else
-    echo "          🔄 Starting Node-RED with PM2..."
-    pm2 start $(which node-red) -- -v
-    pm2 save
-    pm2 startup systemd | tee startup.txt
-    eval $(grep "sudo env" startup.txt)
+    echo "              🔄 Starting Node-RED with PM2..."
+    echo $SUDO_PASS | sudo -S pm2 start $(which node-red) -- -v
+    echo $SUDO_PASS | sudo -S pm2 save
+    echo $SUDO_PASS | sudo -S pm2 startup systemd | tee startup.txt
+    echo $SUDO_PASS | sudo -S eval $(grep "sudo env" startup.txt)
     _step_result_success "✅ Node-RED configured to start automatically!"
 fi
 
