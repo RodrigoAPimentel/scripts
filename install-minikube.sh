@@ -20,6 +20,7 @@ MINIKUBE_ADDONS=ingress,ingress-dns,dashboard
 _script_start "INSTALL MINIKUBE"
 __verify_root_pass $SUDO_PASS
 __verify_root
+__detect_package_manager
 
 _step 'Verify Docker installed'
 IS_DOCKER=$(which docker)
