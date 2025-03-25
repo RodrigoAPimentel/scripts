@@ -19,9 +19,9 @@ __detect_system
 
 __detect_package_manager
 
-__update_system
+__update_system $SUDO_PASS
 
-__install_basic_packages
+__install_basic_packages $SUDO_PASS
 
 # _step "🔄 Atualizando pacotes no $OS $VERSION ..."
 # $package_manager update -y && $package_manager upgrade -y

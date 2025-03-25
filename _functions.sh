@@ -66,12 +66,12 @@ __detect_package_manager() {
 # Atualiza o sistema
 __update_system() {
     _step "🔄 Updating packages list on $OS $VERSION ..."
-    $package_manager update -y
+    echo $1 | sudo -S $package_manager update -y
     _step "🔄 Upgrade packages on $OS $VERSION ..."
-    $package_manager upgrade -y
+    echo $1 | sudo -S $package_manager upgrade -y
 }
 
 __install_basic_packages() {
     _step "📦 Installing basic packages ..."
-    $package_manager install -y $BASIC_PACKAGES
+    echo $1 | sudo -S $package_manager install -y $BASIC_PACKAGES
 }
