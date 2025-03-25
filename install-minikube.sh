@@ -17,18 +17,9 @@ KUBERNETES_DASHBOARD_PORT=88
 MINIKUBE_ADDONS=ingress,ingress-dns,dashboard
 
 _script_start "INSTALL MINIKUBE"
-__verify_root_pass $SUDO_PASS
 __verify_root
+__verify_root_pass $SUDO_PASS
 __detect_package_manager
-
-# _step 'Verify Docker installed'
-# IS_DOCKER=$(which docker)
-# if [ -z "${IS_DOCKER}" ]; then
-#     _step_result_failed "❌ Docker NOT installed. Docker is a basic requirement for minikube!!"
-#     exit 1
-# else
-#     _step_result_success "✅ INSTALLED."
-# fi
 __verify_packages_installed docker
 
 __install_prerequisite_packages $SUDO_PASS "tree yq"
