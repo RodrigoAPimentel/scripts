@@ -32,7 +32,9 @@ __install_basic_packages $SUDO_PASS "curl gcc g++ make"
 # NPM_VERSION=$(npm -v)
 # _step_result_success "✅ npm version: $NPM_VERSION"
 
-./applications/nodejs.sh $SUDO_PASS
+# # Executa o script nodejs.sh como usuário não-root
+# _step "🔍 Executing Node.js installation script as non-root user ..."
+su -c "./applications/nodejs.sh $SUDO_PASS" $SUDO_USER
 
 # Check if PM2 is already installed
 _step "🔍 Verifying PM2 Installation ..."
