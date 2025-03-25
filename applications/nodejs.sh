@@ -21,9 +21,7 @@ fi
 
 echo -e "\n"
 
-NVM_VERSION=$(nvm --version)
 _step_result_success "✅ Node.js installed! Version: $(node --version)"
-_step_result_success "✅ NVM installed! Version: $NVM_VERSION"
 _step_result_success "✅ NPM installed! Version: $(npm --version)"
 
 echo -e "\n"
