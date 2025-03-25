@@ -21,6 +21,7 @@ __detect_package_manager
 
 echo "===================PM [$PM]"
 echo "===================PKG_MANAGER [$PKG_MANAGER]"
+echo "===================package_manager [$package_manager]"
 
 
 
