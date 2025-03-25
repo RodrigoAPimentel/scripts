@@ -19,60 +19,61 @@ __detect_package_manager
 __update_system $SUDO_PASS
 __install_basic_packages $SUDO_PASS "curl gcc g++ make"
 
-# Verifica se o Node.js já está instalado
+# Check if Node.js is already installed
+_step "🔍 Verifying Node.js Installation ..."
 if command -v node &> /dev/null; then
-    _step_result_success "✅ Node.js já está instalado! Versão: $(node -v)"
+    _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
 else
-    _step "⚠️ Node.js não encontrado. Instalando via NVM..."
+    _step "⚠️ Node.js not found. Installing via NVM..."
 
-    # Baixa e instala o NVM
+    # Download and install NVM
     curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
 
-    # Carrega o NVM no ambiente atual
+    # Load NVM into the current environment
     export NVM_DIR="$HOME/.nvm"
     source "$NVM_DIR/nvm.sh"
 
-    # Instala a versão mais recente do Node.js LTS
+    # Install the latest Node.js LTS version
     nvm install --lts
     nvm use --lts
 
-    _step_result_success "✅ Node.js instalado com NVM! Versão: $(node -v)"
+    _step_result_success "✅ Node.js installed with NVM! Version: $(node -v)"
 fi
 
-_step "🔍 Verificando versão do npm..."
+_step "🔍 Verifying npm version..."
 npm -v
 
-# # Verifica se o PM2 já está instalado
+# # Check if PM2 is already installed
 # if command -v pm2 &> /dev/null; then
-#     _step_result_success "✅ PM2 já está instalado! Versão: $(pm2 -v)"
+#     _step_result_success "✅ PM2 is already installed! Version: $(pm2 -v)"
 # else
-#     _step "⚠️ PM2 não encontrado. Instalando..."
+#     _step "⚠️ PM2 not found. Installing..."
 #     npm install -g pm2
-#     _step_result_success "✅ PM2 instalado! Versão: $(pm2 -v)"
+#     _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
 # fi
 
-# # Verifica se o Node-RED já está instalado
+# # Check if Node-RED is already installed
 # if command -v node-red &> /dev/null; then
-#     _step_result_success "✅ Node-RED já está instalado!"
+#     _step_result_success "✅ Node-RED is already installed!"
 # else
-#     _step "⚠️ Node-RED não encontrado. Instalando..."
+#     _step "⚠️ Node-RED not found. Installing..."
 #     npm install -g --unsafe-perm node-red
-#     _step_result_success "✅ Node-RED instalado!"
+#     _step_result_success "✅ Node-RED installed!"
 # fi
 
-# # Verifica se o Node-RED já está rodando no PM2
+# # Check if Node-RED is already running on PM2
 # if pm2 list | grep -q "node-red"; then
-#     _step_result_success "✅ Node-RED já está rodando no PM2!"
+#     _step_result_success "✅ Node-RED is already running on PM2!"
 # else
-#     _step "🔄 Iniciando Node-RED com PM2..."
+#     _step "🔄 Starting Node-RED with PM2..."
 #     pm2 start $(which node-red) -- -v
 #     pm2 save
 #     pm2 startup systemd | tee startup.txt
 #     eval $(grep "sudo env" startup.txt)
-#     _step_result_success "✅ Node-RED configurado para iniciar automaticamente!"
+#     _step_result_success "✅ Node-RED configured to start automatically!"
 # fi
 
-# _step_result_success "🎉 Instalação concluída!"
-# _step_result_suggestion "🌐 Acesse o Node-RED em: http://$IP:1880"
+# _step_result_success "🎉 Installation completed!"
+# _step_result_suggestion "🌐 Access Node-RED at: http://$IP:1880"
 
 # _finish_information
