@@ -19,7 +19,8 @@ __detect_system
 
 __detect_package_manager
 
-package_manager update -y && package_manager upgrade -y
+_step "🔄 Atualizando pacotes no $OS $VERSION ..."
+$package_manager update -y && $package_manager upgrade -y
 
 # # Atualiza pacotes conforme a distribuição
 # case "$OS" in
