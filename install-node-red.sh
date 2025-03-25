@@ -17,7 +17,7 @@ __install_basic_packages $SUDO_PASS "curl gcc g++ make"
 
 # Check if Node.js is already installed
 _step "🔍 Verifying Node.js Installation ..."
-if [ -x "$(command -v node)" ]; then
+if command -v node &> /dev/null; then
     _step_result_success "✅ Node.js is already installed! Version: $(node -v)"
 else
     echo "                 ⚠️ Node.js not found. Installing via NVM..."
@@ -61,8 +61,8 @@ fi
 # Check if Node-RED is already running on PM2
 _step "🔍 Verifying Node-RED on PM2..."
 if pm2 list | grep -q "node-red"; then
-#     _step_result_success "✅ Node-RED is already running on PM2!"
-# else
+    _step_result_success "✅ Node-RED is already running on PM2!"
+else
     _step "🔄 Starting Node-RED with PM2 ..."
     pm2 start node-red -- -v
     _step "🔄 Save Node-RED with PM2 ..."
@@ -76,7 +76,7 @@ if pm2 list | grep -q "node-red"; then
     _step_result_success "✅ Node-RED configured to start automatically!"
 fi
 
-echo -e "\n\n\n"
+echo -e "\n\n"
 
 _step_result_success "🎉 Installation completed!"
 _step_result_suggestion "🌐 Access Node-RED at: http://$IP:1880"
