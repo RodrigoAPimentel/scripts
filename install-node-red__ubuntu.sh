@@ -11,18 +11,9 @@ IP=$(hostname -I |  awk '{print $1}')
 
 _script_start "INSTALL NODE-RED"
 
-_verify_root_pass $SUDO_PASS
+__verify_root_pass $SUDO_PASS
 
-# _step '[--] Check if the sudo password was entered'
-# if [ -z "${SUDO_PASS}" ]; then
-#     _step_result_failed "sudo password not entered!!"
-#     _step_result_suggestion "Sample: install-minikube__ubuntu.sh <sudo pass>"
-#     exit 1
-# else
-#     _step_result_success "==> sudo password entered."
-# fi
-
-
+__verify_root
 
 # # Verifica se o script está sendo executado como root
 # if [[ $EUID -ne 0 ]]; then
