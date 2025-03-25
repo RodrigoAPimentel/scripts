@@ -41,7 +41,8 @@ else
 fi
 
 _step "🔍 Verifying npm version..."
-npm -v
+NPM_VERSION=$(npm -v)
+_step_result_success "✅ npm version: $NPM_VERSION"
 
 # # Check if PM2 is already installed
 # if command -v pm2 &> /dev/null; then
