@@ -14,7 +14,6 @@ IP=$(hostname -I |  awk '{print $1}')
 _script_start "INSTALL NODE-RED"
 __verify_root_pass $SUDO_PASS
 __verify_root
-__detect_system
 __detect_package_manager
 __update_system $SUDO_PASS
 __install_basic_packages $SUDO_PASS

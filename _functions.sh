@@ -48,6 +48,8 @@ __detect_system() {
 
 # Detecta o gerenciador de pacotes
 __detect_package_manager() {
+    __detect_system
+    
     _step "🔍 Detecting the package manager ..."
     if command -v apt &> /dev/null; then
         local PKG_MANAGER=apt
