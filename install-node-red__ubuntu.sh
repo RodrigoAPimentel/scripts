@@ -45,7 +45,7 @@ _step "🔍 Verifying PM2 Installation ..."
 if command -v pm2 &> /dev/null; then
     _step_result_success "✅ PM2 is already installed! Version: $(pm2 -v)"
 else
-    _step "⚠️ PM2 not found. Installing..."
+    echo "          ⚠️ PM2 not found. Installing..."
     npm install -g pm2
     _step_result_success "✅ PM2 installed! Version: $(pm2 -v)"
 fi
@@ -55,7 +55,7 @@ _step "🔍 Verifying Node-RED Installation ..."
 if command -v node-red &> /dev/null; then
     _step_result_success "✅ Node-RED is already installed!"
 else
-    _step "⚠️ Node-RED not found. Installing..."
+    echo "          ⚠️ Node-RED not found. Installing..."
     npm install -g --unsafe-perm node-red
     _step_result_success "✅ Node-RED installed!"
 fi
@@ -65,7 +65,7 @@ _step "🔍 Verifying Node-RED on PM2..."
 if pm2 list | grep -q "node-red"; then
     _step_result_success "✅ Node-RED is already running on PM2!"
 else
-    _step "🔄 Starting Node-RED with PM2..."
+    echo "          🔄 Starting Node-RED with PM2..."
     pm2 start $(which node-red) -- -v
     pm2 save
     pm2 startup systemd | tee startup.txt
