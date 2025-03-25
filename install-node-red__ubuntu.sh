@@ -19,7 +19,7 @@ _script_start "INSTALL NODE-RED"
 
 # __detect_system
 
-# __detect_package_manager
+__detect_package_manager
 
 # __update_system $SUDO_PASS
 

@@ -73,5 +73,6 @@ __update_system() {
 
 __install_basic_packages() {
     _step "📦 Installing basic packages ..."
-    echo $1 | sudo -S $package_manager install -y curl gcc g++ make
+    local packages=${2:-$BASIC_PACKAGES}
+    echo $1 | sudo -S $package_manager install -y $packages
 }
