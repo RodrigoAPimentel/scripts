@@ -63,7 +63,7 @@ if command -v node-red &> /dev/null; then
     _step_result_success "✅ Node-RED is already installed!"
 else
     echo "                  ⚠️ Node-RED not found. Installing..."
-    echo $SUDO_PASS | sudo -S npm install -g --unsafe-perm node-red
+    npm install -g --unsafe-perm node-red
     _step_result_success "✅ Node-RED installed!"
 fi
 
@@ -73,10 +73,10 @@ if pm2 list | grep -q "node-red"; then
     _step_result_success "✅ Node-RED is already running on PM2!"
 else
     echo "                  🔄 Starting Node-RED with PM2..."
-    echo $SUDO_PASS | sudo -S pm2 start $(which node-red) -- -v
-    echo $SUDO_PASS | sudo -S pm2 save
-    echo $SUDO_PASS | sudo -S pm2 startup systemd | tee startup.txt
-    echo $SUDO_PASS | sudo -S eval $(grep "sudo env" startup.txt)
+    pm2 start $(which node-red) -- -v
+    pm2 save
+    pm2 startup systemd | tee startup.txt
+    eval $(grep "sudo env" startup.txt)
     _step_result_success "✅ Node-RED configured to start automatically!"
 fi
 
