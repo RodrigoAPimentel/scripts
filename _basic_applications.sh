@@ -1,3 +1,3 @@
 #!/bin/bash
 
-BASIC_PACKAGES="curl gcc g++ make"
+BASIC_PACKAGES="curl"
