@@ -41,9 +41,9 @@ __detect_system() {
 __detect_package_manager() {
     _step "🔄 Detecting the package manager ..."
     if command -v apt &> /dev/null; then
-        PKG_MANAGER=apt
+        local PKG_MANAGER=apt
     elif command -v dnf &> /dev/null; then
-        PKG_MANAGER=dnf
+        local PKG_MANAGER=dnf
     else
         _step_result_failed "❌ Package manager not found."
         exit 1
