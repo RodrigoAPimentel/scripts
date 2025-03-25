@@ -5,7 +5,6 @@
 
 SUDO_PASS=$1
 IP=$(hostname -I |  awk '{print $1}')
-
 OS_USER=$(echo ${USER})
 OS_USER_GROUP=docker
 # MINIKUBE - PATHS
@@ -22,14 +21,15 @@ __verify_root_pass $SUDO_PASS
 __verify_root
 __detect_package_manager
 
-_step 'Verify Docker installed'
-IS_DOCKER=$(which docker)
-if [ -z "${IS_DOCKER}" ]; then
-    _step_result_failed "❌ Docker NOT installed. Docker is a basic requirement for minikube!!"
-    exit 1
-else
-    _step_result_success "✅ INSTALLED."
-fi
+# _step 'Verify Docker installed'
+# IS_DOCKER=$(which docker)
+# if [ -z "${IS_DOCKER}" ]; then
+#     _step_result_failed "❌ Docker NOT installed. Docker is a basic requirement for minikube!!"
+#     exit 1
+# else
+#     _step_result_success "✅ INSTALLED."
+# fi
+__verify_packages_installed docker
 
 __install_prerequisite_packages $SUDO_PASS "tree yq"
 _step 'Installing packages [iptables-persistent apache2-utils] ...'

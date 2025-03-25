@@ -96,3 +96,14 @@ __install_prerequisite_packages() {
         _step_result_suggestion "⚠️ Package verification is not supported on CentOS."
     fi
 }
+
+__verify_packages_installed() {
+    _step "🔍 Verifying $1 Installation ..."
+    if command -v $1 &> /dev/null; then
+        _step_result_success "✅ $1 is already installed!"
+    else
+        _step_result_failed "❌ $1 not installed."
+        _step "Finishing the script ..."
+        exit 1
+    fi
+}
