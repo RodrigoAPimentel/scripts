@@ -4,7 +4,7 @@ SUDO_PASS=$1
 
 IP=$(hostname -I |  awk '{print $1}')
 
-BASIC_PACKAGES="curl gcc g++ make"
+
 
 # LOADING LOG FUNCTIONS FILE
 . ./_logs.sh
