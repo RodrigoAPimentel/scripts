@@ -73,8 +73,6 @@ __update_system() {
 
 __install_basic_packages() {
     _step "📦 Installing basic packages ..."
-
-    echo "============ [$BASIC_PACKAGES]"
-    
-    echo $1 | sudo -S $package_manager install -y $BASIC_PACKAGES
+    # echo $1 | sudo -S $package_manager install -y $BASIC_PACKAGES
+    $package_manager install -y $BASIC_PACKAGES
 }
