@@ -32,7 +32,7 @@ else
 fi
 
 __install_prerequisite_packages $SUDO_PASS "tree yq"
-_step 'Install iptables-persistent ...'
+_step 'Install [iptables-persistent apache2-utils] ...'
 echo $SUDO_PASS | sudo -S DEBIAN_FRONTEND=noninteractive apt install -yqqq iptables-persistent apache2-utils
 
 _step 'Download and Install Minikube'
