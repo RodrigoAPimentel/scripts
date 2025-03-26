@@ -27,7 +27,6 @@
     disk: "{{ _disk }}"
     memory: "{{ _memory }}"
     swap: "{{ _memory }}"
-    # storage: "local-lvm"
     storage: "externalbay"
     netif: '{"net0":"name=eth0,gw={{ proxmox_next_container_gw }},ip={{ proxmox_next_container_ip }}/24,bridge=vmbr0"}'
     unprivileged: "{{ unprivileged }}"
