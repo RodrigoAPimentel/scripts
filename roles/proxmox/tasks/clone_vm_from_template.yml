@@ -9,6 +9,7 @@
     vmid: "{{ _vmid_template }}"
     newid: "{{ proxmox_next_vm_id }}"
     storage: local-lvm
+    # storage: externalbay
     format: raw
     timeout: 300
   tags: provission,test
@@ -70,10 +71,10 @@
   community.general.hostname:
     name: "{{ _hostname }}"
 
-- name: Set new IP adress
-  delegate_to: "{{ proxmox_next_vm_id }}"
-  ip: "{{ _network_ip }}"
-  interface: ens18
+# - name: Set new IP adress
+#   delegate_to: "{{ proxmox_next_vm_id }}"
+#   ip: "{{ _network_ip }}"
+#   interface: ens18
 
 - name: Restart machine
   delegate_to: "{{ proxmox_next_vm_id }}"
