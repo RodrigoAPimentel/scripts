@@ -9,8 +9,9 @@ nesting: 1
 keyctl: 1
 
 vm_default_disk: scsi0
-vm_default_user: root
+vm_default_user: user
 vm_default_password: toor
+vm_default_os: ubuntu-24.04
 
 packages_dependencies_create_container:
   - python3
