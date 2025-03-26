@@ -8,8 +8,8 @@
     clone: "{{ _vmid_template }}"
     vmid: "{{ _vmid_template }}"
     newid: "{{ proxmox_next_vm_id }}"
-    storage: local-lvm
-    # storage: externalbay
+    # storage: local-lvm
+    storage: externalbay
     format: raw
     timeout: 300
   tags: provission,test
