@@ -212,5 +212,5 @@ _section_end
 
 _finish_information
 
-# _step "🔄 Rebooting the system ..."
-# echo $SUDO_PASS | sudo -S reboot
+_step "🔄 Rebooting the system ..."
+echo $SUDO_PASS | sudo -S reboot
