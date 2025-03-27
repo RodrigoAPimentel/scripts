@@ -31,15 +31,13 @@
     #     name: proxmox
     #     tasks_from: "clone_vm_from_template.yml"
 
-    - include_role:
-        name: awx
-        tasks_from: "create_host.yml"
-        apply:
-          delegate_to: ct-awx
-      vars:
-        external_call_host: "ct-awx"
-        # _vm_default_user: "{{ vm_default_user }}"
-        # _vm_default_password: "{{ vm_default_password }}"
+    # - include_role:
+    #     name: awx
+    #     tasks_from: "create_host.yml"
+    #     apply:
+    #       delegate_to: ct-awx
+    #   vars:
+    #     external_call_host: "ct-awx"
 
     # - name: Waiting 15 Seconds ...
     #   ansible.builtin.pause:
