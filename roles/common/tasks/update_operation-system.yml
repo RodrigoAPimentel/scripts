@@ -1,28 +1,13 @@
 ---
-
-- name: Ensure sudo password is configured
-  become: yes
-  become_method: sudo
-  command: echo "Sudo password is configured"
-  ignore_errors: true
-  delegate_to: "{{ delegate_to_host }}"
-
-
-
-  
 - name: Add EPEL repository
-  become: yes
   package:
     name: epel-release
     state: latest
-  delegate_to: "{{ delegate_to_host }}"
 
 - name: Update the system packages
-  become: yes
   package:
     name: "*"
     state: latest
-  delegate_to: "{{ delegate_to_host }}"
 
 # - name: Upgrade the system
 #   package:
@@ -33,13 +18,10 @@
 #     autoclean: yes
 
 - name: Remove packages not needed anymore
-  become: yes
   package:
     autoremove: yes
-  delegate_to: "{{ delegate_to_host }}"
 
 - name: Install common packages
-  become: yes
   package:
     name: "{{ item }}"
     state: latest
@@ -47,32 +29,25 @@
   with_items: 
     - "{{ install_os_packages }}"
   register: installPackageResult
-  delegate_to: "{{ delegate_to_host }}"
 
 - name: Print Install common packages
   debug:
     var: installPackageResult
 
 - name: set system timezone
-  become: yes
   register: modify_timezone
   timezone:
       name: America/Recife
-  delegate_to: "{{ delegate_to_host }}"
 
 - name: Get Time Zone
-  become: yes
   register: timezone
   ignore_errors: true
   command: timedatectl
-  delegate_to: "{{ delegate_to_host }}"
 
 - name: Show Time Zone
   debug:
     var: timezone.stdout
   notify: Reboot System
-
-
 
 - name: Wait for "{{ _hostname }}" to become reachable
   wait_for:
@@ -82,11 +57,9 @@
     timeout: 120
 
 - name: Start qemu-guest-agent Service
-  become: yes
   service:
     name: qemu-guest-agent
     state: started
     enabled: yes
   ignore_errors: true
   notify: Reboot System
-  delegate_to: "{{ delegate_to_host }}"
