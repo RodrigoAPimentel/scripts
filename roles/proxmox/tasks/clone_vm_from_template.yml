@@ -19,14 +19,9 @@
     clone: "{{ _vmid_template }}"
     vmid: "{{ _vmid_template }}"
     newid: "{{ proxmox_next_vm_id }}"
-    # format: raw
-    # timeout: 300
+    timeout: 500
     format: unspecified
     full: false
-
-
-
-
   tags: provission,test
 
 - name: Configuring IP ...
@@ -45,7 +40,6 @@
 - name: Configuring CPU Cores ...
   shell: A=$(qm list |grep "{{ _hostname2 }}" | awk '{print $1}'); qm set $A --cores '{{ _cores }}'
   tags: provission
-
 
 - name: Configuring Description ...
   shell: A=$(qm list |grep "{{ _hostname2 }}" | awk '{print $1}'); qm set $A --description '<b>{{ _hostname2 }}:</b><br>- <b>ID:</b> _{{ proxmox_next_vm_id }}_<br>- <b>hostname:</b> _{{ _hostname2 }}_<br>- <b>IP:</b> _{{ proxmox_next_vm_ip }}_<br>- <b>OS:</b> _{{ vm_default_os }}_<br>- <b>User:</b> _{{ vm_default_user }}_<br>- <b>Password:</b> _{{ vm_default_password }}_'
@@ -81,7 +75,6 @@
   ansible.builtin.pause:
     seconds: 60    
 
-
 - name: Update packages in "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
   become: true
   command: qm guest exec {{ _vmid }} --timeout 150 -- bash -c "sudo apt update"
@@ -104,8 +97,3 @@
     timeout: 400
     state: started
   tags: provission
-  
-
-# - name: Restart machine
-#   delegate_to: "{{ proxmox_next_vm_ip }}"
-#   reboot:
