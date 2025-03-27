@@ -6,7 +6,7 @@
 - name: Add EPEL repository
   become: yes
   become_method: sudo
-  gather_facts: true
+  gather_facts: yes
   become_user: "{{ _vm_default_user }}"
   vars:
     ansible_become_password: "toor"
