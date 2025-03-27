@@ -91,7 +91,7 @@
 
 - name: Instal OpenSSH in "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
   become: true
-  command: qm guest exec {{ _vmid }} -- bash -c "sudo /home/user/install_openssh-server {{ vm_default_password }}"
+  command: qm guest exec {{ _vmid }} --timeout 150 -- bash -c "sudo /home/user/install_openssh-server {{ vm_default_password }}"
   register: install_openssh
 
 # - name: Restart machine

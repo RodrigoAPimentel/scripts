@@ -44,13 +44,3 @@
         tasks_from: "update_operation-system.yml"
         apply:
           delegate_to: "{{ _network_ip }}"
-
-    # - name: Waiting 15 Seconds ...
-    #   ansible.builtin.pause:
-    #     seconds: 15    
-    
-    # - include_role:
-    #     name: common
-    #     tasks_from: "install_oh-my-zsh.yml"
-    #     apply:
-    #       delegate_to: "{{ _network_ip }}"
