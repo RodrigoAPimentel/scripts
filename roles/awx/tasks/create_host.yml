@@ -1,3 +1,7 @@
+- debug: 
+    msg: 
+      - "vm_default_user: {{ vm_default_user }}"
+      - "vm_default_password: {{ vm_default_password }}"
 - set_fact:
     _controller_host: "http://{{ hostvars[external_call_host].ansible_host }}"
   when: external_call_host is defined

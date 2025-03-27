@@ -34,6 +34,8 @@
           delegate_to: ct-awx
       vars:
         external_call_host: "ct-awx"
+        vm_default_user: "{{ vm_default_user }}"
+        vm_default_password: "{{ vm_default_password }}"
 
     # - name: Waiting 15 Seconds ...
     #   ansible.builtin.pause:
