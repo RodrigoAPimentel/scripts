@@ -3,7 +3,7 @@
     randome_number: "{{ 100 | random }}"
 - name: '222222222222'
   set_fact:
-    _hostname2: "{{ _hostname2 }}--{{ randome_number }}"
+    _hostname2: "{{ _hostname }}--{{ randome_number }}"
 - debug: 
     msg: 
       - "ZZZZZZ: {{ randome_number }}"
