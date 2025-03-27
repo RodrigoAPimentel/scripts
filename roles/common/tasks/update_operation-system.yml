@@ -1,4 +1,14 @@
 ---
+
+- name: Ensure sudo password is configured
+  become: yes
+  become_method: sudo
+  command: echo "Sudo password is configured"
+  ignore_errors: true
+
+
+
+  
 - name: Add EPEL repository
   package:
     name: epel-release
@@ -48,6 +58,8 @@
   debug:
     var: timezone.stdout
   notify: Reboot System
+
+
 
 - name: Wait for "{{ _hostname }}" to become reachable
   wait_for:

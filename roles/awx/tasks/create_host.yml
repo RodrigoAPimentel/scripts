@@ -15,5 +15,13 @@
     controller_host: "{{ _controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     validate_certs: false
-    variables:
-      ansible_host: "{{ _network_ip }}"
+    variables: >
+      {
+        "ansible_host": "{{ _network_ip }}",
+        {% if vm_default_user is defined and vm_default_user | length > 0 %}
+        "ansible_user": "{{ vm_default_user }}",
+        {% endif %}
+        {% if vm_default_password is defined and vm_default_password | length > 0 %}
+        "ansible_password": "{{ vm_default_password }}"
+        {% endif %}
+      }
