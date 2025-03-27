@@ -75,7 +75,7 @@
     api_password: "{{ api_password }}"
     api_host: "{{ api_host }}"
     # name: "{{ _hostname }}"
-    name: "{{ _hostname }}_{{ randome_number }}" ##########################################################
+    name: "{{ _hostname }}--{{ randome_number }}" ##########################################################
     node: "{{ node }}"
     clone: "{{ _vmid_template }}"
     vmid: "{{ _vmid_template }}"
