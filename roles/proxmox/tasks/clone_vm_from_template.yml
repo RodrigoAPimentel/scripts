@@ -65,6 +65,9 @@
 - name: set fact here
   set_fact:
     randome_number: "{{ 100 | random }}"
+- debug: 
+    msg: 
+      - "ZZZZZZ: {{ randome_number }}
 
 - name: Cloning virtual machine from Template "{{ _vmid_template }}" with name "{{proxmox_next_vm_id}}-{{ _hostname }}"
   community.general.proxmox_kvm:
