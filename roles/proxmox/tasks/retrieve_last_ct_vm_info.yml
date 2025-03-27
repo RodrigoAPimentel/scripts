@@ -50,7 +50,6 @@
 
 - set_fact:
     proxmox_last_vm_ip: "{{ result_last_vm_ip.stdout }}"
-    # proxmox_last_vm_ip: "192.168.99.11" ###########################################################################################################
     proxmox_last_container_ip: "{{ result_last_container_ip.stdout }}"
 
 - set_fact: 
