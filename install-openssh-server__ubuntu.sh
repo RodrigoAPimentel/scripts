@@ -21,13 +21,16 @@ else
     echo "==> sudo password entered."
 fi
 
-___console_logs '[01/03] Install openssh-server'
+___console_logs '[01/04] Update packages'
+echo $SUDO_PASS | sudo -S apt update
+
+___console_logs '[02/04] Install openssh-server'
 echo $SUDO_PASS | sudo -S apt install -y openssh-server
 
-___console_logs '[02/03] Install openssh-server'
+___console_logs '[03/04] Install openssh-server'
 rm -v ~/install-openssh-server__ubuntu.sh
 
-___console_logs '[03/03] Restarting the machine'
+___console_logs '[04/04] Restarting the machine'
 echo $SUDO_PASS | sudo -S reboot --force
 
 echo " " 
