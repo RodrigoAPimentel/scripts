@@ -1,11 +1,3 @@
-- debug: 
-    msg: 
-      - "_vm_default_user: {{ _vm_default_user }}"
-      - "_vm_default_password: {{ _vm_default_password }}"
-
-
-
-
 - set_fact:
     _controller_host: "http://{{ hostvars[external_call_host].ansible_host }}"
   when: external_call_host is defined
@@ -15,8 +7,7 @@
 
 - name: Create host in inventory {{ inventory }}
   awx.awx.host:
-    # name: "{{ _hostname }}"
-    name: "{{ _hostname }}--tt-rr" ####################################################################
+    name: "{{ _hostname }}"
     description: "{{ _description }}"
     inventory: "{{ inventory }}"
     state: present
@@ -24,10 +15,6 @@
     controller_host: "{{ _controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     validate_certs: false
-    # variables:
-    #   ansible_host: "{{ _network_ip }}"
-    #   ansible_user: "{{ _vm_default_user }}" 
-    #   ansible_password: "{{ _vm_default_password }}"
     variables: >
       {
         "ansible_host": "{{ _network_ip }}",

@@ -1,67 +1,32 @@
 ---
-# - name: Gather facts
-#   become: true
-#   become_method: sudo
-#   # become_flags: "-S"
-#   # vars:
-#   #   ansible_become_password: "toor"
-#   ansible.builtin.setup:
-
-
-
 - name: Add EPEL repository
-  become: true
-  become_method: sudo
-  # become_user: "{{ _vm_default_user }}"
-  # vars:
-  #   ansible_become_password: "toor"
+  # become: true
+  # become_method: sudo
+  # # become_user: "{{ _vm_default_user }}"
+  # # vars:
+  # #   ansible_become_password: "toor"
   package:
     name: epel-release
     state: latest
 
 - name: Update the system packages
-  become: true
-  become_method: sudo
-  become_user: "{{ _vm_default_user }}"
-  vars:
-    ansible_become_password: "toor"
   package:
     name: "*"
     state: latest
 
 # - name: Upgrade the system
-#   become: true
-#   become_method: sudo
-#   become_user: "{{ _vm_default_user }}"
-#   vars:
-#     ansible_become_password: "toor"
 #   package:
 #     upgrade: yes
 
 # - name: Clean the local repository
-#   become: true
-#   become_method: sudo
-#   become_user: "{{ _vm_default_user }}"
-#   vars:
-#     ansible_become_password: "toor"
 #   package:
 #     autoclean: yes
 
 - name: Remove packages not needed anymore
-  become: true
-  become_method: sudo
-  become_user: "{{ _vm_default_user }}"
-  vars:
-    ansible_become_password: "toor"
   package:
     autoremove: yes
 
 - name: Install common packages
-  become: true
-  become_method: sudo
-  become_user: "{{ _vm_default_user }}"
-  vars:
-    ansible_become_password: "toor"
   package:
     name: "{{ item }}"
     state: latest
@@ -75,21 +40,11 @@
     var: installPackageResult
 
 - name: set system timezone
-  become: true
-  become_method: sudo
-  become_user: "{{ _vm_default_user }}"
-  vars:
-    ansible_become_password: "toor"
   register: modify_timezone
   timezone:
       name: America/Recife
 
 - name: Get Time Zone
-  become: true
-  become_method: sudo
-  become_user: "{{ _vm_default_user }}"
-  vars:
-    ansible_become_password: "toor"
   register: timezone
   ignore_errors: true
   command: timedatectl
@@ -100,11 +55,6 @@
   notify: Reboot System
 
 - name: Wait for "{{ _hostname }}" to become reachable
-  become: true
-  become_method: sudo
-  become_user: "{{ _vm_default_user }}"
-  vars:
-    ansible_become_password: "toor"
   wait_for:
     host: "{{ _hostname }}"
     port: 22
@@ -112,11 +62,6 @@
     timeout: 120
 
 - name: Start qemu-guest-agent Service
-  become: true
-  become_method: sudo
-  become_user: "{{ _vm_default_user }}"
-  vars:
-    ansible_become_password: "toor"
   service:
     name: qemu-guest-agent
     state: started
