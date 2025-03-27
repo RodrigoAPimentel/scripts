@@ -76,22 +76,28 @@
     format: raw
     timeout: 300
     state: present ##########################################################################
-  tags: provission,test
 
-###############################################
-- name: Configuring Cloud-Init with Static IP
-  community.general.proxmox_kvm:
-    api_host: "{{ api_host }}"
-    api_user: "{{ api_user }}"
-    api_password: "{{ api_password }}"
-    node: "{{ node }}"
-    vmid: "{{ proxmox_next_vm_id }}"
     ciuser: "{{ vm_default_user }}"
     cipassword: "{{ vm_default_password }}"
     ipconfig:
       ipconfig0: "ip={{ proxmox_next_vm_ip }},gw={{ proxmox_next_container_gw }}"
-    state: present
-###############################################
+
+  tags: provission,test
+
+# ###############################################
+# - name: Configuring Cloud-Init with Static IP
+#   community.general.proxmox_kvm:
+#     api_host: "{{ api_host }}"
+#     api_user: "{{ api_user }}"
+#     api_password: "{{ api_password }}"
+#     node: "{{ node }}"
+#     vmid: "{{ proxmox_next_vm_id }}"
+#     ciuser: "{{ vm_default_user }}"
+#     cipassword: "{{ vm_default_password }}"
+#     ipconfig:
+#       ipconfig0: "ip={{ proxmox_next_vm_ip }},gw={{ proxmox_next_container_gw }}"
+#     state: present
+# ###############################################
 
 # - name: Increasing disk ...
 #   shell: A=$(qm list | grep "{{ _hostname }}" | awk '{print $1}'); B=$(qm list | grep "{{ _hostname }}" | awk '{print $5}'); qm resize $A {{ vm_default_disk }} {{ _disk }}G
