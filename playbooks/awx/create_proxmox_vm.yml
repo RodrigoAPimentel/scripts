@@ -18,8 +18,9 @@
   #       name: proxmox
   #       tasks_from: "retrieve_last_ct_vm_info.yml"
 
-  #   - set_fact: 
-  #       _network_ip: "{{ proxmox_next_vm_ip }}"
+    - set_fact: 
+        # _network_ip: "{{ proxmox_next_vm_ip }}"
+        _network_ip: "192.168.99.99"
   #       _vmid: "{{ proxmox_next_vm_id }}"
         
   tasks:
