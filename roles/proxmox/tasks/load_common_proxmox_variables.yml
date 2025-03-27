@@ -4,6 +4,6 @@
     _vm_default_password: "{{ vm_default_password }}"
 
 - debug: 
-  msg: 
-    - "Virtual Machine default user: {{ _vm_default_user }}"
-    - "Virtual Machine default password: {{ _vm_default_password | regex_replace('.+', '******') }}"
+    msg: 
+      - "Virtual Machine default user: {{ _vm_default_user }}"
+      - "Virtual Machine default password: {{ _vm_default_password | regex_replace('.+', '******') }}"
