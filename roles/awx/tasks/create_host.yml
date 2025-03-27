@@ -24,17 +24,17 @@
     controller_host: "{{ _controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     validate_certs: false
-    variables:
-      ansible_host: "{{ _network_ip }}"
-      ansible_user: "{{ _vm_default_user }}" 
-      ansible_password: "{{ _vm_default_password }}"
-    # variables: >
-    #   {
-    #     "ansible_host": "{{ _network_ip }}",
-    #     {% if _vm_default_user is defined and _vm_default_user | length > 0 %}
-    #     "ansible_user": "{{ _vm_default_user }}",
-    #     {% endif %}
-    #     {% if _vm_default_password is defined and _vm_default_password | length > 0 %}
-    #     "ansible_password": "{{ _vm_default_password }}"
-    #     {% endif %}
-    #   }
+    # variables:
+    #   ansible_host: "{{ _network_ip }}"
+    #   ansible_user: "{{ _vm_default_user }}" 
+    #   ansible_password: "{{ _vm_default_password }}"
+    variables: >
+      {
+        "ansible_host": "{{ _network_ip }}",
+        {% if _vm_default_user is defined and _vm_default_user | length > 0 %}
+        "ansible_user": "{{ _vm_default_user }}",
+        {% endif %}
+        {% if _vm_default_password is defined and _vm_default_password | length > 0 %}
+        "ansible_password": "{{ _vm_default_password }}"
+        {% endif %}
+      }

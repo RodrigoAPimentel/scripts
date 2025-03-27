@@ -46,12 +46,14 @@
     #     seconds: 15
     
     - include_role:
-        name: common
-        tasks_from: "update_operation-system.yml"
-        apply:
-          # delegate_to: "{{ _network_ip }}"
-          # delegate_to: "192.168.99.17"
-          delegate_to: "test-2-awx"
-      # vars:
-      #   ansible_user: "user"
-      #   ansible_password: "toor"
+      name: common
+      tasks_from: "update_operation-system.yml"
+      apply:
+        # delegate_to: "{{ _network_ip }}"
+        # delegate_to: "192.168.99.17"
+        delegate_to: "test-2-awx"
+        become: true
+        become_method: sudo
+          # vars:
+          #   ansible_user: "user"
+          #   ansible_password: "toor"
