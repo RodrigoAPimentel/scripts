@@ -49,12 +49,7 @@
         name: common
         tasks_from: "update_operation-system.yml"        
         apply:
-          # delegate_to: "{{ _network_ip }}"
-          # delegate_to: "192.168.99.17"
-          delegate_to: "test-2-awx"
-          become: true
-          become_method: sudo
-          gather_facts: true
-      vars:
-        ansible_user: "user"
-        ansible_password: "toor"
+          delegate_to: "{{ _hostname }}"
+      # vars:
+      #   ansible_user: "user"
+      #   ansible_password: "toor"
