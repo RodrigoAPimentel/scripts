@@ -77,35 +77,19 @@
   tags: provission
   ignore_errors: true
 
-# - name: Waiting 30 Seconds ...
-#   ansible.builtin.pause:
-#     seconds: 30    
+- name: Waiting 30 Seconds ...
+  ansible.builtin.pause:
+    seconds: 30    
 
-# - name: Change the hostname
-#   become: true
-#   delegate_to: "{{ proxmox_next_vm_id }}"
-#   ansible.builtin.hostname:
-#     name: "{{ _hostname2 }}"
+- name: Update packages in "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
+  become: true
+  command: qm guest exec {{ _vmid }} -- bash -c "sudo apt update"
+  register: update_packages
 
-# - name: Set new IP adress
-#   delegate_to: "{{ proxmox_next_vm_id }}"
-#   ip: "{{ _network_ip }}"
-#   interface: ens18
-
-
-
-
-# # - name: Install SSHD
-# #   become: true
-# #   command: lxc-attach --name {{ _vmid }} -e -- dnf install -y openssh-server
-# #   register: install_sshd
-# # - debug:
-# #     msg: SSHD install status - {{ install_sshd.stdout }}
-# #   loop_control:
-# #     pause: 2
-
-
-
+- name: Instal OpenSSH in "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
+  become: true
+  command: qm guest exec {{ _vmid }} -- bash -c "sudo /home/user/install_openssh-server {{ vm_default_password }}"
+  register: install_openssh
 
 # - name: Restart machine
 #   delegate_to: "{{ proxmox_next_vm_ip }}"
