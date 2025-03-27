@@ -16,6 +16,10 @@
 
     - include_role:
         name: proxmox
+        tasks_from: "load_common_proxmox_variables.yml"
+    
+    - include_role:
+        name: proxmox
         tasks_from: "retrieve_last_ct_vm_info.yml"
 
     - set_fact: 
@@ -34,8 +38,8 @@
           delegate_to: ct-awx
       vars:
         external_call_host: "ct-awx"
-        _vm_default_user: "{{ vm_default_user }}"
-        _vm_default_password: "{{ vm_default_password }}"
+        # _vm_default_user: "{{ vm_default_user }}"
+        # _vm_default_password: "{{ vm_default_password }}"
 
     # - name: Waiting 15 Seconds ...
     #   ansible.builtin.pause:
