@@ -28,6 +28,11 @@
     #     name: proxmox
     #     tasks_from: "clone_vm_from_template.yml"
 
+    - debug: 
+      msg: 
+        - "ZZZZZZ: {{ vm_default_user }}"
+        - "YYYYYYYYY: {{ vm_default_password }}"
+
     - include_role:
         name: awx
         tasks_from: "create_host.yml"
