@@ -19,7 +19,6 @@
     clone: "{{ _vmid_template }}"
     vmid: "{{ _vmid_template }}"
     newid: "{{ proxmox_next_vm_id }}"
-    storage: externalbay
     # format: raw
     # timeout: 300
     format: unspecified
