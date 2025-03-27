@@ -2,7 +2,6 @@
 - name: Gather facts
   become: true
   become_method: sudo
-  become_user: "{{ _vm_default_user }}"
   vars:
     ansible_become_password: "toor"
   ansible.builtin.setup:
