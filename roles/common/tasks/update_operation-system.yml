@@ -1,11 +1,11 @@
 ---
-# - name: Gather facts
-#   become: true
-#   become_method: sudo
-#   become_flags: "-S"
-#   vars:
-#     ansible_become_password: "toor"
-#   ansible.builtin.setup:
+- name: Gather facts
+  become: true
+  become_method: sudo
+  # become_flags: "-S"
+  # vars:
+  #   ansible_become_password: "toor"
+  ansible.builtin.setup:
 
 
 
