@@ -1,6 +1,7 @@
 ---
 - name: Gather facts
   ansible.builtin.setup:
+  become: true  # Certifique-se de usar sudo se necessário
 
 - name: Add EPEL repository
   # become: true
