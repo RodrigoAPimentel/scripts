@@ -81,18 +81,30 @@
   ansible.builtin.pause:
     seconds: 60    
 
+
 - name: Update packages in "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
   become: true
-  command: qm guest exec {{ _vmid }} -- bash -c "sudo apt update"
+  command: qm guest exec {{ _vmid }} --timeout 150 -- bash -c "sudo apt update"
   register: update_packages
   retries: 3
   delay: 20
   until: update_packages.rc == 0
 
-- name: Instal OpenSSH in "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
+- name: Install OpenSSH in "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
   become: true
   command: qm guest exec {{ _vmid }} --timeout 150 -- bash -c "sudo /home/user/install_openssh-server {{ vm_default_password }}"
   register: install_openssh
+  failed_when: >
+    not ('QEMU guest agent is not running' in install_openssh.stderr or install_openssh.rc == 0)
+
+- name: Wait for SSH to become available on "{{proxmox_next_vm_id}}-{{ _hostname2 }}"
+  wait_for:
+    host: "{{ proxmox_next_vm_ip }}"
+    port: 22
+    timeout: 400
+    state: started
+  tags: provission
+  
 
 # - name: Restart machine
 #   delegate_to: "{{ proxmox_next_vm_ip }}"
