@@ -1,18 +1,18 @@
 ---
-- name: Gather facts
-  become: true
-  become_method: sudo
-  # become_flags: "-S"
-  # vars:
-  #   ansible_become_password: "toor"
-  ansible.builtin.setup:
+# - name: Gather facts
+#   become: true
+#   become_method: sudo
+#   # become_flags: "-S"
+#   # vars:
+#   #   ansible_become_password: "toor"
+#   ansible.builtin.setup:
 
 
 
 - name: Add EPEL repository
   become: true
   become_method: sudo
-  become_user: "{{ _vm_default_user }}"
+  # become_user: "{{ _vm_default_user }}"
   # vars:
   #   ansible_become_password: "toor"
   package:

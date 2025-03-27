@@ -48,6 +48,9 @@
     - include_role:
         name: common
         tasks_from: "update_operation-system.yml"
+        become: true
+        become_method: sudo
+        gather_facts: true
         apply:
           # delegate_to: "{{ _network_ip }}"
           # delegate_to: "192.168.99.17"
