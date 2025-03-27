@@ -2,8 +2,7 @@
 - name: Debug system facts
   debug:
     var: ansible_facts
-  apply:
-    delegate_to: "{{ _hostname }}"
+  
 
 # - name: Gather facts
 #   ansible.builtin.setup:
@@ -18,6 +17,8 @@
   package:
     name: epel-release
     state: latest
+  apply:
+    delegate_to: "{{ _hostname }}"
 
 - name: Update the system packages
   package:
