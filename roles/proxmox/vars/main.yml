@@ -8,8 +8,7 @@ onboot: false
 nesting: 1
 keyctl: 1
 
-# vm_default_disk: scsi0
-vm_default_disk: virtio0
+vm_default_disk: scsi0
 vm_default_user: user
 vm_default_password: toor
 vm_default_os: ubuntu-24.04
