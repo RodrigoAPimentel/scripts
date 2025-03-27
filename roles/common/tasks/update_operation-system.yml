@@ -1,12 +1,16 @@
 ---
-- name: Gather facts
-  ansible.builtin.setup:
-  become: true  # Certifique-se de usar sudo se necessário
+- name: Debug system facts
+  debug:
+    var: ansible_facts
+
+# - name: Gather facts
+#   ansible.builtin.setup:
+#   become: true  # Certifique-se de usar sudo se necessário
 
 - name: Add EPEL repository
-  # become: true
+  become: true
   # become_method: sudo
-  # # become_user: "{{ _vm_default_user }}"
+  become_user: "{{ _vm_default_user }}"
   # # vars:
   # #   ansible_become_password: "toor"
   package:
