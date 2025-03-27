@@ -1,8 +1,4 @@
 ---
-# - name: Gather facts
-#   ansible.builtin.setup:
-
-
 - name: Add EPEL repository
   become: yes
   become_method: sudo
