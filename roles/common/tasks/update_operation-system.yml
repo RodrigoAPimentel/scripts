@@ -1,8 +1,16 @@
 ---
-- name: Debug system facts
+# - name: Debug system facts
+#   debug:
+#     var: ansible_facts
+- name: Gather facts on delegated host
+  ansible.builtin.setup:
+  delegate_to: "{{ _hostname }}"  # substitua pelo nome do seu host delegado
+  register: delegated_facts
+
+- name: Debug system facts from delegated host
   debug:
-    var: ansible_facts
-  
+    var: delegated_facts
+
 
 # - name: Gather facts
 #   ansible.builtin.setup:
@@ -11,7 +19,8 @@
 - name: Add EPEL repository
   become: true
   # become_method: sudo
-  become_user: "{{ _vm_default_user }}"
+  # become_user: "{{ _vm_default_user }}"
+  become_user: "user"
   # # vars:
   # #   ansible_become_password: "toor"
   package:
