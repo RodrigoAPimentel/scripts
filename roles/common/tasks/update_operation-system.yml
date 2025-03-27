@@ -4,7 +4,7 @@
 
 
 - name: Add EPEL repository
-  become: true
+  become: yes
   become_method: sudo
   gather_facts: true
   become_user: "{{ _vm_default_user }}"
@@ -15,7 +15,7 @@
     state: latest
 
 - name: Update the system packages
-  become: true
+  become: yes
   become_method: sudo
   become_user: "{{ _vm_default_user }}"
   vars:
@@ -25,7 +25,7 @@
     state: latest
 
 # - name: Upgrade the system
-#   become: true
+#   become: yes
 #   become_method: sudo
 #   become_user: "{{ _vm_default_user }}"
 #   vars:
@@ -34,7 +34,7 @@
 #     upgrade: yes
 
 # - name: Clean the local repository
-#   become: true
+#   become: yes
 #   become_method: sudo
 #   become_user: "{{ _vm_default_user }}"
 #   vars:
@@ -43,7 +43,7 @@
 #     autoclean: yes
 
 - name: Remove packages not needed anymore
-  become: true
+  become: yes
   become_method: sudo
   become_user: "{{ _vm_default_user }}"
   vars:
@@ -52,7 +52,7 @@
     autoremove: yes
 
 - name: Install common packages
-  become: true
+  become: yes
   become_method: sudo
   become_user: "{{ _vm_default_user }}"
   vars:
@@ -70,7 +70,7 @@
     var: installPackageResult
 
 - name: set system timezone
-  become: true
+  become: yes
   become_method: sudo
   become_user: "{{ _vm_default_user }}"
   vars:
@@ -80,7 +80,7 @@
       name: America/Recife
 
 - name: Get Time Zone
-  become: true
+  become: yes
   become_method: sudo
   become_user: "{{ _vm_default_user }}"
   vars:
@@ -95,7 +95,7 @@
   notify: Reboot System
 
 - name: Wait for "{{ _hostname }}" to become reachable
-  become: true
+  become: yes
   become_method: sudo
   become_user: "{{ _vm_default_user }}"
   vars:
@@ -107,7 +107,7 @@
     timeout: 120
 
 - name: Start qemu-guest-agent Service
-  become: true
+  become: yes
   become_method: sudo
   become_user: "{{ _vm_default_user }}"
   vars:
