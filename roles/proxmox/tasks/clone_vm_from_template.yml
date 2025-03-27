@@ -1,12 +1,12 @@
-- name: Cloning virtual machine from Template "{{ _vmid_template }}" with name "{{ _hostname }}"
+- name: Cloning virtual machine from Template "{{ _vmid_template_name }}" with name "{{proxmox_next_vm_id}}-{{ _hostname }}"
   community.general.proxmox_kvm:
     api_host: "{{ api_host }}"
     api_user: "{{ api_user }}"
     api_password: "{{ api_password }}"
     node: "{{ node }}"
-    clone: "{{ _vmid_template }}"
+    clone: "{{ _vmid_template_name }}"
     name: "{{ _hostname }}"
-    vmid: "{{ _vmid_template }}"
+    vmid: "{{ proxmox_next_vm_id }}"
     storage: externalbay
     format: raw
     full: no
