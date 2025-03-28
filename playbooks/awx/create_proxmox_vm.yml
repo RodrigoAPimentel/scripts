@@ -11,6 +11,7 @@
     ansible_become: true
     ansible_become_user: "user"
     ansible_become_password: "toor"
+    ansible_remote_tmp: /tmp/ansible
 
   pre_tasks:
     - include_role:
