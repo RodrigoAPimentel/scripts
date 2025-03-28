@@ -1,30 +1,20 @@
 ---
-# - name: Gather facts
-#   ansible.builtin.setup:
+- name: Gather facts
+  ansible.builtin.setup:
 
 
-# - name: Add EPEL repository
-#   become: true
-#   # become_method: sudo
-#   # become_user: "{{ _vm_default_user }}"
-#   # become_user: "user"
-#   vars:
-#     ansible_become_password: "toor"
-#   package:
-#     name: epel-release
-#     state: latest
-#     # apply:
-#     #   delegate_to: "{{ _hostname }}"
-- name: Add EPEL repository (Debian/Ubuntu)
+- name: Add EPEL repository
   become: true
+  # become_method: sudo
+  # become_user: "{{ _vm_default_user }}"
+  # become_user: "user"
   vars:
     ansible_become_password: "toor"
-  apt:
+  package:
     name: epel-release
-    state: present
-
-
-
+    state: latest
+    # apply:
+    #   delegate_to: "{{ _hostname }}"
 
 
 
