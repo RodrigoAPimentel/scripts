@@ -6,7 +6,6 @@
   hosts: "{{ host }}"
   roles:
     - role: common
-      become: yes
   vars:
     ansible_python_interpreter: /usr/bin/python3
     
