@@ -50,6 +50,7 @@
         tasks_from: "update_operation-system.yml"        
         apply:
           delegate_to: "{{ _hostname }}"
-      # vars:
-      #   ansible_user: "user"
-      #   ansible_password: "toor"
+      vars:
+        ansible_become: yes
+        # ansible_user: "user"
+        # ansible_password: "toor"
