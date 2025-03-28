@@ -5,10 +5,12 @@
   gather_facts: true
   hosts: "{{ host }}"
   roles:
-    # - role: common
-    - { role: common, become: yes }
+    - role: common
   vars:
     ansible_python_interpreter: /usr/bin/python3
+    ansible_become: true
+    ansible_become_user: "{{ ansible_user }}"
+    ansible_become_password: "{{ ansible_password }}"
 
   pre_tasks:
     - include_role:
@@ -30,28 +32,28 @@
         _vmid: "{{ proxmox_next_vm_id }}"
         
   tasks:
-    # - include_role:
-    #     name: proxmox
-    #     tasks_from: "clone_vm_from_template.yml"
+    - include_role:
+        name: proxmox
+        tasks_from: "clone_vm_from_template.yml"
 
-    # - include_role:
-    #     name: awx
-    #     tasks_from: "create_host.yml"
-    #     apply:
-    #       delegate_to: ct-awx
-    #   vars:
-    #     external_call_host: "ct-awx"
+    - include_role:
+        name: awx
+        tasks_from: "create_host.yml"
+        apply:
+          delegate_to: ct-awx
+      vars:
+        external_call_host: "ct-awx"
 
-    # - name: Waiting 15 Seconds ...
-    #   ansible.builtin.pause:
-    #     seconds: 15
+    - name: Waiting 15 Seconds ...
+      ansible.builtin.pause:
+        seconds: 15
     
     - include_role:
         name: common
         tasks_from: "update_operation-system.yml"        
         apply:
           delegate_to: "{{ _hostname }}"
-      # vars:
-      #   ansible_become: yes
-      #   ansible_user: "user"
-      #   ansible_password: "toor"
+      vars:
+        ansible_become: true
+        ansible_become_user: "{{ ansible_user }}"
+        ansible_become_password: "{{ ansible_password }}"

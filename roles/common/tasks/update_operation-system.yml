@@ -3,8 +3,6 @@
   package:
     name: epel-release
     state: latest
-    apply:
-      delegate_to: "{{ _hostname }}"
 
 - name: Update the system packages
   package:
