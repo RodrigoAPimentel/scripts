@@ -4,8 +4,8 @@
   # become_method: sudo
   # become_user: "{{ _vm_default_user }}"
   # become_user: "user"
-  # # vars:
-  # #   ansible_become_password: "toor"
+  vars:
+    ansible_become_password: "toor"
   package:
     name: epel-release
     state: latest
