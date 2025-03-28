@@ -9,41 +9,41 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
-  # pre_tasks:
-  #   - include_role:
-  #       name: awx
-  #       tasks_from: "collect_awx_token.yml"
-  #       apply:
-  #         delegate_to: ct-awx
+  pre_tasks:
+    - include_role:
+        name: awx
+        tasks_from: "collect_awx_token.yml"
+        apply:
+          delegate_to: ct-awx
 
-  #   - include_role:
-  #       name: proxmox
-  #       tasks_from: "load_common_proxmox_variables.yml"
+    - include_role:
+        name: proxmox
+        tasks_from: "load_common_proxmox_variables.yml"
     
-  #   - include_role:
-  #       name: proxmox
-  #       tasks_from: "retrieve_last_ct_vm_info.yml"
+    - include_role:
+        name: proxmox
+        tasks_from: "retrieve_last_ct_vm_info.yml"
 
-  #   - set_fact: 
-  #       _network_ip: "{{ proxmox_next_vm_ip }}"
-  #       _vmid: "{{ proxmox_next_vm_id }}"
+    - set_fact: 
+        _network_ip: "{{ proxmox_next_vm_ip }}"
+        _vmid: "{{ proxmox_next_vm_id }}"
         
   tasks:
-    # - include_role:
-    #     name: proxmox
-    #     tasks_from: "clone_vm_from_template.yml"
+    - include_role:
+        name: proxmox
+        tasks_from: "clone_vm_from_template.yml"
 
-    # - include_role:
-    #     name: awx
-    #     tasks_from: "create_host.yml"
-    #     apply:
-    #       delegate_to: ct-awx
-    #   vars:
-    #     external_call_host: "ct-awx"
+    - include_role:
+        name: awx
+        tasks_from: "create_host.yml"
+        apply:
+          delegate_to: ct-awx
+      vars:
+        external_call_host: "ct-awx"
 
-    # - name: Waiting 15 Seconds ...
-    #   ansible.builtin.pause:
-    #     seconds: 15
+    - name: Waiting 15 Seconds ...
+      ansible.builtin.pause:
+        seconds: 15
     
     - include_role:
         name: common
