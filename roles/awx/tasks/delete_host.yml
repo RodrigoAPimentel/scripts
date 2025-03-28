@@ -7,46 +7,52 @@
 #     controller_oauthtoken: "{{ awx_token }}"
 #     validate_certs: false
 
-- name: Get running jobs for host {{ _hostname }}
+
+
+- name: Get running jobs for inventory {{ inventory }}
   awx.awx.job_list:
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     query:
-      host__name: "{{ _hostname }}"
       status__in: ["running", "pending"]
+      inventory: "{{ inventory }}"
   register: running_jobs
 
 - name: Debug job list output
   debug:
     var: running_jobs
 
-- name: Ensure all running jobs are canceled
-  awx.awx.job_cancel:
-    job_id: "{{ item.id }}"
-    controller_host: "http://{{ controller_host }}"
-    controller_oauthtoken: "{{ awx_token }}"
-  loop: "{{ running_jobs.jobs | default([]) }}"
-  ignore_errors: true
-  register: canceled_jobs
-  until: canceled_jobs.failed == 0
-  retries: 5
-  delay: 10
-  when: running_jobs.jobs | default([]) | length > 0
+- name: Extract job IDs
+  set_fact:
+    jobs_to_cancel: "{{ running_jobs.results | map(attribute='id') | list }}"
 
-- name: Wait for jobs to be canceled
-  pause:
-    seconds: 10
-  when: running_jobs.jobs | default([]) | length > 0
-
-- name: Debug before deleting host
+- name: Debug extracted job IDs
   debug:
-    msg: "Attempting to delete host {{ _hostname }} from inventory {{ inventory }}"
+    var: jobs_to_cancel
 
-- name: Delete host from inventory {{ inventory }}
-  awx.awx.host:
-    name: "{{ _hostname }}"
-    inventory: "{{ inventory }}"
-    state: absent
-    controller_host: "http://{{ controller_host }}"
-    controller_oauthtoken: "{{ awx_token }}"
-    validate_certs: false
+# - name: Cancel running jobs
+#   awx.awx.job_cancel:
+#     job_id: "{{ item }}"
+#     controller_host: "http://{{ controller_host }}"
+#     controller_oauthtoken: "{{ awx_token }}"
+#   loop: "{{ jobs_to_cancel }}"
+#   ignore_errors: true
+#   when: jobs_to_cancel | length > 0
+
+# - name: Wait for jobs to be canceled
+#   pause:
+#     seconds: 10
+#   when: jobs_to_cancel | length > 0
+
+# - name: Delete host from inventory {{ inventory }}
+#   awx.awx.host:
+#     name: "{{ _hostname }}"
+#     inventory: "{{ inventory }}"
+#     state: absent
+#     controller_host: "http://{{ controller_host }}"
+#     controller_oauthtoken: "{{ awx_token }}"
+#     validate_certs: false
+#   register: delete_host_result
+#   retries: 3
+#   delay: 5
+#   until: delete_host_result is not failed
