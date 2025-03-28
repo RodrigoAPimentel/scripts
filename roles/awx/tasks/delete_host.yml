@@ -11,10 +11,12 @@
 - name: Get inventory ID by name
   awx.awx.inventory:
     name: "{{ inventory }}"
+    organization: "pimentel-org"  # Adicionando organização
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     validate_certs: false
   register: inventory_data
+
 
 - name: Debug inventory data
   debug:
