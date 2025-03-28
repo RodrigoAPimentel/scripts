@@ -16,7 +16,7 @@
       status__in: ["running", "pending"]
   register: running_jobs
 
-- name: Debug running jobs
+- name: Debug job list output
   debug:
     var: running_jobs
 
@@ -25,20 +25,18 @@
     job_id: "{{ item.id }}"
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
-  loop: "{{ running_jobs.results }}"
+  loop: "{{ running_jobs.jobs | default([]) }}"
   ignore_errors: true
-  when: running_jobs.results | length > 0
-
-- name: Debug canceled jobs
-  debug:
-    msg: "Job {{ item.id }} canceled."
-  with_items: "{{ running_jobs.results }}"
-  when: running_jobs.results | length > 0
+  when: running_jobs.jobs | default([]) | length > 0
 
 - name: Wait for jobs to be canceled
   pause:
     seconds: 10
-  when: running_jobs.results | length > 0
+  when: running_jobs.jobs | default([]) | length > 0
+
+- name: Debug before deleting host
+  debug:
+    msg: "Attempting to delete host {{ _hostname }} from inventory {{ inventory }}"
 
 - name: Delete host from inventory {{ inventory }}
   awx.awx.host:
@@ -48,7 +46,3 @@
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     validate_certs: false
-
-- name: Debug host deletion
-  debug:
-    msg: "Host {{ _hostname }} deleted from inventory {{ inventory }}"
