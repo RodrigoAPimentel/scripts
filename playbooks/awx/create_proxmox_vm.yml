@@ -29,21 +29,21 @@
         _vmid: "{{ proxmox_next_vm_id }}"
         
   tasks:
-    - include_role:
-        name: proxmox
-        tasks_from: "clone_vm_from_template.yml"
+    # - include_role:
+    #     name: proxmox
+    #     tasks_from: "clone_vm_from_template.yml"
 
-    - include_role:
-        name: awx
-        tasks_from: "create_host.yml"
-        apply:
-          delegate_to: ct-awx
-      vars:
-        external_call_host: "ct-awx"
+    # - include_role:
+    #     name: awx
+    #     tasks_from: "create_host.yml"
+    #     apply:
+    #       delegate_to: ct-awx
+    #   vars:
+    #     external_call_host: "ct-awx"
 
-    - name: Waiting 15 Seconds ...
-      ansible.builtin.pause:
-        seconds: 15
+    # - name: Waiting 15 Seconds ...
+    #   ansible.builtin.pause:
+    #     seconds: 15
     
     - include_role:
         name: common
