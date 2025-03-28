@@ -7,35 +7,38 @@
 #     controller_oauthtoken: "{{ awx_token }}"
 #     validate_certs: false
 
-- name: Cancel running jobs for host {{ _hostname }}
+- name: Get running jobs for host {{ _hostname }}
   awx.awx.job_list:
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
-    job_events: true
+    query:
+      host__name: "{{ _hostname }}"
+      status__in: ["running", "pending"]
   register: running_jobs
 
 - name: Debug running jobs
   debug:
     var: running_jobs
 
-- name: Stop running jobs
+- name: Cancel running jobs
   awx.awx.job_cancel:
     job_id: "{{ item.id }}"
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
   loop: "{{ running_jobs.results }}"
-  when: item.status in ['running', 'pending']
   ignore_errors: true
+  when: running_jobs.results | length > 0
 
-- name: Debug stopped jobs
+- name: Debug canceled jobs
   debug:
-    msg: "Job {{ item.id }} status: {{ item.status }}"
+    msg: "Job {{ item.id }} canceled."
   with_items: "{{ running_jobs.results }}"
-  when: item.status in ['running', 'pending']
+  when: running_jobs.results | length > 0
 
 - name: Wait for jobs to be canceled
   pause:
     seconds: 10
+  when: running_jobs.results | length > 0
 
 - name: Delete host from inventory {{ inventory }}
   awx.awx.host:
