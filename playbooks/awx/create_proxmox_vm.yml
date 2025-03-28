@@ -9,8 +9,8 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
     ansible_become: true
-    ansible_become_user: "{{ ansible_user }}"
-    ansible_become_password: "{{ ansible_password }}"
+    ansible_become_user: "user"
+    ansible_become_password: "toor"
 
   pre_tasks:
     - include_role:
@@ -55,5 +55,5 @@
           delegate_to: "{{ _hostname }}"
       vars:
         ansible_become: true
-        ansible_become_user: "{{ ansible_user }}"
-        ansible_become_password: "{{ ansible_password }}"
+        ansible_become_user: "user"
+        ansible_become_password: "toor"
