@@ -6,6 +6,7 @@
   hosts: "{{ host }}"
   roles:
     - role: common
+      become: yes
   vars:
     ansible_python_interpreter: /usr/bin/python3
     
@@ -51,9 +52,9 @@
         tasks_from: "update_operation-system.yml"        
         apply:
           delegate_to: "{{ _hostname }}"
-      become: true
-      vars:
-        ansible_become: true
-        ansible_become_user: "user"
-        ansible_become_password: "toor"
-        ansible_remote_tmp: /tmp/ansible
+      # become: true
+      # vars:
+      #   ansible_become: true
+      #   ansible_become_user: "user"
+      #   ansible_become_password: "toor"
+      #   ansible_remote_tmp: /tmp/ansible
