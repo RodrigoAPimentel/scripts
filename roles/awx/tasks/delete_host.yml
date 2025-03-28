@@ -1,7 +1,6 @@
 - name: Delete host from inventory {{ inventory }}
   awx.awx.host:
-    # name: "{{ _hostname }}"
-    name: "tt123"
+    name: "{{ _hostname }}"
     inventory: "{{ inventory }}"
     state: absent
     controller_host: "http://{{ controller_host }}"
