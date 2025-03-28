@@ -8,6 +8,21 @@
 #     validate_certs: false
 
 
+- name: Get inventory ID by name
+  awx.awx.inventory:
+    name: "{{ inventory }}"
+    controller_host: "http://{{ controller_host }}"
+    controller_oauthtoken: "{{ awx_token }}"
+    validate_certs: false
+  register: inventory_data
+
+- name: Debug inventory data
+  debug:
+    var: inventory_data
+
+- name: Set inventory ID fact
+  set_fact:
+    inventory_id: "{{ inventory_data.id }}"
 
 - name: Get running jobs for inventory {{ inventory }}
   awx.awx.job_list:
@@ -15,7 +30,7 @@
     controller_oauthtoken: "{{ awx_token }}"
     query:
       status__in: ["running", "pending"]
-      inventory: "{{ inventory }}"
+      inventory: "{{ inventory_id }}"
   register: running_jobs
 
 - name: Debug job list output
@@ -26,10 +41,6 @@
   set_fact:
     jobs_to_cancel: "{{ running_jobs.results | map(attribute='id') | list }}"
 
-- name: Debug extracted job IDs
-  debug:
-    var: jobs_to_cancel
-
 # - name: Cancel running jobs
 #   awx.awx.job_cancel:
 #     job_id: "{{ item }}"
@@ -39,20 +50,14 @@
 #   ignore_errors: true
 #   when: jobs_to_cancel | length > 0
 
-# - name: Wait for jobs to be canceled
-#   pause:
-#     seconds: 10
-#   when: jobs_to_cancel | length > 0
-
 # - name: Delete host from inventory {{ inventory }}
 #   awx.awx.host:
 #     name: "{{ _hostname }}"
-#     inventory: "{{ inventory }}"
+#     inventory: "{{ inventory_id }}"
 #     state: absent
 #     controller_host: "http://{{ controller_host }}"
 #     controller_oauthtoken: "{{ awx_token }}"
 #     validate_certs: false
-#   register: delete_host_result
 #   retries: 3
 #   delay: 5
 #   until: delete_host_result is not failed
