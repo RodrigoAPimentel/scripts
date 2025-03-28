@@ -60,6 +60,7 @@
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
     validate_certs: false
+  register: delete_host_result
   retries: 3
   delay: 5
-  until: delete_host_result is not failed
+  until: delete_host_result.failed is not defined or delete_host_result.failed == false
