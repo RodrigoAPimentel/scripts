@@ -43,23 +43,23 @@
   set_fact:
     jobs_to_cancel: "{{ running_jobs.results | map(attribute='id') | list }}"
 
-# - name: Cancel running jobs
-#   awx.awx.job_cancel:
-#     job_id: "{{ item }}"
-#     controller_host: "http://{{ controller_host }}"
-#     controller_oauthtoken: "{{ awx_token }}"
-#   loop: "{{ jobs_to_cancel }}"
-#   ignore_errors: true
-#   when: jobs_to_cancel | length > 0
+- name: Cancel running jobs
+  awx.awx.job_cancel:
+    job_id: "{{ item }}"
+    controller_host: "http://{{ controller_host }}"
+    controller_oauthtoken: "{{ awx_token }}"
+  loop: "{{ jobs_to_cancel }}"
+  ignore_errors: true
+  when: jobs_to_cancel | length > 0
 
-# - name: Delete host from inventory {{ inventory }}
-#   awx.awx.host:
-#     name: "{{ _hostname }}"
-#     inventory: "{{ inventory_id }}"
-#     state: absent
-#     controller_host: "http://{{ controller_host }}"
-#     controller_oauthtoken: "{{ awx_token }}"
-#     validate_certs: false
-#   retries: 3
-#   delay: 5
-#   until: delete_host_result is not failed
+- name: Delete host from inventory {{ inventory }}
+  awx.awx.host:
+    name: "{{ _hostname }}"
+    inventory: "{{ inventory_id }}"
+    state: absent
+    controller_host: "http://{{ controller_host }}"
+    controller_oauthtoken: "{{ awx_token }}"
+    validate_certs: false
+  retries: 3
+  delay: 5
+  until: delete_host_result is not failed
