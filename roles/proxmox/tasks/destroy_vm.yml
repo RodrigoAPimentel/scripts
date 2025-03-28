@@ -1,0 +1,21 @@
+- name: Stop Virtual Machine with force
+  proxmox_kvm:
+    api_user: "{{ api_user }}"
+    api_password: "{{ api_password }}"
+    api_host: "{{ api_host }}"
+    node: "{{ node }}"
+    name: "{{ _hostname }}"
+    state: stopped
+    force: true
+  loop_control:
+    pause: 10
+
+- name: Destroy Virtual Machine
+  proxmox_kvm:
+    api_user: "{{ api_user }}"
+    api_password: "{{ api_password }}"
+    api_host: "{{ api_host }}"
+    name: "{{ _hostname }}"
+    node: "{{ node }}"
+    force: true
+    state: absent
