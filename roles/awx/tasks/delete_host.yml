@@ -1,0 +1,8 @@
+- name: Delete host from inventory {{ inventory }}
+  awx.awx.host:
+    name: "{{ _hostname }}"
+    inventory: "{{ inventory }}"
+    state: absent
+    controller_host: "http://{{ controller_host }}"
+    controller_oauthtoken: "{{ awx_token }}"
+    validate_certs: false

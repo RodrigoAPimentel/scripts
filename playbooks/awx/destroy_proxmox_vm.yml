@@ -40,7 +40,8 @@
 
     - include_role:
         name: awx
-        tasks_from: "disable_host.yml"
+        # tasks_from: "disable_host.yml"
+        tasks_from: "delete_host.yml"
         apply:
           delegate_to: ct-awx
       vars:
