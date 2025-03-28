@@ -20,13 +20,17 @@
   debug:
     var: running_jobs
 
-- name: Cancel running jobs
+- name: Ensure all running jobs are canceled
   awx.awx.job_cancel:
     job_id: "{{ item.id }}"
     controller_host: "http://{{ controller_host }}"
     controller_oauthtoken: "{{ awx_token }}"
   loop: "{{ running_jobs.jobs | default([]) }}"
   ignore_errors: true
+  register: canceled_jobs
+  until: canceled_jobs.failed == 0
+  retries: 5
+  delay: 10
   when: running_jobs.jobs | default([]) | length > 0
 
 - name: Wait for jobs to be canceled
