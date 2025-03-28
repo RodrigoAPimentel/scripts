@@ -1,5 +1,6 @@
 ---
 - name: Add EPEL repository
+  gather_facts: true
   become: true
   # become_method: sudo
   # become_user: "{{ _vm_default_user }}"
