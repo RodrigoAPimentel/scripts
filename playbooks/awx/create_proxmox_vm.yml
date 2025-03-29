@@ -52,8 +52,8 @@
         apply:
           delegate_to: "{{ _hostname }}"
       # become: true
-      # vars:
-      #   ansible_become: true
-      #   ansible_become_user: "user"
-      #   ansible_become_password: "toor"
-      #   ansible_remote_tmp: /tmp/ansible
+      vars:
+        ansible_become: true
+        ansible_become_user: "user"
+        ansible_become_password: "toor"
+        # ansible_remote_tmp: /tmp/ansible
