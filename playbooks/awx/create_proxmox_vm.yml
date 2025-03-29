@@ -14,7 +14,7 @@
       register: ansible_version
 
     - debug:
-        msg: "Ansible está rodando na versão {{ ansible_version.stdout }}"
+        msg: "Ansible está rodando na versão {{ ansible_version }}"
 
 
 
