@@ -1,64 +1,76 @@
 ---
-- name: Create Virtual Machine in Proxmox and Host in AWX
-  become: true
-  become_method: sudo
-  gather_facts: true
-  hosts: "{{ host }}"
-  roles:
-    - role: common
-  # vars:
-  #   ansible_python_interpreter: /usr/bin/python3
-    
-
-  pre_tasks:
-    - include_role:
-        name: awx
-        tasks_from: "collect_awx_token.yml"
-        apply:
-          delegate_to: ct-awx
-
-    - include_role:
-        name: proxmox
-        tasks_from: "load_common_proxmox_variables.yml"
-    
-    - include_role:
-        name: proxmox
-        tasks_from: "retrieve_last_ct_vm_info.yml"
-
-    - set_fact: 
-        _network_ip: "{{ proxmox_next_vm_ip }}"
-        _vmid: "{{ proxmox_next_vm_id }}"
-        
+- name: Testando ambiente virtual no AWX
+  hosts: localhost
   tasks:
-    # - include_role:
-    #     name: proxmox
-    #     tasks_from: "clone_vm_from_template.yml"
+    - name: Verificar versão do Python usada pelo Ansible
+      command: python3 --version
+      register: python_version
 
-    # - include_role:
-    #     name: awx
-    #     tasks_from: "create_host.yml"
-    #     apply:
-    #       delegate_to: ct-awx
-    #   vars:
-    #     external_call_host: "ct-awx"
+    - debug:
+        msg: "Python está rodando na versão {{ python_version.stdout }}"
 
-    # - name: Waiting 15 Seconds ...
-    #   ansible.builtin.pause:
-    #     seconds: 15
+
+
+# - name: Create Virtual Machine in Proxmox and Host in AWX
+#   become: true
+#   become_method: sudo
+#   gather_facts: true
+#   hosts: "{{ host }}"
+#   roles:
+#     - role: common
+#   # vars:
+#   #   ansible_python_interpreter: /usr/bin/python3
     
-    - include_role:
-        name: common
-        tasks_from: "update_operation-system.yml"        
-        apply:
-          delegate_to: "{{ _hostname }}"
-      # become: true
-      vars:
-        ansible_become: true
-        ansible_become_user: "user"
-        ansible_become_password: "toor"
-        ansible_sudo_pass: "toor"
-        # ansible_python_interpreter: /usr/bin/python3
-        ansible_remote_user: user
-        ansible_remote_pass: toor
-        ansible_remote_port: 22
-        # ansible_remote_tmp: /tmp/ansible
+
+#   pre_tasks:
+#     - include_role:
+#         name: awx
+#         tasks_from: "collect_awx_token.yml"
+#         apply:
+#           delegate_to: ct-awx
+
+#     - include_role:
+#         name: proxmox
+#         tasks_from: "load_common_proxmox_variables.yml"
+    
+#     - include_role:
+#         name: proxmox
+#         tasks_from: "retrieve_last_ct_vm_info.yml"
+
+#     - set_fact: 
+#         _network_ip: "{{ proxmox_next_vm_ip }}"
+#         _vmid: "{{ proxmox_next_vm_id }}"
+        
+#   tasks:
+#     # - include_role:
+#     #     name: proxmox
+#     #     tasks_from: "clone_vm_from_template.yml"
+
+#     # - include_role:
+#     #     name: awx
+#     #     tasks_from: "create_host.yml"
+#     #     apply:
+#     #       delegate_to: ct-awx
+#     #   vars:
+#     #     external_call_host: "ct-awx"
+
+#     # - name: Waiting 15 Seconds ...
+#     #   ansible.builtin.pause:
+#     #     seconds: 15
+    
+#     - include_role:
+#         name: common
+#         tasks_from: "update_operation-system.yml"        
+#         apply:
+#           delegate_to: "{{ _hostname }}"
+#       # become: true
+#       vars:
+#         ansible_become: true
+#         ansible_become_user: "user"
+#         ansible_become_password: "toor"
+#         ansible_sudo_pass: "toor"
+#         # ansible_python_interpreter: /usr/bin/python3
+#         ansible_remote_user: user
+#         ansible_remote_pass: toor
+#         ansible_remote_port: 22
+#         # ansible_remote_tmp: /tmp/ansible
