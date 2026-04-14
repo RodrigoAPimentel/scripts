@@ -1,86 +1,86 @@
 ---
-- name: Gather facts
-  ansible.builtin.setup:
+# - name: Gather facts
+#   ansible.builtin.setup:
 
 
-- name: Add EPEL repository
-  become: true
-  # become_method: sudo
-  # become_user: "{{ _vm_default_user }}"
-  # become_user: "user"
-  vars:
-    ansible_become_password: "toor"
+# - name: Add EPEL repository
+#   become: true
+#   # become_method: sudo
+#   # become_user: "{{ _vm_default_user }}"
+#   # become_user: "user"
+#   vars:
+#     ansible_become_password: "toor"
+#   package:
+#     name: epel-release
+#     state: latest
+#     # apply:
+#     #   delegate_to: "{{ _hostname }}"
+
+
+
+
+
+
+
+
+
+
+- name: Update the system packages
   package:
-    name: epel-release
+    name: "*"
     state: latest
-    # apply:
-    #   delegate_to: "{{ _hostname }}"
 
-
-
-
-
-
-
-
-
-
-# - name: Update the system packages
+# - name: Upgrade the system
 #   package:
-#     name: "*"
-#     state: latest
+#     upgrade: yes
 
-# # - name: Upgrade the system
-# #   package:
-# #     upgrade: yes
-
-# # - name: Clean the local repository
-# #   package:
-# #     autoclean: yes
-
-# - name: Remove packages not needed anymore
+# - name: Clean the local repository
 #   package:
-#     autoremove: yes
+#     autoclean: yes
 
-# - name: Install common packages
-#   package:
-#     name: "{{ item }}"
-#     state: latest
-#   ignore_errors: true
-#   with_items: 
-#     - "{{ install_os_packages }}"
-#   register: installPackageResult
+- name: Remove packages not needed anymore
+  package:
+    autoremove: yes
 
-# - name: Print Install common packages
-#   debug:
-#     var: installPackageResult
+- name: Install common packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  ignore_errors: true
+  with_items: 
+    - "{{ install_os_packages }}"
+  register: installPackageResult
 
-# - name: set system timezone
-#   register: modify_timezone
-#   timezone:
-#       name: America/Recife
+- name: Print Install common packages
+  debug:
+    var: installPackageResult
 
-# - name: Get Time Zone
-#   register: timezone
-#   ignore_errors: true
-#   command: timedatectl
+- name: set system timezone
+  register: modify_timezone
+  timezone:
+      name: America/Recife
 
-# - name: Show Time Zone
-#   debug:
-#     var: timezone.stdout
-#   notify: Reboot System
+- name: Get Time Zone
+  register: timezone
+  ignore_errors: true
+  command: timedatectl
 
-# - name: Wait for "{{ _hostname }}" to become reachable
-#   wait_for:
-#     host: "{{ _hostname }}"
-#     port: 22
-#     delay: 10
-#     timeout: 120
+- name: Show Time Zone
+  debug:
+    var: timezone.stdout
+  notify: Reboot System
 
-# - name: Start qemu-guest-agent Service
-#   service:
-#     name: qemu-guest-agent
-#     state: started
-#     enabled: yes
-#   ignore_errors: true
-#   notify: Reboot System
+- name: Wait for "{{ _hostname }}" to become reachable
+  wait_for:
+    host: "{{ _hostname }}"
+    port: 22
+    delay: 10
+    timeout: 120
+
+- name: Start qemu-guest-agent Service
+  service:
+    name: qemu-guest-agent
+    state: started
+    enabled: yes
+  ignore_errors: true
+  notify: Reboot System
